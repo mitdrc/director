@@ -299,10 +299,11 @@ if useOctomap:
     octomapManager = lcmoctomap.init(view)
     app.MenuActionToggleHelper('Tools', 'Renderer - Octomap', octomapManager.isEnabled, octomapManager.setEnabled)
 
-useCollections = True
+useCollections = False
 if useCollections:
     collectionsManager = lcmcollections.init(view)
-    app.MenuActionToggleHelper('Tools', 'Renderer - Collections', collectionsManager.isEnabled, collectionsManager.setEnabled)
+    if collectionsManager is not None:
+        app.MenuActionToggleHelper('Tools', 'Renderer - Collections', collectionsManager.isEnabled, collectionsManager.setEnabled)
 
 if useDrakeVisualizer:
     drakeVisualizer = drakevisualizer.DrakeVisualizer(view)
