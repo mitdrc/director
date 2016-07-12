@@ -40,7 +40,7 @@ class MappingDemo(object):
         self.view = view
 
         # live operation flags:
-        self.visOnly = False
+        self.visOnly = False 
         self.planFromCurrentRobotState = True
         useDevelopment = False
         if (useDevelopment):
@@ -53,14 +53,14 @@ class MappingDemo(object):
         self.plans = []
 
         # top level switch between BDI or IHMC (locked base) and MIT (moving base and back)
-        self.lockBack = True
-        self.lockBase = True
+        self.lockBack = False # True
+        self.lockBase = True # True < should be locked! >
 
         self.constraintSet = []
 
         self.targetSweepType = 'orientation' # gaze or orientation - but i've had problems with the gaze constraint
         self.coneThresholdDegrees = 5.0 # 0 is ok for reaching but often too tight for a trajectory
-        self.boxLength = 0.3
+        self.boxLength = 0.1
 
     # Switch between simulation/visualisation and real robot operation
     def setMode(self, mode='visualization'):
@@ -93,6 +93,58 @@ class MappingDemo(object):
         self.addPlan(newPlan)
 
     ######### Target Focused Functions ##################################################################
+
+    '''
+    Added by Arjun, 8 July 2016
+    Creates a point (spherical) affordance in the robot's world.
+    '''
+    def spawnPointTargetAffordance(self, point):
+        for obj in om.getObjects():
+            if obj.getProperty('Name') == 'target':
+                om.removeFromObjectModel(obj)
+
+        targetFrame = transformUtils.frameFromPositionAndRPY(point,[180,0,90])
+
+        folder = om.getOrCreateContainer('affordances')
+        z = DebugData()
+        z.addSphere(np.array([0,0,0]), radius=0.02)
+        targetMesh = z.getPolyData()
+
+        self.targetAffordance = vis.showPolyData(targetMesh, 'target', color=[0.0, 1.0, 0.0], cls=affordanceitems.FrameAffordanceItem, parent=folder, alpha=0.3)
+        self.targetAffordance.actor.SetUserTransform(targetFrame)
+        self.targetFrame = vis.showFrame(targetFrame, 'target frame', parent=self.targetAffordance, visible=False, scale=0.2)
+        self.targetFrame = self.targetFrame.transform
+
+        # need to adjust
+        params = dict(length=self.boxLength, otdf_type='target', friendly_name='target')
+        self.targetAffordance.setAffordanceParams(params)
+        self.targetAffordance.updateParamsFromActorTransform()
+
+    '''
+    Added by Arjun, 8 July 2016
+    Creates a circular (disk-like) affordance in the robot's world.
+    '''
+    def spawnCircleTargetAffordance(self, point, orientation):
+        for obj in om.getObjects():
+            if obj.getProperty('Name') == 'target':
+                om.removeFromObjectModel(obj)
+
+        targetFrame = transformUtils.frameFromPositionAndRPY(point,orientation) # [180,0,90]
+
+        folder = om.getOrCreateContainer('affordances')
+        z = DebugData()
+        z.addCircle(np.array([0,0,0]), np.array([0,0,1]), self.boxLength) # origin, normal, radius [using `boxLength` field for now]
+        targetMesh = z.getPolyData()
+
+        self.targetAffordance = vis.showPolyData(targetMesh, 'target', color=[0.0, 0.8, 0.0], cls=affordanceitems.FrameAffordanceItem, parent=folder, alpha=1.0)
+        self.targetAffordance.actor.SetUserTransform(targetFrame)
+        self.targetFrame = vis.showFrame(targetFrame, 'target frame', parent=self.targetAffordance, visible=True, scale=0.2)
+        self.targetFrame = self.targetFrame.transform
+
+        params = dict(radius=self.boxLength, otdf_type='target', friendly_name='target')
+        self.targetAffordance.setAffordanceParams(params)
+        self.targetAffordance.updateParamsFromActorTransform()
+
     def spawnTargetAffordance(self):
         for obj in om.getObjects():
              if obj.getProperty('Name') == 'target':
@@ -122,6 +174,8 @@ class MappingDemo(object):
         for i in range(1,len(self.targetPath)):
           p0 = self.targetPath[i-1].GetPosition()
           p1 = self.targetPath[i].GetPosition()
+          if math.fabs(p0[0]-p1[0]) > 0.2:
+            print "extra line: p0", p0, "p1 ", p1, "point ", i
           path.addLine ( np.array( p0 ) , np.array(  p1 ), radius= 0.005)
 
         pathMesh = path.getPolyData()
@@ -327,6 +381,53 @@ class MappingDemo(object):
 
 
     ######### Nominal Plans and Execution  #################################################################
+
+    #### avb - simple trajectory ####
+    # t.spawnSimpleTargetAffordance(), t.planPointTrajectory()
+    # hand is either 'left' or 'right'
+    def planPointTrajectory(self,hand):
+        self.graspingHand = hand
+        self.planFromCurrentRobotState = False
+        self.plans = []
+        self.graspToHandLinkFrame = self.ikPlanner.newGraspToHandFrame(self.graspingHand)
+
+        self.planTargetReach()
+
+    # t.spawnCircleTargetAffordance(), t.planWipingTrajectory()
+    # hand is either 'left' or 'right'
+    def planWipingTrajectory(self,hand):
+        self.graspingHand = hand
+        self.planFromCurrentRobotState = False
+        self.plans = []
+        self.graspToHandLinkFrame = self.ikPlanner.newGraspToHandFrame(self.graspingHand)
+
+        self.planTargetReach()
+
+        
+        r = self.targetAffordance.params.get('radius')
+        self.nextPosition =[r,0,0]
+        self.targetPath = []
+        self.resetTargetPath()
+
+        self.computeNextTargetFrame()
+        self.initConstraintSet()
+        self.targetPath.append(self.faceTransformLocal)
+        
+        nWipes = 1
+        nPoints = 30*nWipes
+        traj = np.linspace(0.0,2*math.pi*nWipes, num=nPoints)
+
+        for i in xrange(0,nPoints):
+            t = traj[i]
+            self.nextPosition[0] = r * math.cos(t)
+            self.nextPosition[1] = r * math.sin(t)
+            self.computeNextTargetFrame()
+            self.addConstraintForTargetFrame(self.faceFrameDesired, i+1)
+            self.targetPath.append(self.faceTransformLocal)
+	
+        self.drawTargetPath()
+        self.planTrajectory()
+        
 
     ####### Module for an arm to sweep out a gaze-constrained trajectory to map an area:
     # t.spawnTargetAffordance(), t.planTargetSweep()

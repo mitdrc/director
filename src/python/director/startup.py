@@ -11,7 +11,7 @@ import sys
 import PythonQt
 import json
 from PythonQt import QtCore, QtGui
-from time import time
+from time import time, sleep
 import imp
 import director.applogic as app
 from director import drcargs
@@ -70,6 +70,7 @@ from director import handcontrolpanel
 from director import sensordatarequestpanel
 from director import tasklaunchpanel
 from director.jointpropagator import JointPropagator
+from director import sceneloader
 
 from director import coursemodel
 
@@ -1113,6 +1114,61 @@ def mappingSweepEnded(taskQ, task):
         mappingPanel.onShowMapButton()
         print "DONE WITH MAPPING ROOM"
 
+#### avb - reset pose ####
+def resetPose():
+    ikPlanner.computeNominalPlan(robotStateJointController.q)
+    playbackPanel.executePlan()
+    sleep(3)
+
+#### avb simple trajectory planning ####
+def pointTrajectory(point, hand):
+    mappingDemo.spawnPointTargetAffordance(point)
+    mappingDemo.planPointTrajectory(hand)
+
+def randPointTrajectory():
+    point = [0.0, 0.0, 0.0]
+    point[0] = (0.6 - 0.3) * np.random.random_sample() + 0.3
+    point[1] = (-0.6 + 0.3) * np.random.random_sample() - 0.3
+    point[2] = (1.1 - 0.75) * np.random.random_sample() + 0.75
+    print "point", point
+    mappingDemo.spawnPointTargetAffordance(point)
+    mappingDemo.planPointTrajectory('right')
+
+def collectRandPoints(n):
+    for i in range(0,n):
+        print "generating trajectory", i, "..."
+        # resetPose()
+        randPointTrajectory()
+#        while (playbackPanel.isPlanFeasible() == True):
+#            print "not feasible. generating again."
+#            randPointTrajectory()
+
+#        w.onClick()
+        playbackPanel.executePlan()
+#        curr = robotStateJointController.q
+#        while(np.linalg.norm(curr - robotStateJointController.q) != 0):
+#            curr = robotStateJointController.q
+        sleep(15) # TODO: need a better heuristic
+#        w.onClick()
+#        sleep(3)
+
+def randWipingTrajectory():
+    angle = (180 - 110) * np.random.random_sample() + 110
+    orientation = [angle, 0, 90]
+    center = [0.5, -0.5, 1.0]
+    print "orientation", orientation
+    wipingTrajectory(center,orientation,'right')
+
+def wipingTrajectory(center=[0.5,-0.5,1.0], orientation=[90,0,90], hand='right'):
+    mappingDemo.spawnCircleTargetAffordance(center,orientation)
+    mappingDemo.planWipingTrajectory(hand)
+
+def collectWipingTrajectory(n):
+    for i in range(0,n):
+        print "generating trajectory", i, "..."
+        randPointTrajectory()
+        playbackPanel.executePlan()
+        sleep(15)
 
 if 'startup' in drcargs.args():
     for filename in drcargs.args().startup:
