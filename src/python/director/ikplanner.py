@@ -64,10 +64,11 @@ class ConstraintSet(object):
         if nominalPoseName == 'q_start':
             nominalPoseName = self.startPoseName
 
-        if self.ikPlanner.planningMode == 'exotica':
+        if self.ikPlanner.planningMode == 'exotica' and not 'dual_arm_husky' in drcargs.getDirectorConfig()['userConfig']:
             self.endPose, self.info = self.ikPlanner.plannerPub.processIK(self.constraints, nominalPoseName=nominalPoseName, seedPoseName=seedPoseName)
             return self.endPose, self.info
-        elif self.ikPlanner.planningMode == 'drake':
+        #elif self.ikPlanner.planningMode == 'drake':
+        else:
             ikParameters = self.ikPlanner.mergeWithDefaultIkParameters(self.ikParameters)
 
             self.endPose, self.info = self.ikPlanner.ikServer.runIk(self.constraints, ikParameters, nominalPostureName=nominalPoseName, seedPostureName=seedPoseName)
@@ -323,12 +324,12 @@ class IKPlanner(object):
         return originalIkParameterDict
 
     def getHandModel(self, side=None):
-        if self.fixedBaseArm:
-            return self.handModels[0]
-        else:
-            side = side or self.reachingSide
-            assert side in ('left', 'right')
-            return self.handModels[0] if side == 'left' else self.handModels[1]
+        #if self.fixedBaseArm:
+            #return self.handModels[0]
+        #else:
+        side = side or self.reachingSide
+        assert side in ('left', 'right')
+        return self.handModels[0] if side == 'left' else self.handModels[1]
 
 
     def getHandLink(self, side=None):
