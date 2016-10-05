@@ -332,6 +332,7 @@ class EndEffectorTeleopPanel(object):
         self.updateIk()
 
     def updateIk(self):
+        self.updateIKPlanningMode()
         endPose, info = self.constraintSet.runIk()
         self.panel.showPose(self.constraintSet.endPose)
         app.displaySnoptInfo(info)
@@ -360,6 +361,7 @@ class EndEffectorTeleopPanel(object):
             self.constraintSet.endPose = self.panel.ikPlanner.jointController.poses['reach_end']
 
         # todo- need an option here
+        self.updateMotionPlanningMode()
         goalMode = ikplanner.getIkOptions().getProperty('Goal planning mode')
         if goalMode == 1 or ikplanner.getIkOptions().getPropertyEnumValue('Use collision') == 'RRT Connect':
             plan = self.constraintSet.runIkTraj()
@@ -777,7 +779,12 @@ class EndEffectorTeleopPanel(object):
             pose = robotstate.convertStateMessageToDrakePose(msg)
             self.panel.showPose(pose)
 
-
+    def updateIKPlanningMode(self):
+        self.panel.ikPlanner.planningMode = self.getComboText(self.ui.ikModeCombo)
+        
+    def updateMotionPlanningMode(self):
+        self.panel.ikPlanner.planningMode = self.getComboText(self.ui.mpModeCombo)
+        
 class PosturePlanShortcuts(object):
 
     def __init__(self, jointController, ikPlanner, planningUtils, widget=None):
