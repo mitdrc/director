@@ -368,6 +368,9 @@ class DrakeVisualizer(object):
             print "Set camera position"
             camera = view.camera()
             camera.SetPosition(1,1,1)
+        elif msg.command_type == t.UPDATE_TEXT:
+            vis.updateText(msg.command_data, "DRAKE_VIEWER_COMMAND_TEXT", view=self.view)
+
 
     def getRootFolder(self):
         return om.getOrCreateContainer('drake viewer', parentObj=om.findObjectByName('scene'))
