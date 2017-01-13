@@ -306,6 +306,7 @@ class DrakeVisualizer(object):
         self.subscribers.append(lcmUtils.addSubscriber('DRAKE_VIEWER_LOAD_ROBOT', lcmrl.viewer_load_robot_t, self.onViewerLoadRobot))
         self.subscribers.append(lcmUtils.addSubscriber('DRAKE_VIEWER_ADD_ROBOT', lcmrl.viewer_load_robot_t, self.onViewerAddRobot))
         self.subscribers.append(lcmUtils.addSubscriber('DRAKE_VIEWER_DRAW', lcmrl.viewer_draw_t, self.onViewerDraw))
+        self.subscribers.append(lcmUtils.addSubscriber('DRAKE_VIEWER_COMMAND', lcmrl.viewer_command_t, self.onViewerCommand))
         self.subscribers.append(lcmUtils.addSubscriber('DRAKE_PLANAR_LIDAR_.*', lcmbot.planar_lidar_t, self.onPlanarLidar, callbackNeedsChannel=True))
         self.subscribers.append(lcmUtils.addSubscriber('DRAKE_POINTCLOUD_.*', lcmbot.pointcloud_t, self.onPointCloud, callbackNeedsChannel=True))
 
@@ -340,6 +341,33 @@ class DrakeVisualizer(object):
             self.removeRobot(robotNum)
         self.addLinksFromLCM(msg)
         self.sendStatusMessage('successfully added robot')
+
+    def onViewerCommand(self, msg):
+        t = lcmrl.viewer_command_t
+        if msg.command_type == t.START_RECORDING:
+            dirName = msg.command_data
+            if dirName and dirName != "":
+                print "Start recording movie to " + dirName
+                from director.screengrabberpanel import ScreenGrabberPanel
+                screenGrabberPanel = ScreenGrabberPanel(self.view)
+                screenGrabberPanel.ui.movieOutputDirectory.text = dirName
+                screenGrabberPanel.startRecording()
+        elif msg.command_type == t.STOP_RECORDING:
+            print "Stop recording"
+        elif msg.command_type == t.SAVE_SCREENSHOT:
+            from director import screengrabberpanel
+            filename = msg.command_data
+            if filename and filename != "":
+                screengrabberpanel.saveScreenshot(self.view, filename, shouldRender=True, shouldWrite=True)
+                self.sendStatusMessage('screenshot saved')
+        elif msg.command_type == t.SET_VIEW_SIZE:
+            (width, height) = msg.command_data.split("x")
+            self.view.setFixedSize(int(width), int(height))
+            self.sendStatusMessage('view size set')
+        elif msg.command_type == t.SET_CAMERA_POSE:
+            print "Set camera position"
+            camera = view.camera()
+            camera.SetPosition(1,1,1)
 
     def getRootFolder(self):
         return om.getOrCreateContainer('drake viewer', parentObj=om.findObjectByName('scene'))
