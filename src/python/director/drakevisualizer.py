@@ -364,7 +364,7 @@ class DrakeVisualizer(object):
             (width, height) = msg.command_data.split("x")
             self.view.setFixedSize(int(width), int(height))
             self.sendStatusMessage('view size set')
-        elif msg.command_type == t.SET_CAMERA_POSE:
+        elif msg.command_type == t.LOOK_AT:
             print "Set camera position"
             camera = view.camera()
             camera.SetPosition(1,1,1)
