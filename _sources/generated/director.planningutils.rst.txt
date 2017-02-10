@@ -1,0 +1,7 @@
+director.planningutils module
+=============================
+
+.. automodule:: director.planningutils
+    :members:
+    :undoc-members:
+    :show-inheritance:

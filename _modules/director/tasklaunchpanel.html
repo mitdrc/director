@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,8 +132,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.tasklaunchpanel</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">applogic</span> <span class="k">as</span> <span class="n">app</span>
+<span></span><span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span> <span class="k">as</span> <span class="n">app</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 
 <div class="viewcode-block" id="TaskLaunchPanel"><a class="viewcode-back" href="../../generated/director.tasklaunchpanel.html#director.tasklaunchpanel.TaskLaunchPanel">[docs]</a><span class="k">class</span> <span class="nc">TaskLaunchPanel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -137,22 +141,35 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widgetMap</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QTabWidget</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;Task Panel&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Task Panel&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">widgetMap</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addTaskPanel</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">widget</span><span class="p">)</span>
 
+<div class="viewcode-block" id="TaskLaunchPanel.getTaskPanelNames"><a class="viewcode-back" href="../../generated/director.tasklaunchpanel.html#director.tasklaunchpanel.TaskLaunchPanel.getTaskPanelNames">[docs]</a>    <span class="k">def</span> <span class="nf">getTaskPanelNames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">tabText</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">count</span><span class="p">)]</span></div>
 
-<div class="viewcode-block" id="TaskLaunchPanel.showTaskPanel"><a class="viewcode-back" href="../../generated/director.tasklaunchpanel.html#director.tasklaunchpanel.TaskLaunchPanel.showTaskPanel">[docs]</a>    <span class="k">def</span> <span class="nf">showTaskPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TaskLaunchPanel.removeTaskPanel"><a class="viewcode-back" href="../../generated/director.tasklaunchpanel.html#director.tasklaunchpanel.TaskLaunchPanel.removeTaskPanel">[docs]</a>    <span class="k">def</span> <span class="nf">removeTaskPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskPanelName</span><span class="p">):</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTaskPanelNames</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">taskPanelName</span> <span class="ow">in</span> <span class="n">names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">removeTab</span><span class="p">(</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">taskPanelName</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TaskLaunchPanel.clear"><a class="viewcode-back" href="../../generated/director.tasklaunchpanel.html#director.tasklaunchpanel.TaskLaunchPanel.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TaskLaunchPanel.addTaskPanel"><a class="viewcode-back" href="../../generated/director.tasklaunchpanel.html#director.tasklaunchpanel.TaskLaunchPanel.addTaskPanel">[docs]</a>    <span class="k">def</span> <span class="nf">addTaskPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskPanelName</span><span class="p">,</span> <span class="n">taskPanelWidget</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="n">taskPanelWidget</span><span class="p">,</span> <span class="n">taskPanelName</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TaskLaunchPanel.showTaskLaunchPanel"><a class="viewcode-back" href="../../generated/director.tasklaunchpanel.html#director.tasklaunchpanel.TaskLaunchPanel.showTaskLaunchPanel">[docs]</a>    <span class="k">def</span> <span class="nf">showTaskLaunchPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widget</span>
         <span class="n">widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="n">widget</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
-        <span class="n">widget</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span>
+        <span class="n">widget</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span></div></div>
 
-</div></div>
+
 <span class="k">def</span> <span class="nf">_getAction</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">getToolBarActions</span><span class="p">()[</span><span class="s">&#39;ActionTaskLauncher&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">getToolBarActions</span><span class="p">()[</span><span class="s1">&#39;ActionTaskLauncher&#39;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.tasklaunchpanel.html#director.tasklaunchpanel.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">widgetMap</span><span class="p">):</span>
@@ -160,7 +177,7 @@
     <span class="k">global</span> <span class="n">panel</span>
 
     <span class="n">panel</span> <span class="o">=</span> <span class="n">TaskLaunchPanel</span><span class="p">(</span><span class="n">widgetMap</span><span class="p">)</span>
-    <span class="n">_getAction</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">panel</span><span class="o">.</span><span class="n">showTaskPanel</span><span class="p">)</span>
+    <span class="n">_getAction</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">panel</span><span class="o">.</span><span class="n">showTaskLaunchPanel</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">panel</span></div>
 </pre></div>

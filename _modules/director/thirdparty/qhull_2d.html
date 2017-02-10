@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../../index.html"/>
         <link rel="up" title="director" href="../../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,35 +132,35 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.thirdparty.qhull_2d</h1><div class="highlight"><pre>
-<span class="c">#!/usr/bin/python</span>
+<span></span><span class="ch">#!/usr/bin/python</span>
 
-<span class="c"># Compute the convex hull of a set of 2D points</span>
-<span class="c"># A Python implementation of the qhull algorithm</span>
-<span class="c"># </span>
-<span class="c"># Tested with Python 2.6.5 on Ubuntu 10.04.4</span>
+<span class="c1"># Compute the convex hull of a set of 2D points</span>
+<span class="c1"># A Python implementation of the qhull algorithm</span>
+<span class="c1"># </span>
+<span class="c1"># Tested with Python 2.6.5 on Ubuntu 10.04.4</span>
 
-<span class="c"># Copyright (c) 2008 Dave (www.literateprograms.org)</span>
-<span class="c">#</span>
-<span class="c"># Permission is hereby granted, free of charge, to any person obtaining a copy </span>
-<span class="c"># of this software and associated documentation files (the &quot;Software&quot;), to deal </span>
-<span class="c"># in the Software without restriction, including without limitation the rights </span>
-<span class="c"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell </span>
-<span class="c"># copies of the Software, and to permit persons to whom the Software is </span>
-<span class="c"># furnished to do so, subject to the following conditions:</span>
-<span class="c">#</span>
-<span class="c"># The above copyright notice and this permission notice shall be included in </span>
-<span class="c"># all copies or substantial portions of the Software.</span>
-<span class="c">#</span>
-<span class="c"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR </span>
-<span class="c"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, </span>
-<span class="c"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE </span>
-<span class="c"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER </span>
-<span class="c"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING </span>
-<span class="c"># FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS </span>
-<span class="c"># IN THE SOFTWARE.</span>
+<span class="c1"># Copyright (c) 2008 Dave (www.literateprograms.org)</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy </span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal </span>
+<span class="c1"># in the Software without restriction, including without limitation the rights </span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell </span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is </span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in </span>
+<span class="c1"># all copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR </span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, </span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE </span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER </span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING </span>
+<span class="c1"># FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS </span>
+<span class="c1"># IN THE SOFTWARE.</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="o">*</span>
 
 <span class="n">link</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="n">concatenate</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
 <span class="n">edge</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="n">concatenate</span><span class="p">(([</span><span class="n">a</span><span class="p">],[</span><span class="n">b</span><span class="p">]))</span>
@@ -177,8 +181,9 @@
     	<span class="n">base</span> <span class="o">=</span> <span class="n">take</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="p">[</span><span class="n">argmin</span><span class="p">(</span><span class="n">axis</span><span class="p">),</span> <span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="p">)],</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">link</span><span class="p">(</span><span class="n">dome</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">base</span><span class="p">),</span> <span class="n">dome</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">base</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
     <span class="k">else</span><span class="p">:</span>
-	<span class="k">return</span> <span class="n">sample</span>
-</pre></div></div>
+	<span class="k">return</span> <span class="n">sample</span></div>
+
+</pre></div>
 
            </div>
           </div>

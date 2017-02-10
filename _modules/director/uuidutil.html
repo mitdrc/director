@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,6 +132,22 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.uuidutil</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># Workaround for C runtime issue from Python&#39;s uuid module.</span>
+<span class="c1"># This seems to be a problem with the software built using VS 2013</span>
+<span class="c1"># against the official Python precompiled binaries.</span>
+<span class="c1"># http://blender.stackexchange.com/questions/7665/pythons-uuid-module-cause-c-runtime-error-in-ms-windows</span>
+<div class="viewcode-block" id="uuid_workaround"><a class="viewcode-back" href="../../generated/director.uuidutil.html#director.uuidutil.uuid_workaround">[docs]</a><span class="k">def</span> <span class="nf">uuid_workaround</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">platform</span>
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">ctypes</span>
+        <span class="n">CDLL</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span>
+        <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="kn">import</span> <span class="nn">uuid</span>
+        <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span> <span class="o">=</span> <span class="n">CDLL</span></div>
+
+<span class="n">uuid_workaround</span><span class="p">()</span>
+
 <span class="kn">import</span> <span class="nn">uuid</span>
 
 <div class="viewcode-block" id="newUUID"><a class="viewcode-back" href="../../generated/director.uuidutil.html#director.uuidutil.newUUID">[docs]</a><span class="k">def</span> <span class="nf">newUUID</span><span class="p">():</span>

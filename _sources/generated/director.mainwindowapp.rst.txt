@@ -1,0 +1,7 @@
+director.mainwindowapp module
+=============================
+
+.. automodule:: director.mainwindowapp
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="director package" href="director.html"/>
         <link rel="next" title="director.footstepsdriverpanel module" href="director.footstepsdriverpanel.html"/>
@@ -81,7 +84,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="director.html#subpackages">Subpackages</a></li>
@@ -93,6 +97,8 @@
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.asynctaskqueue.html">director.asynctaskqueue module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriver.html">director.atlasdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriverpanel.html">director.atlasdriverpanel module</a></li>
@@ -102,8 +108,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.callbacks.html">director.callbacks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.camerabookmarks.html">director.camerabookmarks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameracontrol.html">director.cameracontrol module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameracontrolpanel.html">director.cameracontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameraview.html">director.cameraview module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.colorize.html">director.colorize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.componentgraph.html">director.componentgraph module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.consoleapp.html">director.consoleapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.continuouswalkingdemo.html">director.continuouswalkingdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.copmonitor.html">director.copmonitor module</a></li>
@@ -111,15 +119,17 @@
 <li class="toctree-l4"><a class="reference internal" href="director.debrisdemo.html">director.debrisdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.debugVis.html">director.debugVis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.depthimageprovider.html">director.depthimageprovider module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.depthscanner.html">director.depthscanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.doordemo.html">director.doordemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drakevisualizer.html">director.drakevisualizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drakevisualizerapp.html">director.drakevisualizerapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drcargs.html">director.drcargs module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drilldemo.html">director.drilldemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drivingplanner.html">director.drivingplanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.egressplanner.html">director.egressplanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.fieldcontainer.html">director.fieldcontainer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.filterUtils.html">director.filterUtils module</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="">director.footstepsdriver module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">director.footstepsdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.footstepsdriverpanel.html">director.footstepsdriverpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.frameupdater.html">director.frameupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.framevisualization.html">director.framevisualization module</a></li>
@@ -127,47 +137,62 @@
 <li class="toctree-l4"><a class="reference internal" href="director.geometryencoder.html">director.geometryencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handcontrolpanel.html">director.handcontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handdriver.html">director.handdriver module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.ik.html">director.ik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraintencoder.html">director.ikconstraintencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraints.html">director.ikconstraints module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikparameters.html">director.ikparameters module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikplanner.html">director.ikplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageview.html">director.imageview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageviewapp.html">director.imageviewapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ioUtils.html">director.ioUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisUtils.html">director.irisUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisdriver.html">director.irisdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointcontrol.html">director.jointcontrol module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointpropagator.html">director.jointpropagator module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.kinectlcm.html">director.kinectlcm module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.kinematicposeplanner.html">director.kinematicposeplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.korgnano.html">director.korgnano module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmUtils.html">director.lcmUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmcollections.html">director.lcmcollections module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingdemo.html">director.mappingdemo module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingpanel.html">director.mappingpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.mainwindowapp.html">director.mainwindowapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.mapsregistrar.html">director.mapsregistrar module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.matlab.html">director.matlab module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.matlabik.html">director.matlabik module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.measurementpanel.html">director.measurementpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.meshmanager.html">director.meshmanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.midi.html">director.midi module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.motionplanningpanel.html">director.motionplanningpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.multisensepanel.html">director.multisensepanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.navigationpanel.html">director.navigationpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.perception.html">director.perception module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.plannerPublisher.html">director.plannerPublisher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.planningutils.html">director.planningutils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.planplayback.html">director.planplayback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.playbackpanel.html">director.playbackpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointcloudlcm.html">director.pointcloudlcm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointpicker.html">director.pointpicker module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.polarisplatformplanner.html">director.polarisplatformplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.propertyanimation.html">director.propertyanimation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.propertyset.html">director.propertyset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pydrakeik.html">director.pydrakeik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.raycastdriver.html">director.raycastdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotlinkselector.html">director.robotlinkselector module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotplanlistener.html">director.robotplanlistener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotposegui.html">director.robotposegui module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotstate.html">director.robotstate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotsystem.html">director.robotsystem module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.roboturdf.html">director.roboturdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotviewbehaviors.html">director.robotviewbehaviors module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.sceneloader.html">director.sceneloader module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.screengrabberpanel.html">director.screengrabberpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.segmentation.html">director.segmentation module</a></li>
@@ -184,7 +209,6 @@
 <li class="toctree-l4"><a class="reference internal" href="director.statelistener.html">director.statelistener module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.surprisetask.html">director.surprisetask module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.switchplanner.html">director.switchplanner module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.tabledemo.html">director.tabledemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.takktilevis.html">director.takktilevis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tasklaunchpanel.html">director.tasklaunchpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tdx.html">director.tdx module</a></li>
@@ -195,10 +219,17 @@
 <li class="toctree-l4"><a class="reference internal" href="director.timercallback.html">director.timercallback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.trackers.html">director.trackers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.transformUtils.html">director.transformUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.treeviewer.html">director.treeviewer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.uipanel.html">director.uipanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.utime.html">director.utime module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.uuidutil.html">director.uuidutil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.valvedemo.html">director.valvedemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.version.html">director.version module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viconvisualizer.html">director.viconvisualizer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.viewbehaviors.html">director.viewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewcolors.html">director.viewcolors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewerclient.html">director.viewerclient module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vieweventfilter.html">director.vieweventfilter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.visualization.html">director.visualization module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkAll.html">director.vtkAll module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkNumpy.html">director.vtkNumpy module</a></li>
@@ -233,7 +264,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -257,277 +288,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-director.footstepsdriver">
-<span id="director-footstepsdriver-module"></span><h1>director.footstepsdriver module<a class="headerlink" href="#module-director.footstepsdriver" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="director.footstepsdriver.FootstepPlanItem">
-<em class="property">class </em><code class="descclassname">director.footstepsdriver.</code><code class="descname">FootstepPlanItem</code><span class="sig-paren">(</span><em>name</em>, <em>icon=':/images/robot_icon.png'</em>, <em>properties=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepPlanItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepPlanItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="director.objectmodel.html#director.objectmodel.ObjectModelItem" title="director.objectmodel.ObjectModelItem"><code class="xref py py-class docutils literal"><span class="pre">director.objectmodel.ObjectModelItem</span></code></a></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="director.footstepsdriver.FootstepRequestGenerator">
-<em class="property">class </em><code class="descclassname">director.footstepsdriver.</code><code class="descname">FootstepRequestGenerator</code><span class="sig-paren">(</span><em>footstepsDriver</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepRequestGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepRequestGenerator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="staticmethod">
-<dt id="director.footstepsdriver.FootstepRequestGenerator.getRobotStanceFrame">
-<em class="property">static </em><code class="descname">getRobotStanceFrame</code><span class="sig-paren">(</span><em>robotModel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepRequestGenerator.getRobotStanceFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepRequestGenerator.getRobotStanceFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepRequestGenerator.makeFootstepRequest">
-<code class="descname">makeFootstepRequest</code><span class="sig-paren">(</span><em>startPose</em>, <em>stepFrames</em>, <em>leadingFoot</em>, <em>numberOfFillSteps=0</em>, <em>snapToTerrain=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepRequestGenerator.makeFootstepRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepRequestGenerator.makeFootstepRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="director.footstepsdriver.FootstepRequestGenerator.makeStepFrames">
-<em class="property">static </em><code class="descname">makeStepFrames</code><span class="sig-paren">(</span><em>stepFrames</em>, <em>relativeFrame=None</em>, <em>showFrames=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepRequestGenerator.makeStepFrames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepRequestGenerator.makeStepFrames" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepRequestGenerator.makeStepMessages">
-<code class="descname">makeStepMessages</code><span class="sig-paren">(</span><em>stepFrames</em>, <em>leadingFoot</em>, <em>snapToTerrain=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepRequestGenerator.makeStepMessages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepRequestGenerator.makeStepMessages" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.footstepsdriver.FootstepsDriver">
-<em class="property">class </em><code class="descclassname">director.footstepsdriver.</code><code class="descname">FootstepsDriver</code><span class="sig-paren">(</span><em>jointController</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.applyDefaults">
-<code class="descname">applyDefaults</code><span class="sig-paren">(</span><em>set_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.applyDefaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.applyDefaults" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.applyParams">
-<code class="descname">applyParams</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.applyParams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.applyParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.applySafeRegions">
-<code class="descname">applySafeRegions</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.applySafeRegions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.applySafeRegions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.changeSubscriptionBDI">
-<code class="descname">changeSubscriptionBDI</code><span class="sig-paren">(</span><em>newBDIChannel='POSE_BDI'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.changeSubscriptionBDI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.changeSubscriptionBDI" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.clearFootstepPlan">
-<code class="descname">clearFootstepPlan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.clearFootstepPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.clearFootstepPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.commitFootstepPlan">
-<code class="descname">commitFootstepPlan</code><span class="sig-paren">(</span><em>footstepPlan</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.commitFootstepPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.commitFootstepPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.constructFootstepPlanRequest">
-<code class="descname">constructFootstepPlanRequest</code><span class="sig-paren">(</span><em>pose</em>, <em>goalFrame=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.constructFootstepPlanRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.constructFootstepPlanRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.createGoalSteps">
-<code class="descname">createGoalSteps</code><span class="sig-paren">(</span><em>model</em>, <em>pose</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.createGoalSteps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.createGoalSteps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="director.footstepsdriver.FootstepsDriver.debugDrawFootPoints">
-<em class="property">static </em><code class="descname">debugDrawFootPoints</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.debugDrawFootPoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.debugDrawFootPoints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.drawBDIFootstepPlan">
-<code class="descname">drawBDIFootstepPlan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.drawBDIFootstepPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.drawBDIFootstepPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.drawBDIFootstepPlanAdjusted">
-<code class="descname">drawBDIFootstepPlanAdjusted</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.drawBDIFootstepPlanAdjusted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.drawBDIFootstepPlanAdjusted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.drawContactPts">
-<code class="descname">drawContactPts</code><span class="sig-paren">(</span><em>obj</em>, <em>footstep</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.drawContactPts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.drawContactPts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.drawContactVolumes">
-<code class="descname">drawContactVolumes</code><span class="sig-paren">(</span><em>footstepTransform</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.drawContactVolumes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.drawContactVolumes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.drawFootstepPlan">
-<code class="descname">drawFootstepPlan</code><span class="sig-paren">(</span><em>msg</em>, <em>folder</em>, <em>left_color=None</em>, <em>right_color=None</em>, <em>alpha=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.drawFootstepPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.drawFootstepPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="director.footstepsdriver.FootstepsDriver.getContactPts">
-<em class="property">static </em><code class="descname">getContactPts</code><span class="sig-paren">(</span><em>support_contact_groups=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.getContactPts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.getContactPts" title="Permalink to this definition">¶</a></dt>
-<dd><p>hard coded Location of the Drake contact points relative to foot frame. this should be read from URDF</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.getDefaultStepParams">
-<code class="descname">getDefaultStepParams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.getDefaultStepParams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.getDefaultStepParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="director.footstepsdriver.FootstepsDriver.getFeetMidPoint">
-<em class="property">static </em><code class="descname">getFeetMidPoint</code><span class="sig-paren">(</span><em>model</em>, <em>useWorldZ=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.getFeetMidPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.getFeetMidPoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a frame in world coordinate system that is the average of the left
-and right foot reference point positions in world frame, the average of the
-left and right foot yaw in world frame, and Z axis aligned with world Z.
-The foot reference point is the average of the foot contact points in the foot frame.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.onBDIAdjustedFootstepPlan">
-<code class="descname">onBDIAdjustedFootstepPlan</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.onBDIAdjustedFootstepPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.onBDIAdjustedFootstepPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.onClearClicked">
-<code class="descname">onClearClicked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.onClearClicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.onClearClicked" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.onExecClicked">
-<code class="descname">onExecClicked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.onExecClicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.onExecClicked" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.onFootstepPlan">
-<code class="descname">onFootstepPlan</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.onFootstepPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.onFootstepPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.onFootstepPropertyChanged">
-<code class="descname">onFootstepPropertyChanged</code><span class="sig-paren">(</span><em>obj</em>, <em>propertySet</em>, <em>propertyName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.onFootstepPropertyChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.onFootstepPropertyChanged" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.onPoseBDI">
-<code class="descname">onPoseBDI</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.onPoseBDI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.onPoseBDI" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.onStepModified">
-<code class="descname">onStepModified</code><span class="sig-paren">(</span><em>ndx</em>, <em>frameObj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.onStepModified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.onStepModified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.onWalkingPlan">
-<code class="descname">onWalkingPlan</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.onWalkingPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.onWalkingPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.sendFootstepPlanCheckRequest">
-<code class="descname">sendFootstepPlanCheckRequest</code><span class="sig-paren">(</span><em>request</em>, <em>waitForResponse=False</em>, <em>waitTimeout=5000</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.sendFootstepPlanCheckRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.sendFootstepPlanCheckRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.sendFootstepPlanRequest">
-<code class="descname">sendFootstepPlanRequest</code><span class="sig-paren">(</span><em>request</em>, <em>waitForResponse=False</em>, <em>waitTimeout=5000</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.sendFootstepPlanRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.sendFootstepPlanRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.sendHaltSimulationDrakeRequest">
-<code class="descname">sendHaltSimulationDrakeRequest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.sendHaltSimulationDrakeRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.sendHaltSimulationDrakeRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.sendStopWalking">
-<code class="descname">sendStopWalking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.sendStopWalking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.sendStopWalking" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.sendUpdatePlanRequest">
-<code class="descname">sendUpdatePlanRequest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.sendUpdatePlanRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.sendUpdatePlanRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.sendWalkingPlanRequest">
-<code class="descname">sendWalkingPlanRequest</code><span class="sig-paren">(</span><em>footstepPlan</em>, <em>startPose</em>, <em>waitForResponse=False</em>, <em>waitTimeout=5000</em>, <em>req_type='traj'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.sendWalkingPlanRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.sendWalkingPlanRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.showToolbarWidget">
-<code class="descname">showToolbarWidget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.showToolbarWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.showToolbarWidget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.transformPlanToBDIFrame">
-<code class="descname">transformPlanToBDIFrame</code><span class="sig-paren">(</span><em>plan</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.transformPlanToBDIFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.transformPlanToBDIFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.footstepsdriver.FootstepsDriver.updateRequest">
-<code class="descname">updateRequest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#FootstepsDriver.updateRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.FootstepsDriver.updateRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.footstepsdriver.WalkingPlanItem">
-<em class="property">class </em><code class="descclassname">director.footstepsdriver.</code><code class="descname">WalkingPlanItem</code><span class="sig-paren">(</span><em>name</em>, <em>icon=':/images/robot_icon.png'</em>, <em>properties=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#WalkingPlanItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.WalkingPlanItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="director.objectmodel.html#director.objectmodel.ObjectModelItem" title="director.objectmodel.ObjectModelItem"><code class="xref py py-class docutils literal"><span class="pre">director.objectmodel.ObjectModelItem</span></code></a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.getBDIAdjustedFootstepsFolder">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">getBDIAdjustedFootstepsFolder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#getBDIAdjustedFootstepsFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.getBDIAdjustedFootstepsFolder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.getFootMeshes">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">getFootMeshes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#getFootMeshes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.getFootMeshes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.getFootstepsFolder">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">getFootstepsFolder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#getFootstepsFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.getFootstepsFolder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.getLeftFootColor">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">getLeftFootColor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#getLeftFootColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.getLeftFootColor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.getLeftFootMesh">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">getLeftFootMesh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#getLeftFootMesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.getLeftFootMesh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.getRightFootColor">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">getRightFootColor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#getRightFootColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.getRightFootColor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.getRightFootMesh">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">getRightFootMesh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#getRightFootMesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.getRightFootMesh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.getTerrainSlicesFolder">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">getTerrainSlicesFolder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#getTerrainSlicesFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.getTerrainSlicesFolder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.getWalkingVolumesFolder">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">getWalkingVolumesFolder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#getWalkingVolumesFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.getWalkingVolumesFolder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.footstepsdriver.loadFootMeshes">
-<code class="descclassname">director.footstepsdriver.</code><code class="descname">loadFootMeshes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/footstepsdriver.html#loadFootMeshes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.footstepsdriver.loadFootMeshes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+  <div class="section" id="director-footstepsdriver-module">
+<h1>director.footstepsdriver module<a class="headerlink" href="#director-footstepsdriver-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

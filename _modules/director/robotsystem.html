@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>director.robotsystem &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Director  documentation" href="../../index.html"/>
+        <link rel="up" title="director" href="../director.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../director.html">director</a> &raquo;</li>
+      
+    <li>director.robotsystem</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for director.robotsystem</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">director.componentgraph</span> <span class="k">import</span> <span class="n">ComponentFactory</span>
+<span class="kn">from</span> <span class="nn">director.fieldcontainer</span> <span class="k">import</span> <span class="n">FieldContainer</span>
+
+
+<div class="viewcode-block" id="RobotSystemFactory"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory">[docs]</a><span class="k">class</span> <span class="nc">RobotSystemFactory</span><span class="p">(</span><span class="n">ComponentFactory</span><span class="p">):</span>
+
+<div class="viewcode-block" id="RobotSystemFactory.initDefaultOptions"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initDefaultOptions">[docs]</a>    <span class="k">def</span> <span class="nf">initDefaultOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Components are enabled by default.  This function</span>
+<span class="sd">        determines which components should be disabled.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">options</span><span class="o">.</span><span class="n">useConvexHullModel</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">options</span><span class="o">.</span><span class="n">useRobotLinkSelector</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.addComponents"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.addComponents">[docs]</a>    <span class="k">def</span> <span class="nf">addComponents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">componentGraph</span><span class="p">):</span>
+
+        <span class="n">addComponent</span> <span class="o">=</span> <span class="n">componentGraph</span><span class="o">.</span><span class="n">addComponent</span>
+
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;DirectorConfig&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;RobotState&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;DirectorConfig&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Segmentation&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;SegmentationRobotState&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Segmentation&#39;</span><span class="p">,</span> <span class="s1">&#39;RobotState&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;SegmentationAffordances&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Segmentation&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;PerceptionDrivers&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">,</span> <span class="s1">&#39;Planning&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;HandDrivers&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;RaycastDriver&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;IRISDriver&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">,</span> <span class="s1">&#39;Footsteps&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;AtlasDriver&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Playback&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Planning&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Teleop&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="s1">&#39;Playback&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;ConvexHullModel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Playback&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;FootstepsPlayback&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">,</span> <span class="s1">&#39;Playback&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Affordances&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;PlannerPublisher&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;ViewBehaviors&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">,</span> <span class="s1">&#39;PerceptionDrivers&#39;</span><span class="p">,</span> <span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;RobotLinkSelector&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ViewBehaviors&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initDirectorConfig"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initDirectorConfig">[docs]</a>    <span class="k">def</span> <span class="nf">initDirectorConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">drcargs</span>
+
+        <span class="n">directorConfig</span> <span class="o">=</span> <span class="n">drcargs</span><span class="o">.</span><span class="n">getDirectorConfig</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="s1">&#39;colorMode&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">directorConfig</span><span class="p">:</span>
+            <span class="n">defaultColorMode</span> <span class="o">=</span> <span class="s1">&#39;URDF Colors&#39;</span>
+            <span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;colorMode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultColorMode</span>
+
+        <span class="k">assert</span> <span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;colorMode&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;URDF Colors&#39;</span><span class="p">,</span> <span class="s1">&#39;Solid Color&#39;</span><span class="p">,</span> <span class="s1">&#39;Textures&#39;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">directorConfig</span><span class="o">=</span><span class="n">directorConfig</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initRobotState"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initRobotState">[docs]</a>    <span class="k">def</span> <span class="nf">initRobotState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">roboturdf</span>
+
+        <span class="n">robotStateModel</span><span class="p">,</span> <span class="n">robotStateJointController</span> <span class="o">=</span> <span class="n">roboturdf</span><span class="o">.</span><span class="n">loadRobotModel</span><span class="p">(</span>
+            <span class="s1">&#39;robot state model&#39;</span><span class="p">,</span>
+            <span class="n">robotSystem</span><span class="o">.</span><span class="n">view</span><span class="p">,</span>
+            <span class="n">urdfFile</span><span class="o">=</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;urdfConfig&#39;</span><span class="p">][</span><span class="s1">&#39;robotState&#39;</span><span class="p">],</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">roboturdf</span><span class="o">.</span><span class="n">getRobotGrayColor</span><span class="p">(),</span>
+            <span class="n">colorMode</span><span class="o">=</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;colorMode&#39;</span><span class="p">],</span>
+            <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;sensors&#39;</span><span class="p">,</span>
+            <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">robotStateJointController</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s1">&#39;EST_ROBOT_STATE&#39;</span><span class="p">,</span> <span class="n">robotStateJointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;q_nom&#39;</span><span class="p">))</span>
+        <span class="n">roboturdf</span><span class="o">.</span><span class="n">startModelPublisherListener</span><span class="p">([(</span><span class="n">robotStateModel</span><span class="p">,</span> <span class="n">robotStateJointController</span><span class="p">)])</span>
+        <span class="n">robotStateJointController</span><span class="o">.</span><span class="n">addLCMUpdater</span><span class="p">(</span><span class="s1">&#39;EST_ROBOT_STATE&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">robotStateModel</span><span class="o">=</span><span class="n">robotStateModel</span><span class="p">,</span>
+                                <span class="n">robotStateJointController</span><span class="o">=</span><span class="n">robotStateJointController</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initSegmentation"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initSegmentation">[docs]</a>    <span class="k">def</span> <span class="nf">initSegmentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">segmentation</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initSegmentationRobotState"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initSegmentationRobotState">[docs]</a>    <span class="k">def</span> <span class="nf">initSegmentationRobotState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">segmentationroutines</span>
+        <span class="n">segmentationroutines</span><span class="o">.</span><span class="n">SegmentationContext</span><span class="o">.</span><span class="n">initWithRobot</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateModel</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initPerceptionDrivers"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initPerceptionDrivers">[docs]</a>    <span class="k">def</span> <span class="nf">initPerceptionDrivers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">perception</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">robotstate</span>
+
+        <span class="n">multisenseDriver</span><span class="p">,</span> <span class="n">mapServerSource</span> <span class="o">=</span> <span class="n">perception</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+
+        <span class="n">useNeckDriver</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="p">,</span> <span class="s1">&#39;neckPitchJoint&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">useNeckDriver</span><span class="p">:</span>
+            <span class="n">neckPitchJoint</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">neckPitchJoint</span>
+            <span class="n">neckPitchIndex</span> <span class="o">=</span> <span class="n">robotstate</span><span class="o">.</span><span class="n">getDrakePoseJointNames</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">neckPitchJoint</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">getNeckPitch</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateJointController</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="n">neckPitchIndex</span><span class="p">]</span>
+
+            <span class="n">neckDriver</span> <span class="o">=</span> <span class="n">perception</span><span class="o">.</span><span class="n">NeckDriver</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">getNeckPitch</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">neckDriver</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+        <span class="n">spindleJoint</span> <span class="o">=</span> <span class="s1">&#39;hokuyo_joint&#39;</span>
+
+        <span class="k">def</span> <span class="nf">getSpindleAngleFunction</span><span class="p">():</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateJointController</span><span class="o">.</span><span class="n">lastRobotStateMessage</span>
+            <span class="k">if</span> <span class="n">msg</span> <span class="ow">and</span> <span class="n">spindleJoint</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">joint_name</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">joint_name</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">spindleJoint</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">utime</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">1e6</span><span class="p">),</span> <span class="n">msg</span><span class="o">.</span><span class="n">joint_position</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">spindleMonitor</span> <span class="o">=</span> <span class="n">perception</span><span class="o">.</span><span class="n">SpindleMonitor</span><span class="p">(</span><span class="n">getSpindleAngleFunction</span><span class="p">)</span>
+        <span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateModel</span><span class="o">.</span><span class="n">connectModelChanged</span><span class="p">(</span><span class="n">spindleMonitor</span><span class="o">.</span><span class="n">onRobotStateChanged</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">multisenseDriver</span><span class="o">=</span><span class="n">multisenseDriver</span><span class="p">,</span>
+                                <span class="n">mapServerSource</span><span class="o">=</span><span class="n">mapServerSource</span><span class="p">,</span>
+                                <span class="n">neckDriver</span><span class="o">=</span><span class="n">neckDriver</span><span class="p">,</span>
+                                <span class="n">spindleMonitor</span><span class="o">=</span><span class="n">spindleMonitor</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initHandDrivers"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initHandDrivers">[docs]</a>    <span class="k">def</span> <span class="nf">initHandDrivers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">handdriver</span>
+
+        <span class="n">rHandDriver</span> <span class="o">=</span> <span class="n">handdriver</span><span class="o">.</span><span class="n">RobotiqHandDriver</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+        <span class="n">lHandDriver</span> <span class="o">=</span> <span class="n">handdriver</span><span class="o">.</span><span class="n">RobotiqHandDriver</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">rHandDriver</span><span class="o">=</span><span class="n">rHandDriver</span><span class="p">,</span> <span class="n">lHandDriver</span><span class="o">=</span><span class="n">lHandDriver</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initFootsteps"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initFootsteps">[docs]</a>    <span class="k">def</span> <span class="nf">initFootsteps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">footstepsdriver</span>
+        <span class="n">footstepsDriver</span> <span class="o">=</span> <span class="n">footstepsdriver</span><span class="o">.</span><span class="n">FootstepsDriver</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateJointController</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">footstepsDriver</span><span class="o">=</span><span class="n">footstepsDriver</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initRaycastDriver"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initRaycastDriver">[docs]</a>    <span class="k">def</span> <span class="nf">initRaycastDriver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">raycastdriver</span>
+        <span class="n">raycastDriver</span> <span class="o">=</span> <span class="n">raycastdriver</span><span class="o">.</span><span class="n">RaycastDriver</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">raycastDriver</span><span class="o">=</span><span class="n">raycastDriver</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initIRISDriver"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initIRISDriver">[docs]</a>    <span class="k">def</span> <span class="nf">initIRISDriver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">irisdriver</span>
+
+        <span class="n">irisDriver</span> <span class="o">=</span> <span class="n">irisdriver</span><span class="o">.</span><span class="n">IRISDriver</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateJointController</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">footstepsDriver</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">irisDriver</span><span class="o">=</span><span class="n">irisDriver</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initAtlasDriver"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initAtlasDriver">[docs]</a>    <span class="k">def</span> <span class="nf">initAtlasDriver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">atlasdriver</span>
+
+        <span class="n">atlasDriver</span> <span class="o">=</span> <span class="n">atlasdriver</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">atlasDriver</span><span class="o">=</span><span class="n">atlasDriver</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initPlanning"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initPlanning">[docs]</a>    <span class="k">def</span> <span class="nf">initPlanning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">planningutils</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">roboturdf</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">ikplanner</span>
+
+
+        <span class="n">directorConfig</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">directorConfig</span>
+
+        <span class="n">ikRobotModel</span><span class="p">,</span> <span class="n">ikJointController</span> <span class="o">=</span> <span class="n">roboturdf</span><span class="o">.</span><span class="n">loadRobotModel</span><span class="p">(</span><span class="s1">&#39;ik model&#39;</span><span class="p">,</span> <span class="n">urdfFile</span><span class="o">=</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;urdfConfig&#39;</span><span class="p">][</span><span class="s1">&#39;ik&#39;</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">ikRobotModel</span><span class="p">)</span>
+        <span class="n">ikJointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s1">&#39;q_end&#39;</span><span class="p">,</span> <span class="n">ikJointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;q_nom&#39;</span><span class="p">))</span>
+        <span class="n">ikJointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s1">&#39;q_start&#39;</span><span class="p">,</span> <span class="n">ikJointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;q_nom&#39;</span><span class="p">))</span>
+
+        <span class="n">handFactory</span> <span class="o">=</span> <span class="n">roboturdf</span><span class="o">.</span><span class="n">HandFactory</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateModel</span><span class="p">)</span>
+        <span class="n">handModels</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">handFactory</span><span class="o">.</span><span class="n">defaultHandTypes</span><span class="p">:</span>
+                <span class="n">handModels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handFactory</span><span class="o">.</span><span class="n">getLoader</span><span class="p">(</span><span class="n">side</span><span class="p">))</span>
+
+        <span class="n">ikPlanner</span> <span class="o">=</span> <span class="n">ikplanner</span><span class="o">.</span><span class="n">IKPlanner</span><span class="p">(</span><span class="n">ikRobotModel</span><span class="p">,</span> <span class="n">ikJointController</span><span class="p">,</span> <span class="n">handModels</span><span class="p">)</span>
+
+        <span class="n">planningUtils</span> <span class="o">=</span> <span class="n">planningutils</span><span class="o">.</span><span class="n">PlanningUtils</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateModel</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateJointController</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+            <span class="n">ikRobotModel</span><span class="o">=</span><span class="n">ikRobotModel</span><span class="p">,</span>
+            <span class="n">ikJointController</span><span class="o">=</span><span class="n">ikJointController</span><span class="p">,</span>
+            <span class="n">handFactory</span><span class="o">=</span><span class="n">handFactory</span><span class="p">,</span>
+            <span class="n">handModels</span><span class="o">=</span><span class="n">handModels</span><span class="p">,</span>
+            <span class="n">ikPlanner</span><span class="o">=</span><span class="n">ikPlanner</span><span class="p">,</span>
+            <span class="n">planningUtils</span><span class="o">=</span><span class="n">planningUtils</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initConvexHullModel"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initConvexHullModel">[docs]</a>    <span class="k">def</span> <span class="nf">initConvexHullModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">roboturdf</span>
+
+        <span class="n">directorConfig</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">directorConfig</span>
+        <span class="n">chullRobotModel</span><span class="p">,</span> <span class="n">chullJointController</span> <span class="o">=</span> <span class="n">roboturdf</span><span class="o">.</span><span class="n">loadRobotModel</span><span class="p">(</span><span class="s1">&#39;convex hull model&#39;</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">urdfFile</span><span class="o">=</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;urdfConfig&#39;</span><span class="p">][</span><span class="s1">&#39;chull&#39;</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;planning&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">roboturdf</span><span class="o">.</span><span class="n">getRobotOrangeColor</span><span class="p">(),</span> <span class="n">colorMode</span><span class="o">=</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;colorMode&#39;</span><span class="p">],</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">robotSystem</span><span class="o">.</span><span class="n">playbackJointController</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chullRobotModel</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+            <span class="n">chullRobotModel</span><span class="o">=</span><span class="n">chullRobotModel</span><span class="p">,</span>
+            <span class="n">chullJointController</span><span class="o">=</span><span class="n">chullJointController</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initPlayback"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initPlayback">[docs]</a>    <span class="k">def</span> <span class="nf">initPlayback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">roboturdf</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">planplayback</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">playbackpanel</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">robotplanlistener</span>
+
+        <span class="n">directorConfig</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">directorConfig</span>
+
+        <span class="n">manipPlanner</span> <span class="o">=</span> <span class="n">robotplanlistener</span><span class="o">.</span><span class="n">ManipulationPlanDriver</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="p">)</span>
+
+        <span class="n">playbackRobotModel</span><span class="p">,</span> <span class="n">playbackJointController</span> <span class="o">=</span> <span class="n">roboturdf</span><span class="o">.</span><span class="n">loadRobotModel</span><span class="p">(</span><span class="s1">&#39;playback model&#39;</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">urdfFile</span><span class="o">=</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;urdfConfig&#39;</span><span class="p">][</span><span class="s1">&#39;playback&#39;</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;planning&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">roboturdf</span><span class="o">.</span><span class="n">getRobotOrangeColor</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorMode</span><span class="o">=</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;colorMode&#39;</span><span class="p">])</span>
+
+        <span class="n">planPlayback</span> <span class="o">=</span> <span class="n">planplayback</span><span class="o">.</span><span class="n">PlanPlayback</span><span class="p">()</span>
+
+        <span class="n">playbackPanel</span> <span class="o">=</span> <span class="n">playbackpanel</span><span class="o">.</span><span class="n">PlaybackPanel</span><span class="p">(</span><span class="n">planPlayback</span><span class="p">,</span> <span class="n">playbackRobotModel</span><span class="p">,</span> <span class="n">playbackJointController</span><span class="p">,</span>
+                                          <span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateModel</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateJointController</span><span class="p">,</span> <span class="n">manipPlanner</span><span class="p">)</span>
+
+        <span class="n">manipPlanner</span><span class="o">.</span><span class="n">connectPlanReceived</span><span class="p">(</span><span class="n">playbackPanel</span><span class="o">.</span><span class="n">setPlan</span><span class="p">)</span>
+
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+            <span class="n">playbackRobotModel</span><span class="o">=</span><span class="n">playbackRobotModel</span><span class="p">,</span>
+            <span class="n">playbackJointController</span><span class="o">=</span><span class="n">playbackJointController</span><span class="p">,</span>
+            <span class="n">planPlayback</span><span class="o">=</span><span class="n">planPlayback</span><span class="p">,</span>
+            <span class="n">manipPlanner</span><span class="o">=</span><span class="n">manipPlanner</span><span class="p">,</span>
+            <span class="n">playbackPanel</span><span class="o">=</span><span class="n">playbackPanel</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initTeleop"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initTeleop">[docs]</a>    <span class="k">def</span> <span class="nf">initTeleop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">roboturdf</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">teleoppanel</span>
+
+        <span class="n">directorConfig</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">directorConfig</span>
+
+        <span class="n">teleopRobotModel</span><span class="p">,</span> <span class="n">teleopJointController</span> <span class="o">=</span> <span class="n">roboturdf</span><span class="o">.</span><span class="n">loadRobotModel</span><span class="p">(</span><span class="s1">&#39;teleop model&#39;</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">urdfFile</span><span class="o">=</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;urdfConfig&#39;</span><span class="p">][</span><span class="s1">&#39;teleop&#39;</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;planning&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">roboturdf</span><span class="o">.</span><span class="n">getRobotBlueColor</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorMode</span><span class="o">=</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;colorMode&#39;</span><span class="p">])</span>
+
+
+        <span class="n">teleopPanel</span> <span class="o">=</span> <span class="n">teleoppanel</span><span class="o">.</span><span class="n">TeleopPanel</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateModel</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateJointController</span><span class="p">,</span> <span class="n">teleopRobotModel</span><span class="p">,</span> <span class="n">teleopJointController</span><span class="p">,</span>
+                          <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">manipPlanner</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">affordanceManager</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">playbackPanel</span><span class="o">.</span><span class="n">setPlan</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">playbackPanel</span><span class="o">.</span><span class="n">hidePlan</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">planningUtils</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+            <span class="n">teleopRobotModel</span><span class="o">=</span><span class="n">teleopRobotModel</span><span class="p">,</span>
+            <span class="n">teleopJointController</span><span class="o">=</span><span class="n">teleopJointController</span><span class="p">,</span>
+            <span class="n">teleopPanel</span><span class="o">=</span><span class="n">teleopPanel</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initFootstepsPlayback"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initFootstepsPlayback">[docs]</a>    <span class="k">def</span> <span class="nf">initFootstepsPlayback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+        <span class="n">robotSystem</span><span class="o">.</span><span class="n">footstepsDriver</span><span class="o">.</span><span class="n">walkingPlanCallback</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">playbackPanel</span><span class="o">.</span><span class="n">setPlan</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initAffordances"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initAffordances">[docs]</a>    <span class="k">def</span> <span class="nf">initAffordances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">affordancemanager</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">affordanceitems</span>
+
+        <span class="n">affordanceManager</span> <span class="o">=</span> <span class="n">affordancemanager</span><span class="o">.</span><span class="n">AffordanceObjectModelManager</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="n">affordanceitems</span><span class="o">.</span><span class="n">MeshAffordanceItem</span><span class="o">.</span><span class="n">getMeshManager</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">affordancemanager</span><span class="o">.</span><span class="n">lcmobjectcollection</span><span class="o">.</span><span class="n">USE_LCM</span><span class="p">:</span>
+            <span class="n">affordanceitems</span><span class="o">.</span><span class="n">MeshAffordanceItem</span><span class="o">.</span><span class="n">getMeshManager</span><span class="p">()</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">sendEchoRequest</span><span class="p">()</span>
+            <span class="n">affordanceManager</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">sendEchoRequest</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+            <span class="n">affordanceManager</span><span class="o">=</span><span class="n">affordanceManager</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initSegmentationAffordances"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initSegmentationAffordances">[docs]</a>    <span class="k">def</span> <span class="nf">initSegmentationAffordances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">segmentation</span>
+        <span class="n">segmentation</span><span class="o">.</span><span class="n">affordanceManager</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">affordanceManager</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initPlannerPublisher"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initPlannerPublisher">[docs]</a>    <span class="k">def</span> <span class="nf">initPlannerPublisher</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">plannerPublisher</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">pydrakeik</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">matlabik</span>
+
+        <span class="n">dummyPlannerPub</span> <span class="o">=</span> <span class="n">plannerPublisher</span><span class="o">.</span><span class="n">DummyPlannerPublisher</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">affordanceManager</span><span class="p">)</span>
+        <span class="n">pyDrakePlannerPub</span> <span class="o">=</span> <span class="n">pydrakeik</span><span class="o">.</span><span class="n">PyDrakePlannerPublisher</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">affordanceManager</span><span class="p">)</span>
+        <span class="n">exoticaPlannerPub</span> <span class="o">=</span> <span class="n">plannerPublisher</span><span class="o">.</span><span class="n">ExoticaPlannerPublisher</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">affordanceManager</span><span class="p">)</span>
+        <span class="n">matlabPlannerPub</span> <span class="o">=</span> <span class="n">plannerPublisher</span><span class="o">.</span><span class="n">MatlabDrakePlannerPublisher</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="p">,</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">affordanceManager</span><span class="p">)</span>
+
+        <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">addPublisher</span><span class="p">(</span><span class="s1">&#39;dummy&#39;</span><span class="p">,</span> <span class="n">dummyPlannerPub</span><span class="p">)</span>
+        <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">addPublisher</span><span class="p">(</span><span class="s1">&#39;pydrake&#39;</span><span class="p">,</span> <span class="n">pyDrakePlannerPub</span><span class="p">)</span>
+        <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">addPublisher</span><span class="p">(</span><span class="s1">&#39;matlabdrake&#39;</span><span class="p">,</span> <span class="n">matlabPlannerPub</span><span class="p">)</span>
+        <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">addPublisher</span><span class="p">(</span><span class="s1">&#39;exotica&#39;</span><span class="p">,</span> <span class="n">exoticaPlannerPub</span><span class="p">)</span>
+
+        <span class="n">directorConfig</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">directorConfig</span>
+        <span class="k">if</span> <span class="s1">&#39;planningMode&#39;</span> <span class="ow">in</span> <span class="n">directorConfig</span><span class="p">:</span>
+            <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">planningMode</span> <span class="o">=</span> <span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;planningMode&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">planningMode</span> <span class="o">=</span> <span class="s1">&#39;matlabdrake&#39;</span>
+
+
+        <span class="n">linkNameArgs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;leftFootLink&#39;</span> <span class="ow">in</span> <span class="n">directorConfig</span><span class="p">:</span>
+            <span class="n">linkNameArgs</span> <span class="o">=</span> <span class="p">[</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;leftFootLink&#39;</span><span class="p">],</span> <span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;rightFootLink&#39;</span><span class="p">],</span> <span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;pelvisLink&#39;</span><span class="p">]]</span>
+
+        <span class="n">matlabIkServer</span> <span class="o">=</span> <span class="n">matlabik</span><span class="o">.</span><span class="n">AsyncIKCommunicator</span><span class="p">(</span><span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;urdfConfig&#39;</span><span class="p">][</span><span class="s1">&#39;ik&#39;</span><span class="p">],</span> <span class="n">directorConfig</span><span class="p">[</span><span class="s1">&#39;fixedPointFile&#39;</span><span class="p">],</span> <span class="o">*</span><span class="n">linkNameArgs</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">startIkServer</span><span class="p">():</span>
+            <span class="n">matlabIkServer</span><span class="o">.</span><span class="n">startServerAsync</span><span class="p">()</span>
+            <span class="n">matlabIkServer</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">writeCommandsToLogFile</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">matlabIkServer</span><span class="o">.</span><span class="n">handModels</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">handModels</span>
+        <span class="n">matlabPlannerPub</span><span class="o">.</span><span class="n">ikServer</span> <span class="o">=</span> <span class="n">matlabIkServer</span>
+
+        <span class="n">robotSystem</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">ikServer</span> <span class="o">=</span> <span class="n">matlabIkServer</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+            <span class="n">ikServer</span><span class="o">=</span><span class="n">matlabIkServer</span><span class="p">,</span>
+            <span class="n">startIkServer</span><span class="o">=</span><span class="n">startIkServer</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initRobotLinkSelector"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initRobotLinkSelector">[docs]</a>    <span class="k">def</span> <span class="nf">initRobotLinkSelector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">robotlinkselector</span>
+        <span class="n">robotLinkSelector</span> <span class="o">=</span> <span class="n">robotlinkselector</span><span class="o">.</span><span class="n">RobotLinkSelector</span><span class="p">()</span>
+        <span class="n">robotSystem</span><span class="o">.</span><span class="n">viewBehaviors</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span>
+            <span class="n">robotSystem</span><span class="o">.</span><span class="n">viewBehaviors</span><span class="o">.</span><span class="n">LEFT_DOUBLE_CLICK_EVENT</span><span class="p">,</span>
+            <span class="n">robotLinkSelector</span><span class="o">.</span><span class="n">onLeftDoubleClick</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">robotLinkSelector</span><span class="o">=</span><span class="n">robotLinkSelector</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotSystemFactory.initViewBehaviors"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initViewBehaviors">[docs]</a>    <span class="k">def</span> <span class="nf">initViewBehaviors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">robotviewbehaviors</span>
+
+        <span class="n">viewBehaviors</span> <span class="o">=</span> <span class="n">robotviewbehaviors</span><span class="o">.</span><span class="n">RobotViewBehaviors</span><span class="p">(</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">)</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">(</span><span class="n">viewDirection</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">view</span><span class="o">=</span><span class="n">robotSystem</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">viewBehaviors</span><span class="o">=</span><span class="n">viewBehaviors</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="create"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">globalsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Convenience function for initializing a robotSystem</span>
+<span class="sd">    with the default options and populating a globals()</span>
+<span class="sd">    dictionary with all the constructed objects.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span>
+
+    <span class="n">view</span> <span class="o">=</span> <span class="n">view</span> <span class="ow">or</span> <span class="n">applogic</span><span class="o">.</span><span class="n">getCurrentRenderView</span><span class="p">()</span>
+
+    <span class="n">factory</span> <span class="o">=</span> <span class="n">RobotSystemFactory</span><span class="p">()</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">options</span> <span class="ow">or</span> <span class="n">factory</span><span class="o">.</span><span class="n">getDefaultOptions</span><span class="p">()</span>
+    <span class="n">robotSystem</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">globalsDict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">globalsDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">robotSystem</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">robotSystem</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+director.componentgraph module
+==============================
+
+.. automodule:: director.componentgraph
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,13 +132,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.screengrabberpanel</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">PythonQt</span>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtUiTools</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">applogic</span> <span class="k">as</span> <span class="n">app</span>
-<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="kn">import</span> <span class="n">TimerCallback</span>
-<span class="kn">from</span> <span class="nn">director.simpletimer</span> <span class="kn">import</span> <span class="n">FPSCounter</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">ioUtils</span> <span class="k">as</span> <span class="n">io</span>
-<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="kn">as</span> <span class="nn">vtk</span>
+<span></span><span class="kn">import</span> <span class="nn">PythonQt</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtUiTools</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span> <span class="k">as</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="k">import</span> <span class="n">TimerCallback</span>
+<span class="kn">from</span> <span class="nn">director.simpletimer</span> <span class="k">import</span> <span class="n">FPSCounter</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">ioUtils</span> <span class="k">as</span> <span class="n">io</span>
+<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="k">as</span> <span class="nn">vtk</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -146,16 +150,16 @@
     <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">objectName</span><span class="p">:</span>
             <span class="n">d</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">objectName</span><span class="p">)]</span> <span class="o">=</span> <span class="n">widget</span>
-        <span class="n">addWidgetsToDict</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">children</span><span class="p">(),</span> <span class="n">d</span><span class="p">)</span>
+        <span class="n">addWidgetsToDict</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">children</span><span class="p">(),</span> <span class="n">d</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="WidgetDict"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.WidgetDict">[docs]</a><span class="k">class</span> <span class="nc">WidgetDict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widgets</span><span class="p">):</span>
-        <span class="n">addWidgetsToDict</span><span class="p">(</span><span class="n">widgets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+        <span class="n">addWidgetsToDict</span><span class="p">(</span><span class="n">widgets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></div>
 
 
-</div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel">[docs]</a><span class="k">class</span> <span class="nc">ScreenGrabberPanel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
@@ -163,7 +167,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
 
         <span class="n">loader</span> <span class="o">=</span> <span class="n">QtUiTools</span><span class="o">.</span><span class="n">QUiLoader</span><span class="p">()</span>
-        <span class="n">uifile</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QFile</span><span class="p">(</span><span class="s">&#39;:/ui/ddScreenGrabber.ui&#39;</span><span class="p">)</span>
+        <span class="n">uifile</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QFile</span><span class="p">(</span><span class="s1">&#39;:/ui/ddScreenGrabber.ui&#39;</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">uifile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">uifile</span><span class="o">.</span><span class="n">ReadOnly</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">frameCount</span> <span class="o">=</span> <span class="mi">0</span>
@@ -171,51 +175,51 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">uifile</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">WidgetDict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">children</span><span class="p">())</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lockViewSizeCheck</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onLockViewSize</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">screenshotOutputBrowseButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onChooseScreenshotOutputDir</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">movieOutputBrowseButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onChooseMovieOutputDir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lockViewSizeCheck</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onLockViewSize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">screenshotOutputBrowseButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onChooseScreenshotOutputDir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">movieOutputBrowseButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onChooseMovieOutputDir</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">saveScreenshotButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSaveScreenshot</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">recordMovieButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onRecordMovie</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">saveScreenshotButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSaveScreenshot</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">recordMovieButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onRecordMovie</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewSizeCombo</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;currentIndexChanged(const QString&amp;)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">updateViewSize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewSizeCombo</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;currentIndexChanged(const QString&amp;)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">updateViewSize</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewHeightSpin</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;valueChanged(int)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onViewSizeChanged</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewWidthSpin</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;valueChanged(int)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onViewSizeChanged</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewHeightSpin</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;valueChanged(int)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onViewSizeChanged</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewWidthSpin</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;valueChanged(int)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onViewSizeChanged</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">updateViewSize</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">onLockViewSize</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">recordTimer</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QTimer</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recordTimer</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;timeout()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onRecordTimer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recordTimer</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;timeout()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onRecordTimer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fpsCounter</span> <span class="o">=</span> <span class="n">FPSCounter</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">Resize</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ScreenGrabberPanel.onEvent"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="n">minSize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span><span class="o">.</span><span class="n">minimumSizeHint</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">()</span><span class="o">.</span><span class="n">width</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="n">minSize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="n">minSize</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.dateTimeString"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.dateTimeString">[docs]</a>    <span class="k">def</span> <span class="nf">dateTimeString</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s">_%H:%M:%S&#39;</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">_%H:%M:%S&#39;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.movieOutputDirectory"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.movieOutputDirectory">[docs]</a>    <span class="k">def</span> <span class="nf">movieOutputDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.screenshotOutputDirectory"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.screenshotOutputDirectory">[docs]</a>    <span class="k">def</span> <span class="nf">screenshotOutputDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">screenshotOutputDirectory</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">screenshotOutputDirectory</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.captureRate"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.captureRate">[docs]</a>    <span class="k">def</span> <span class="nf">captureRate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">captureRateSpin</span><span class="o">.</span><span class="n">value</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">captureRateSpin</span><span class="o">.</span><span class="n">value</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.chooseDirectory"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.chooseDirectory">[docs]</a>    <span class="k">def</span> <span class="nf">chooseDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">getMainWindow</span><span class="p">(),</span> <span class="s">&quot;Choose directory...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="p">())</span>
-</div>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">getMainWindow</span><span class="p">(),</span> <span class="s2">&quot;Choose directory...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="p">())</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.ensureDirectoryIsWritable"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.ensureDirectoryIsWritable">[docs]</a>    <span class="k">def</span> <span class="nf">ensureDirectoryIsWritable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dirname</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
@@ -223,54 +227,54 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-                <span class="n">app</span><span class="o">.</span><span class="n">showErrorMessage</span><span class="p">(</span><span class="s">&#39;Error creating directory: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">dirname</span><span class="p">)</span>
-                <span class="k">return</span> <span class="bp">False</span>
+                <span class="n">app</span><span class="o">.</span><span class="n">showErrorMessage</span><span class="p">(</span><span class="s1">&#39;Error creating directory: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dirname</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">W_OK</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">X_OK</span><span class="p">):</span>
-                <span class="n">app</span><span class="o">.</span><span class="n">showErrorMessage</span><span class="p">(</span><span class="s">&#39;Directory is not writable: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">dirname</span><span class="p">)</span>
-                <span class="k">return</span> <span class="bp">False</span>
+                <span class="n">app</span><span class="o">.</span><span class="n">showErrorMessage</span><span class="p">(</span><span class="s1">&#39;Directory is not writable: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dirname</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
 
-</div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.onChooseScreenshotOutputDir"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.onChooseScreenshotOutputDir">[docs]</a>    <span class="k">def</span> <span class="nf">onChooseScreenshotOutputDir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">newDir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chooseDirectory</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">newDir</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">screenshotOutputDirectory</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">newDir</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">screenshotOutputDirectory</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">newDir</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.onChooseMovieOutputDir"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.onChooseMovieOutputDir">[docs]</a>    <span class="k">def</span> <span class="nf">onChooseMovieOutputDir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">newDir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chooseDirectory</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">newDir</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">newDir</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">newDir</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.onSaveScreenshot"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.onSaveScreenshot">[docs]</a>    <span class="k">def</span> <span class="nf">onSaveScreenshot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">outDir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screenshotOutputDirectory</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensureDirectoryIsWritable</span><span class="p">(</span><span class="n">outDir</span><span class="p">):</span>
             <span class="k">return</span>
 
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outDir</span><span class="p">,</span> <span class="s">&#39;Screenshot-&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dateTimeString</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39;.png&#39;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outDir</span><span class="p">,</span> <span class="s1">&#39;Screenshot-&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dateTimeString</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
         <span class="n">saveScreenshot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-        <span class="n">app</span><span class="o">.</span><span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s">&#39;Saved: &#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s1">&#39;Saved: &#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.nextMovieFileName"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.nextMovieFileName">[docs]</a>    <span class="k">def</span> <span class="nf">nextMovieFileName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="p">(),</span> <span class="s">&#39;frame_</span><span class="si">%07d</span><span class="s">.tiff&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameCount</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="p">(),</span> <span class="s1">&#39;frame_</span><span class="si">%07d</span><span class="s1">.tiff&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameCount</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frameCount</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">filename</span>
-</div>
+        <span class="k">return</span> <span class="n">filename</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.updateRecordingStats"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.updateRecordingStats">[docs]</a>    <span class="k">def</span> <span class="nf">updateRecordingStats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">isRecordMode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">recordMovieButton</span><span class="o">.</span><span class="n">checked</span>
 
         <span class="n">currentRate</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">writeQueue</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">currentRateValueLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%.1f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">currentRate</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">writeQueueValueLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%.1f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">currentRate</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">currentRateValueLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">currentRate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">writeQueueValueLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">currentRate</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.isRecordMode"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.isRecordMode">[docs]</a>    <span class="k">def</span> <span class="nf">isRecordMode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">recordMovieButton</span><span class="o">.</span><span class="n">checked</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">recordMovieButton</span><span class="o">.</span><span class="n">checked</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.updateRecordingButtons"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.updateRecordingButtons">[docs]</a>    <span class="k">def</span> <span class="nf">updateRecordingButtons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">isRecordMode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isRecordMode</span><span class="p">()</span>
@@ -285,10 +289,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">writeQueueLabel</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">isRecordMode</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">writeQueueValueLabel</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">isRecordMode</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">updateRecordingStats</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateRecordingStats</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.onRecordMovie"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.onRecordMovie">[docs]</a>    <span class="k">def</span> <span class="nf">onRecordMovie</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c"># Enforce even width number, otherwise avconv will fail</span>
+        <span class="c1"># Enforce even width number, otherwise avconv will fail</span>
         <span class="n">_width</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">width</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">width</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">_height</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">height</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">height</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="n">_width</span><span class="p">,</span> <span class="n">_height</span><span class="p">)</span>
@@ -298,26 +302,26 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stopRecording</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">updateRecordingButtons</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateRecordingButtons</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.startRecording"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.startRecording">[docs]</a>    <span class="k">def</span> <span class="nf">startRecording</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">frameCount</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensureDirectoryIsWritable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="p">()):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">recordMovieButton</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">recordMovieButton</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">return</span>
 
-        <span class="n">existingFiles</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="p">(),</span> <span class="s">&#39;*.tiff&#39;</span><span class="p">))</span>
+        <span class="n">existingFiles</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="p">(),</span> <span class="s1">&#39;*.tiff&#39;</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">existingFiles</span><span class="p">):</span>
 
-            <span class="n">choice</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">getMainWindow</span><span class="p">(),</span> <span class="s">&#39;Continue?&#39;</span><span class="p">,</span>
-              <span class="s">&#39;There are existing image files in the output directory.  They will be deleted prior to recording.  Continue?&#39;</span><span class="p">,</span>
+            <span class="n">choice</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">getMainWindow</span><span class="p">(),</span> <span class="s1">&#39;Continue?&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;There are existing image files in the output directory.  They will be deleted prior to recording.  Continue?&#39;</span><span class="p">,</span>
               <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">,</span>
               <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">recordMovieButton</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">recordMovieButton</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">return</span>
 
         <span class="k">for</span> <span class="n">fileToRemove</span> <span class="ow">in</span> <span class="n">existingFiles</span><span class="p">:</span>
@@ -328,30 +332,30 @@
         <span class="n">interval</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mf">1000.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">captureRate</span><span class="p">()))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">recordTimer</span><span class="o">.</span><span class="n">setInterval</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recordTimer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recordTimer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.stopRecording"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.stopRecording">[docs]</a>    <span class="k">def</span> <span class="nf">stopRecording</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">recordTimer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameCount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">showEncodingDialog</span><span class="p">()</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">showEncodingDialog</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.showEncodingDialog"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.showEncodingDialog">[docs]</a>    <span class="k">def</span> <span class="nf">showEncodingDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;Recorded </span><span class="si">%d</span><span class="s"> frames.  For encoding, use this command line:</span><span class="se">\n\n\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameCount</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="s">&#39;    cd &quot;</span><span class="si">%s</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="p">()</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="s">&#39;    avconv -r </span><span class="si">%d</span><span class="s"> -i frame_</span><span class="si">%%</span><span class="s">07d.tiff </span><span class="se">\\\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">captureRate</span><span class="p">()</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="s">&#39;           -vcodec libx264 </span><span class="se">\\\n</span><span class="s">&#39;</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="s">&#39;           -preset slow </span><span class="se">\\\n</span><span class="s">&#39;</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="s">&#39;           -crf 18 </span><span class="se">\\\n</span><span class="s">&#39;</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="s">&#39;           output.mp4</span><span class="se">\n\n\n</span><span class="s">&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Recorded </span><span class="si">%d</span><span class="s1"> frames.  For encoding, use this command line:</span><span class="se">\n\n\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameCount</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;    cd &quot;</span><span class="si">%s</span><span class="s1">&quot;</span><span class="se">\n\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">movieOutputDirectory</span><span class="p">()</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;    avconv -r </span><span class="si">%d</span><span class="s1"> -i frame_</span><span class="si">%%</span><span class="s1">07d.tiff </span><span class="se">\\\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">captureRate</span><span class="p">()</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;           -vcodec libx264 </span><span class="se">\\\n</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;           -preset slow </span><span class="se">\\\n</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;           -crf 18 </span><span class="se">\\\n</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;           output.mp4</span><span class="se">\n\n\n</span><span class="s1">&#39;</span>
 
-        <span class="n">app</span><span class="o">.</span><span class="n">showInfoMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;Recording Stopped&#39;</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">showInfoMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Recording Stopped&#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.updateViewSize"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.updateViewSize">[docs]</a>    <span class="k">def</span> <span class="nf">updateViewSize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">current</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewSizeCombo</span><span class="o">.</span><span class="n">currentText</span><span class="p">)</span>
-        <span class="n">useCustom</span> <span class="o">=</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="s">&#39;Custom&#39;</span><span class="p">)</span>
+        <span class="n">useCustom</span> <span class="o">=</span> <span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="s1">&#39;Custom&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewWidthSpin</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">useCustom</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewHeightSpin</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">useCustom</span><span class="p">)</span>
@@ -359,43 +363,43 @@
         <span class="k">if</span> <span class="n">useCustom</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">viewSize</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">current</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)]</span>
+            <span class="n">viewSize</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">current</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewWidthSpin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">viewSize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewHeightSpin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">viewSize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewHeightSpin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">viewSize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.onViewSizeChanged"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.onViewSizeChanged">[docs]</a>    <span class="k">def</span> <span class="nf">onViewSizeChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">onLockViewSize</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onLockViewSize</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.viewSize"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.viewSize">[docs]</a>    <span class="k">def</span> <span class="nf">viewSize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewWidthSpin</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewHeightSpin</span><span class="o">.</span><span class="n">value</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewWidthSpin</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewHeightSpin</span><span class="o">.</span><span class="n">value</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.lockViewSize"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.lockViewSize">[docs]</a>    <span class="k">def</span> <span class="nf">lockViewSize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">viewSize</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewSizeFrame</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewSizeFrame</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.unlockViewSize"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.unlockViewSize">[docs]</a>    <span class="k">def</span> <span class="nf">unlockViewSize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewSizeFrame</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">viewSizeFrame</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">qtwidgetMaxViewSize</span> <span class="o">=</span> <span class="mi">16777215</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="n">qtwidgetMaxViewSize</span><span class="p">,</span> <span class="n">qtwidgetMaxViewSize</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="n">qtwidgetMaxViewSize</span><span class="p">,</span> <span class="n">qtwidgetMaxViewSize</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.onLockViewSize"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.onLockViewSize">[docs]</a>    <span class="k">def</span> <span class="nf">onLockViewSize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lockViewSizeCheck</span><span class="o">.</span><span class="n">checked</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lockViewSize</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">unlockViewSize</span><span class="p">()</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unlockViewSize</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ScreenGrabberPanel.onRecordTimer"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.ScreenGrabberPanel.onRecordTimer">[docs]</a>    <span class="k">def</span> <span class="nf">onRecordTimer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">saveScreenshot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nextMovieFileName</span><span class="p">(),</span> <span class="n">shouldRender</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">saveScreenshot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nextMovieFileName</span><span class="p">(),</span> <span class="n">shouldRender</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">fpsCounter</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
         <span class="n">tNow</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">tNow</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">startT</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">startT</span> <span class="o">=</span> <span class="n">tNow</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">currentRateValueLabel</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%.1f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpsCounter</span><span class="o">.</span><span class="n">getAverageFPS</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">currentRateValueLabel</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpsCounter</span><span class="o">.</span><span class="n">getAverageFPS</span><span class="p">()</span></div></div>
 
-</div></div>
-<div class="viewcode-block" id="saveScreenshot"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.saveScreenshot">[docs]</a><span class="k">def</span> <span class="nf">saveScreenshot</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">shouldRender</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">shouldWrite</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="saveScreenshot"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.saveScreenshot">[docs]</a><span class="k">def</span> <span class="nf">saveScreenshot</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">shouldRender</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shouldWrite</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">shouldRender</span><span class="p">:</span>
         <span class="n">view</span><span class="o">.</span><span class="n">forceRender</span><span class="p">()</span>
@@ -404,16 +408,16 @@
     <span class="n">grabber</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">())</span>
     <span class="n">grabber</span><span class="o">.</span><span class="n">SetInputBufferTypeToRGB</span><span class="p">()</span>
     <span class="n">grabber</span><span class="o">.</span><span class="n">ReadFrontBufferOff</span><span class="p">()</span>
-    <span class="n">grabber</span><span class="o">.</span><span class="n">SetShouldRerender</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">grabber</span><span class="o">.</span><span class="n">SetShouldRerender</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">grabber</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">shouldWrite</span><span class="p">:</span>
         <span class="n">io</span><span class="o">.</span><span class="n">writeImage</span><span class="p">(</span><span class="n">grabber</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">filename</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">grabber</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">grabber</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span></div>
 
 
-</div>
-<div class="viewcode-block" id="test"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.test">[docs]</a><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">16</span><span class="o">/</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;tiff&#39;</span><span class="p">,</span> <span class="n">shouldRender</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">shouldWrite</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="test"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.test">[docs]</a><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">16</span><span class="o">/</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;tiff&#39;</span><span class="p">,</span> <span class="n">shouldRender</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shouldWrite</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
     <span class="n">view</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">aspect</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
 
@@ -425,23 +429,23 @@
 
 
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
 
         <span class="n">tNow</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">elapsed</span> <span class="o">=</span> <span class="n">tNow</span> <span class="o">-</span> <span class="n">tPrev</span>
         <span class="n">tPrev</span> <span class="o">=</span> <span class="n">tNow</span>
         <span class="n">camera</span><span class="o">.</span><span class="n">Azimuth</span><span class="p">(</span><span class="n">elapsed</span> <span class="o">*</span> <span class="n">speed</span><span class="p">)</span>
 
-        <span class="n">saveScreenshot</span><span class="p">(</span><span class="s">&#39;out_</span><span class="si">%04d</span><span class="s">.</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">ext</span><span class="p">),</span> <span class="n">shouldRender</span><span class="p">,</span> <span class="n">shouldWrite</span> <span class="p">)</span>
+        <span class="n">saveScreenshot</span><span class="p">(</span><span class="s1">&#39;out_</span><span class="si">%04d</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">ext</span><span class="p">),</span> <span class="n">shouldRender</span><span class="p">,</span> <span class="n">shouldWrite</span> <span class="p">)</span>
 
     <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tStart</span>
-    <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="s">&#39;frames&#39;</span>
-    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%.3f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">elapsed</span><span class="p">,</span> <span class="s">&#39;seconds&#39;</span>
-    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%.2f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">elapsed</span><span class="p">),</span> <span class="s">&#39;fps&#39;</span>
+    <span class="nb">print</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39;frames&#39;</span>
+    <span class="nb">print</span> <span class="s1">&#39;</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">elapsed</span><span class="p">,</span> <span class="s1">&#39;seconds&#39;</span>
+    <span class="nb">print</span> <span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">elapsed</span><span class="p">),</span> <span class="s1">&#39;fps&#39;</span></div>
 
-</div>
+
 <span class="k">def</span> <span class="nf">_getAction</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">getToolBarActions</span><span class="p">()[</span><span class="s">&#39;ActionScreenGrabberPanel&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">getToolBarActions</span><span class="p">()[</span><span class="s1">&#39;ActionScreenGrabberPanel&#39;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.screengrabberpanel.html#director.screengrabberpanel.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">view</span><span class="p">):</span>

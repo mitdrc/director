@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>director.packagepath &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Director  documentation" href="../../index.html"/>
+        <link rel="up" title="director" href="../director.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../director.html">director</a> &raquo;</li>
+      
+    <li>director.packagepath</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for director.packagepath</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="PackageMap"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.PackageMap">[docs]</a><span class="k">class</span> <span class="nc">PackageMap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="PackageMap.addPackageDir"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.PackageMap.addPackageDir">[docs]</a>    <span class="k">def</span> <span class="nf">addPackageDir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">packageName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">packageName</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addPackage</span><span class="p">(</span><span class="n">packageName</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PackageMap.addPackage"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.PackageMap.addPackage">[docs]</a>    <span class="k">def</span> <span class="nf">addPackage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packageName</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">packageName</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s1">&#39;warning, skipping package path:&#39;</span><span class="p">,</span> <span class="n">path</span>
+            <span class="nb">print</span> <span class="s1">&#39;existing package path:&#39;</span><span class="p">,</span> <span class="n">packageName</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="n">packageName</span><span class="p">]</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="n">packageName</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span></div>
+
+<div class="viewcode-block" id="PackageMap.printPackageMap"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.PackageMap.printPackageMap">[docs]</a>    <span class="k">def</span> <span class="nf">printPackageMap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">package</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="nb">print</span> <span class="n">package</span><span class="p">,</span> <span class="n">path</span></div>
+
+<div class="viewcode-block" id="PackageMap.getPath"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.PackageMap.getPath">[docs]</a>    <span class="k">def</span> <span class="nf">getPath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packageName</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">packageName</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PackageMap.populateFromSearchPaths"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.PackageMap.populateFromSearchPaths">[docs]</a>    <span class="k">def</span> <span class="nf">populateFromSearchPaths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">paths</span><span class="p">]</span>
+        <span class="n">packagePaths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;package.xml&#39;</span><span class="p">))</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;manifest.xml&#39;</span><span class="p">)):</span>
+                    <span class="n">packagePaths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">packagePaths</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addPackageDir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PackageMap.populateFromEnvironment"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.PackageMap.populateFromEnvironment">[docs]</a>    <span class="k">def</span> <span class="nf">populateFromEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environmentVariables</span><span class="p">):</span>
+
+        <span class="n">searchPaths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">varName</span> <span class="ow">in</span> <span class="n">environmentVariables</span><span class="p">:</span>
+            <span class="n">searchPaths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">varName</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">populateFromSearchPaths</span><span class="p">(</span><span class="n">searchPaths</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="PackageMap.isPackageUrl"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.PackageMap.isPackageUrl">[docs]</a>    <span class="k">def</span> <span class="nf">isPackageUrl</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;package://&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PackageMap.resolveFilename"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.PackageMap.resolveFilename">[docs]</a>    <span class="k">def</span> <span class="nf">resolveFilename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isPackageUrl</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">relPath</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[</span><span class="mi">10</span><span class="p">:]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">relPath</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+            <span class="n">packageName</span> <span class="o">=</span> <span class="n">relPath</span><span class="p">[:</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">relPath</span> <span class="o">=</span> <span class="n">relPath</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s1">&#39;failed to parse package filename:&#39;</span><span class="p">,</span> <span class="n">filename</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">packagePath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPath</span><span class="p">(</span><span class="n">packageName</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">packagePath</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s1">&#39;failed to resolve filename, unknown package:&#39;</span><span class="p">,</span> <span class="n">filename</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">packagePath</span><span class="p">,</span> <span class="n">relPath</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="test"><a class="viewcode-back" href="../../generated/director.packagepath.html#director.packagepath.test">[docs]</a><span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">PackageMap</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="n">m</span><span class="o">.</span><span class="n">getPath</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">addPackageDir</span><span class="p">(</span><span class="s1">&#39;/home/user/bar&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">m</span><span class="o">.</span><span class="n">getPath</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;/home/user/bar&#39;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/tmp/package_test/foo&#39;</span>
+    <span class="n">packageFile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;package.xml&#39;</span><span class="p">)</span>
+
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">packageFile</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="nb">open</span><span class="p">(</span><span class="n">packageFile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TEST_PACKAGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/tmp/package_test&#39;</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">populateFromEnvironment</span><span class="p">([</span><span class="s1">&#39;TEST_PACKAGE&#39;</span><span class="p">])</span>
+
+    <span class="k">assert</span> <span class="n">m</span><span class="o">.</span><span class="n">getPath</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;/tmp/package_test/foo&#39;</span>
+    <span class="k">assert</span> <span class="n">m</span><span class="o">.</span><span class="n">resolveFilename</span><span class="p">(</span><span class="s1">&#39;package://foo/bar.obj&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;/tmp/package_test/foo/bar.obj&#39;</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">printPackageMap</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">test</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

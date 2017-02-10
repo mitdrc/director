@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,29 +132,31 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.ioUtils</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">vtkAll</span> <span class="kn">as</span> <span class="nn">vtk</span>
-<span class="kn">from</span> <span class="nn">shallowCopy</span> <span class="kn">import</span> <span class="n">shallowCopy</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">vtkAll</span> <span class="k">as</span> <span class="nn">vtk</span>
+<span class="kn">from</span> <span class="nn">shallowCopy</span> <span class="k">import</span> <span class="n">shallowCopy</span>
+<span class="kn">import</span> <span class="nn">shelve</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
 
-<div class="viewcode-block" id="readPolyData"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.readPolyData">[docs]</a><span class="k">def</span> <span class="nf">readPolyData</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">computeNormals</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="readPolyData"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.readPolyData">[docs]</a><span class="k">def</span> <span class="nf">readPolyData</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">computeNormals</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
     <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
     <span class="n">readers</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;.vtp&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLPolyDataReader</span><span class="p">,</span>
-            <span class="s">&#39;.vtk&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataReader</span><span class="p">,</span>
-            <span class="s">&#39;.ply&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPLYReader</span><span class="p">,</span>
-            <span class="s">&#39;.obj&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkOBJReader</span><span class="p">,</span>
-            <span class="s">&#39;.stl&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSTLReader</span><span class="p">,</span>
+            <span class="s1">&#39;.vtp&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLPolyDataReader</span><span class="p">,</span>
+            <span class="s1">&#39;.vtk&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataReader</span><span class="p">,</span>
+            <span class="s1">&#39;.ply&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPLYReader</span><span class="p">,</span>
+            <span class="s1">&#39;.obj&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkOBJReader</span><span class="p">,</span>
+            <span class="s1">&#39;.stl&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSTLReader</span><span class="p">,</span>
               <span class="p">}</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">readers</span><span class="p">[</span><span class="s">&#39;.pcd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPCDReader</span>
+        <span class="n">readers</span><span class="p">[</span><span class="s1">&#39;.pcd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPCDReader</span>
     <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
         <span class="k">pass</span>
 
     <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">readers</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Unknown file extension in readPolyData: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Unknown file extension in readPolyData: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
 
     <span class="n">reader</span> <span class="o">=</span> <span class="n">readers</span><span class="p">[</span><span class="n">ext</span><span class="p">]()</span>
     <span class="n">reader</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
@@ -160,73 +166,111 @@
     <span class="k">if</span> <span class="n">computeNormals</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_computeNormals</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">polyData</span>
+        <span class="k">return</span> <span class="n">polyData</span></div>
 
-</div>
+
+<div class="viewcode-block" id="readMultiBlock"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.readMultiBlock">[docs]</a><span class="k">def</span> <span class="nf">readMultiBlock</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Reads a .vtm file and returns a list of vtkPolyData objects&#39;&#39;&#39;</span>
+
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLMultiBlockDataReader</span><span class="p">()</span>
+    <span class="n">reader</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">reader</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+
+    <span class="n">polyDataList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mb</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">mb</span><span class="o">.</span><span class="n">GetNumberOfBlocks</span><span class="p">()):</span>
+        <span class="n">polyData</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="o">.</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">mb</span><span class="o">.</span><span class="n">GetBlock</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">polyData</span> <span class="ow">and</span> <span class="n">polyData</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">():</span>
+            <span class="n">polyDataList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shallowCopy</span><span class="p">(</span><span class="n">polyData</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">polyDataList</span></div>
+
+
 <div class="viewcode-block" id="readImage"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.readImage">[docs]</a><span class="k">def</span> <span class="nf">readImage</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 
     <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
     <span class="n">readers</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;.png&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNGReader</span><span class="p">,</span>
-            <span class="s">&#39;.jpg&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkJPEGReader</span><span class="p">,</span>
+            <span class="s1">&#39;.png&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNGReader</span><span class="p">,</span>
+            <span class="s1">&#39;.jpg&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkJPEGReader</span><span class="p">,</span>
+            <span class="s1">&#39;.vti&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLImageDataReader</span><span class="p">,</span>
               <span class="p">}</span>
 
     <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">readers</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Unknown file extension in readImage: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Unknown file extension in readImage: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
 
     <span class="n">reader</span> <span class="o">=</span> <span class="n">readers</span><span class="p">[</span><span class="n">ext</span><span class="p">]()</span>
     <span class="n">reader</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="n">reader</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">image</span>
+    <span class="k">return</span> <span class="n">image</span></div>
 
-</div>
+
+<div class="viewcode-block" id="readVrml"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.readVrml">[docs]</a><span class="k">def</span> <span class="nf">readVrml</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns list of vtkPolyData meshes and a list of colors as 3-tuples</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVRMLImporter</span><span class="p">()</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">Read</span><span class="p">()</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span>
+    <span class="n">ren</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">GetRenderers</span><span class="p">()</span><span class="o">.</span><span class="n">GetItemAsObject</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">actors</span> <span class="o">=</span> <span class="n">ren</span><span class="o">.</span><span class="n">GetActors</span><span class="p">()</span>
+    <span class="n">actors</span> <span class="o">=</span> <span class="p">[</span><span class="n">actors</span><span class="o">.</span><span class="n">GetItemAsObject</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">actors</span><span class="o">.</span><span class="n">GetNumberOfItems</span><span class="p">())]</span>
+    <span class="n">meshes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">.</span><span class="n">GetInput</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">]</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">ac</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">GetColor</span><span class="p">()</span> <span class="k">for</span> <span class="n">ac</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">meshes</span><span class="p">,</span> <span class="n">colors</span></div>
+
+
 <div class="viewcode-block" id="writePolyData"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.writePolyData">[docs]</a><span class="k">def</span> <span class="nf">writePolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 
     <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
     <span class="n">writers</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;.vtp&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLPolyDataWriter</span><span class="p">,</span>
-            <span class="s">&#39;.ply&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPLYWriter</span><span class="p">,</span>
-            <span class="s">&#39;.stl&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSTLWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.vtp&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLPolyDataWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.vtk&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.ply&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPLYWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.stl&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSTLWriter</span><span class="p">,</span>
               <span class="p">}</span>
 
     <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">writers</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Unknown file extension in writePolyData: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Unknown file extension in writePolyData: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
 
     <span class="n">writer</span> <span class="o">=</span> <span class="n">writers</span><span class="p">[</span><span class="n">ext</span><span class="p">]()</span>
 
-    <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;.ply&#39;</span><span class="p">,</span> <span class="s">&#39;.stl&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.ply&#39;</span><span class="p">,</span> <span class="s1">&#39;.stl&#39;</span><span class="p">):</span>
         <span class="n">polyData</span> <span class="o">=</span> <span class="n">_triangulate</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
         <span class="n">writer</span><span class="o">.</span><span class="n">SetFileTypeToASCII</span><span class="p">()</span>
 
+    <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.ply&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">polyData</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetArray</span><span class="p">(</span><span class="s1">&#39;RGB255&#39;</span><span class="p">):</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">SetArrayName</span><span class="p">(</span><span class="s1">&#39;RGB255&#39;</span><span class="p">)</span>
+
     <span class="n">writer</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="n">writer</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
-    <span class="n">writer</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
-</div>
+    <span class="n">writer</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="writeImage"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.writeImage">[docs]</a><span class="k">def</span> <span class="nf">writeImage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 
     <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
     <span class="n">writers</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;.png&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNGWriter</span><span class="p">,</span>
-            <span class="s">&#39;.jpg&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkJPEGWriter</span><span class="p">,</span>
-            <span class="s">&#39;.pnm&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNMWriter</span><span class="p">,</span>
-            <span class="s">&#39;.tiff&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTIFFWriter</span><span class="p">,</span>
-            <span class="s">&#39;.bmp&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkBMPWriter</span><span class="p">,</span>
-            <span class="s">&#39;.vti&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLImageDataWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.png&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNGWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.jpg&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkJPEGWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.pnm&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNMWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.tiff&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTIFFWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.bmp&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkBMPWriter</span><span class="p">,</span>
+            <span class="s1">&#39;.vti&#39;</span> <span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLImageDataWriter</span><span class="p">,</span>
               <span class="p">}</span>
 
     <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">writers</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Unknown file extension in writePolyData: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Unknown file extension in writePolyData: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
 
     <span class="n">writer</span> <span class="o">=</span> <span class="n">writers</span><span class="p">[</span><span class="n">ext</span><span class="p">]()</span>
     <span class="n">writer</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="n">writer</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">writer</span><span class="o">.</span><span class="n">Write</span><span class="p">()</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">Write</span><span class="p">()</span></div>
 
-</div>
 <span class="k">def</span> <span class="nf">_computeNormals</span><span class="p">(</span><span class="n">polyData</span><span class="p">):</span>
     <span class="n">normals</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataNormals</span><span class="p">()</span>
     <span class="n">normals</span><span class="o">.</span><span class="n">SetFeatureAngle</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
@@ -239,6 +283,19 @@
     <span class="n">normals</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
     <span class="n">normals</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">normals</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+
+<div class="viewcode-block" id="saveDataToFile"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.saveDataToFile">[docs]</a><span class="k">def</span> <span class="nf">saveDataToFile</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dataDict</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">overwrite</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;file already exists, overwrite option was False&quot;</span><span class="p">)</span>
+
+    <span class="n">myShelf</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+    <span class="n">myShelf</span><span class="p">[</span><span class="s1">&#39;dataDict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataDict</span>
+    <span class="n">myShelf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="readDataFromFile"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.readDataFromFile">[docs]</a><span class="k">def</span> <span class="nf">readDataFromFile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">myShelf</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">dataDict</span> <span class="o">=</span> <span class="n">myShelf</span><span class="p">[</span><span class="s1">&#39;dataDict&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dataDict</span></div>
 </pre></div>
 
            </div>

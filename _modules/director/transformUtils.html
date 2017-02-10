@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,27 +132,32 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.transformUtils</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">vtkAll</span> <span class="kn">as</span> <span class="nn">vtk</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">botpy</span>
+<span></span><span class="kn">from</span> <span class="nn">director.thirdparty</span> <span class="k">import</span> <span class="n">transformations</span>
+<span class="kn">import</span> <span class="nn">vtkAll</span> <span class="k">as</span> <span class="nn">vtk</span>
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">drc</span> <span class="kn">as</span> <span class="nn">lcmdrc</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># This module uses libbot for some transformations.</span>
+    <span class="c1"># There is a pending branch that replaces libbot with the</span>
+    <span class="c1"># thirdparty.transformations module.  For now, libbot is</span>
+    <span class="c1"># imported with a try/except to make it an optional dependency,</span>
+    <span class="c1"># but eventually it will be removed and replaced with transformations.py</span>
+    <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">botpy</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
 
 
 <div class="viewcode-block" id="getTransformFromNumpy"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.getTransformFromNumpy">[docs]</a><span class="k">def</span> <span class="nf">getTransformFromNumpy</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Given a numpy 4x4 array, return a vtkTransform.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMatrix4x4</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-            <span class="n">m</span><span class="o">.</span><span class="n">SetElement</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">mat</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">])</span>
-
+    <span class="k">assert</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">SetMatrix</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">t</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">SetMatrix</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">t</span></div>
 
-</div>
+
 <div class="viewcode-block" id="getNumpyFromTransform"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.getNumpyFromTransform">[docs]</a><span class="k">def</span> <span class="nf">getNumpyFromTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Given a vtkTransform, return a numpy 4x4 array</span>
@@ -156,13 +165,13 @@
     <span class="n">mat</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">GetMatrix</span><span class="p">()</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
 
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
             <span class="n">a</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">a</span>
+    <span class="k">return</span> <span class="n">a</span></div>
 
-</div>
+
 <div class="viewcode-block" id="getTransformFromAxes"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.getTransformFromAxes">[docs]</a><span class="k">def</span> <span class="nf">getTransformFromAxes</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">):</span>
 
     <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
@@ -171,28 +180,42 @@
     <span class="n">axes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMath</span><span class="o">.</span><span class="n">Orthogonalize3x3</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">axes</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
             <span class="n">m</span><span class="o">.</span><span class="n">SetElement</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">])</span>
 
     <span class="n">t</span><span class="o">.</span><span class="n">SetMatrix</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">t</span>
+    <span class="k">return</span> <span class="n">t</span></div>
 
-</div>
+
 <div class="viewcode-block" id="getTransformFromAxesAndOrigin"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.getTransformFromAxesAndOrigin">[docs]</a><span class="k">def</span> <span class="nf">getTransformFromAxesAndOrigin</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">getTransformFromAxes</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">)</span>
     <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
     <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">t</span>
+    <span class="k">return</span> <span class="n">t</span></div>
 
-</div>
+
 <div class="viewcode-block" id="getAxesFromTransform"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.getAxesFromTransform">[docs]</a><span class="k">def</span> <span class="nf">getAxesFromTransform</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
     <span class="n">xaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">TransformNormal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
     <span class="n">yaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">TransformNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
     <span class="n">zaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">TransformNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span>
+    <span class="k">return</span> <span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span></div>
 
-</div>
+
+<div class="viewcode-block" id="getLookAtTransform"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.getLookAtTransform">[docs]</a><span class="k">def</span> <span class="nf">getLookAtTransform</span><span class="p">(</span><span class="n">lookAtPosition</span><span class="p">,</span> <span class="n">lookFromPosition</span><span class="p">,</span> <span class="n">viewUp</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]):</span>
+
+    <span class="n">xaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lookAtPosition</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lookFromPosition</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">xaxis</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-8</span><span class="p">:</span>
+        <span class="n">xaxis</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+    <span class="n">zaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">viewUp</span><span class="p">)</span>
+    <span class="n">xaxis</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">xaxis</span><span class="p">)</span>
+    <span class="n">zaxis</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">zaxis</span><span class="p">)</span>
+    <span class="n">yaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">zaxis</span><span class="p">,</span> <span class="n">xaxis</span><span class="p">)</span>
+    <span class="n">yaxis</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">yaxis</span><span class="p">)</span>
+    <span class="n">zaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">getTransformFromAxesAndOrigin</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">,</span> <span class="n">lookFromPosition</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="concatenateTransforms"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.concatenateTransforms">[docs]</a><span class="k">def</span> <span class="nf">concatenateTransforms</span><span class="p">(</span><span class="n">transformList</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Given a list of vtkTransform objects, returns a new vtkTransform</span>
@@ -203,9 +226,9 @@
     <span class="n">result</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">transformList</span><span class="p">:</span>
         <span class="n">result</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">result</span></div>
 
-</div>
+
 <div class="viewcode-block" id="findTransformAxis"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.findTransformAxis">[docs]</a><span class="k">def</span> <span class="nf">findTransformAxis</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">referenceVector</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Given a vtkTransform and a reference vector, find a +/- axis of the transform</span>
@@ -219,9 +242,9 @@
     <span class="n">matchIndex</span> <span class="o">=</span> <span class="n">axisProjections</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
     <span class="n">matchAxis</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">matchIndex</span><span class="p">]</span>
     <span class="n">matchSign</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">matchAxis</span><span class="p">,</span> <span class="n">refAxis</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">matchIndex</span><span class="p">,</span> <span class="n">matchAxis</span><span class="p">,</span> <span class="n">matchSign</span>
+    <span class="k">return</span> <span class="n">matchIndex</span><span class="p">,</span> <span class="n">matchAxis</span><span class="p">,</span> <span class="n">matchSign</span></div>
 
-</div>
+
 <div class="viewcode-block" id="getTransformFromOriginAndNormal"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.getTransformFromOriginAndNormal">[docs]</a><span class="k">def</span> <span class="nf">getTransformFromOriginAndNormal</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="n">normalAxis</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 
     <span class="n">normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">normal</span><span class="p">)</span>
@@ -237,9 +260,9 @@
     <span class="n">t</span> <span class="o">=</span> <span class="n">getTransformFromAxes</span><span class="p">(</span><span class="o">*</span><span class="n">axes</span><span class="p">)</span>
     <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
     <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">t</span>
+    <span class="k">return</span> <span class="n">t</span></div>
 
-</div>
+
 <div class="viewcode-block" id="orientationFromNormal"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.orientationFromNormal">[docs]</a><span class="k">def</span> <span class="nf">orientationFromNormal</span><span class="p">(</span><span class="n">normal</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Creates a frame where the Z axis points in the direction of the given normal.</span>
@@ -251,19 +274,19 @@
 
     <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMath</span><span class="o">.</span><span class="n">Perpendiculars</span><span class="p">(</span><span class="n">zaxis</span><span class="p">,</span> <span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">orientationFromAxes</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">orientationFromAxes</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="orientationFromAxes"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.orientationFromAxes">[docs]</a><span class="k">def</span> <span class="nf">orientationFromAxes</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">):</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">getTransformFromAxes</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">rollPitchYawFromTransform</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rollPitchYawFromTransform</span><span class="p">(</span><span class="n">t</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="rollPitchYawFromTransform"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.rollPitchYawFromTransform">[docs]</a><span class="k">def</span> <span class="nf">rollPitchYawFromTransform</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
     <span class="n">pos</span><span class="p">,</span> <span class="n">quat</span> <span class="o">=</span> <span class="n">poseFromTransform</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">quaternionToRollPitchYaw</span><span class="p">(</span><span class="n">quat</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">quaternionToRollPitchYaw</span><span class="p">(</span><span class="n">quat</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="frameInterpolate"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.frameInterpolate">[docs]</a><span class="k">def</span> <span class="nf">frameInterpolate</span><span class="p">(</span><span class="n">trans_a</span><span class="p">,</span> <span class="n">trans_b</span><span class="p">,</span> <span class="n">weight_b</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Interpolate two frames where weight_b=[0,1]</span>
@@ -271,99 +294,95 @@
     <span class="p">[</span><span class="n">pos_a</span><span class="p">,</span> <span class="n">quat_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">poseFromTransform</span><span class="p">(</span><span class="n">trans_a</span><span class="p">)</span>
     <span class="p">[</span><span class="n">pos_b</span><span class="p">,</span> <span class="n">quat_b</span><span class="p">]</span> <span class="o">=</span> <span class="n">poseFromTransform</span><span class="p">(</span><span class="n">trans_b</span><span class="p">)</span>
     <span class="n">pos_c</span> <span class="o">=</span> <span class="n">pos_a</span> <span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">weight_b</span><span class="p">)</span> <span class="o">+</span> <span class="n">pos_b</span> <span class="o">*</span> <span class="n">weight_b</span><span class="p">;</span>
-    <span class="n">quat_c</span> <span class="o">=</span> <span class="n">botpy</span><span class="o">.</span><span class="n">quat_interpolate</span><span class="p">(</span><span class="n">quat_a</span><span class="p">,</span><span class="n">quat_b</span><span class="p">,</span> <span class="n">weight_b</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">transformFromPose</span><span class="p">(</span><span class="n">pos_c</span><span class="p">,</span> <span class="n">quat_c</span><span class="p">)</span>
+    <span class="n">quat_c</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">quaternion_slerp</span><span class="p">(</span><span class="n">quat_a</span><span class="p">,</span> <span class="n">quat_b</span><span class="p">,</span> <span class="n">weight_b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">transformFromPose</span><span class="p">(</span><span class="n">pos_c</span><span class="p">,</span> <span class="n">quat_c</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="transformFromPose"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.transformFromPose">[docs]</a><span class="k">def</span> <span class="nf">transformFromPose</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">quaternion</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Returns a vtkTransform</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">rotationMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-    <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMath</span><span class="o">.</span><span class="n">QuaternionToMatrix3x3</span><span class="p">(</span><span class="n">quaternion</span><span class="p">,</span> <span class="n">rotationMatrix</span><span class="p">)</span>
-
-    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="n">mat</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">rotationMatrix</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">quaternion_matrix</span><span class="p">(</span><span class="n">quaternion</span><span class="p">)</span>
     <span class="n">mat</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">position</span>
+    <span class="k">return</span> <span class="n">getTransformFromNumpy</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span></div>
 
-    <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">SetMatrix</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">t</span>
 
-</div>
 <div class="viewcode-block" id="poseFromTransform"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.poseFromTransform">[docs]</a><span class="k">def</span> <span class="nf">poseFromTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Returns position, quaternion</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">angleAxis</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="n">transform</span><span class="o">.</span><span class="n">GetOrientationWXYZ</span><span class="p">(</span><span class="n">angleAxis</span><span class="p">)</span>
-    <span class="n">angleAxis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angleAxis</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">pos</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()</span>
-    <span class="n">quat</span> <span class="o">=</span> <span class="n">botpy</span><span class="o">.</span><span class="n">angle_axis_to_quat</span><span class="p">(</span><span class="n">angleAxis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">angleAxis</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pos</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">quat</span><span class="p">)</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">getNumpyFromTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mat</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]),</span> <span class="n">transformations</span><span class="o">.</span><span class="n">quaternion_from_matrix</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">isprecise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-</div>
 <div class="viewcode-block" id="frameFromPositionAndRPY"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.frameFromPositionAndRPY">[docs]</a><span class="k">def</span> <span class="nf">frameFromPositionAndRPY</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">rpy</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    rpy specified in degrees</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">rpy</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span> <span class="k">for</span> <span class="n">deg</span> <span class="ow">in</span> <span class="n">rpy</span><span class="p">]</span>
+    <span class="n">rpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">rpy</span><span class="p">)</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">euler_matrix</span><span class="p">(</span><span class="n">rpy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rpy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">rpy</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">mat</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">position</span>
+    <span class="k">return</span> <span class="n">getTransformFromNumpy</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span></div>
 
-    <span class="n">angle</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="n">botpy</span><span class="o">.</span><span class="n">roll_pitch_yaw_to_angle_axis</span><span class="p">(</span><span class="n">rpy</span><span class="p">)</span>
 
-    <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">RotateWXYZ</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">axis</span><span class="p">)</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">t</span>
-
-</div>
 <div class="viewcode-block" id="rollPitchYawToQuaternion"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.rollPitchYawToQuaternion">[docs]</a><span class="k">def</span> <span class="nf">rollPitchYawToQuaternion</span><span class="p">(</span><span class="n">rpy</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">botpy</span><span class="o">.</span><span class="n">roll_pitch_yaw_to_quat</span><span class="p">(</span><span class="n">rpy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">transformations</span><span class="o">.</span><span class="n">quaternion_from_euler</span><span class="p">(</span><span class="n">rpy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rpy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">rpy</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
 
-</div>
+
 <div class="viewcode-block" id="quaternionToRollPitchYaw"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.quaternionToRollPitchYaw">[docs]</a><span class="k">def</span> <span class="nf">quaternionToRollPitchYaw</span><span class="p">(</span><span class="n">quat</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">botpy</span><span class="o">.</span><span class="n">quat_to_roll_pitch_yaw</span><span class="p">(</span><span class="n">quat</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">transformations</span><span class="o">.</span><span class="n">euler_from_quaternion</span><span class="p">(</span><span class="n">quat</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="frameFromPositionMessage"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.frameFromPositionMessage">[docs]</a><span class="k">def</span> <span class="nf">frameFromPositionMessage</span><span class="p">(</span><span class="n">positionMessage</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Given an lcmdrc.position_t message, returns a vtkTransform</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">trans</span> <span class="o">=</span> <span class="n">positionMessage</span><span class="o">.</span><span class="n">translation</span>
-    <span class="n">quat</span> <span class="o">=</span> <span class="n">positionMessage</span><span class="o">.</span><span class="n">rotation</span>
 
-    <span class="n">trans</span> <span class="o">=</span> <span class="p">[</span><span class="n">trans</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">z</span><span class="p">]</span>
-    <span class="n">quat</span> <span class="o">=</span> <span class="p">[</span><span class="n">quat</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">quat</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">quat</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">quat</span><span class="o">.</span><span class="n">z</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">transformFromPose</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="n">quat</span><span class="p">)</span>
-
-</div>
-<div class="viewcode-block" id="positionMessageFromFrame"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.positionMessageFromFrame">[docs]</a><span class="k">def</span> <span class="nf">positionMessageFromFrame</span><span class="p">(</span><span class="n">transform</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Given a vtkTransform, returns an lcmdrc.position_t message</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="n">pos</span><span class="p">,</span> <span class="n">wxyz</span> <span class="o">=</span> <span class="n">poseFromTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
-
-    <span class="n">trans</span> <span class="o">=</span> <span class="n">lcmdrc</span><span class="o">.</span><span class="n">vector_3d_t</span><span class="p">()</span>
-    <span class="n">trans</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">pos</span>
-
-    <span class="n">quat</span> <span class="o">=</span> <span class="n">lcmdrc</span><span class="o">.</span><span class="n">quaternion_t</span><span class="p">()</span>
-    <span class="n">quat</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">quat</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">quat</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">quat</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">wxyz</span>
-
-    <span class="n">pose</span> <span class="o">=</span> <span class="n">lcmdrc</span><span class="o">.</span><span class="n">position_3d_t</span><span class="p">()</span>
-    <span class="n">pose</span><span class="o">.</span><span class="n">translation</span> <span class="o">=</span> <span class="n">trans</span>
-    <span class="n">pose</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">quat</span>
-    <span class="k">return</span> <span class="n">pose</span>
-
-</div>
 <div class="viewcode-block" id="copyFrame"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.copyFrame">[docs]</a><span class="k">def</span> <span class="nf">copyFrame</span><span class="p">(</span><span class="n">transform</span><span class="p">):</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
     <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
     <span class="n">t</span><span class="o">.</span><span class="n">SetMatrix</span><span class="p">(</span><span class="n">transform</span><span class="o">.</span><span class="n">GetMatrix</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">t</span></div>
+
+
+<div class="viewcode-block" id="forceMomentTransformation"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.forceMomentTransformation">[docs]</a><span class="k">def</span> <span class="nf">forceMomentTransformation</span><span class="p">(</span><span class="n">inputFrame</span><span class="p">,</span> <span class="n">outputFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Utility getting the force-moment transformation for converting wrenches from</span>
+<span class="sd">    one frame to another. Ff wrench is 6 x 1 (moment, force) expressed in input frame,</span>
+<span class="sd">    then corresponding wrench in output frame would be numpy.dot(FM, wrench) = wrench_in_output_frame.</span>
+<span class="sd">    :param inputFrame: A vtkTransform defining the input frame</span>
+<span class="sd">    :param outputFrame: A vtkTransform defining the output frame</span>
+<span class="sd">    :return: 4x4 matrix that transform a wrench from the input frame to the output frame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">FM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+    <span class="n">inputToOutputFrame</span> <span class="o">=</span> <span class="n">copyFrame</span><span class="p">(</span><span class="n">inputFrame</span><span class="p">)</span>
+    <span class="n">inputToOutputFrame</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
+    <span class="n">inputToOutputFrame</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">outputFrame</span><span class="o">.</span><span class="n">GetLinearInverse</span><span class="p">())</span>
+
+    <span class="n">position</span><span class="p">,</span> <span class="n">quaternion</span> <span class="o">=</span> <span class="n">poseFromTransform</span><span class="p">(</span><span class="n">inputToOutputFrame</span><span class="p">)</span>
+    <span class="n">inputToOutputRotationMatrix</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">quaternion_matrix</span><span class="p">(</span><span class="n">quaternion</span><span class="p">)[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">FM</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputToOutputRotationMatrix</span>
+    <span class="n">FM</span><span class="p">[</span><span class="mi">3</span><span class="p">:,</span><span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="n">inputToOutputRotationMatrix</span>
+    <span class="n">cross</span> <span class="o">=</span> <span class="n">crossProductMatrix</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+    <span class="n">FM</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cross</span><span class="p">,</span><span class="n">inputToOutputRotationMatrix</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">FM</span></div>
+
+<div class="viewcode-block" id="crossProductMatrix"><a class="viewcode-back" href="../../generated/director.transformUtils.html#director.transformUtils.crossProductMatrix">[docs]</a><span class="k">def</span> <span class="nf">crossProductMatrix</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the matrix P such that P*y = cross product of x and y</span>
+<span class="sd">    :param x:</span>
+<span class="sd">    :return: P, a 3x3 matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cross</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">cross</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">cross</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cross</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">cross</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">cross</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cross</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">cross</span></div>
+
+
 </pre></div>
 
            </div>

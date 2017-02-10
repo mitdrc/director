@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="director package" href="director.html"/>
         <link rel="next" title="director.atlasdriverpanel module" href="director.atlasdriverpanel.html"/>
@@ -81,7 +84,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="director.html#subpackages">Subpackages</a></li>
@@ -93,8 +97,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.asynctaskqueue.html">director.asynctaskqueue module</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="">director.atlasdriver module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">director.atlasdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriverpanel.html">director.atlasdriverpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.bihandeddemo.html">director.bihandeddemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.blackoutmonitor.html">director.blackoutmonitor module</a></li>
@@ -102,8 +108,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.callbacks.html">director.callbacks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.camerabookmarks.html">director.camerabookmarks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameracontrol.html">director.cameracontrol module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameracontrolpanel.html">director.cameracontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameraview.html">director.cameraview module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.colorize.html">director.colorize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.componentgraph.html">director.componentgraph module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.consoleapp.html">director.consoleapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.continuouswalkingdemo.html">director.continuouswalkingdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.copmonitor.html">director.copmonitor module</a></li>
@@ -111,8 +119,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.debrisdemo.html">director.debrisdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.debugVis.html">director.debugVis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.depthimageprovider.html">director.depthimageprovider module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.depthscanner.html">director.depthscanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.doordemo.html">director.doordemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drakevisualizer.html">director.drakevisualizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drakevisualizerapp.html">director.drakevisualizerapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drcargs.html">director.drcargs module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drilldemo.html">director.drilldemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drivingplanner.html">director.drivingplanner module</a></li>
@@ -127,47 +137,62 @@
 <li class="toctree-l4"><a class="reference internal" href="director.geometryencoder.html">director.geometryencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handcontrolpanel.html">director.handcontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handdriver.html">director.handdriver module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.ik.html">director.ik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraintencoder.html">director.ikconstraintencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraints.html">director.ikconstraints module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikparameters.html">director.ikparameters module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikplanner.html">director.ikplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageview.html">director.imageview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageviewapp.html">director.imageviewapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ioUtils.html">director.ioUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisUtils.html">director.irisUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisdriver.html">director.irisdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointcontrol.html">director.jointcontrol module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointpropagator.html">director.jointpropagator module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.kinectlcm.html">director.kinectlcm module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.kinematicposeplanner.html">director.kinematicposeplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.korgnano.html">director.korgnano module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmUtils.html">director.lcmUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmcollections.html">director.lcmcollections module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingdemo.html">director.mappingdemo module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingpanel.html">director.mappingpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.mainwindowapp.html">director.mainwindowapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.mapsregistrar.html">director.mapsregistrar module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.matlab.html">director.matlab module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.matlabik.html">director.matlabik module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.measurementpanel.html">director.measurementpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.meshmanager.html">director.meshmanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.midi.html">director.midi module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.motionplanningpanel.html">director.motionplanningpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.multisensepanel.html">director.multisensepanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.navigationpanel.html">director.navigationpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.perception.html">director.perception module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.plannerPublisher.html">director.plannerPublisher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.planningutils.html">director.planningutils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.planplayback.html">director.planplayback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.playbackpanel.html">director.playbackpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointcloudlcm.html">director.pointcloudlcm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointpicker.html">director.pointpicker module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.polarisplatformplanner.html">director.polarisplatformplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.propertyanimation.html">director.propertyanimation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.propertyset.html">director.propertyset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pydrakeik.html">director.pydrakeik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.raycastdriver.html">director.raycastdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotlinkselector.html">director.robotlinkselector module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotplanlistener.html">director.robotplanlistener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotposegui.html">director.robotposegui module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotstate.html">director.robotstate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotsystem.html">director.robotsystem module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.roboturdf.html">director.roboturdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotviewbehaviors.html">director.robotviewbehaviors module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.sceneloader.html">director.sceneloader module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.screengrabberpanel.html">director.screengrabberpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.segmentation.html">director.segmentation module</a></li>
@@ -184,7 +209,6 @@
 <li class="toctree-l4"><a class="reference internal" href="director.statelistener.html">director.statelistener module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.surprisetask.html">director.surprisetask module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.switchplanner.html">director.switchplanner module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.tabledemo.html">director.tabledemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.takktilevis.html">director.takktilevis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tasklaunchpanel.html">director.tasklaunchpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tdx.html">director.tdx module</a></li>
@@ -195,10 +219,17 @@
 <li class="toctree-l4"><a class="reference internal" href="director.timercallback.html">director.timercallback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.trackers.html">director.trackers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.transformUtils.html">director.transformUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.treeviewer.html">director.treeviewer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.uipanel.html">director.uipanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.utime.html">director.utime module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.uuidutil.html">director.uuidutil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.valvedemo.html">director.valvedemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.version.html">director.version module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viconvisualizer.html">director.viconvisualizer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.viewbehaviors.html">director.viewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewcolors.html">director.viewcolors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewerclient.html">director.viewerclient module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vieweventfilter.html">director.vieweventfilter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.visualization.html">director.visualization module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkAll.html">director.vtkAll module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkNumpy.html">director.vtkNumpy module</a></li>
@@ -233,7 +264,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -257,309 +288,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-director.atlasdriver">
-<span id="director-atlasdriver-module"></span><h1>director.atlasdriver module<a class="headerlink" href="#module-director.atlasdriver" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="director.atlasdriver.AtlasDriver">
-<em class="property">class </em><code class="descclassname">director.atlasdriver.</code><code class="descname">AtlasDriver</code><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getBatteryChargeRemaining">
-<code class="descname">getBatteryChargeRemaining</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getBatteryChargeRemaining"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getBatteryChargeRemaining" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getBatteryTemperature">
-<code class="descname">getBatteryTemperature</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getBatteryTemperature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getBatteryTemperature" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getBatteryVoltage">
-<code class="descname">getBatteryVoltage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getBatteryVoltage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getBatteryVoltage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getBehaviorMap">
-<code class="descname">getBehaviorMap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getBehaviorMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getBehaviorMap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dict that maps behavior ids (int) to behavior names (string).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getBracingEnabledStatus">
-<code class="descname">getBracingEnabledStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getBracingEnabledStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getBracingEnabledStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getControllerRate">
-<code class="descname">getControllerRate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getControllerRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getControllerRate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the current controller rate hz or None if no controller rate
-message has been received.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getControllerStatus">
-<code class="descname">getControllerStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getControllerStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getControllerStatus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the current controller status as a string.  The possible string
-values are the values of the dict returned by getControllerStatusMap().
-None is returned if no controller status message has been received or
-the status is not among those handled by this driver.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getControllerStatusMap">
-<code class="descname">getControllerStatusMap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getControllerStatusMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getControllerStatusMap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dict that maps controller status ids (int) to names (string).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getCurrentAirSumpPressure">
-<code class="descname">getCurrentAirSumpPressure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getCurrentAirSumpPressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getCurrentAirSumpPressure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getCurrentBehaviorName">
-<code class="descname">getCurrentBehaviorName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getCurrentBehaviorName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getCurrentBehaviorName" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the current behavior name as a string.  Returns None if the
-current behavior is unknown.  The current behavior is unknown if no
-atlas status messages have arrived since this class was initialized.
-The returned string is one of the behavior names in the values of
-the behavior map returned by getBehaviorMap().</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getCurrentInletPressure">
-<code class="descname">getCurrentInletPressure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getCurrentInletPressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getCurrentInletPressure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getCurrentPumpRpm">
-<code class="descname">getCurrentPumpRpm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getCurrentPumpRpm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getCurrentPumpRpm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getCurrentReturnPressure">
-<code class="descname">getCurrentReturnPressure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getCurrentReturnPressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getCurrentReturnPressure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getCurrentSupplyPressure">
-<code class="descname">getCurrentSupplyPressure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getCurrentSupplyPressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getCurrentSupplyPressure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getElectricArmDriveCurrent">
-<code class="descname">getElectricArmDriveCurrent</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getElectricArmDriveCurrent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getElectricArmDriveCurrent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getElectricArmEnabledStatus">
-<code class="descname">getElectricArmEnabledStatus</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getElectricArmEnabledStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getElectricArmEnabledStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getElectricArmTemperature">
-<code class="descname">getElectricArmTemperature</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getElectricArmTemperature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getElectricArmTemperature" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getMaxActuatorPressure">
-<code class="descname">getMaxActuatorPressure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getMaxActuatorPressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getMaxActuatorPressure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getPelvisHeightLimits">
-<code class="descname">getPelvisHeightLimits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getPelvisHeightLimits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getPelvisHeightLimits" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns pelvis height limits in meters: min, max</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.getRecoveryEnabledStatus">
-<code class="descname">getRecoveryEnabledStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.getRecoveryEnabledStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.getRecoveryEnabledStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.onAtlasBatteryData">
-<code class="descname">onAtlasBatteryData</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.onAtlasBatteryData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.onAtlasBatteryData" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.onAtlasElectricArmStatus">
-<code class="descname">onAtlasElectricArmStatus</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.onAtlasElectricArmStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.onAtlasElectricArmStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.onAtlasStateExtra">
-<code class="descname">onAtlasStateExtra</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.onAtlasStateExtra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.onAtlasStateExtra" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.onAtlasStatus">
-<code class="descname">onAtlasStatus</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.onAtlasStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.onAtlasStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.onControllerRate">
-<code class="descname">onControllerRate</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.onControllerRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.onControllerRate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.onControllerStatus">
-<code class="descname">onControllerStatus</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.onControllerStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.onControllerStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendBehaviorCommand">
-<code class="descname">sendBehaviorCommand</code><span class="sig-paren">(</span><em>behaviorName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendBehaviorCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendBehaviorCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendBracingDisable">
-<code class="descname">sendBracingDisable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendBracingDisable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendBracingDisable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendBracingEnable">
-<code class="descname">sendBracingEnable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendBracingEnable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendBracingEnable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendCalibrateElectricArmsCommand">
-<code class="descname">sendCalibrateElectricArmsCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendCalibrateElectricArmsCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendCalibrateElectricArmsCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendCalibrateElectricArmsFreezeCommand">
-<code class="descname">sendCalibrateElectricArmsFreezeCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendCalibrateElectricArmsFreezeCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendCalibrateElectricArmsFreezeCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendCalibrateEncodersCommand">
-<code class="descname">sendCalibrateEncodersCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendCalibrateEncodersCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendCalibrateEncodersCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendCalibrateNullBiasCommand">
-<code class="descname">sendCalibrateNullBiasCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendCalibrateNullBiasCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendCalibrateNullBiasCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendCombinedStandCommand">
-<code class="descname">sendCombinedStandCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendCombinedStandCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendCombinedStandCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendDesiredPumpPsi">
-<code class="descname">sendDesiredPumpPsi</code><span class="sig-paren">(</span><em>desiredPsi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendDesiredPumpPsi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendDesiredPumpPsi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendElectricArmEnabledState">
-<code class="descname">sendElectricArmEnabledState</code><span class="sig-paren">(</span><em>enabledState</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendElectricArmEnabledState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendElectricArmEnabledState" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendFreezeCommand">
-<code class="descname">sendFreezeCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendFreezeCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendFreezeCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendInitAtZero">
-<code class="descname">sendInitAtZero</code><span class="sig-paren">(</span><em>randomize=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendInitAtZero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendInitAtZero" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendInitMessage">
-<code class="descname">sendInitMessage</code><span class="sig-paren">(</span><em>pos</em>, <em>yaw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendInitMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendInitMessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendMITStandCommand">
-<code class="descname">sendMITStandCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendMITStandCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendMITStandCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendManipCommand">
-<code class="descname">sendManipCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendManipCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendManipCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendPelvisHeightCommand">
-<code class="descname">sendPelvisHeightCommand</code><span class="sig-paren">(</span><em>height</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendPelvisHeightCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendPelvisHeightCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendPlanUsingBdiHeight">
-<code class="descname">sendPlanUsingBdiHeight</code><span class="sig-paren">(</span><em>enabled</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendPlanUsingBdiHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendPlanUsingBdiHeight" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendPrepCommand">
-<code class="descname">sendPrepCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendPrepCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendPrepCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendReadyMessage">
-<code class="descname">sendReadyMessage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendReadyMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendReadyMessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendRecoveryDisable">
-<code class="descname">sendRecoveryDisable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendRecoveryDisable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendRecoveryDisable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendRecoveryEnable">
-<code class="descname">sendRecoveryEnable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendRecoveryEnable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendRecoveryEnable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendRecoveryTriggerOff">
-<code class="descname">sendRecoveryTriggerOff</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendRecoveryTriggerOff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendRecoveryTriggerOff" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendRecoveryTriggerOn">
-<code class="descname">sendRecoveryTriggerOn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendRecoveryTriggerOn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendRecoveryTriggerOn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendStandCommand">
-<code class="descname">sendStandCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendStandCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendStandCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendStopCommand">
-<code class="descname">sendStopCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendStopCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendStopCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.sendUserCommand">
-<code class="descname">sendUserCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.sendUserCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.sendUserCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.atlasdriver.AtlasDriver.updateCombinedStandLogic">
-<code class="descname">updateCombinedStandLogic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#AtlasDriver.updateCombinedStandLogic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.AtlasDriver.updateCombinedStandLogic" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.atlasdriver.SystemStatusListener">
-<em class="property">class </em><code class="descclassname">director.atlasdriver.</code><code class="descname">SystemStatusListener</code><span class="sig-paren">(</span><em>outputConsole</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#SystemStatusListener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.SystemStatusListener" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.atlasdriver.SystemStatusListener.onSystemStatus">
-<code class="descname">onSystemStatus</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#SystemStatusListener.onSystemStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.SystemStatusListener.onSystemStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="director.atlasdriver.init">
-<code class="descclassname">director.atlasdriver.</code><code class="descname">init</code><span class="sig-paren">(</span><em>outputConsole=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/atlasdriver.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.atlasdriver.init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+  <div class="section" id="director-atlasdriver-module">
+<h1>director.atlasdriver module<a class="headerlink" href="#director-atlasdriver-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

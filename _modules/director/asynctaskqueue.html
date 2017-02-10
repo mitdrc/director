@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,30 +132,30 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.asynctaskqueue</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">types</span>
+<span></span><span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
-<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="kn">import</span> <span class="n">TimerCallback</span>
-<span class="kn">from</span> <span class="nn">director.simpletimer</span> <span class="kn">import</span> <span class="n">SimpleTimer</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">callbacks</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="k">import</span> <span class="n">TimerCallback</span>
+<span class="kn">from</span> <span class="nn">director.simpletimer</span> <span class="k">import</span> <span class="n">SimpleTimer</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">callbacks</span>
 
 
 <div class="viewcode-block" id="AsyncTaskQueue"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue">[docs]</a><span class="k">class</span> <span class="nc">AsyncTaskQueue</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="n">QUEUE_STARTED_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;QUEUE_STARTED_SIGNAL&#39;</span>
-    <span class="n">QUEUE_STOPPED_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;QUEUE_STOPPED_SIGNAL&#39;</span>
-    <span class="n">TASK_STARTED_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;TASK_STARTED_SIGNAL&#39;</span>
-    <span class="n">TASK_ENDED_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;TASK_ENDED_SIGNAL&#39;</span>
-    <span class="n">TASK_PAUSED_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;TASK_PAUSED_SIGNAL&#39;</span>
-    <span class="n">TASK_FAILED_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;TASK_FAILED_SIGNAL&#39;</span>
-    <span class="n">TASK_EXCEPTION_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;TASK_EXCEPTION_SIGNAL&#39;</span>
+    <span class="n">QUEUE_STARTED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;QUEUE_STARTED_SIGNAL&#39;</span>
+    <span class="n">QUEUE_STOPPED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;QUEUE_STOPPED_SIGNAL&#39;</span>
+    <span class="n">TASK_STARTED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;TASK_STARTED_SIGNAL&#39;</span>
+    <span class="n">TASK_ENDED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;TASK_ENDED_SIGNAL&#39;</span>
+    <span class="n">TASK_PAUSED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;TASK_PAUSED_SIGNAL&#39;</span>
+    <span class="n">TASK_FAILED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;TASK_FAILED_SIGNAL&#39;</span>
+    <span class="n">TASK_EXCEPTION_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;TASK_EXCEPTION_SIGNAL&#39;</span>
 
 <div class="viewcode-block" id="AsyncTaskQueue.PauseException"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.PauseException">[docs]</a>    <span class="k">class</span> <span class="nc">PauseException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-        <span class="k">pass</span>
-</div>
+        <span class="k">pass</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.FailException"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.FailException">[docs]</a>    <span class="k">class</span> <span class="nc">FailException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-        <span class="k">pass</span>
-</div>
+        <span class="k">pass</span></div>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generators</span> <span class="o">=</span> <span class="p">[]</span>
@@ -164,43 +168,43 @@
                                                      <span class="bp">self</span><span class="o">.</span><span class="n">TASK_PAUSED_SIGNAL</span><span class="p">,</span>
                                                      <span class="bp">self</span><span class="o">.</span><span class="n">TASK_FAILED_SIGNAL</span><span class="p">,</span>
                                                      <span class="bp">self</span><span class="o">.</span><span class="n">TASK_EXCEPTION_SIGNAL</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="AsyncTaskQueue.reset"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">generators</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.start"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_STARTED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.stop"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generators</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_STOPPED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_STOPPED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.wrapGenerator"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.wrapGenerator">[docs]</a>    <span class="k">def</span> <span class="nf">wrapGenerator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">generatorWrapper</span><span class="p">():</span>
             <span class="k">return</span> <span class="n">generator</span>
-        <span class="k">return</span> <span class="n">generatorWrapper</span>
-</div>
+        <span class="k">return</span> <span class="n">generatorWrapper</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.addTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.addTask">[docs]</a>    <span class="k">def</span> <span class="nf">addTask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">GeneratorType</span><span class="p">):</span>
             <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapGenerator</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
 
-        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="s">&#39;__call__&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
-</div>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="s1">&#39;__call__&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.callbackLoop"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.callbackLoop">[docs]</a>    <span class="k">def</span> <span class="nf">callbackLoop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">doWork</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
@@ -219,27 +223,27 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
             <span class="k">raise</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.popTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.popTask">[docs]</a>    <span class="k">def</span> <span class="nf">popTask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isRunning</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.completePreviousTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.completePreviousTask">[docs]</a>    <span class="k">def</span> <span class="nf">completePreviousTask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_ENDED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span> <span class="o">=</span> <span class="bp">None</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span> <span class="o">=</span> <span class="kc">None</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.startNextTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.startNextTask">[docs]</a>    <span class="k">def</span> <span class="nf">startNextTask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_STARTED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">GeneratorType</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.doWork"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.doWork">[docs]</a>    <span class="k">def</span> <span class="nf">doWork</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generators</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">handleGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generators</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -247,8 +251,8 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentTask</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">completePreviousTask</span><span class="p">()</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">startNextTask</span><span class="p">()</span>
-</div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">startNextTask</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="AsyncTaskQueue.handleGenerator"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.handleGenerator">[docs]</a>    <span class="k">def</span> <span class="nf">handleGenerator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
@@ -256,77 +260,77 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">generator</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">GeneratorType</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.connectQueueStarted"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectQueueStarted">[docs]</a>    <span class="k">def</span> <span class="nf">connectQueueStarted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_STARTED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.disconnectQueueStarted"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectQueueStarted">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectQueueStarted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.connectQueueStopped"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectQueueStopped">[docs]</a>    <span class="k">def</span> <span class="nf">connectQueueStopped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_STOPPED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.disconnectQueueStopped"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectQueueStopped">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectQueueStopped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.connectTaskStarted"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskStarted">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskStarted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_STARTED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskStarted"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskStarted">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskStarted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.connectTaskEnded"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskEnded">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskEnded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_ENDED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskEnded"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskEnded">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskEnded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.connectTaskPaused"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskPaused">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskPaused</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_PAUSED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskPaused"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskPaused">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskPaused</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.connectTaskFailed"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskFailed">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskFailed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_FAILED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskFailed"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskFailed">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskFailed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.connectTaskException"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskException">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskException</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_EXCEPTION_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskException"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskException">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskException</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span></div>
 
-</div></div>
+<div class="viewcode-block" id="AsyncTaskQueue.connectQueueStarted"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectQueueStarted">[docs]</a>    <span class="k">def</span> <span class="nf">connectQueueStarted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_STARTED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.disconnectQueueStarted"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectQueueStarted">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectQueueStarted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.connectQueueStopped"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectQueueStopped">[docs]</a>    <span class="k">def</span> <span class="nf">connectQueueStopped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_STOPPED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.disconnectQueueStopped"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectQueueStopped">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectQueueStopped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.connectTaskStarted"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskStarted">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskStarted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_STARTED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskStarted"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskStarted">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskStarted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.connectTaskEnded"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskEnded">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskEnded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_ENDED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskEnded"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskEnded">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskEnded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.connectTaskPaused"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskPaused">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskPaused</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_PAUSED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskPaused"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskPaused">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskPaused</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.connectTaskFailed"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskFailed">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskFailed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_FAILED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskFailed"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskFailed">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskFailed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.connectTaskException"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.connectTaskException">[docs]</a>    <span class="k">def</span> <span class="nf">connectTaskException</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TASK_EXCEPTION_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AsyncTaskQueue.disconnectTaskException"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTaskQueue.disconnectTaskException">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectTaskException</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div></div>
+
+
 <div class="viewcode-block" id="AsyncTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTask">[docs]</a><span class="k">class</span> <span class="nc">AsyncTask</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="AsyncTask.getStatus"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.AsyncTask.getStatus">[docs]</a>    <span class="k">def</span> <span class="nf">getStatus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;none&#39;</span>
-</div>
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+        <span class="k">return</span> <span class="s1">&#39;none&#39;</span></div>
 
-</div>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+
 <div class="viewcode-block" id="PrintTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.PrintTask">[docs]</a><span class="k">class</span> <span class="nc">PrintTask</span><span class="p">(</span><span class="n">AsyncTask</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span>
+        <span class="nb">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span></div>
 
-</div>
+
 <div class="viewcode-block" id="UserPromptTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.UserPromptTask">[docs]</a><span class="k">class</span> <span class="nc">UserPromptTask</span><span class="p">(</span><span class="n">AsyncTask</span><span class="p">):</span>
 
-    <span class="n">promptsEnabled</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">promptsEnabled</span> <span class="o">=</span> <span class="kc">True</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">testingValue</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">testingValue</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="o">=</span> <span class="n">force</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">testingValue</span> <span class="o">=</span> <span class="n">testingValue</span>
@@ -336,27 +340,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QDialog</span><span class="p">()</span>
 
         <span class="n">buttons</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="p">()</span>
-        <span class="n">buttons</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="s">&#39;Yes&#39;</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">AcceptRole</span><span class="p">)</span>
-        <span class="n">buttons</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="s">&#39;No&#39;</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">RejectRole</span><span class="p">)</span>
-        <span class="n">buttons</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;accepted()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
-        <span class="n">buttons</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;rejected()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+        <span class="n">buttons</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">AcceptRole</span><span class="p">)</span>
+        <span class="n">buttons</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">RejectRole</span><span class="p">)</span>
+        <span class="n">buttons</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;accepted()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">buttons</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;rejected()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
 
         <span class="n">l</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
         <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
         <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">buttons</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">WA_QuitOnClose</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">WA_QuitOnClose</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;accepted()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onYes</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;rejected()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onNo</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;accepted()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onYes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;rejected()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onNo</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="UserPromptTask.onYes"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.UserPromptTask.onYes">[docs]</a>    <span class="k">def</span> <span class="nf">onYes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="UserPromptTask.onNo"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.UserPromptTask.onNo">[docs]</a>    <span class="k">def</span> <span class="nf">onNo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="bp">False</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="kc">False</span></div>
+
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">promptsEnabled</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span><span class="p">:</span>
@@ -364,19 +368,19 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">showDialog</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">testingValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">testingValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">testingValue</span>
 
-        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">yield</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">AsyncTaskQueue</span><span class="o">.</span><span class="n">PauseException</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="n">AsyncTaskQueue</span><span class="o">.</span><span class="n">PauseException</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="DelayTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.DelayTask">[docs]</a><span class="k">class</span> <span class="nc">DelayTask</span><span class="p">(</span><span class="n">AsyncTask</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delayTimeInSeconds</span><span class="p">):</span>
@@ -386,18 +390,18 @@
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">SimpleTimer</span><span class="p">()</span>
         <span class="k">while</span> <span class="n">t</span><span class="o">.</span><span class="n">elapsed</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">delayTimeInSeconds</span><span class="p">:</span>
-            <span class="k">yield</span>
+            <span class="k">yield</span></div>
 
-</div>
+
 <div class="viewcode-block" id="PauseTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.PauseTask">[docs]</a><span class="k">class</span> <span class="nc">PauseTask</span><span class="p">(</span><span class="n">AsyncTask</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">AsyncTaskQueue</span><span class="o">.</span><span class="n">PauseException</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="n">AsyncTaskQueue</span><span class="o">.</span><span class="n">PauseException</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="QuitTask"><a class="viewcode-back" href="../../generated/director.asynctaskqueue.html#director.asynctaskqueue.QuitTask">[docs]</a><span class="k">class</span> <span class="nc">QuitTask</span><span class="p">(</span><span class="n">AsyncTask</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

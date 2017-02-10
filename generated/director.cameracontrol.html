@@ -30,9 +30,12 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="director package" href="director.html"/>
-        <link rel="next" title="director.cameraview module" href="director.cameraview.html"/>
+        <link rel="next" title="director.cameracontrolpanel module" href="director.cameracontrolpanel.html"/>
         <link rel="prev" title="director.camerabookmarks module" href="director.camerabookmarks.html"/> 
 
   
@@ -81,7 +84,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="director.html#subpackages">Subpackages</a></li>
@@ -93,6 +97,8 @@
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.asynctaskqueue.html">director.asynctaskqueue module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriver.html">director.atlasdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriverpanel.html">director.atlasdriverpanel module</a></li>
@@ -101,9 +107,11 @@
 <li class="toctree-l4"><a class="reference internal" href="director.botspy.html">director.botspy module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.callbacks.html">director.callbacks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.camerabookmarks.html">director.camerabookmarks module</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="">director.cameracontrol module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">director.cameracontrol module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameracontrolpanel.html">director.cameracontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameraview.html">director.cameraview module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.colorize.html">director.colorize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.componentgraph.html">director.componentgraph module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.consoleapp.html">director.consoleapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.continuouswalkingdemo.html">director.continuouswalkingdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.copmonitor.html">director.copmonitor module</a></li>
@@ -111,8 +119,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.debrisdemo.html">director.debrisdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.debugVis.html">director.debugVis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.depthimageprovider.html">director.depthimageprovider module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.depthscanner.html">director.depthscanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.doordemo.html">director.doordemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drakevisualizer.html">director.drakevisualizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drakevisualizerapp.html">director.drakevisualizerapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drcargs.html">director.drcargs module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drilldemo.html">director.drilldemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drivingplanner.html">director.drivingplanner module</a></li>
@@ -127,47 +137,62 @@
 <li class="toctree-l4"><a class="reference internal" href="director.geometryencoder.html">director.geometryencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handcontrolpanel.html">director.handcontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handdriver.html">director.handdriver module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.ik.html">director.ik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraintencoder.html">director.ikconstraintencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraints.html">director.ikconstraints module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikparameters.html">director.ikparameters module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikplanner.html">director.ikplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageview.html">director.imageview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageviewapp.html">director.imageviewapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ioUtils.html">director.ioUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisUtils.html">director.irisUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisdriver.html">director.irisdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointcontrol.html">director.jointcontrol module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointpropagator.html">director.jointpropagator module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.kinectlcm.html">director.kinectlcm module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.kinematicposeplanner.html">director.kinematicposeplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.korgnano.html">director.korgnano module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmUtils.html">director.lcmUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmcollections.html">director.lcmcollections module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingdemo.html">director.mappingdemo module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingpanel.html">director.mappingpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.mainwindowapp.html">director.mainwindowapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.mapsregistrar.html">director.mapsregistrar module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.matlab.html">director.matlab module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.matlabik.html">director.matlabik module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.measurementpanel.html">director.measurementpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.meshmanager.html">director.meshmanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.midi.html">director.midi module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.motionplanningpanel.html">director.motionplanningpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.multisensepanel.html">director.multisensepanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.navigationpanel.html">director.navigationpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.perception.html">director.perception module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.plannerPublisher.html">director.plannerPublisher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.planningutils.html">director.planningutils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.planplayback.html">director.planplayback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.playbackpanel.html">director.playbackpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointcloudlcm.html">director.pointcloudlcm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointpicker.html">director.pointpicker module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.polarisplatformplanner.html">director.polarisplatformplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.propertyanimation.html">director.propertyanimation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.propertyset.html">director.propertyset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pydrakeik.html">director.pydrakeik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.raycastdriver.html">director.raycastdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotlinkselector.html">director.robotlinkselector module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotplanlistener.html">director.robotplanlistener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotposegui.html">director.robotposegui module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotstate.html">director.robotstate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotsystem.html">director.robotsystem module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.roboturdf.html">director.roboturdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotviewbehaviors.html">director.robotviewbehaviors module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.sceneloader.html">director.sceneloader module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.screengrabberpanel.html">director.screengrabberpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.segmentation.html">director.segmentation module</a></li>
@@ -184,7 +209,6 @@
 <li class="toctree-l4"><a class="reference internal" href="director.statelistener.html">director.statelistener module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.surprisetask.html">director.surprisetask module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.switchplanner.html">director.switchplanner module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.tabledemo.html">director.tabledemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.takktilevis.html">director.takktilevis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tasklaunchpanel.html">director.tasklaunchpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tdx.html">director.tdx module</a></li>
@@ -195,10 +219,17 @@
 <li class="toctree-l4"><a class="reference internal" href="director.timercallback.html">director.timercallback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.trackers.html">director.trackers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.transformUtils.html">director.transformUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.treeviewer.html">director.treeviewer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.uipanel.html">director.uipanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.utime.html">director.utime module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.uuidutil.html">director.uuidutil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.valvedemo.html">director.valvedemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.version.html">director.version module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viconvisualizer.html">director.viconvisualizer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.viewbehaviors.html">director.viewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewcolors.html">director.viewcolors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewerclient.html">director.viewerclient module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vieweventfilter.html">director.vieweventfilter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.visualization.html">director.visualization module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkAll.html">director.vtkAll module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkNumpy.html">director.vtkNumpy module</a></li>
@@ -233,7 +264,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -260,6 +291,150 @@
   <div class="section" id="module-director.cameracontrol">
 <span id="director-cameracontrol-module"></span><h1>director.cameracontrol module<a class="headerlink" href="#module-director.cameracontrol" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
+<dt id="director.cameracontrol.CameraTracker">
+<em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">CameraTracker</code><span class="sig-paren">(</span><em>view</em>, <em>targetFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.getCameraToTargetTransform">
+<code class="descname">getCameraToTargetTransform</code><span class="sig-paren">(</span><em>targetFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.getCameraToTargetTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.getCameraToTargetTransform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.getCameraTransform">
+<code class="descname">getCameraTransform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.getCameraTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.getCameraTransform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.getMinimumUpdateRate">
+<code class="descname">getMinimumUpdateRate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.getMinimumUpdateRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.getMinimumUpdateRate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.getProperties">
+<code class="descname">getProperties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.getProperties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.getProperties" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.getTargetPose">
+<code class="descname">getTargetPose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.getTargetPose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.getTargetPose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.getTargetPosition">
+<code class="descname">getTargetPosition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.getTargetPosition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.getTargetPosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.getTargetQuaternion">
+<code class="descname">getTargetQuaternion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.getTargetQuaternion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.getTargetQuaternion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.onAction">
+<code class="descname">onAction</code><span class="sig-paren">(</span><em>actionName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.onAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.onAction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.onPropertyChanged">
+<code class="descname">onPropertyChanged</code><span class="sig-paren">(</span><em>propertySet</em>, <em>propertyName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.onPropertyChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.onPropertyChanged" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.setCameraFocalPointToTarget">
+<code class="descname">setCameraFocalPointToTarget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.setCameraFocalPointToTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.setCameraFocalPointToTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTracker.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTracker.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="director.cameracontrol.CameraTrackerManager">
+<em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">CameraTrackerManager</code><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.addTrackers">
+<code class="descname">addTrackers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.addTrackers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.addTrackers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.disableActiveTracker">
+<code class="descname">disableActiveTracker</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.disableActiveTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.disableActiveTracker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.getModeActions">
+<code class="descname">getModeActions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.getModeActions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.getModeActions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.getModeProperties">
+<code class="descname">getModeProperties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.getModeProperties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.getModeProperties" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.initTracker">
+<code class="descname">initTracker</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.initTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.initTracker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.onModeAction">
+<code class="descname">onModeAction</code><span class="sig-paren">(</span><em>actionName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.onModeAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.onModeAction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.onTargetFrameModified">
+<code class="descname">onTargetFrameModified</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.onTargetFrameModified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.onTargetFrameModified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.setTarget">
+<code class="descname">setTarget</code><span class="sig-paren">(</span><em>target</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.setTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.setTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>target should be an instance of TargetFrameConverter or
+any object that provides a method getTargetFrame().</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.setTrackerMode">
+<code class="descname">setTrackerMode</code><span class="sig-paren">(</span><em>modeName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.setTrackerMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.setTrackerMode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.setView">
+<code class="descname">setView</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.setView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.setView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.CameraTrackerManager.updateTimer">
+<code class="descname">updateTimer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#CameraTrackerManager.updateTimer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.CameraTrackerManager.updateTimer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="director.cameracontrol.Flyer">
 <em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">Flyer</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#Flyer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.Flyer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="director.timercallback.html#director.timercallback.TimerCallback" title="director.timercallback.TimerCallback"><code class="xref py py-class docutils literal"><span class="pre">director.timercallback.TimerCallback</span></code></a></p>
@@ -281,12 +456,96 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="director.cameracontrol.LookAtTracker">
+<em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">LookAtTracker</code><span class="sig-paren">(</span><em>view</em>, <em>targetFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#LookAtTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.LookAtTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#director.cameracontrol.CameraTracker" title="director.cameracontrol.CameraTracker"><code class="xref py py-class docutils literal"><span class="pre">director.cameracontrol.CameraTracker</span></code></a></p>
+<dl class="method">
+<dt id="director.cameracontrol.LookAtTracker.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#LookAtTracker.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.LookAtTracker.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.LookAtTracker.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#LookAtTracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.LookAtTracker.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="director.cameracontrol.OrbitController">
 <em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">OrbitController</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#OrbitController"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.OrbitController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="director.timercallback.html#director.timercallback.TimerCallback" title="director.timercallback.TimerCallback"><code class="xref py py-class docutils literal"><span class="pre">director.timercallback.TimerCallback</span></code></a></p>
 <dl class="method">
 <dt id="director.cameracontrol.OrbitController.tick">
 <code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#OrbitController.tick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.OrbitController.tick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="director.cameracontrol.OrbitTracker">
+<em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">OrbitTracker</code><span class="sig-paren">(</span><em>view</em>, <em>targetFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#OrbitTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.OrbitTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#director.cameracontrol.PositionTracker" title="director.cameracontrol.PositionTracker"><code class="xref py py-class docutils literal"><span class="pre">director.cameracontrol.PositionTracker</span></code></a></p>
+<dl class="method">
+<dt id="director.cameracontrol.OrbitTracker.getMinimumUpdateRate">
+<code class="descname">getMinimumUpdateRate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#OrbitTracker.getMinimumUpdateRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.OrbitTracker.getMinimumUpdateRate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.OrbitTracker.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#OrbitTracker.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.OrbitTracker.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.OrbitTracker.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#OrbitTracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.OrbitTracker.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="director.cameracontrol.PositionOrientationTracker">
+<em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">PositionOrientationTracker</code><span class="sig-paren">(</span><em>view</em>, <em>targetFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#PositionOrientationTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.PositionOrientationTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#director.cameracontrol.CameraTracker" title="director.cameracontrol.CameraTracker"><code class="xref py py-class docutils literal"><span class="pre">director.cameracontrol.CameraTracker</span></code></a></p>
+<dl class="method">
+<dt id="director.cameracontrol.PositionOrientationTracker.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#PositionOrientationTracker.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.PositionOrientationTracker.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.PositionOrientationTracker.storeTargetPose">
+<code class="descname">storeTargetPose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#PositionOrientationTracker.storeTargetPose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.PositionOrientationTracker.storeTargetPose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.PositionOrientationTracker.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#PositionOrientationTracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.PositionOrientationTracker.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="director.cameracontrol.PositionTracker">
+<em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">PositionTracker</code><span class="sig-paren">(</span><em>view</em>, <em>targetFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#PositionTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.PositionTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#director.cameracontrol.CameraTracker" title="director.cameracontrol.CameraTracker"><code class="xref py py-class docutils literal"><span class="pre">director.cameracontrol.CameraTracker</span></code></a></p>
+<dl class="method">
+<dt id="director.cameracontrol.PositionTracker.onAction">
+<code class="descname">onAction</code><span class="sig-paren">(</span><em>actionName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#PositionTracker.onAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.PositionTracker.onAction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.PositionTracker.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#PositionTracker.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.PositionTracker.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.PositionTracker.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#PositionTracker.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.PositionTracker.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.PositionTracker.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#PositionTracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.PositionTracker.update" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -317,6 +576,55 @@
 
 </dd></dl>
 
+<dl class="class">
+<dt id="director.cameracontrol.SmoothFollowTracker">
+<em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">SmoothFollowTracker</code><span class="sig-paren">(</span><em>view</em>, <em>targetFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#SmoothFollowTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.SmoothFollowTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#director.cameracontrol.CameraTracker" title="director.cameracontrol.CameraTracker"><code class="xref py py-class docutils literal"><span class="pre">director.cameracontrol.CameraTracker</span></code></a></p>
+<dl class="method">
+<dt id="director.cameracontrol.SmoothFollowTracker.getMinimumUpdateRate">
+<code class="descname">getMinimumUpdateRate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#SmoothFollowTracker.getMinimumUpdateRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.SmoothFollowTracker.getMinimumUpdateRate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.SmoothFollowTracker.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#SmoothFollowTracker.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.SmoothFollowTracker.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.SmoothFollowTracker.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#SmoothFollowTracker.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.SmoothFollowTracker.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.SmoothFollowTracker.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#SmoothFollowTracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.SmoothFollowTracker.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="director.cameracontrol.TargetFrameConverter">
+<em class="property">class </em><code class="descclassname">director.cameracontrol.</code><code class="descname">TargetFrameConverter</code><a class="reference internal" href="../_modules/director/cameracontrol.html#TargetFrameConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.TargetFrameConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="classmethod">
+<dt id="director.cameracontrol.TargetFrameConverter.canConvert">
+<em class="property">classmethod </em><code class="descname">canConvert</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#TargetFrameConverter.canConvert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.TargetFrameConverter.canConvert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.cameracontrol.TargetFrameConverter.getTargetFrame">
+<code class="descname">getTargetFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#TargetFrameConverter.getTargetFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.TargetFrameConverter.getTargetFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="director.cameracontrol.smoothDamp">
+<code class="descclassname">director.cameracontrol.</code><code class="descname">smoothDamp</code><span class="sig-paren">(</span><em>current</em>, <em>target</em>, <em>currentVelocity</em>, <em>smoothTime</em>, <em>maxSpeed</em>, <em>deltaTime</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameracontrol.html#smoothDamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameracontrol.smoothDamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Based on Unity3D SmoothDamp
+See: <a class="reference external" href="http://answers.unity3d.com/answers/310645/view.html">http://answers.unity3d.com/answers/310645/view.html</a></p>
+</dd></dl>
+
 </div>
 
 
@@ -326,7 +634,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="director.cameraview.html" class="btn btn-neutral float-right" title="director.cameraview module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="director.cameracontrolpanel.html" class="btn btn-neutral float-right" title="director.cameracontrolpanel module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="director.camerabookmarks.html" class="btn btn-neutral" title="director.camerabookmarks module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

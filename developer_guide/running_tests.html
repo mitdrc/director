@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Running tests &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Director  documentation" href="../index.html"/>
+        <link rel="up" title="Developer Guide" href="index.html"/>
+        <link rel="next" title="Generating a module graph" href="module_graph.html"/>
+        <link rel="prev" title="Developer Guide" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Running tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ctest">CTest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dashboard">Dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Running tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-data">Testing data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module_graph.html">Generating a module graph</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Developer Guide</a> &raquo;</li>
+      
+    <li>Running tests</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="running-tests">
+<h1>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ctest">
+<h2>CTest<a class="headerlink" href="#ctest" title="Permalink to this headline">¶</a></h2>
+<p>CTest is a testing framework provided by CMake.  Tests are described in
+a CMakeLists.txt file that is part of the Director build system.  For example,
+many tests are declared in the file <code class="docutils literal"><span class="pre">src/python/testing/CMakeLists.txt</span></code>.</p>
+</div>
+<div class="section" id="dashboard">
+<h2>Dashboard<a class="headerlink" href="#dashboard" title="Permalink to this headline">¶</a></h2>
+<p>A build machine automatically builds and runs tests.  The testing results are
+submitted to a server and displayed on the <a class="reference external" href="http://kobol.csail.mit.edu/cd/index.php?project=DRC">project dashboard</a>.</p>
+</div>
+<div class="section" id="id1">
+<h2>Running tests<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>You can run tests from the build directory using the ctest command.
+First locate the build directory.  Depending on which project you are working
+with, the Director build directory is placed in a different location.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="85%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Build type</th>
+<th class="head">Build location</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>openhumanoids</td>
+<td>software/director/distro/pods/drc/pod-build</td>
+</tr>
+<tr class="row-odd"><td>drake</td>
+<td>externals/director/distro/pods/drake-distro/pod-build/src/director-build</td>
+</tr>
+<tr class="row-even"><td>superbuild</td>
+<td>&lt;build-root&gt;/src/director-build</td>
+</tr>
+</tbody>
+</table>
+<p>Next, cd to the build directory and then run this command to list the tests:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ctest</span> <span class="o">-</span><span class="n">N</span>
+</pre></div>
+</div>
+<p>The -N flag means list tests but don&#8217;t run them.  If you don&#8217;t see any tests
+listed, then the build was configured with <code class="docutils literal"><span class="pre">BUILD_TESTING=OFF</span></code>.  Reconfigure
+and set the BUILD_TESTING option to ON.</p>
+<p>To run all tests, just run ctest without arguments:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ctest</span>
+</pre></div>
+</div>
+<p>The ctest command can take optional flags on the command line to control its behavior.
+To run tests with verbose information displayed, use the flags <code class="docutils literal"><span class="pre">-V</span></code> or <code class="docutils literal"><span class="pre">-VV</span></code>.  This is
+helpful to see the specific command line that is used to run an individual test.
+You can copy and paste that command line to run the test directly instead of running
+the test through the ctest launcher.  This can be useful if you want to run a test via gdb
+or valgrind, for example.</p>
+<p>You can specify a regex or string match to run a subset of tests with matching
+names.  For example, <code class="docutils literal"><span class="pre">ctest</span> <span class="pre">-R</span> <span class="pre">robot</span></code> will run all tests with the string robot
+in their name.</p>
+</div>
+<div class="section" id="testing-data">
+<h2>Testing data<a class="headerlink" href="#testing-data" title="Permalink to this headline">¶</a></h2>
+<p>Some tests require extra data files to run.  The data files are stored in
+an external repository because of larger file sizes.  The testing data
+is <a class="reference external" href="https://github.com/openhumanoids/drc-testing-data">located on Github</a>.
+Clone the git repository:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">openhumanoids</span><span class="o">/</span><span class="n">drc</span><span class="o">-</span><span class="n">testing</span><span class="o">-</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>The testing data repository is designed for running tests from the <code class="docutils literal"><span class="pre">openhumanoids/main-distro</span></code>
+project.  Place the testing data directory in the same folder that contains the
+main-distro folder.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="module_graph.html" class="btn btn-neutral float-right" title="Generating a module graph" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Developer Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

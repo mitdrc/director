@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="director package" href="director.html"/>
         <link rel="next" title="director.drivingplanner module" href="director.drivingplanner.html"/>
@@ -81,7 +84,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="director.html#subpackages">Subpackages</a></li>
@@ -93,6 +97,8 @@
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.asynctaskqueue.html">director.asynctaskqueue module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriver.html">director.atlasdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriverpanel.html">director.atlasdriverpanel module</a></li>
@@ -102,8 +108,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.callbacks.html">director.callbacks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.camerabookmarks.html">director.camerabookmarks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameracontrol.html">director.cameracontrol module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameracontrolpanel.html">director.cameracontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameraview.html">director.cameraview module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.colorize.html">director.colorize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.componentgraph.html">director.componentgraph module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.consoleapp.html">director.consoleapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.continuouswalkingdemo.html">director.continuouswalkingdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.copmonitor.html">director.copmonitor module</a></li>
@@ -111,10 +119,12 @@
 <li class="toctree-l4"><a class="reference internal" href="director.debrisdemo.html">director.debrisdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.debugVis.html">director.debugVis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.depthimageprovider.html">director.depthimageprovider module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.depthscanner.html">director.depthscanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.doordemo.html">director.doordemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drakevisualizer.html">director.drakevisualizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drakevisualizerapp.html">director.drakevisualizerapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drcargs.html">director.drcargs module</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="">director.drilldemo module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">director.drilldemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drivingplanner.html">director.drivingplanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.egressplanner.html">director.egressplanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.fieldcontainer.html">director.fieldcontainer module</a></li>
@@ -127,47 +137,62 @@
 <li class="toctree-l4"><a class="reference internal" href="director.geometryencoder.html">director.geometryencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handcontrolpanel.html">director.handcontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handdriver.html">director.handdriver module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.ik.html">director.ik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraintencoder.html">director.ikconstraintencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraints.html">director.ikconstraints module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikparameters.html">director.ikparameters module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikplanner.html">director.ikplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageview.html">director.imageview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageviewapp.html">director.imageviewapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ioUtils.html">director.ioUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisUtils.html">director.irisUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisdriver.html">director.irisdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointcontrol.html">director.jointcontrol module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointpropagator.html">director.jointpropagator module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.kinectlcm.html">director.kinectlcm module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.kinematicposeplanner.html">director.kinematicposeplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.korgnano.html">director.korgnano module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmUtils.html">director.lcmUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmcollections.html">director.lcmcollections module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingdemo.html">director.mappingdemo module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingpanel.html">director.mappingpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.mainwindowapp.html">director.mainwindowapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.mapsregistrar.html">director.mapsregistrar module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.matlab.html">director.matlab module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.matlabik.html">director.matlabik module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.measurementpanel.html">director.measurementpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.meshmanager.html">director.meshmanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.midi.html">director.midi module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.motionplanningpanel.html">director.motionplanningpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.multisensepanel.html">director.multisensepanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.navigationpanel.html">director.navigationpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.perception.html">director.perception module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.plannerPublisher.html">director.plannerPublisher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.planningutils.html">director.planningutils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.planplayback.html">director.planplayback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.playbackpanel.html">director.playbackpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointcloudlcm.html">director.pointcloudlcm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointpicker.html">director.pointpicker module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.polarisplatformplanner.html">director.polarisplatformplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.propertyanimation.html">director.propertyanimation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.propertyset.html">director.propertyset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pydrakeik.html">director.pydrakeik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.raycastdriver.html">director.raycastdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotlinkselector.html">director.robotlinkselector module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotplanlistener.html">director.robotplanlistener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotposegui.html">director.robotposegui module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotstate.html">director.robotstate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotsystem.html">director.robotsystem module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.roboturdf.html">director.roboturdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotviewbehaviors.html">director.robotviewbehaviors module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.sceneloader.html">director.sceneloader module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.screengrabberpanel.html">director.screengrabberpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.segmentation.html">director.segmentation module</a></li>
@@ -184,7 +209,6 @@
 <li class="toctree-l4"><a class="reference internal" href="director.statelistener.html">director.statelistener module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.surprisetask.html">director.surprisetask module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.switchplanner.html">director.switchplanner module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.tabledemo.html">director.tabledemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.takktilevis.html">director.takktilevis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tasklaunchpanel.html">director.tasklaunchpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tdx.html">director.tdx module</a></li>
@@ -195,10 +219,17 @@
 <li class="toctree-l4"><a class="reference internal" href="director.timercallback.html">director.timercallback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.trackers.html">director.trackers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.transformUtils.html">director.transformUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.treeviewer.html">director.treeviewer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.uipanel.html">director.uipanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.utime.html">director.utime module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.uuidutil.html">director.uuidutil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.valvedemo.html">director.valvedemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.version.html">director.version module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viconvisualizer.html">director.viconvisualizer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.viewbehaviors.html">director.viewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewcolors.html">director.viewcolors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewerclient.html">director.viewerclient module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vieweventfilter.html">director.vieweventfilter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.visualization.html">director.visualization module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkAll.html">director.vtkAll module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkNumpy.html">director.vtkNumpy module</a></li>
@@ -233,7 +264,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -257,953 +288,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-director.drilldemo">
-<span id="director-drilldemo-module"></span><h1>director.drilldemo module<a class="headerlink" href="#module-director.drilldemo" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="director.drilldemo.Drill">
-<em class="property">class </em><code class="descclassname">director.drilldemo.</code><code class="descname">Drill</code><a class="reference internal" href="../_modules/director/drilldemo.html#Drill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.Drill" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="director.drilldemo.DrillImageFitter">
-<em class="property">class </em><code class="descclassname">director.drilldemo.</code><code class="descname">DrillImageFitter</code><span class="sig-paren">(</span><em>drillDemo</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillImageFitter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillImageFitter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="director.tasks.taskuserpanel.html#director.tasks.taskuserpanel.ImageBasedAffordanceFit" title="director.tasks.taskuserpanel.ImageBasedAffordanceFit"><code class="xref py py-class docutils literal"><span class="pre">director.tasks.taskuserpanel.ImageBasedAffordanceFit</span></code></a></p>
-<dl class="method">
-<dt id="director.drilldemo.DrillImageFitter.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>polyData</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillImageFitter.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillImageFitter.fit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillImageFitter.fitDrill">
-<code class="descname">fitDrill</code><span class="sig-paren">(</span><em>polyData</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillImageFitter.fitDrill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillImageFitter.fitDrill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillImageFitter.fitDrillButtonPress">
-<code class="descname">fitDrillButtonPress</code><span class="sig-paren">(</span><em>polyData</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillImageFitter.fitDrillButtonPress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillImageFitter.fitDrillButtonPress" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillImageFitter.fitDrillOnTable">
-<code class="descname">fitDrillOnTable</code><span class="sig-paren">(</span><em>polyData</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillImageFitter.fitDrillOnTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillImageFitter.fitDrillOnTable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillImageFitter.fitDrillWall">
-<code class="descname">fitDrillWall</code><span class="sig-paren">(</span><em>polyData</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillImageFitter.fitDrillWall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillImageFitter.fitDrillWall" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillImageFitter.fitShelf">
-<code class="descname">fitShelf</code><span class="sig-paren">(</span><em>polyData</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillImageFitter.fitShelf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillImageFitter.fitShelf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.drilldemo.DrillPlannerDemo">
-<em class="property">class </em><code class="descclassname">director.drilldemo.</code><code class="descname">DrillPlannerDemo</code><span class="sig-paren">(</span><em>robotModel</em>, <em>playbackRobotModel</em>, <em>teleopRobotModel</em>, <em>footstepPlanner</em>, <em>manipPlanner</em>, <em>ikPlanner</em>, <em>lhandDriver</em>, <em>rhandDriver</em>, <em>atlasDriver</em>, <em>multisenseDriver</em>, <em>affordanceFitFunction</em>, <em>sensorJointController</em>, <em>planPlaybackFunction</em>, <em>showPoseFunction</em>, <em>cameraView</em>, <em>segmentationpanel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.addPlan">
-<code class="descname">addPlan</code><span class="sig-paren">(</span><em>plan</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.addPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.addPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.addThumbTargetFramesFromModel">
-<code class="descname">addThumbTargetFramesFromModel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.addThumbTargetFramesFromModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.addThumbTargetFramesFromModel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.animateLastPlan">
-<code class="descname">animateLastPlan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.animateLastPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.animateLastPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.appendPositionConstraintForTargetFrame">
-<code class="descname">appendPositionConstraintForTargetFrame</code><span class="sig-paren">(</span><em>goalFrame</em>, <em>t</em>, <em>gazeHand</em>, <em>gazeToHandLinkFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.appendPositionConstraintForTargetFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.appendPositionConstraintForTargetFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.autonomousExecute">
-<code class="descname">autonomousExecute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.autonomousExecute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.autonomousExecute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.autonomousExecuteOld">
-<code class="descname">autonomousExecuteOld</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.autonomousExecuteOld"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.autonomousExecuteOld" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.autonomousExecutePickup">
-<code class="descname">autonomousExecutePickup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.autonomousExecutePickup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.autonomousExecutePickup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.autonomousExecutePlaceDown">
-<code class="descname">autonomousExecutePlaceDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.autonomousExecutePlaceDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.autonomousExecutePlaceDown" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.cleanupFootstepPlans">
-<code class="descname">cleanupFootstepPlans</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.cleanupFootstepPlans"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.cleanupFootstepPlans" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.closeAllFingers">
-<code class="descname">closeAllFingers</code><span class="sig-paren">(</span><em>side</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.closeAllFingers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.closeAllFingers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.closeHand">
-<code class="descname">closeHand</code><span class="sig-paren">(</span><em>side</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.closeHand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.closeHand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.closeTopFingers">
-<code class="descname">closeTopFingers</code><span class="sig-paren">(</span><em>side</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.closeTopFingers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.closeTopFingers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.commitFootstepPlan">
-<code class="descname">commitFootstepPlan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.commitFootstepPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.commitFootstepPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.commitManipPlan">
-<code class="descname">commitManipPlan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.commitManipPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.commitManipPlan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeConvenientDrillFrame">
-<code class="descname">computeConvenientDrillFrame</code><span class="sig-paren">(</span><em>robotModel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeConvenientDrillFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeConvenientDrillFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillBitFrame">
-<code class="descname">computeDrillBitFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillBitFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillBitFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillBitFrameAtPose">
-<code class="descname">computeDrillBitFrameAtPose</code><span class="sig-paren">(</span><em>pose</em>, <em>bitToHand</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillBitFrameAtPose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillBitFrameAtPose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillBitToHand">
-<code class="descname">computeDrillBitToHand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillBitToHand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillBitToHand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the relative bitToHand frame using the current world poses
-of the drill affordance and hand link.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillButtGraspPose">
-<code class="descname">computeDrillButtGraspPose</code><span class="sig-paren">(</span><em>startPose</em>, <em>depth</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillButtGraspPose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillButtGraspPose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillButtonFrame">
-<code class="descname">computeDrillButtonFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillButtonFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillButtonFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillGraspFrame">
-<code class="descname">computeDrillGraspFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillGraspFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillGraspFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillGraspPose">
-<code class="descname">computeDrillGraspPose</code><span class="sig-paren">(</span><em>startPose</em>, <em>reachDistance</em>, <em>reachHeight</em>, <em>reachYaw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillGraspPose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillGraspPose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillGraspStanceFrame">
-<code class="descname">computeDrillGraspStanceFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillGraspStanceFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillGraspStanceFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillGraspTargetFrame">
-<code class="descname">computeDrillGraspTargetFrame</code><span class="sig-paren">(</span><em>reachDistance</em>, <em>reachHeight</em>, <em>reachYaw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillGraspTargetFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillGraspTargetFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillReachFrame">
-<code class="descname">computeDrillReachFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillReachFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillReachFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reach ~10cm short of the grasp frame</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeDrillStanceFrame">
-<code class="descname">computeDrillStanceFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeDrillStanceFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeDrillStanceFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeFaceToDrillTransform">
-<code class="descname">computeFaceToDrillTransform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeFaceToDrillTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeFaceToDrillTransform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeFirstCutDesired">
-<code class="descname">computeFirstCutDesired</code><span class="sig-paren">(</span><em>engagedTip=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeFirstCutDesired"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeFirstCutDesired" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeFrameToHand">
-<code class="descname">computeFrameToHand</code><span class="sig-paren">(</span><em>frameToWorld</em>, <em>side=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeFrameToHand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeFrameToHand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeGroundFrame">
-<code class="descname">computeGroundFrame</code><span class="sig-paren">(</span><em>robotModel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeGroundFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeGroundFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a robol model, returns a vtkTransform at a position between
-the feet, on the ground, with z-axis up and x-axis aligned with the
-robot pelvis x-axis.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeNextCutDesired">
-<code class="descname">computeNextCutDesired</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeNextCutDesired"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeNextCutDesired" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeRetractionDesired">
-<code class="descname">computeRetractionDesired</code><span class="sig-paren">(</span><em>retractBit=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeRetractionDesired"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeRetractionDesired" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeRobotStanceFrame">
-<code class="descname">computeRobotStanceFrame</code><span class="sig-paren">(</span><em>objectTransform</em>, <em>relativeStanceTransform</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeRobotStanceFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeRobotStanceFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a robot model, determine the height of the ground
-using an XY and Yaw standoff, combined to determine the relative 6DOF standoff
-For a grasp or approach stance</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeThumbPressPrepPose">
-<code class="descname">computeThumbPressPrepPose</code><span class="sig-paren">(</span><em>startPose</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeThumbPressPrepPose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeThumbPressPrepPose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.computeWallStanceFrame">
-<code class="descname">computeWallStanceFrame</code><span class="sig-paren">(</span><em>stanceOffsetX</em>, <em>stanceOffsetY</em>, <em>stanceYaw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.computeWallStanceFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.computeWallStanceFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.delay">
-<code class="descname">delay</code><span class="sig-paren">(</span><em>delayTimeInSeconds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.delay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.delay" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.findDrillAffordance">
-<code class="descname">findDrillAffordance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.findDrillAffordance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.findDrillAffordance" title="Permalink to this definition">¶</a></dt>
-<dd><p>find an affordance from the view graph - with a populated frame and the param
-then populate the required frames</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.findWallAffordance">
-<code class="descname">findWallAffordance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.findWallAffordance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.findWallAffordance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.fingerGrasp">
-<code class="descname">fingerGrasp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.fingerGrasp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.fingerGrasp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.fingerGraspTighten">
-<code class="descname">fingerGraspTighten</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.fingerGraspTighten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.fingerGraspTighten" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getBitToDrillTransform">
-<code class="descname">getBitToDrillTransform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getBitToDrillTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getBitToDrillTransform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getButtToDrillTransform">
-<code class="descname">getButtToDrillTransform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getButtToDrillTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getButtToDrillTransform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getButtonToDrillTransform">
-<code class="descname">getButtonToDrillTransform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getButtonToDrillTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getButtonToDrillTransform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getDrillBitOffsetFromCircle">
-<code class="descname">getDrillBitOffsetFromCircle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getDrillBitOffsetFromCircle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getDrillBitOffsetFromCircle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getDrillTargetOffsetFromCircle">
-<code class="descname">getDrillTargetOffsetFromCircle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getDrillTargetOffsetFromCircle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getDrillTargetOffsetFromCircle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getEstimatedRobotStatePose">
-<code class="descname">getEstimatedRobotStatePose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getEstimatedRobotStatePose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getEstimatedRobotStatePose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getGraspToDrillTransform">
-<code class="descname">getGraspToDrillTransform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getGraspToDrillTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getGraspToDrillTransform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getHandDriver">
-<code class="descname">getHandDriver</code><span class="sig-paren">(</span><em>side</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getHandDriver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getHandDriver" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getHandToBit">
-<code class="descname">getHandToBit</code><span class="sig-paren">(</span><em>startPose</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getHandToBit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getHandToBit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getHandToButton">
-<code class="descname">getHandToButton</code><span class="sig-paren">(</span><em>startPose</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getHandToButton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getHandToButton" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getPlanningStartPose">
-<code class="descname">getPlanningStartPose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getPlanningStartPose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getPlanningStartPose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getPointerToHandFrame">
-<code class="descname">getPointerToHandFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getPointerToHandFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getPointerToHandFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the Transfrom from the pointer to the hand link
-Specifically the frame at the very end of the pointer tip
-The result is what mfallon has previously referred to as hand-to-pointer</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getPressPrepToDrillTransform">
-<code class="descname">getPressPrepToDrillTransform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getPressPrepToDrillTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getPressPrepToDrillTransform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getThumbToPalmTransform">
-<code class="descname">getThumbToPalmTransform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getThumbToPalmTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getThumbToPalmTransform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getWorldToBit">
-<code class="descname">getWorldToBit</code><span class="sig-paren">(</span><em>startPose</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getWorldToBit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getWorldToBit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.getWorldToButton">
-<code class="descname">getWorldToButton</code><span class="sig-paren">(</span><em>startPose</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.getWorldToButton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.getWorldToButton" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.initGazeConstraintSet">
-<code class="descname">initGazeConstraintSet</code><span class="sig-paren">(</span><em>goalFrame, gazeHand, gazeToHandLinkFrame, targetAxis=[-1.0, 0.0, 0.0], bodyAxis=[-1.0, 0.0, 0.0], lockBase=False, lockBack=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.initGazeConstraintSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.initGazeConstraintSet" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.moveDrillToHand">
-<code class="descname">moveDrillToHand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.moveDrillToHand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.moveDrillToHand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.moveDrillToHandNew">
-<code class="descname">moveDrillToHandNew</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.moveDrillToHandNew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.moveDrillToHandNew" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.moveDrillToSensedButton">
-<code class="descname">moveDrillToSensedButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.moveDrillToSensedButton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.moveDrillToSensedButton" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take the position of the sensed button and the current orientation of the drill aff
-Move the drill the the position inferred by the sensed button</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.moveRobotToStanceFrame">
-<code class="descname">moveRobotToStanceFrame</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.moveRobotToStanceFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.moveRobotToStanceFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.onImageViewDoubleClick">
-<code class="descname">onImageViewDoubleClick</code><span class="sig-paren">(</span><em>displayPoint</em>, <em>modifiers</em>, <em>imageView</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.onImageViewDoubleClick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.onImageViewDoubleClick" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.onTagDetection">
-<code class="descname">onTagDetection</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.onTagDetection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.onTagDetection" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.openHand">
-<code class="descname">openHand</code><span class="sig-paren">(</span><em>side</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.openHand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.openHand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planBothRaisePowerOn">
-<code class="descname">planBothRaisePowerOn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planBothRaisePowerOn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planBothRaisePowerOn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDereach">
-<code class="descname">planDereach</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDereach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDereach" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrill">
-<code class="descname">planDrill</code><span class="sig-paren">(</span><em>inPlane</em>, <em>inLine</em>, <em>translationSpeed</em>, <em>jointSpeed</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillButtonPress">
-<code class="descname">planDrillButtonPress</code><span class="sig-paren">(</span><em>jointDegreesPerSecond</em>, <em>quasiStaticShrinkFactor=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillButtonPress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillButtonPress" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillCircle">
-<code class="descname">planDrillCircle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillCircle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillCircle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillDrop">
-<code class="descname">planDrillDrop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillDrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillDrop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillIntoWallPrep">
-<code class="descname">planDrillIntoWallPrep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillIntoWallPrep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillIntoWallPrep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillLowerSafe">
-<code class="descname">planDrillLowerSafe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillLowerSafe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillLowerSafe" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillRaiseForCutting">
-<code class="descname">planDrillRaiseForCutting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillRaiseForCutting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillRaiseForCutting" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillRaiseNew">
-<code class="descname">planDrillRaiseNew</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillRaiseNew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillRaiseNew" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillRaisePowerOn">
-<code class="descname">planDrillRaisePowerOn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillRaisePowerOn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillRaisePowerOn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillTrajectory">
-<code class="descname">planDrillTrajectory</code><span class="sig-paren">(</span><em>targetFrames</em>, <em>inPlane</em>, <em>inLine</em>, <em>translationSpeed</em>, <em>jointSpeed</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillTrajectory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillTrajectory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planDrillingGaze">
-<code class="descname">planDrillingGaze</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planDrillingGaze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planDrillingGaze" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planFootsteps">
-<code class="descname">planFootsteps</code><span class="sig-paren">(</span><em>goalFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planFootsteps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planFootsteps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planFootstepsCut">
-<code class="descname">planFootstepsCut</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planFootstepsCut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planFootstepsCut" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planFootstepsDrill">
-<code class="descname">planFootstepsDrill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planFootstepsDrill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planFootstepsDrill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planFootstepsTurnOn">
-<code class="descname">planFootstepsTurnOn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planFootstepsTurnOn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planFootstepsTurnOn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planGazeTrajectory">
-<code class="descname">planGazeTrajectory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planGazeTrajectory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planGazeTrajectory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planGrasp">
-<code class="descname">planGrasp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planGrasp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planGrasp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planGraspLift">
-<code class="descname">planGraspLift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planGraspLift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planGraspLift" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planGraspNew">
-<code class="descname">planGraspNew</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planGraspNew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planGraspNew" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planHandRaiseForDrillButtGrasp">
-<code class="descname">planHandRaiseForDrillButtGrasp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planHandRaiseForDrillButtGrasp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planHandRaiseForDrillButtGrasp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planHandRaiseForDrillButtPreGrasp">
-<code class="descname">planHandRaiseForDrillButtPreGrasp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planHandRaiseForDrillButtPreGrasp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planHandRaiseForDrillButtPreGrasp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planHandsDown">
-<code class="descname">planHandsDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planHandsDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planHandsDown" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planLiftNew">
-<code class="descname">planLiftNew</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planLiftNew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planLiftNew" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planNavigationGoalAwayFromShelf">
-<code class="descname">planNavigationGoalAwayFromShelf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planNavigationGoalAwayFromShelf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planNavigationGoalAwayFromShelf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planNextCut">
-<code class="descname">planNextCut</code><span class="sig-paren">(</span><em>getNextAction</em>, <em>argument1=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planNextCut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planNextCut" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planNominal">
-<code class="descname">planNominal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planNominal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planNominal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planParameterizedGrasp">
-<code class="descname">planParameterizedGrasp</code><span class="sig-paren">(</span><em>distance=0.0</em>, <em>height=0.0</em>, <em>yaw=0.0</em>, <em>inLine=False</em>, <em>ikParameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planParameterizedGrasp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planParameterizedGrasp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planPlace">
-<code class="descname">planPlace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planPlace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planPlace" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planPointerLowerPowerOn">
-<code class="descname">planPointerLowerPowerOn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planPointerLowerPowerOn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planPointerLowerPowerOn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planPointerPressGaze">
-<code class="descname">planPointerPressGaze</code><span class="sig-paren">(</span><em>pointerDepth=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planPointerPressGaze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planPointerPressGaze" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planPointerRaisePowerOn">
-<code class="descname">planPointerRaisePowerOn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planPointerRaisePowerOn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planPointerRaisePowerOn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planPostureGoal">
-<code class="descname">planPostureGoal</code><span class="sig-paren">(</span><em>side</em>, <em>group</em>, <em>name</em>, <em>ikParameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planPostureGoal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planPostureGoal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planPreGrasp">
-<code class="descname">planPreGrasp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planPreGrasp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planPreGrasp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planReach">
-<code class="descname">planReach</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planReach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planReach" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planReachNew">
-<code class="descname">planReachNew</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planReachNew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planReachNew" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planSequence">
-<code class="descname">planSequence</code><span class="sig-paren">(</span><em>playbackNominal=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planSequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planSequence" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planSequenceCut">
-<code class="descname">planSequenceCut</code><span class="sig-paren">(</span><em>playbackNominal=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planSequenceCut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planSequenceCut" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planSequencePickUp">
-<code class="descname">planSequencePickUp</code><span class="sig-paren">(</span><em>playbackNominal=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planSequencePickUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planSequencePickUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planSequenceTurnOn">
-<code class="descname">planSequenceTurnOn</code><span class="sig-paren">(</span><em>playbackNominal=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planSequenceTurnOn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planSequenceTurnOn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planThumbPressPrep">
-<code class="descname">planThumbPressPrep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planThumbPressPrep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planThumbPressPrep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planWalkWithDrillPosture">
-<code class="descname">planWalkWithDrillPosture</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planWalkWithDrillPosture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planWalkWithDrillPosture" title="Permalink to this definition">¶</a></dt>
-<dd><p>startPose = self.getPlanningStartPose()
-startPoseName = &#8216;reach_start&#8217;
-self.ikPlanner.addPose(startPose, startPoseName)</p>
-<p>constraints = []
-constraints.extend(self.ikPlanner.createMovingReachConstraints(startPoseName, side=self.graspingHand))
-constraints.append(self.ikPlanner.createJointPostureConstraintFromDatabase(&#8216;drill&#8217;, &#8216;drill tuck for walk&#8217;, side=self.graspingHand))
-constraints.append(self.ikPlanner.createBackZeroPostureConstraint())
-constraints[-1].tspan = [1.0, 1.0]</p>
-<p>constraintSet = ikplanner.ConstraintSet(self.ikPlanner, constraints, &#8216;reach_end&#8217;, startPoseName)</p>
-<p>endPose, info = constraintSet.runIk()
-plan = constraintSet.runIkTraj()</p>
-<p>self.addPlan(newPlan)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.planWalking">
-<code class="descname">planWalking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.planWalking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.planWalking" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.playSequenceNominal">
-<code class="descname">playSequenceNominal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.playSequenceNominal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.playSequenceNominal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.printAsync">
-<code class="descname">printAsync</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.printAsync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.printAsync" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.refitDrillWallFromTag">
-<code class="descname">refitDrillWallFromTag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.refitDrillWallFromTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.refitDrillWallFromTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use the tag detection (previously received via LCM)
-to re-position the drill wall affordance</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.resetDrill">
-<code class="descname">resetDrill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.resetDrill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.resetDrill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.resetWall">
-<code class="descname">resetWall</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.resetWall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.resetWall" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.sendNeckPitchLookDown">
-<code class="descname">sendNeckPitchLookDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.sendNeckPitchLookDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.sendNeckPitchLookDown" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.sendNeckPitchLookForward">
-<code class="descname">sendNeckPitchLookForward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.sendNeckPitchLookForward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.sendNeckPitchLookForward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.setDrillPressTargetFrame">
-<code class="descname">setDrillPressTargetFrame</code><span class="sig-paren">(</span><em>depthOffset</em>, <em>horizOffset</em>, <em>vertOffset</em>, <em>attackAngle=45</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.setDrillPressTargetFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.setDrillPressTargetFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.setGraspingHand">
-<code class="descname">setGraspingHand</code><span class="sig-paren">(</span><em>graspingHand='left'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.setGraspingHand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.setGraspingHand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.spawnDrillAffordance">
-<code class="descname">spawnDrillAffordance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.spawnDrillAffordance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.spawnDrillAffordance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.spawnDrillAffordanceNew">
-<code class="descname">spawnDrillAffordanceNew</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.spawnDrillAffordanceNew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.spawnDrillAffordanceNew" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.spawnDrillAffordanceTest">
-<code class="descname">spawnDrillAffordanceTest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.spawnDrillAffordanceTest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.spawnDrillAffordanceTest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.spawnDrillCircle">
-<code class="descname">spawnDrillCircle</code><span class="sig-paren">(</span><em>t</em>, <em>radius</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.spawnDrillCircle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.spawnDrillCircle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.spawnWallAffordance">
-<code class="descname">spawnWallAffordance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.spawnWallAffordance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.spawnWallAffordance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.spawnWallAffordanceNew">
-<code class="descname">spawnWallAffordanceNew</code><span class="sig-paren">(</span><em>t</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.spawnWallAffordanceNew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.spawnWallAffordanceNew" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.spawnWallAffordanceTest">
-<code class="descname">spawnWallAffordanceTest</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>yaw</em>, <em>targetHeight</em>, <em>targetRadius</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.spawnWallAffordanceTest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.spawnWallAffordanceTest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.storeDrillNominalPosture">
-<code class="descname">storeDrillNominalPosture</code><span class="sig-paren">(</span><em>pose</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.storeDrillNominalPosture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.storeDrillNominalPosture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.turnPointwiseOff">
-<code class="descname">turnPointwiseOff</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.turnPointwiseOff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.turnPointwiseOff" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.turnPointwiseOffSlow">
-<code class="descname">turnPointwiseOffSlow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.turnPointwiseOffSlow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.turnPointwiseOffSlow" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.updateDrillRelativeFrame">
-<code class="descname">updateDrillRelativeFrame</code><span class="sig-paren">(</span><em>frameName</em>, <em>frameToDrill</em>, <em>fixed=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.updateDrillRelativeFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.updateDrillRelativeFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.updateDrillRelativeFrames">
-<code class="descname">updateDrillRelativeFrames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.updateDrillRelativeFrames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.updateDrillRelativeFrames" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.updateDrillTargetFrame">
-<code class="descname">updateDrillTargetFrame</code><span class="sig-paren">(</span><em>depth=0.0</em>, <em>offsetY=0.0</em>, <em>offsetZ=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.updateDrillTargetFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.updateDrillTargetFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.updateDrillToHand">
-<code class="descname">updateDrillToHand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.updateDrillToHand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.updateDrillToHand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.updateNextCutPose">
-<code class="descname">updateNextCutPose</code><span class="sig-paren">(</span><em>nextCutPose</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.updateNextCutPose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.updateNextCutPose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.updateNextCutPoseGoal">
-<code class="descname">updateNextCutPoseGoal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.updateNextCutPoseGoal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.updateNextCutPoseGoal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.userPrompt">
-<code class="descname">userPrompt</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.userPrompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.userPrompt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.waitForAtlasBehaviorAsync">
-<code class="descname">waitForAtlasBehaviorAsync</code><span class="sig-paren">(</span><em>behaviorName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.waitForAtlasBehaviorAsync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.waitForAtlasBehaviorAsync" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.waitForCleanLidarSweepAsync">
-<code class="descname">waitForCleanLidarSweepAsync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.waitForCleanLidarSweepAsync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.waitForCleanLidarSweepAsync" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.waitForPlanAnimation">
-<code class="descname">waitForPlanAnimation</code><span class="sig-paren">(</span><em>plan</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.waitForPlanAnimation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.waitForPlanAnimation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillPlannerDemo.waitForPlanExecution">
-<code class="descname">waitForPlanExecution</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillPlannerDemo.waitForPlanExecution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillPlannerDemo.waitForPlanExecution" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.drilldemo.DrillTaskPanel">
-<em class="property">class </em><code class="descclassname">director.drilldemo.</code><code class="descname">DrillTaskPanel</code><span class="sig-paren">(</span><em>drillDemo</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="director.tasks.taskuserpanel.html#director.tasks.taskuserpanel.TaskUserPanel" title="director.tasks.taskuserpanel.TaskUserPanel"><code class="xref py py-class docutils literal"><span class="pre">director.tasks.taskuserpanel.TaskUserPanel</span></code></a></p>
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.addButtons">
-<code class="descname">addButtons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.addButtons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.addButtons" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.addDefaultProperties">
-<code class="descname">addDefaultProperties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.addDefaultProperties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.addDefaultProperties" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.addTasks">
-<code class="descname">addTasks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.addTasks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.addTasks" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.computeWallStanceFrame">
-<code class="descname">computeWallStanceFrame</code><span class="sig-paren">(</span><em>planFootsteps=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.computeWallStanceFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.computeWallStanceFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.fitDrill">
-<code class="descname">fitDrill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.fitDrill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.fitDrill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.fitDrillButtonPress">
-<code class="descname">fitDrillButtonPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.fitDrillButtonPress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.fitDrillButtonPress" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.fitDrillOnTable">
-<code class="descname">fitDrillOnTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.fitDrillOnTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.fitDrillOnTable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.fitDrillWall">
-<code class="descname">fitDrillWall</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.fitDrillWall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.fitDrillWall" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.fitShelf">
-<code class="descname">fitShelf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.fitShelf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.fitShelf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.getSide">
-<code class="descname">getSide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.getSide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.getSide" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.graspDrill">
-<code class="descname">graspDrill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.graspDrill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.graspDrill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.onDrillFrameModified">
-<code class="descname">onDrillFrameModified</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.onDrillFrameModified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.onDrillFrameModified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.onPropertyChanged">
-<code class="descname">onPropertyChanged</code><span class="sig-paren">(</span><em>propertySet</em>, <em>propertyName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.onPropertyChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.onPropertyChanged" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.planDrillAlign">
-<code class="descname">planDrillAlign</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.planDrillAlign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.planDrillAlign" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.planDrillIn">
-<code class="descname">planDrillIn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.planDrillIn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.planDrillIn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.planDrillMove">
-<code class="descname">planDrillMove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.planDrillMove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.planDrillMove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.planDrillOut">
-<code class="descname">planDrillOut</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.planDrillOut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.planDrillOut" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.planThumbPressButton">
-<code class="descname">planThumbPressButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.planThumbPressButton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.planThumbPressButton" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.planThumbPressExit">
-<code class="descname">planThumbPressExit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.planThumbPressExit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.planThumbPressExit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.planThumbPressMove">
-<code class="descname">planThumbPressMove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.planThumbPressMove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.planThumbPressMove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.planThumbPressPrep">
-<code class="descname">planThumbPressPrep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.planThumbPressPrep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.planThumbPressPrep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.planThumbPressPrepClose">
-<code class="descname">planThumbPressPrepClose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.planThumbPressPrepClose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.planThumbPressPrepClose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.setDefaultDrillInDepth">
-<code class="descname">setDefaultDrillInDepth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.setDefaultDrillInDepth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.setDefaultDrillInDepth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.setDefaultKnockOutDepth">
-<code class="descname">setDefaultKnockOutDepth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.setDefaultKnockOutDepth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.setDefaultKnockOutDepth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.setDrillTargetToCircleStart">
-<code class="descname">setDrillTargetToCircleStart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.setDrillTargetToCircleStart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.setDrillTargetToCircleStart" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.setDrillTargetToDrillBit">
-<code class="descname">setDrillTargetToDrillBit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.setDrillTargetToDrillBit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.setDrillTargetToDrillBit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.setDrillTargetToKnockOut">
-<code class="descname">setDrillTargetToKnockOut</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.setDrillTargetToKnockOut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.setDrillTargetToKnockOut" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.spawnDrill">
-<code class="descname">spawnDrill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.spawnDrill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.spawnDrill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.spawnWall">
-<code class="descname">spawnWall</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.spawnWall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.spawnWall" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.ungraspDrill">
-<code class="descname">ungraspDrill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.ungraspDrill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.ungraspDrill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.updateDrillInHand">
-<code class="descname">updateDrillInHand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.updateDrillInHand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.updateDrillInHand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.updateDrillTargetDepth">
-<code class="descname">updateDrillTargetDepth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.updateDrillTargetDepth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.updateDrillTargetDepth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.drilldemo.DrillTaskPanel.updateDrillTargetPosition">
-<code class="descname">updateDrillTargetPosition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/drilldemo.html#DrillTaskPanel.updateDrillTargetPosition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.DrillTaskPanel.updateDrillTargetPosition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.drilldemo.Wall">
-<em class="property">class </em><code class="descclassname">director.drilldemo.</code><code class="descname">Wall</code><a class="reference internal" href="../_modules/director/drilldemo.html#Wall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.drilldemo.Wall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-</dd></dl>
-
+  <div class="section" id="director-drilldemo-module">
+<h1>director.drilldemo module<a class="headerlink" href="#director-drilldemo-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="director.tasks package" href="director.tasks.html"/>
         <link rel="next" title="director.thirdparty package" href="director.thirdparty.html"/>
@@ -81,7 +84,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="director.html#subpackages">Subpackages</a><ul class="current">
@@ -117,7 +121,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -143,171 +147,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-director.tasks.taskuserpanel">
-<span id="director-tasks-taskuserpanel-module"></span><h1>director.tasks.taskuserpanel module<a class="headerlink" href="#module-director.tasks.taskuserpanel" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="director.tasks.taskuserpanel.ImageBasedAffordanceFit">
-<em class="property">class </em><code class="descclassname">director.tasks.taskuserpanel.</code><code class="descname">ImageBasedAffordanceFit</code><span class="sig-paren">(</span><em>imageView=None</em>, <em>numberOfPoints=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#ImageBasedAffordanceFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.ImageBasedAffordanceFit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.ImageBasedAffordanceFit.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>pointData</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#ImageBasedAffordanceFit.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.ImageBasedAffordanceFit.fit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.ImageBasedAffordanceFit.getPointCloud">
-<code class="descname">getPointCloud</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#ImageBasedAffordanceFit.getPointCloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.ImageBasedAffordanceFit.getPointCloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.ImageBasedAffordanceFit.getPointCloudLocationFromImage">
-<code class="descname">getPointCloudLocationFromImage</code><span class="sig-paren">(</span><em>imagePixel</em>, <em>imageView</em>, <em>polyData</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#ImageBasedAffordanceFit.getPointCloudLocationFromImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.ImageBasedAffordanceFit.getPointCloudLocationFromImage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.ImageBasedAffordanceFit.onImageAnnotation">
-<code class="descname">onImageAnnotation</code><span class="sig-paren">(</span><em>*points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#ImageBasedAffordanceFit.onImageAnnotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.ImageBasedAffordanceFit.onImageAnnotation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.ImageBasedAffordanceFit.onImageViewDoubleClick">
-<code class="descname">onImageViewDoubleClick</code><span class="sig-paren">(</span><em>displayPoint</em>, <em>modifiers</em>, <em>imageView</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#ImageBasedAffordanceFit.onImageViewDoubleClick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.ImageBasedAffordanceFit.onImageViewDoubleClick" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel">
-<em class="property">class </em><code class="descclassname">director.tasks.taskuserpanel.</code><code class="descname">TaskUserPanel</code><span class="sig-paren">(</span><em>windowTitle='Task Panel'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.addManualButton">
-<code class="descname">addManualButton</code><span class="sig-paren">(</span><em>text</em>, <em>callback</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.addManualButton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.addManualButton" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.addManualSpacer">
-<code class="descname">addManualSpacer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.addManualSpacer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.addManualSpacer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.addManualWidget">
-<code class="descname">addManualWidget</code><span class="sig-paren">(</span><em>widget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.addManualWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.addManualWidget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.appendMessage">
-<code class="descname">appendMessage</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.appendMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.appendMessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.clearPrompt">
-<code class="descname">clearPrompt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.clearPrompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.clearPrompt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.getNextTasks">
-<code class="descname">getNextTasks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.getNextTasks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.getNextTasks" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.initImageView">
-<code class="descname">initImageView</code><span class="sig-paren">(</span><em>imageView</em>, <em>activateAffordanceUpdater=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.initImageView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.initImageView" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onAcceptPrompt">
-<code class="descname">onAcceptPrompt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onAcceptPrompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onAcceptPrompt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onContinue">
-<code class="descname">onContinue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onContinue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onContinue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onPause">
-<code class="descname">onPause</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onPause"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onPause" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onPropertyChanged">
-<code class="descname">onPropertyChanged</code><span class="sig-paren">(</span><em>propertySet</em>, <em>propertyName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onPropertyChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onPropertyChanged" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onQueueStarted">
-<code class="descname">onQueueStarted</code><span class="sig-paren">(</span><em>taskQueue</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onQueueStarted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onQueueStarted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onQueueStopped">
-<code class="descname">onQueueStopped</code><span class="sig-paren">(</span><em>taskQueue</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onQueueStopped"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onQueueStopped" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onRejectPrompt">
-<code class="descname">onRejectPrompt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onRejectPrompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onRejectPrompt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onStep">
-<code class="descname">onStep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onStep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onTaskEnded">
-<code class="descname">onTaskEnded</code><span class="sig-paren">(</span><em>taskQueue</em>, <em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onTaskEnded"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onTaskEnded" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onTaskException">
-<code class="descname">onTaskException</code><span class="sig-paren">(</span><em>taskQueue</em>, <em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onTaskException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onTaskException" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onTaskFailed">
-<code class="descname">onTaskFailed</code><span class="sig-paren">(</span><em>taskQueue</em>, <em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onTaskFailed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onTaskFailed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onTaskPaused">
-<code class="descname">onTaskPaused</code><span class="sig-paren">(</span><em>taskQueue</em>, <em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onTaskPaused"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onTaskPaused" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onTaskPrompt">
-<code class="descname">onTaskPrompt</code><span class="sig-paren">(</span><em>task</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onTaskPrompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onTaskPrompt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.onTaskStarted">
-<code class="descname">onTaskStarted</code><span class="sig-paren">(</span><em>taskQueue</em>, <em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.onTaskStarted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.onTaskStarted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.updateTaskButtons">
-<code class="descname">updateTaskButtons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.updateTaskButtons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.updateTaskButtons" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskuserpanel.TaskUserPanel.updateTaskStatus">
-<code class="descname">updateTaskStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#TaskUserPanel.updateTaskStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.TaskUserPanel.updateTaskStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.tasks.taskuserpanel.WidgetDict">
-<em class="property">class </em><code class="descclassname">director.tasks.taskuserpanel.</code><code class="descname">WidgetDict</code><span class="sig-paren">(</span><em>widgets</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#WidgetDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.WidgetDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="director.tasks.taskuserpanel.addWidgetsToDict">
-<code class="descclassname">director.tasks.taskuserpanel.</code><code class="descname">addWidgetsToDict</code><span class="sig-paren">(</span><em>widgets</em>, <em>d</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskuserpanel.html#addWidgetsToDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskuserpanel.addWidgetsToDict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+  <div class="section" id="director-tasks-taskuserpanel-module">
+<h1>director.tasks.taskuserpanel module<a class="headerlink" href="#director-tasks-taskuserpanel-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

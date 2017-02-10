@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,7 +132,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.segmentationroutines</h1><div class="highlight"><pre>
-<span class="sd">&#39;&#39;&#39; Routines and Fitting algorithms</span>
+<span></span><span class="sd">&#39;&#39;&#39; Routines and Fitting algorithms</span>
 <span class="sd">   Fitting: means where ALL other non-object points</span>
 <span class="sd">   have been removed, determining the transform frame</span>
 <span class="sd">   of the object</span>
@@ -137,19 +141,16 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<span class="kn">from</span> <span class="nn">director.filterUtils</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">director.visualization</span> <span class="kn">as</span> <span class="nn">vis</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
-<span class="kn">from</span> <span class="nn">director.transformUtils</span> <span class="kn">import</span> <span class="n">getTransformFromAxes</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
-
-
-<span class="kn">from</span> <span class="nn">director.footstepsdriver</span> <span class="kn">import</span> <span class="n">FootstepsDriver</span>
+<span class="kn">from</span> <span class="nn">director.filterUtils</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">director.visualization</span> <span class="k">as</span> <span class="nn">vis</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+<span class="kn">from</span> <span class="nn">director.transformUtils</span> <span class="k">import</span> <span class="n">getTransformFromAxes</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
 
 <span class="kn">import</span> <span class="nn">vtkNumpy</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">shallowCopy</span> <span class="kn">import</span> <span class="n">shallowCopy</span>
-<span class="kn">from</span> <span class="nn">debugVis</span> <span class="kn">import</span> <span class="n">DebugData</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">shallowCopy</span> <span class="k">import</span> <span class="n">shallowCopy</span>
+<span class="kn">from</span> <span class="nn">debugVis</span> <span class="k">import</span> <span class="n">DebugData</span>
 
 
 
@@ -174,128 +175,131 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">viewProvider</span> <span class="o">=</span> <span class="n">viewProvider</span>
 
 <div class="viewcode-block" id="SegmentationContext.getGroundHeight"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.getGroundHeight">[docs]</a>    <span class="k">def</span> <span class="nf">getGroundHeight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">groundHeightProvider</span><span class="o">.</span><span class="n">getGroundHeight</span><span class="p">()</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">groundHeightProvider</span><span class="o">.</span><span class="n">getGroundHeight</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="SegmentationContext.getViewFrame"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.getViewFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getViewFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewProvider</span><span class="o">.</span><span class="n">getViewFrame</span><span class="p">()</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewProvider</span><span class="o">.</span><span class="n">getViewFrame</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="SegmentationContext.getViewOrigin"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.getViewOrigin">[docs]</a>    <span class="k">def</span> <span class="nf">getViewOrigin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewProvider</span><span class="o">.</span><span class="n">getViewOrigin</span><span class="p">()</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewProvider</span><span class="o">.</span><span class="n">getViewOrigin</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="SegmentationContext.getViewDirection"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.getViewDirection">[docs]</a>    <span class="k">def</span> <span class="nf">getViewDirection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewProvider</span><span class="o">.</span><span class="n">getViewDirection</span><span class="p">()</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewProvider</span><span class="o">.</span><span class="n">getViewDirection</span><span class="p">()</span></div>
+
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    These static methods are provided for convenience to initialize</span>
 <span class="sd">    a globalally accessible instance of the SegmentationContext.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_globalSegmentationContext</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">_globalSegmentationContext</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="SegmentationContext.installGlobalInstance"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.installGlobalInstance">[docs]</a>    <span class="k">def</span> <span class="nf">installGlobalInstance</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">_globalSegmentationContext</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Error, a global segmentation context instance is already installed.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">_globalSegmentationContext</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Error, a global segmentation context instance is already installed.&#39;</span><span class="p">)</span>
 
-        <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">_globalSegmentationContext</span> <span class="o">=</span> <span class="n">inst</span>
-</div>
+        <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">_globalSegmentationContext</span> <span class="o">=</span> <span class="n">inst</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="SegmentationContext.getGlobalInstance"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.getGlobalInstance">[docs]</a>    <span class="k">def</span> <span class="nf">getGlobalInstance</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">_globalSegmentationContext</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Error, the global segmentation context instance has not been initialized.&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">_globalSegmentationContext</span>
-</div>
+        <span class="k">if</span> <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">_globalSegmentationContext</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Error, the global segmentation context instance has not been initialized.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">_globalSegmentationContext</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="SegmentationContext.initWithRobot"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.initWithRobot">[docs]</a>    <span class="k">def</span> <span class="nf">initWithRobot</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
         <span class="n">sc</span> <span class="o">=</span> <span class="n">SegmentationContext</span><span class="p">(</span><span class="n">RobotModelGroundHeightProvider</span><span class="p">(</span><span class="n">model</span><span class="p">),</span> <span class="n">RobotModelViewProvider</span><span class="p">(</span><span class="n">model</span><span class="p">))</span>
-        <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">installGlobalInstance</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
-</div>
+        <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">installGlobalInstance</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="SegmentationContext.initWithCamera"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.initWithCamera">[docs]</a>    <span class="k">def</span> <span class="nf">initWithCamera</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">userGroundHeight</span><span class="p">):</span>
         <span class="n">sc</span> <span class="o">=</span> <span class="n">SegmentationContext</span><span class="p">(</span><span class="n">UserGroundHeightProvider</span><span class="p">(</span><span class="n">userGroundHeight</span><span class="p">),</span> <span class="n">CameraViewProvider</span><span class="p">(</span><span class="n">camera</span><span class="p">))</span>
-        <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">installGlobalInstance</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
-</div>
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="SegmentationContext.initWithUser"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.initWithUser">[docs]</a>    <span class="k">def</span> <span class="nf">initWithUser</span><span class="p">(</span><span class="n">userGroundHeight</span><span class="p">,</span> <span class="n">userViewFrame</span><span class="p">):</span>
-        <span class="n">sc</span> <span class="o">=</span> <span class="n">SegmentationContext</span><span class="p">(</span><span class="n">UserGroundHeightProvider</span><span class="p">(</span><span class="n">userGroundHeight</span><span class="p">),</span> <span class="n">UserViewProvider</span><span class="p">(</span><span class="n">userViewFrame</span><span class="p">))</span>
-        <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">installGlobalInstance</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+        <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">installGlobalInstance</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span></div>
 
-</div></div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="SegmentationContext.initWithUser"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.SegmentationContext.initWithUser">[docs]</a>    <span class="k">def</span> <span class="nf">initWithUser</span><span class="p">(</span><span class="n">userGroundHeight</span><span class="p">,</span> <span class="n">userViewFrame</span><span class="p">,</span> <span class="n">viewAxis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">SegmentationContext</span><span class="p">(</span><span class="n">UserGroundHeightProvider</span><span class="p">(</span><span class="n">userGroundHeight</span><span class="p">),</span> <span class="n">UserViewProvider</span><span class="p">(</span><span class="n">userViewFrame</span><span class="p">,</span> <span class="n">viewAxis</span><span class="p">))</span>
+        <span class="n">SegmentationContext</span><span class="o">.</span><span class="n">installGlobalInstance</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span></div></div>
+
+
 <div class="viewcode-block" id="RobotModelGroundHeightProvider"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.RobotModelGroundHeightProvider">[docs]</a><span class="k">class</span> <span class="nc">RobotModelGroundHeightProvider</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
 
 <div class="viewcode-block" id="RobotModelGroundHeightProvider.getGroundHeight"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.RobotModelGroundHeightProvider.getGroundHeight">[docs]</a>    <span class="k">def</span> <span class="nf">getGroundHeight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">FootstepsDriver</span><span class="o">.</span><span class="n">getFeetMidPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="kn">from</span> <span class="nn">director.footstepsdriver</span> <span class="k">import</span> <span class="n">FootstepsDriver</span>
+        <span class="k">return</span> <span class="n">FootstepsDriver</span><span class="o">.</span><span class="n">getFeetMidPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="RobotModelViewProvider"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.RobotModelViewProvider">[docs]</a><span class="k">class</span> <span class="nc">RobotModelViewProvider</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
 
 <div class="viewcode-block" id="RobotModelViewProvider.getViewFrame"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.RobotModelViewProvider.getViewFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getViewFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getHeadLink</span><span class="p">())</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getHeadLink</span><span class="p">())</span></div>
+
 <div class="viewcode-block" id="RobotModelViewProvider.getViewOrigin"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.RobotModelViewProvider.getViewOrigin">[docs]</a>    <span class="k">def</span> <span class="nf">getViewOrigin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">headFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getHeadLink</span><span class="p">())</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">headFrame</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
-</div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">headFrame</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span></div>
+
 <div class="viewcode-block" id="RobotModelViewProvider.getViewDirection"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.RobotModelViewProvider.getViewDirection">[docs]</a>    <span class="k">def</span> <span class="nf">getViewDirection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">headFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getHeadLink</span><span class="p">())</span>
         <span class="n">viewDirection</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">headFrame</span><span class="o">.</span><span class="n">TransformVector</span><span class="p">(</span><span class="n">viewDirection</span><span class="p">,</span> <span class="n">viewDirection</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">viewDirection</span><span class="p">)</span>
-</div></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">viewDirection</span><span class="p">)</span></div></div>
+
 <div class="viewcode-block" id="UserGroundHeightProvider"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.UserGroundHeightProvider">[docs]</a><span class="k">class</span> <span class="nc">UserGroundHeightProvider</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groundHeight</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">groundHeight</span> <span class="o">=</span> <span class="n">groundHeight</span>
 
 <div class="viewcode-block" id="UserGroundHeightProvider.getGroundHeight"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.UserGroundHeightProvider.getGroundHeight">[docs]</a>    <span class="k">def</span> <span class="nf">getGroundHeight</span><span class="p">():</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">groundHeight</span>
-</div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">groundHeight</span></div></div>
+
 <div class="viewcode-block" id="UserViewProvider"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.UserViewProvider">[docs]</a><span class="k">class</span> <span class="nc">UserViewProvider</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewFrame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewFrame</span><span class="p">,</span> <span class="n">viewAxis</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewFrame</span> <span class="o">=</span> <span class="n">viewFrame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewAxis</span> <span class="o">=</span> <span class="n">viewAxis</span>
 
 <div class="viewcode-block" id="UserViewProvider.getViewFrame"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.UserViewProvider.getViewFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getViewFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewFrame</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewFrame</span></div>
+
 <div class="viewcode-block" id="UserViewProvider.getViewOrigin"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.UserViewProvider.getViewOrigin">[docs]</a>    <span class="k">def</span> <span class="nf">getViewOrigin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewFrame</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
-</div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewFrame</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span></div>
+
 <div class="viewcode-block" id="UserViewProvider.getViewDirection"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.UserViewProvider.getViewDirection">[docs]</a>    <span class="k">def</span> <span class="nf">getViewDirection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">viewDirection</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">viewDirection</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+        <span class="n">viewDirection</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">viewAxis</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewFrame</span><span class="o">.</span><span class="n">TransformVector</span><span class="p">(</span><span class="n">viewDirection</span><span class="p">,</span> <span class="n">viewDirection</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">viewDirection</span><span class="p">)</span>
-</div></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">viewDirection</span><span class="p">)</span></div></div>
+
 <div class="viewcode-block" id="CameraViewProvider"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.CameraViewProvider">[docs]</a><span class="k">class</span> <span class="nc">CameraViewProvider</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span>
 
 <div class="viewcode-block" id="CameraViewProvider.getViewFrame"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.CameraViewProvider.getViewFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getViewFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span>  <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetViewTransformObject</span><span class="p">()</span>
-</div>
+        <span class="k">return</span>  <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetViewTransformObject</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="CameraViewProvider.getViewOrigin"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.CameraViewProvider.getViewOrigin">[docs]</a>    <span class="k">def</span> <span class="nf">getViewOrigin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetViewPosition</span><span class="p">())</span>
-</div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetViewPosition</span><span class="p">())</span></div>
+
 <div class="viewcode-block" id="CameraViewProvider.getViewDirection"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.CameraViewProvider.getViewDirection">[docs]</a>    <span class="k">def</span> <span class="nf">getViewDirection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetViewDirection</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetViewDirection</span><span class="p">())</span></div></div>
 
 
-</div></div>
+
 <div class="viewcode-block" id="getDebugFolder"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.getDebugFolder">[docs]</a><span class="k">def</span> <span class="nf">getDebugFolder</span><span class="p">():</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">,</span> <span class="n">om</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="s">&#39;segmentation&#39;</span><span class="p">))</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="n">om</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="s1">&#39;segmentation&#39;</span><span class="p">))</span>
         <span class="n">om</span><span class="o">.</span><span class="n">collapse</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">obj</span>
+    <span class="k">return</span> <span class="n">obj</span></div>
 
-</div>
+
 <div class="viewcode-block" id="applyLineFit"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.applyLineFit">[docs]</a><span class="k">def</span> <span class="nf">applyLineFit</span><span class="p">(</span><span class="n">dataObj</span><span class="p">,</span> <span class="n">distanceThreshold</span><span class="o">=</span><span class="mf">0.02</span><span class="p">):</span>
 
     <span class="n">f</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPCLSACSegmentationLine</span><span class="p">()</span>
@@ -305,15 +309,15 @@
     <span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetLineOrigin</span><span class="p">())</span>
     <span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetLineDirection</span><span class="p">())</span>
 
-    <span class="k">return</span> <span class="n">origin</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">origin</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span></div>
 
-</div>
+
 <div class="viewcode-block" id="projectPointToPlane"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.projectPointToPlane">[docs]</a><span class="k">def</span> <span class="nf">projectPointToPlane</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">normal</span><span class="p">):</span>
     <span class="n">projectedPoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="o">.</span><span class="n">ProjectPoint</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="n">projectedPoint</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">projectedPoint</span>
+    <span class="k">return</span> <span class="n">projectedPoint</span></div>
 
-</div>
+
 <div class="viewcode-block" id="intersectLineWithPlane"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.intersectLineWithPlane">[docs]</a><span class="k">def</span> <span class="nf">intersectLineWithPlane</span><span class="p">(</span><span class="n">line_point</span><span class="p">,</span> <span class="n">line_ray</span><span class="p">,</span> <span class="n">plane_point</span><span class="p">,</span> <span class="n">plane_normal</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Find the intersection between a line and a plane</span>
@@ -327,31 +331,31 @@
 
     <span class="n">denom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span> <span class="n">plane_normal</span> <span class="p">,</span> <span class="n">line_ray</span> <span class="p">)</span>
 
-    <span class="c"># TODO: implement this check</span>
-    <span class="c">#if (denom &gt; 1E-6):</span>
-    <span class="c">#    # ray is very close to parallel to plane</span>
-    <span class="c">#    return None</span>
+    <span class="c1"># TODO: implement this check</span>
+    <span class="c1">#if (denom &gt; 1E-6):</span>
+    <span class="c1">#    # ray is very close to parallel to plane</span>
+    <span class="c1">#    return None</span>
 
     <span class="n">p0l0</span> <span class="o">=</span> <span class="n">plane_point</span> <span class="o">-</span> <span class="n">line_point</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p0l0</span><span class="p">,</span> <span class="n">plane_normal</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
 
     <span class="n">intersection_point</span> <span class="o">=</span> <span class="n">line_point</span> <span class="o">+</span> <span class="n">t</span><span class="o">*</span><span class="n">line_ray</span>
-    <span class="k">return</span> <span class="n">intersection_point</span>
+    <span class="k">return</span> <span class="n">intersection_point</span></div>
 
-</div>
-<div class="viewcode-block" id="labelPointDistanceAlongAxis"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.labelPointDistanceAlongAxis">[docs]</a><span class="k">def</span> <span class="nf">labelPointDistanceAlongAxis</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resultArrayName</span><span class="o">=</span><span class="s">&#39;distance_along_axis&#39;</span><span class="p">):</span>
 
-    <span class="n">points</span> <span class="o">=</span> <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s">&#39;Points&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">origin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+<div class="viewcode-block" id="labelPointDistanceAlongAxis"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.labelPointDistanceAlongAxis">[docs]</a><span class="k">def</span> <span class="nf">labelPointDistanceAlongAxis</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resultArrayName</span><span class="o">=</span><span class="s1">&#39;distance_along_axis&#39;</span><span class="p">):</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s1">&#39;Points&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">origin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">points</span> <span class="o">=</span> <span class="n">points</span> <span class="o">-</span> <span class="n">origin</span>
     <span class="n">distanceValues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">origin</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">origin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">distanceValues</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">distanceValues</span><span class="p">)</span>
     <span class="n">newData</span> <span class="o">=</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
     <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">addNumpyToVtk</span><span class="p">(</span><span class="n">newData</span><span class="p">,</span> <span class="n">distanceValues</span><span class="p">,</span> <span class="n">resultArrayName</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">newData</span>
+    <span class="k">return</span> <span class="n">newData</span></div>
 
-</div>
+
 <div class="viewcode-block" id="applyEuclideanClustering"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.applyEuclideanClustering">[docs]</a><span class="k">def</span> <span class="nf">applyEuclideanClustering</span><span class="p">(</span><span class="n">dataObj</span><span class="p">,</span> <span class="n">clusterTolerance</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">minClusterSize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">maxClusterSize</span><span class="o">=</span><span class="mf">1e6</span><span class="p">):</span>
 
     <span class="n">f</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPCLEuclideanClusterExtraction</span><span class="p">()</span>
@@ -360,10 +364,10 @@
     <span class="n">f</span><span class="o">.</span><span class="n">SetMinClusterSize</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">minClusterSize</span><span class="p">))</span>
     <span class="n">f</span><span class="o">.</span><span class="n">SetMaxClusterSize</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">maxClusterSize</span><span class="p">))</span>
     <span class="n">f</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span></div>
 
-</div>
-<div class="viewcode-block" id="extractClusters"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.extractClusters">[docs]</a><span class="k">def</span> <span class="nf">extractClusters</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">clusterInXY</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="extractClusters"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.extractClusters">[docs]</a><span class="k">def</span> <span class="nf">extractClusters</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">clusterInXY</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Segment a single point cloud into smaller clusters</span>
 <span class="sd">        using Euclidean Clustering</span>
 <span class="sd">     &#39;&#39;&#39;</span>
@@ -371,38 +375,38 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">polyData</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">():</span>
         <span class="k">return</span> <span class="p">[]</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">clusterInXY</span> <span class="o">==</span> <span class="bp">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">clusterInXY</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; If Points are seperated in X&amp;Y, then cluster outside this &#39;&#39;&#39;</span>
         <span class="n">polyDataXY</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
         <span class="n">polyDataXY</span><span class="o">.</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
-        <span class="n">points</span><span class="o">=</span><span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">polyDataXY</span> <span class="p">,</span> <span class="s">&#39;Points&#39;</span><span class="p">)</span> <span class="c"># shared memory</span>
+        <span class="n">points</span><span class="o">=</span><span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">polyDataXY</span> <span class="p">,</span> <span class="s1">&#39;Points&#39;</span><span class="p">)</span> <span class="c1"># shared memory</span>
         <span class="n">points</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="c">#showPolyData(polyDataXY, &#39;polyDataXY&#39;, visible=False, parent=getDebugFolder())</span>
+        <span class="c1">#showPolyData(polyDataXY, &#39;polyDataXY&#39;, visible=False, parent=getDebugFolder())</span>
         <span class="n">polyDataXY</span> <span class="o">=</span> <span class="n">applyEuclideanClustering</span><span class="p">(</span><span class="n">polyDataXY</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">clusterLabels</span> <span class="o">=</span> <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">polyDataXY</span><span class="p">,</span> <span class="s">&#39;cluster_labels&#39;</span><span class="p">)</span>
-        <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">addNumpyToVtk</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">clusterLabels</span><span class="p">,</span> <span class="s">&#39;cluster_labels&#39;</span><span class="p">)</span>
+        <span class="n">clusterLabels</span> <span class="o">=</span> <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">polyDataXY</span><span class="p">,</span> <span class="s1">&#39;cluster_labels&#39;</span><span class="p">)</span>
+        <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">addNumpyToVtk</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">clusterLabels</span><span class="p">,</span> <span class="s1">&#39;cluster_labels&#39;</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
         <span class="n">polyData</span> <span class="o">=</span> <span class="n">applyEuclideanClustering</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">clusterLabels</span> <span class="o">=</span> <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s">&#39;cluster_labels&#39;</span><span class="p">)</span>
+        <span class="n">clusterLabels</span> <span class="o">=</span> <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s1">&#39;cluster_labels&#39;</span><span class="p">)</span>
 
 
     <span class="n">clusters</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">clusterLabels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">cluster</span> <span class="o">=</span> <span class="n">thresholdPoints</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s">&#39;cluster_labels&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">clusterLabels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="n">thresholdPoints</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s1">&#39;cluster_labels&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
         <span class="n">clusters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">clusters</span>
+    <span class="k">return</span> <span class="n">clusters</span></div>
 
-</div>
+
 <div class="viewcode-block" id="applyVoxelGrid"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.applyVoxelGrid">[docs]</a><span class="k">def</span> <span class="nf">applyVoxelGrid</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">leafSize</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
 
     <span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPCLVoxelGrid</span><span class="p">()</span>
     <span class="n">v</span><span class="o">.</span><span class="n">SetLeafSize</span><span class="p">(</span><span class="n">leafSize</span><span class="p">,</span> <span class="n">leafSize</span><span class="p">,</span> <span class="n">leafSize</span><span class="p">)</span>
     <span class="n">v</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
     <span class="n">v</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span></div>
 
-</div>
+
 <div class="viewcode-block" id="labelOutliers"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.labelOutliers">[docs]</a><span class="k">def</span> <span class="nf">labelOutliers</span><span class="p">(</span><span class="n">dataObj</span><span class="p">,</span> <span class="n">searchRadius</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">neighborsInSearchRadius</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
 
     <span class="n">f</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPCLRadiusOutlierRemoval</span><span class="p">()</span>
@@ -410,24 +414,24 @@
     <span class="n">f</span><span class="o">.</span><span class="n">SetSearchRadius</span><span class="p">(</span><span class="n">searchRadius</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">SetNeighborsInSearchRadius</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">neighborsInSearchRadius</span><span class="p">))</span>
     <span class="n">f</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span></div>
 
-</div>
+
 <div class="viewcode-block" id="sparsifyStereoCloud"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.sparsifyStereoCloud">[docs]</a><span class="k">def</span> <span class="nf">sparsifyStereoCloud</span><span class="p">(</span><span class="n">polyData</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Take in a typical Stereo Camera Point Cloud</span>
 <span class="sd">    Filter it down to about the density of a lidar point cloud</span>
 <span class="sd">    and remove outliers</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="c"># &gt;&gt;&gt; strips color out &lt;&lt;&lt;</span>
+    <span class="c1"># &gt;&gt;&gt; strips color out &lt;&lt;&lt;</span>
     <span class="n">polyData</span> <span class="o">=</span> <span class="n">applyVoxelGrid</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">leafSize</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 
-    <span class="c"># remove outliers</span>
+    <span class="c1"># remove outliers</span>
     <span class="n">polyData</span> <span class="o">=</span> <span class="n">labelOutliers</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
-    <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s">&#39;is_outlier&#39;</span><span class="p">,</span> <span class="n">colorByName</span><span class="o">=</span><span class="s">&#39;is_outlier&#39;</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">getDebugFolder</span><span class="p">())</span>
-    <span class="n">polyData</span> <span class="o">=</span> <span class="n">thresholdPoints</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s">&#39;is_outlier&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">polyData</span>
-</div>
+    <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s1">&#39;is_outlier&#39;</span><span class="p">,</span> <span class="n">colorByName</span><span class="o">=</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">getDebugFolder</span><span class="p">())</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">thresholdPoints</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s1">&#39;is_outlier&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">polyData</span></div>
+
 <div class="viewcode-block" id="fitDrillBarrel"><a class="viewcode-back" href="../../generated/director.segmentationroutines.html#director.segmentationroutines.fitDrillBarrel">[docs]</a><span class="k">def</span> <span class="nf">fitDrillBarrel</span> <span class="p">(</span> <span class="n">drillPoints</span><span class="p">,</span> <span class="n">forwardDirection</span><span class="p">,</span> <span class="n">plane_origin</span><span class="p">,</span> <span class="n">plane_normal</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Given a point cloud which ONLY contains points from a barrell drill, standing upright</span>
 <span class="sd">        and the equations of a table its resting on, and the general direction of the robot</span>
@@ -437,23 +441,23 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">drillPoints</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">():</span>
         <span class="k">return</span>
 
-    <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">drillPoints</span><span class="p">,</span> <span class="s">&#39;drill cluster&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">getDebugFolder</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">drillBarrelPoints</span> <span class="o">=</span> <span class="n">thresholdPoints</span><span class="p">(</span><span class="n">drillPoints</span><span class="p">,</span> <span class="s">&#39;dist_to_plane&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.177</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">])</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">drillPoints</span><span class="p">,</span> <span class="s1">&#39;drill cluster&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">getDebugFolder</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">drillBarrelPoints</span> <span class="o">=</span> <span class="n">thresholdPoints</span><span class="p">(</span><span class="n">drillPoints</span><span class="p">,</span> <span class="s1">&#39;dist_to_plane&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.177</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">drillBarrelPoints</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">():</span>
         <span class="k">return</span>
 
 
-    <span class="c"># fit line to drill barrel points</span>
+    <span class="c1"># fit line to drill barrel points</span>
     <span class="n">linePoint</span><span class="p">,</span> <span class="n">lineDirection</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">applyLineFit</span><span class="p">(</span><span class="n">drillBarrelPoints</span><span class="p">,</span> <span class="n">distanceThreshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">lineDirection</span><span class="p">,</span> <span class="n">forwardDirection</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">lineDirection</span> <span class="o">=</span> <span class="o">-</span><span class="n">lineDirection</span>
 
-    <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">drillBarrelPoints</span><span class="p">,</span> <span class="s">&#39;drill barrel points&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">getDebugFolder</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">drillBarrelPoints</span><span class="p">,</span> <span class="s1">&#39;drill barrel points&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">getDebugFolder</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
-    <span class="n">pts</span> <span class="o">=</span> <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">drillBarrelPoints</span><span class="p">,</span> <span class="s">&#39;Points&#39;</span><span class="p">)</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">vtkNumpy</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">drillBarrelPoints</span><span class="p">,</span> <span class="s1">&#39;Points&#39;</span><span class="p">)</span>
 
     <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">pts</span><span class="o">-</span><span class="n">linePoint</span><span class="p">,</span> <span class="n">lineDirection</span><span class="p">)</span>
 
@@ -468,7 +472,7 @@
     <span class="n">d</span><span class="o">.</span><span class="n">addSphere</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
     <span class="n">d</span><span class="o">.</span><span class="n">addSphere</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
     <span class="n">d</span><span class="o">.</span><span class="n">addLine</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
-    <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">(),</span> <span class="s">&#39;drill debug points&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="n">getDebugFolder</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">(),</span> <span class="s1">&#39;drill debug points&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="n">getDebugFolder</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
     <span class="n">drillToBasePoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.07</span><span class="p">,</span>  <span class="mf">0.0</span>  <span class="p">,</span> <span class="o">-</span><span class="mf">0.12</span><span class="p">])</span>

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,48 +132,46 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.affordancepanel</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">PythonQt</span>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtUiTools</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">applogic</span> <span class="k">as</span> <span class="n">app</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
-<span class="kn">from</span> <span class="nn">director.debugVis</span> <span class="kn">import</span> <span class="n">DebugData</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">transformUtils</span>
-<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="kn">import</span> <span class="n">TimerCallback</span>
-<span class="kn">from</span> <span class="nn">director.simpletimer</span> <span class="kn">import</span> <span class="n">FPSCounter</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">affordanceitems</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">affordanceurdf</span>
-<span class="kn">from</span> <span class="nn">director.uuidutil</span> <span class="kn">import</span> <span class="n">newUUID</span>
+<span></span><span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span> <span class="k">as</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">director.debugVis</span> <span class="k">import</span> <span class="n">DebugData</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">transformUtils</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">affordanceitems</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">affordanceurdf</span>
+<span class="kn">from</span> <span class="nn">director.uuidutil</span> <span class="k">import</span> <span class="n">newUUID</span>
+<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="k">as</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="kn">as</span> <span class="nn">vtk</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">PythonQt</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtUiTools</span>
+
+
 
 <div class="viewcode-block" id="addWidgetsToDict"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.addWidgetsToDict">[docs]</a><span class="k">def</span> <span class="nf">addWidgetsToDict</span><span class="p">(</span><span class="n">widgets</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
 
     <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">objectName</span><span class="p">:</span>
             <span class="n">d</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">objectName</span><span class="p">)]</span> <span class="o">=</span> <span class="n">widget</span>
-        <span class="n">addWidgetsToDict</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">children</span><span class="p">(),</span> <span class="n">d</span><span class="p">)</span>
+        <span class="n">addWidgetsToDict</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">children</span><span class="p">(),</span> <span class="n">d</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="WidgetDict"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.WidgetDict">[docs]</a><span class="k">class</span> <span class="nc">WidgetDict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widgets</span><span class="p">):</span>
-        <span class="n">addWidgetsToDict</span><span class="p">(</span><span class="n">widgets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+        <span class="n">addWidgetsToDict</span><span class="p">(</span><span class="n">widgets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="AffordancePanel"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel">[docs]</a><span class="k">class</span> <span class="nc">AffordancePanel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">affordanceManager</span><span class="p">,</span> <span class="n">ikServer</span><span class="p">,</span> <span class="n">jointController</span><span class="p">,</span> <span class="n">raycastDriver</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">affordanceManager</span><span class="p">,</span> <span class="n">jointController</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raycastDriver</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span> <span class="o">=</span> <span class="n">affordanceManager</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span> <span class="o">=</span> <span class="n">ikServer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span> <span class="o">=</span> <span class="n">jointController</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">raycastDriver</span> <span class="o">=</span> <span class="n">raycastDriver</span>
 
         <span class="n">loader</span> <span class="o">=</span> <span class="n">QtUiTools</span><span class="o">.</span><span class="n">QUiLoader</span><span class="p">()</span>
-        <span class="n">uifile</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QFile</span><span class="p">(</span><span class="s">&#39;:/ui/ddAffordancePanel.ui&#39;</span><span class="p">)</span>
+        <span class="n">uifile</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QFile</span><span class="p">(</span><span class="s1">&#39;:/ui/ddAffordancePanel.ui&#39;</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">uifile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">uifile</span><span class="o">.</span><span class="n">ReadOnly</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">uifile</span><span class="p">)</span>
@@ -177,70 +179,70 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">affordanceListWidget</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnBoxButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnBox</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnSphereButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnSphere</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnCylinderButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnCylinder</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnCapsuleButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnCapsule</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnRingButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnRing</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnMeshButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnMesh</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">getRaycastTerrainButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onGetRaycastTerrain</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnBoxButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnBox</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnSphereButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnSphere</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnCylinderButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnCylinder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnCapsuleButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnCapsule</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnRingButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnRing</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spawnMeshButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onSpawnMesh</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">getRaycastTerrainButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onGetRaycastTerrain</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">raycastDriver</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">getRaycastTerrainButton</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">Resize</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">updateTimer</span> <span class="o">=</span> <span class="n">TimerCallback</span><span class="p">(</span><span class="n">targetFps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">updateTimer</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">updatePanel</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">updateTimer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span>
 
 <div class="viewcode-block" id="AffordancePanel.onEvent"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="n">minSize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span><span class="o">.</span><span class="n">minimumSizeHint</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">()</span><span class="o">.</span><span class="n">width</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="n">minSize</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AffordancePanel.updatePanel"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.updatePanel">[docs]</a>    <span class="k">def</span> <span class="nf">updatePanel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
-            <span class="k">return</span>
-</div>
-<div class="viewcode-block" id="AffordancePanel.getSpawnFrame"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.getSpawnFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getSpawnFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">q</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-        <span class="n">rpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">frameFromPositionAndRPY</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">rpy</span><span class="p">)</span>
-        <span class="n">frame</span><span class="o">.</span><span class="n">PreMultiply</span><span class="p">()</span>
-        <span class="n">frame</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="n">minSize</span><span class="p">)</span></div>
 
-</div>
+<div class="viewcode-block" id="AffordancePanel.getSpawnFrame"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.getSpawnFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getSpawnFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="p">:</span>
+            <span class="c1"># get spawn frame in front of robot</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">q</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">rpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">frameFromPositionAndRPY</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">rpy</span><span class="p">)</span>
+            <span class="n">frame</span><span class="o">.</span><span class="n">PreMultiply</span><span class="p">()</span>
+            <span class="n">frame</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">frame</span></div>
+
 <div class="viewcode-block" id="AffordancePanel.onGetRaycastTerrain"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.onGetRaycastTerrain">[docs]</a>    <span class="k">def</span> <span class="nf">onGetRaycastTerrain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">affs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">getCollisionAffordances</span><span class="p">()</span>
         <span class="n">xy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">q</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">raycastDriver</span><span class="o">.</span><span class="n">requestRaycast</span><span class="p">(</span><span class="n">affs</span><span class="p">,</span> <span class="n">xy</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">xy</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raycastDriver</span><span class="o">.</span><span class="n">requestRaycast</span><span class="p">(</span><span class="n">affs</span><span class="p">,</span> <span class="n">xy</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">xy</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordancePanel.onSpawnBox"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.onSpawnBox">[docs]</a>    <span class="k">def</span> <span class="nf">onSpawnBox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">pose</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">poseFromTransform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSpawnFrame</span><span class="p">())</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s">&#39;BoxAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s">&#39;box&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
-</div>
+        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s1">&#39;BoxAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordancePanel.onSpawnSphere"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.onSpawnSphere">[docs]</a>    <span class="k">def</span> <span class="nf">onSpawnSphere</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">pose</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">poseFromTransform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSpawnFrame</span><span class="p">())</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s">&#39;SphereAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s">&#39;sphere&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
-</div>
+        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s1">&#39;SphereAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordancePanel.onSpawnCylinder"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.onSpawnCylinder">[docs]</a>    <span class="k">def</span> <span class="nf">onSpawnCylinder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">pose</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">poseFromTransform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSpawnFrame</span><span class="p">())</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s">&#39;CylinderAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s">&#39;cylinder&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
-</div>
+        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s1">&#39;CylinderAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;cylinder&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordancePanel.onSpawnCapsule"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.onSpawnCapsule">[docs]</a>    <span class="k">def</span> <span class="nf">onSpawnCapsule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">pose</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">poseFromTransform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSpawnFrame</span><span class="p">())</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s">&#39;CapsuleAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s">&#39;capsule&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
-</div>
+        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s1">&#39;CapsuleAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;capsule&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordancePanel.onSpawnRing"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.onSpawnRing">[docs]</a>    <span class="k">def</span> <span class="nf">onSpawnRing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">pose</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">poseFromTransform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSpawnFrame</span><span class="p">())</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s">&#39;CapsuleRingAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s">&#39;ring&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
-</div>
+        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s1">&#39;CapsuleRingAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;ring&#39;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordancePanel.onSpawnMesh"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.AffordancePanel.onSpawnMesh">[docs]</a>    <span class="k">def</span> <span class="nf">onSpawnMesh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="n">DebugData</span><span class="p">()</span>
@@ -249,19 +251,20 @@
         <span class="n">meshId</span> <span class="o">=</span> <span class="n">affordanceitems</span><span class="o">.</span><span class="n">MeshAffordanceItem</span><span class="o">.</span><span class="n">getMeshManager</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pd</span><span class="p">)</span>
 
         <span class="n">pose</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">poseFromTransform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSpawnFrame</span><span class="p">())</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s">&#39;MeshAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s">&#39;mesh&#39;</span><span class="p">,</span> <span class="n">Filename</span><span class="o">=</span><span class="n">meshId</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s1">&#39;MeshAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span> <span class="n">Filename</span><span class="o">=</span><span class="n">meshId</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">newUUID</span><span class="p">(),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span></div></div>
 
-</div></div>
+
 <span class="k">def</span> <span class="nf">_getAction</span><span class="p">():</span>
-    <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">affordanceManager</span><span class="p">,</span> <span class="n">ikServer</span><span class="p">,</span> <span class="n">jointController</span><span class="p">,</span> <span class="n">raycastDriver</span><span class="p">):</span>
+
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.affordancepanel.html#director.affordancepanel.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">affordanceManager</span><span class="p">,</span> <span class="n">jointController</span><span class="p">,</span> <span class="n">raycastDriver</span><span class="p">):</span>
 
     <span class="k">global</span> <span class="n">panel</span>
     <span class="k">global</span> <span class="n">dock</span>
 
-    <span class="n">panel</span> <span class="o">=</span> <span class="n">AffordancePanel</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">affordanceManager</span><span class="p">,</span> <span class="n">ikServer</span><span class="p">,</span> <span class="n">jointController</span><span class="p">,</span> <span class="n">raycastDriver</span><span class="p">)</span>
+    <span class="n">panel</span> <span class="o">=</span> <span class="n">AffordancePanel</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">affordanceManager</span><span class="p">,</span> <span class="n">jointController</span><span class="p">,</span> <span class="n">raycastDriver</span><span class="p">)</span>
     <span class="n">dock</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">panel</span><span class="o">.</span><span class="n">widget</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">_getAction</span><span class="p">())</span>
     <span class="n">dock</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
 

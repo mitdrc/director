@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,7 +132,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.drcargs</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">director</span>
+<span></span><span class="kn">import</span> <span class="nn">director</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
@@ -139,21 +143,21 @@
 <div class="viewcode-block" id="DRCArgParser"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser">[docs]</a><span class="k">class</span> <span class="nc">DRCArgParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_args</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">strict</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_args</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strict</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="DRCArgParser.getArgs"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getArgs">[docs]</a>    <span class="k">def</span> <span class="nf">getArgs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parseArgs</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span></div>
+
 <div class="viewcode-block" id="DRCArgParser.getParser"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getParser">[docs]</a>    <span class="k">def</span> <span class="nf">getParser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addDefaultArgs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span></div>
+
 <div class="viewcode-block" id="DRCArgParser.parseArgs"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.parseArgs">[docs]</a>    <span class="k">def</span> <span class="nf">parseArgs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getParser</span><span class="p">()</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">argv</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">]</span>
@@ -163,112 +167,176 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
-</div>
+
+        <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">l</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+
+        <span class="c1"># now flatten some list of lists</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">scripts</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">scripts</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">data_files</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">data_files</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="DRCArgParser.getDefaultBotConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultBotConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultBotConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span> <span class="s">&#39;software/config/atlas/robot.cfg&#39;</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span> <span class="s1">&#39;software/config/val/robot.cfg&#39;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DRCArgParser.getDefaultDirectorConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultDirectorConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultDirectorConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getDefaultAtlasV5DirectorConfigFile</span><span class="p">();</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getDefaultValkyrieDirectorConfigFile</span><span class="p">();</span></div>
+
 <div class="viewcode-block" id="DRCArgParser.getDefaultAtlasV3DirectorConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultAtlasV3DirectorConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultAtlasV3DirectorConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span>
-                            <span class="s">&#39;software/models/atlas_v3/director_config.json&#39;</span><span class="p">)</span>
-</div>
+                            <span class="s1">&#39;software/models/atlas_v3/director_config.json&#39;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DRCArgParser.getDefaultAtlasV4DirectorConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultAtlasV4DirectorConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultAtlasV4DirectorConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span>
-                            <span class="s">&#39;software/models/atlas_v4/director_config.json&#39;</span><span class="p">)</span>
-</div>
+                            <span class="s1">&#39;software/models/atlas_v4/director_config.json&#39;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DRCArgParser.getDefaultAtlasV5DirectorConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultAtlasV5DirectorConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultAtlasV5DirectorConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span>
-                            <span class="s">&#39;software/models/atlas_v5/director_config.json&#39;</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DRCArgParser.getDefaultValkyrieV1DirectorConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultValkyrieV1DirectorConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultValkyrieV1DirectorConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                            <span class="s1">&#39;software/models/atlas_v5/director_config.json&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DRCArgParser.getDefaultValkyrieDirectorConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultValkyrieDirectorConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultValkyrieDirectorConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span>
-                            <span class="s">&#39;software/models/valkyrie/director_config.json&#39;</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DRCArgParser.getDefaultValkyrieV2DirectorConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultValkyrieV2DirectorConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultValkyrieV2DirectorConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                            <span class="s1">&#39;software/models/val_description/director_config.json&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DRCArgParser.getDefaultValkyrieSimpleDirectorConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultValkyrieSimpleDirectorConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultValkyrieSimpleDirectorConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span>
-                            <span class="s">&#39;software/models/val_description/director_config.json&#39;</span><span class="p">)</span>
-</div>
+                            <span class="s1">&#39;software/models/val_description/director_config_simple.json&#39;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DRCArgParser.getDefaultKukaLWRConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultKukaLWRConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultKukaLWRConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span>
-                            <span class="s">&#39;software/models/lwr_defs/director_config.json&#39;</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DRCArgParser.addDefaultArgs"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.addDefaultArgs">[docs]</a>    <span class="k">def</span> <span class="nf">addDefaultArgs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
-        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&#39;--config_file&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;Robot cfg file&#39;</span><span class="p">,</span>
-                            <span class="n">default</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultBotConfigFile</span><span class="p">())</span>
+                            <span class="s1">&#39;software/models/lwr_defs/director_config.json&#39;</span><span class="p">)</span></div>
 
-        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--matlab-host&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;Hostname to use external matlab server&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="DRCArgParser.getDefaultHuskyConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultHuskyConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultHuskyConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span>
+                            <span class="s1">&#39;software/models/husky_description/director_config.json&#39;</span><span class="p">)</span></div>
 
-        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-exo&#39;</span><span class="p">,</span> <span class="s">&#39;--exo&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;exo&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;Publish plannig requests to external planner instead of Drake&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="DRCArgParser.getDefaultDualArmHuskyConfigFile"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.getDefaultDualArmHuskyConfigFile">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultDualArmHuskyConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span>
+                            <span class="s1">&#39;software/models/dual_arm_husky_description/director_config.json&#39;</span><span class="p">)</span></div>
 
-        <span class="n">directorConfig</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-v3&#39;</span><span class="p">,</span> <span class="s">&#39;--atlas_v3&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;directorConfigFile&#39;</span><span class="p">,</span>
-                            <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_const&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="DRCArgParser.addDirectorConfigShortcuts"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.addDirectorConfigShortcuts">[docs]</a>    <span class="k">def</span> <span class="nf">addDirectorConfigShortcuts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directorConfig</span><span class="p">):</span>
+
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v3&#39;</span><span class="p">,</span> <span class="s1">&#39;--atlas_v3&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
                             <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultAtlasV3DirectorConfigFile</span><span class="p">(),</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s">&#39;Use Atlas V3&#39;</span><span class="p">)</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use Atlas V3&#39;</span><span class="p">)</span>
 
-        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-v4&#39;</span><span class="p">,</span> <span class="s">&#39;--atlas_v4&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;directorConfigFile&#39;</span><span class="p">,</span>
-                            <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_const&#39;</span><span class="p">,</span>
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v4&#39;</span><span class="p">,</span> <span class="s1">&#39;--atlas_v4&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
                             <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultAtlasV4DirectorConfigFile</span><span class="p">(),</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s">&#39;Use Atlas V4&#39;</span><span class="p">)</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use Atlas V4&#39;</span><span class="p">)</span>
 
-        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-v5&#39;</span><span class="p">,</span> <span class="s">&#39;--atlas_v5&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;directorConfigFile&#39;</span><span class="p">,</span>
-                            <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_const&#39;</span><span class="p">,</span>
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v5&#39;</span><span class="p">,</span> <span class="s1">&#39;--atlas_v5&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
                             <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultAtlasV5DirectorConfigFile</span><span class="p">(),</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s">&#39;Use Atlas V5&#39;</span><span class="p">)</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use Atlas V5&#39;</span><span class="p">)</span>
 
-        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-val1&#39;</span><span class="p">,</span> <span class="s">&#39;--valkyrie_v1&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;directorConfigFile&#39;</span><span class="p">,</span>
-                            <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_const&#39;</span><span class="p">,</span>
-                            <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultValkyrieV1DirectorConfigFile</span><span class="p">(),</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s">&#39;Use Valkyrie&#39;</span><span class="p">)</span>
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-val&#39;</span><span class="p">,</span> <span class="s1">&#39;--valkyrie&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
+                            <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultValkyrieDirectorConfigFile</span><span class="p">(),</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use Valkyrie (Default)&#39;</span><span class="p">)</span>
 
-        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-val2&#39;</span><span class="p">,</span> <span class="s">&#39;--valkyrie_v2&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;directorConfigFile&#39;</span><span class="p">,</span>
-                            <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_const&#39;</span><span class="p">,</span>
-                            <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultValkyrieV2DirectorConfigFile</span><span class="p">(),</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s">&#39;Use Valkyrie&#39;</span><span class="p">)</span>
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-val_simple&#39;</span><span class="p">,</span> <span class="s1">&#39;--valkyrie_simple&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
+                            <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultValkyrieSimpleDirectorConfigFile</span><span class="p">(),</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use Valkyrie (Simple/Primitive Shapes)&#39;</span><span class="p">)</span>
 
-        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-lwr&#39;</span><span class="p">,</span> <span class="s">&#39;--lwr&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;directorConfigFile&#39;</span><span class="p">,</span>
-                            <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_const&#39;</span><span class="p">,</span>
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-lwr&#39;</span><span class="p">,</span> <span class="s1">&#39;--lwr&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
                             <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultKukaLWRConfigFile</span><span class="p">(),</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s">&#39;Use Kuka LWR&#39;</span><span class="p">)</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use Kuka LWR&#39;</span><span class="p">)</span>
 
-        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--director_config&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;directorConfigFile&#39;</span><span class="p">,</span>
-                            <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s">&#39;JSON file specifying which urdfs to use&#39;</span><span class="p">)</span>
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-husky&#39;</span><span class="p">,</span> <span class="s1">&#39;--husky&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
+                            <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultHuskyConfigFile</span><span class="p">(),</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use Husky&#39;</span><span class="p">)</span>
 
-        <span class="n">parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">directorConfigFile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultDirectorConfigFile</span><span class="p">())</span>
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-dual_arm_husky&#39;</span><span class="p">,</span> <span class="s1">&#39;--dual_arm_husky&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
+                            <span class="n">const</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultDualArmHuskyConfigFile</span><span class="p">(),</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use Dual Arm Husky&#39;</span><span class="p">)</span></div>
 
-        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;data_files&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;*&#39;</span><span class="p">,</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s">&#39;data files to load at startup&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="DRCArgParser.addDefaultArgs"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.addDefaultArgs">[docs]</a>    <span class="k">def</span> <span class="nf">addDefaultArgs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
 
-        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--startup&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;startup&#39;</span><span class="p">,</span>
-                            <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s">&#39;Run other python startup scripts in addition to startup.py&#39;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--bot-config&#39;</span><span class="p">,</span> <span class="s1">&#39;--config_file&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;config_file&#39;</span><span class="p">,</span>
+                            <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Robot cfg file&#39;</span><span class="p">)</span>
 
-</div></div>
-<span class="n">_argParser</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--matlab-host&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;hostname&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;hostname to connect with external matlab server&#39;</span><span class="p">)</span>
+
+        <span class="n">directorConfig</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--director-config&#39;</span><span class="p">,</span> <span class="s1">&#39;--director_config&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+                                    <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span>
+                                    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;JSON file specifying which urdfs to use&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseIsSet</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addDirectorConfigShortcuts</span><span class="p">(</span><span class="n">directorConfig</span><span class="p">)</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">directorConfigFile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultDirectorConfigFile</span><span class="p">(),</span>
+                                <span class="n">config_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultBotConfigFile</span><span class="p">())</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;data_files&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;append&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;data files to load at startup&#39;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--data&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;data_files&#39;</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;append&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;data files to load at startup&#39;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--script&#39;</span><span class="p">,</span> <span class="s1">&#39;--startup&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;scripts&#39;</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;append&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;python scripts to run at startup&#39;</span><span class="p">)</span></div></div>
+
+
+<span class="n">_argParser</span> <span class="o">=</span> <span class="kc">None</span>
 <div class="viewcode-block" id="getGlobalArgParser"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.getGlobalArgParser">[docs]</a><span class="k">def</span> <span class="nf">getGlobalArgParser</span><span class="p">():</span>
     <span class="k">global</span> <span class="n">_argParser</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_argParser</span><span class="p">:</span>
         <span class="n">_argParser</span> <span class="o">=</span> <span class="n">DRCArgParser</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">_argParser</span>
-</div>
+    <span class="k">return</span> <span class="n">_argParser</span></div>
+
+
 <div class="viewcode-block" id="requireStrict"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.requireStrict">[docs]</a><span class="k">def</span> <span class="nf">requireStrict</span><span class="p">():</span>
     <span class="k">global</span> <span class="n">_argParser</span>
-    <span class="n">_argParser</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">getGlobalArgParser</span><span class="p">()</span><span class="o">.</span><span class="n">strict</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="n">_argParser</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">getGlobalArgParser</span><span class="p">()</span><span class="o">.</span><span class="n">strict</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
 <div class="viewcode-block" id="args"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.args">[docs]</a><span class="k">def</span> <span class="nf">args</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">getGlobalArgParser</span><span class="p">()</span><span class="o">.</span><span class="n">getArgs</span><span class="p">()</span>
-</div>
-<span class="n">_directorConfig</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">getGlobalArgParser</span><span class="p">()</span><span class="o">.</span><span class="n">getArgs</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="DirectorConfig"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DirectorConfig">[docs]</a><span class="k">class</span> <span class="nc">DirectorConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Director config file not found: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fixedPointFile&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;fixedPointFile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;fixedPointFile&#39;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">urdfConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;urdfConfig&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">urdf</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">urdfConfig</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">urdfConfig</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">,</span> <span class="n">urdf</span><span class="p">)</span>
+
+    <span class="n">_defaultInstance</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DirectorConfig.getDefaultInstance"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DirectorConfig.getDefaultInstance">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultInstance</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_defaultInstance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">()</span><span class="o">.</span><span class="n">directorConfigFile</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Director config file is not defined. &#39;</span>
+                                <span class="s1">&#39;Use --director-config &lt;filename&gt; on the command line.&#39;</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_defaultInstance</span> <span class="o">=</span> <span class="n">DirectorConfig</span><span class="p">(</span><span class="n">args</span><span class="p">()</span><span class="o">.</span><span class="n">directorConfigFile</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_defaultInstance</span></div></div>
+
+
 <div class="viewcode-block" id="getDirectorConfig"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.getDirectorConfig">[docs]</a><span class="k">def</span> <span class="nf">getDirectorConfig</span><span class="p">():</span>
-    <span class="k">global</span> <span class="n">_directorConfig</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_directorConfig</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="p">()</span><span class="o">.</span><span class="n">directorConfigFile</span><span class="p">)</span> <span class="k">as</span> <span class="n">directorConfigFile</span><span class="p">:</span>
-            <span class="n">_directorConfig</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">directorConfigFile</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_directorConfig</span></div>
+    <span class="k">return</span> <span class="n">DirectorConfig</span><span class="o">.</span><span class="n">getDefaultInstance</span><span class="p">()</span><span class="o">.</span><span class="n">config</span></div>
 </pre></div>
 
            </div>

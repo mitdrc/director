@@ -1,0 +1,7 @@
+director.cameracontrolpanel module
+==================================
+
+.. automodule:: director.cameracontrolpanel
+    :members:
+    :undoc-members:
+    :show-inheritance:

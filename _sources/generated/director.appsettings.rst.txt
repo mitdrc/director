@@ -1,0 +1,7 @@
+director.appsettings module
+===========================
+
+.. automodule:: director.appsettings
+    :members:
+    :undoc-members:
+    :show-inheritance:

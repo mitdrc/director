@@ -1,0 +1,682 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>director.mainwindowapp &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Director  documentation" href="../../index.html"/>
+        <link rel="up" title="director" href="../director.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../director.html">director</a> &raquo;</li>
+      
+    <li>director.mainwindowapp</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for director.mainwindowapp</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">director.componentgraph</span> <span class="k">import</span> <span class="n">ComponentFactory</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">consoleapp</span>
+<span class="kn">import</span> <span class="nn">director.objectmodel</span> <span class="k">as</span> <span class="nn">om</span>
+<span class="kn">import</span> <span class="nn">director.visualization</span> <span class="k">as</span> <span class="nn">vis</span>
+<span class="kn">from</span> <span class="nn">director.fieldcontainer</span> <span class="k">import</span> <span class="n">FieldContainer</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">appsettings</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">drcargs</span>
+
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">PythonQt</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+
+<div class="viewcode-block" id="MainWindowApp"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp">[docs]</a><span class="k">class</span> <span class="nc">MainWindowApp</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">768</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span><span class="o">/</span><span class="mf">9.0</span><span class="p">),</span> <span class="mi">768</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QSettings</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fileMenu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;&amp;File&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editMenu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;&amp;Edit&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewMenu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;&amp;View&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbarMenu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewMenu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;&amp;Toolbars&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolsMenu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;&amp;Tools&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">helpMenu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;&amp;Help&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewMenuManager</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddViewMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewMenu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbarMenuManager</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddViewMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toolbarMenu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">quitAction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fileMenu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;&amp;Quit&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quitAction</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QKeySequence</span><span class="p">(</span><span class="s1">&#39;Ctrl+Q&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quitAction</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fileMenu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pythonConsoleAction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toolsMenu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;&amp;Python Console&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pythonConsoleAction</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QKeySequence</span><span class="p">(</span><span class="s1">&#39;F8&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pythonConsoleAction</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">showPythonConsole</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolsMenu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
+        <span class="n">helpAction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">helpMenu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Online Documentation&#39;</span><span class="p">)</span>
+        <span class="n">helpAction</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">showOnlineDocumentation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">helpMenu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
+        <span class="n">helpKeyboardShortcutsAction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">helpMenu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Keyboard Shortcuts&#39;</span><span class="p">)</span>
+        <span class="n">helpKeyboardShortcutsAction</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">showOnlineKeyboardShortcuts</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">helpMenu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="MainWindowApp.quit"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">MainWindowApp</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.exit"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.exit">[docs]</a>    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exitCode</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">MainWindowApp</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">exitCode</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.start"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enableAutomaticQuit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restoreWindow</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">consoleapp</span><span class="o">.</span><span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingEnabled</span><span class="p">()</span> <span class="ow">and</span> <span class="n">restoreWindow</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initWindowSettings</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">consoleapp</span><span class="o">.</span><span class="n">ConsoleApp</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">enableAutomaticQuit</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="MainWindowApp.applicationInstance"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.applicationInstance">[docs]</a>    <span class="k">def</span> <span class="nf">applicationInstance</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.showPythonConsole"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.showPythonConsole">[docs]</a>    <span class="k">def</span> <span class="nf">showPythonConsole</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">showPythonConsole</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.showOnlineDocumentation"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.showOnlineDocumentation">[docs]</a>    <span class="k">def</span> <span class="nf">showOnlineDocumentation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">QtGui</span><span class="o">.</span><span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QUrl</span><span class="p">(</span><span class="s1">&#39;https://openhumanoids.github.io/director/&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.showOnlineKeyboardShortcuts"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.showOnlineKeyboardShortcuts">[docs]</a>    <span class="k">def</span> <span class="nf">showOnlineKeyboardShortcuts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">QtGui</span><span class="o">.</span><span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QUrl</span><span class="p">(</span><span class="s1">&#39;https://openhumanoids.github.io/director/user_guide/keyboard_shortcuts.html#director&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.showErrorMessage"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.showErrorMessage">[docs]</a>    <span class="k">def</span> <span class="nf">showErrorMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Error&#39;</span><span class="p">):</span>
+        <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.showInfoMessage"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.showInfoMessage">[docs]</a>    <span class="k">def</span> <span class="nf">showInfoMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span><span class="p">):</span>
+        <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.wrapScrollArea"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.wrapScrollArea">[docs]</a>    <span class="k">def</span> <span class="nf">wrapScrollArea</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QScrollArea</span><span class="p">()</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">setWidgetResizable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">windowTitle</span><span class="p">)</span>
+        <span class="c1">#w.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)</span>
+        <span class="k">return</span> <span class="n">w</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.addWidgetToViewMenu"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.addWidgetToViewMenu">[docs]</a>    <span class="k">def</span> <span class="nf">addWidgetToViewMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewMenuManager</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">widget</span><span class="o">.</span><span class="n">windowTitle</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.addViewMenuSeparator"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.addViewMenuSeparator">[docs]</a>    <span class="k">def</span> <span class="nf">addViewMenuSeparator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewMenuManager</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.addWidgetToDock"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.addWidgetToDock">[docs]</a>    <span class="k">def</span> <span class="nf">addWidgetToDock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">,</span> <span class="n">dockArea</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">dock</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QDockWidget</span><span class="p">()</span>
+        <span class="n">dock</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+        <span class="n">dock</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">windowTitle</span><span class="p">)</span>
+        <span class="n">dock</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">windowTitle</span> <span class="o">+</span> <span class="s1">&#39; Dock&#39;</span><span class="p">)</span>
+        <span class="n">dock</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="n">visible</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">addDockWidget</span><span class="p">(</span><span class="n">dockArea</span><span class="p">,</span> <span class="n">dock</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addWidgetToViewMenu</span><span class="p">(</span><span class="n">dock</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dock</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.addToolBar"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.addToolBar">[docs]</a>    <span class="k">def</span> <span class="nf">addToolBar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">TopToolBarArea</span><span class="p">):</span>
+
+        <span class="n">toolBar</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QToolBar</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">toolBar</span><span class="o">.</span><span class="n">objectName</span> <span class="o">=</span> <span class="n">toolBar</span><span class="o">.</span><span class="n">windowTitle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">addToolBar</span><span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="n">toolBar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbarMenuManager</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">toolBar</span><span class="p">,</span> <span class="n">toolBar</span><span class="o">.</span><span class="n">windowTitle</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">toolBar</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.addToolBarAction"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.addToolBarAction">[docs]</a>    <span class="k">def</span> <span class="nf">addToolBarAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">toolBar</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">toolBar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">callback</span><span class="p">:</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">action</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.registerStartupCallback"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.registerStartupCallback">[docs]</a>    <span class="k">def</span> <span class="nf">registerStartupCallback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="n">consoleapp</span><span class="o">.</span><span class="n">ConsoleApp</span><span class="o">.</span><span class="n">_startupCallbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_restoreWindowState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">appsettings</span><span class="o">.</span><span class="n">restoreState</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_saveWindowState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">appsettings</span><span class="o">.</span><span class="n">saveState</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_saveCustomWindowState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_saveWindowState</span><span class="p">(</span><span class="s1">&#39;MainWindowCustom&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindowApp.restoreDefaultWindowState"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.restoreDefaultWindowState">[docs]</a>    <span class="k">def</span> <span class="nf">restoreDefaultWindowState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_restoreWindowState</span><span class="p">(</span><span class="s1">&#39;MainWindowDefault&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowApp.initWindowSettings"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowApp.initWindowSettings">[docs]</a>    <span class="k">def</span> <span class="nf">initWindowSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_saveWindowState</span><span class="p">(</span><span class="s1">&#39;MainWindowDefault&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_restoreWindowState</span><span class="p">(</span><span class="s1">&#39;MainWindowCustom&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;aboutToQuit()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_saveCustomWindowState</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MainWindowAppFactory"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory">[docs]</a><span class="k">class</span> <span class="nc">MainWindowAppFactory</span><span class="p">(</span><span class="n">ComponentFactory</span><span class="p">):</span>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initDefaultOptions"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initDefaultOptions">[docs]</a>    <span class="k">def</span> <span class="nf">initDefaultOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Components are enabled by default.  This function</span>
+<span class="sd">        determines which components should be disabled.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.addComponents"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.addComponents">[docs]</a>    <span class="k">def</span> <span class="nf">addComponents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">componentGraph</span><span class="p">):</span>
+
+        <span class="n">addComponent</span> <span class="o">=</span> <span class="n">componentGraph</span><span class="o">.</span><span class="n">addComponent</span>
+
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;View&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Globals&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;GlobalModules&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Globals&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;ObjectModel&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;ViewOptions&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;View&#39;</span><span class="p">,</span> <span class="s1">&#39;ObjectModel&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;MainToolBar&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;View&#39;</span><span class="p">,</span> <span class="s1">&#39;Grid&#39;</span><span class="p">,</span> <span class="s1">&#39;ViewOptions&#39;</span><span class="p">,</span> <span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;ViewBehaviors&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;View&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Grid&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;View&#39;</span><span class="p">,</span> <span class="s1">&#39;ObjectModel&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;View&#39;</span><span class="p">,</span> <span class="s1">&#39;ObjectModel&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;AdjustedClippingRange&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;View&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;ScriptLoader&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">,</span> <span class="s1">&#39;GlobalModules&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initView"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initView">[docs]</a>    <span class="k">def</span> <span class="nf">initView</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="n">view</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddQVTKWidgetView</span><span class="p">()</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">_defaultRenderView</span> <span class="o">=</span> <span class="n">view</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">setCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">(</span><span class="n">viewDirection</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">],</span> <span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initObjectModel"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initObjectModel">[docs]</a>    <span class="k">def</span> <span class="nf">initObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="n">om</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="n">objectModel</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">getDefaultObjectModel</span><span class="p">()</span>
+        <span class="n">objectModel</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Scene Browser&#39;</span><span class="p">)</span>
+        <span class="n">objectModel</span><span class="o">.</span><span class="n">getPropertiesPanel</span><span class="p">()</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Properties Panel&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">objectModel</span><span class="o">=</span><span class="n">objectModel</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initGrid"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initGrid">[docs]</a>    <span class="k">def</span> <span class="nf">initGrid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="n">gridObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showGrid</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;scene&#39;</span><span class="p">)</span>
+        <span class="n">gridObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Surface Mode&#39;</span><span class="p">,</span> <span class="s1">&#39;Surface with edges&#39;</span><span class="p">)</span>
+        <span class="n">gridObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">gridObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">(</span><span class="n">viewDirection</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">],</span> <span class="n">view</span><span class="o">=</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">gridObj</span><span class="o">=</span><span class="n">gridObj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initViewBehaviors"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initViewBehaviors">[docs]</a>    <span class="k">def</span> <span class="nf">initViewBehaviors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">viewbehaviors</span>
+        <span class="n">viewBehaviors</span> <span class="o">=</span> <span class="n">viewbehaviors</span><span class="o">.</span><span class="n">ViewBehaviors</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">viewBehaviors</span><span class="o">=</span><span class="n">viewBehaviors</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initViewOptions"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initViewOptions">[docs]</a>    <span class="k">def</span> <span class="nf">initViewOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="n">viewOptions</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">ViewOptionsItem</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">objectModel</span><span class="o">.</span><span class="n">addToObjectModel</span><span class="p">(</span><span class="n">viewOptions</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="n">fields</span><span class="o">.</span><span class="n">objectModel</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s1">&#39;scene&#39;</span><span class="p">))</span>
+        <span class="n">viewOptions</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Background color&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">])</span>
+        <span class="n">viewOptions</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Background color 2&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.95</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">viewOptions</span><span class="o">=</span><span class="n">viewOptions</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initAdjustedClippingRange"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initAdjustedClippingRange">[docs]</a>    <span class="k">def</span> <span class="nf">initAdjustedClippingRange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This setting improves the near plane clipping resolution.</span>
+<span class="sd">        Drake often draws a very large ground plane which is detrimental to</span>
+<span class="sd">        the near clipping for up close objects.  The trade-off is Z buffer</span>
+<span class="sd">        resolution but in practice things look good with this setting.&#39;&#39;&#39;</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">renderer</span><span class="p">()</span><span class="o">.</span><span class="n">SetNearClippingPlaneTolerance</span><span class="p">(</span><span class="mf">0.0005</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initMainWindow"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initMainWindow">[docs]</a>    <span class="k">def</span> <span class="nf">initMainWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">viewcolors</span>
+
+        <span class="n">organizationName</span> <span class="o">=</span> <span class="s1">&#39;RobotLocomotion&#39;</span>
+        <span class="n">applicationName</span> <span class="o">=</span> <span class="s1">&#39;DirectorMainWindow&#39;</span>
+        <span class="n">windowTitle</span> <span class="o">=</span> <span class="s1">&#39;Director App&#39;</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="s1">&#39;organizationName&#39;</span><span class="p">):</span>
+            <span class="n">organizationName</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">organizationName</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="s1">&#39;applicationName&#39;</span><span class="p">):</span>
+            <span class="n">applicationName</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">applicationName</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="s1">&#39;windowTitle&#39;</span><span class="p">):</span>
+            <span class="n">windowTitle</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">windowTitle</span>
+
+        <span class="n">MainWindowApp</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">setOrganizationName</span><span class="p">(</span><span class="n">organizationName</span><span class="p">)</span>
+        <span class="n">MainWindowApp</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">setApplicationName</span><span class="p">(</span><span class="n">applicationName</span><span class="p">)</span>
+
+
+        <span class="n">app</span> <span class="o">=</span> <span class="n">MainWindowApp</span><span class="p">()</span>
+
+        <span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">windowTitle</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;:/images/drake_logo.png&#39;</span><span class="p">))</span>
+
+        <span class="n">sceneBrowserDock</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">objectModel</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">(),</span>
+                              <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftDockWidgetArea</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">propertiesDock</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">wrapScrollArea</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">objectModel</span><span class="o">.</span><span class="n">getPropertiesPanel</span><span class="p">()),</span>
+                              <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftDockWidgetArea</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">app</span><span class="o">.</span><span class="n">addViewMenuSeparator</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">toggleObjectModelDock</span><span class="p">():</span>
+            <span class="n">newState</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">sceneBrowserDock</span><span class="o">.</span><span class="n">visible</span>
+            <span class="n">sceneBrowserDock</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="n">newState</span><span class="p">)</span>
+            <span class="n">propertiesDock</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="n">newState</span><span class="p">)</span>
+
+        <span class="n">applogic</span><span class="o">.</span><span class="n">addShortcut</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">,</span> <span class="s1">&#39;F1&#39;</span><span class="p">,</span> <span class="n">toggleObjectModelDock</span><span class="p">)</span>
+        <span class="c1">#applogic.addShortcut(app.mainWindow, &#39;F8&#39;, app.showPythonConsole)</span>
+
+
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+          <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span>
+          <span class="n">mainWindow</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">,</span>
+          <span class="n">sceneBrowserDock</span><span class="o">=</span><span class="n">sceneBrowserDock</span><span class="p">,</span>
+          <span class="n">propertiesDock</span><span class="o">=</span><span class="n">propertiesDock</span><span class="p">,</span>
+          <span class="n">toggleObjectModelDock</span><span class="o">=</span><span class="n">toggleObjectModelDock</span><span class="p">,</span>
+          <span class="n">commandLineArgs</span><span class="o">=</span><span class="n">drcargs</span><span class="o">.</span><span class="n">args</span><span class="p">()</span>
+          <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MainWindowAppFactory.initMainToolBar"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initMainToolBar">[docs]</a>    <span class="k">def</span> <span class="nf">initMainToolBar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">viewcolors</span>
+
+        <span class="n">app</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">app</span>
+        <span class="n">toolBar</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">addToolBar</span><span class="p">(</span><span class="s1">&#39;Main Toolbar&#39;</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">addToolBarAction</span><span class="p">(</span><span class="n">toolBar</span><span class="p">,</span> <span class="s1">&#39;Python Console&#39;</span><span class="p">,</span> <span class="s1">&#39;:/images/python_logo.png&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">showPythonConsole</span><span class="p">)</span>
+        <span class="n">toolBar</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
+        <span class="n">terrainModeAction</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">addToolBarAction</span><span class="p">(</span><span class="n">toolBar</span><span class="p">,</span> <span class="s1">&#39;Camera Free Rotate&#39;</span><span class="p">,</span> <span class="s1">&#39;:/images/camera_mode.png&#39;</span><span class="p">)</span>
+
+        <span class="n">lightAction</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">addToolBarAction</span><span class="p">(</span><span class="n">toolBar</span><span class="p">,</span> <span class="s1">&#39;Background Light&#39;</span><span class="p">,</span> <span class="s1">&#39;:/images/light_bulb_icon.png&#39;</span><span class="p">)</span>
+
+
+        <span class="n">app</span><span class="o">.</span><span class="n">addToolBarAction</span><span class="p">(</span><span class="n">toolBar</span><span class="p">,</span> <span class="s1">&#39;Reset Camera&#39;</span><span class="p">,</span> <span class="s1">&#39;:/images/reset_camera.png&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">applogic</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">getFreeCameraMode</span><span class="p">():</span>
+            <span class="k">return</span> <span class="ow">not</span> <span class="n">applogic</span><span class="o">.</span><span class="n">getCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">setFreeCameraMode</span><span class="p">(</span><span class="n">enabled</span><span class="p">):</span>
+            <span class="n">applogic</span><span class="o">.</span><span class="n">setCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="ow">not</span> <span class="n">enabled</span><span class="p">)</span>
+
+        <span class="n">terrainToggle</span> <span class="o">=</span> <span class="n">applogic</span><span class="o">.</span><span class="n">ActionToggleHelper</span><span class="p">(</span><span class="n">terrainModeAction</span><span class="p">,</span> <span class="n">getFreeCameraMode</span><span class="p">,</span> <span class="n">setFreeCameraMode</span><span class="p">)</span>
+
+        <span class="n">viewBackgroundLightHandler</span> <span class="o">=</span> <span class="n">viewcolors</span><span class="o">.</span><span class="n">ViewBackgroundLightHandler</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">viewOptions</span><span class="p">,</span> <span class="n">fields</span><span class="o">.</span><span class="n">gridObj</span><span class="p">,</span>
+                                <span class="n">lightAction</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">viewBackgroundLightHandler</span><span class="o">=</span><span class="n">viewBackgroundLightHandler</span><span class="p">,</span> <span class="n">terrainToggle</span><span class="o">=</span><span class="n">terrainToggle</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initGlobalModules"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initGlobalModules">[docs]</a>    <span class="k">def</span> <span class="nf">initGlobalModules</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">transformUtils</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">filterUtils</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">ioUtils</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkNumpy</span> <span class="k">as</span> <span class="n">vnp</span>
+        <span class="kn">from</span> <span class="nn">director.debugVis</span> <span class="k">import</span> <span class="n">DebugData</span>
+        <span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="k">import</span> <span class="n">TimerCallback</span>
+        <span class="kn">from</span> <span class="nn">director.fieldcontainer</span> <span class="k">import</span> <span class="n">FieldContainer</span>
+        <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+        <span class="n">modules</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">locals</span><span class="p">())</span>
+        <span class="k">del</span> <span class="n">modules</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">modules</span><span class="p">[</span><span class="s1">&#39;self&#39;</span><span class="p">]</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">globalsDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">modules</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initGlobals"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initGlobals">[docs]</a>    <span class="k">def</span> <span class="nf">initGlobals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">globalsDict</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">globalsDict</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">globalsDict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">globalsDict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">globalsDict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">globalsDict</span><span class="o">=</span><span class="n">globalsDict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowAppFactory.initScriptLoader"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowAppFactory.initScriptLoader">[docs]</a>    <span class="k">def</span> <span class="nf">initScriptLoader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">loadScripts</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">fields</span><span class="o">.</span><span class="n">commandLineArgs</span><span class="o">.</span><span class="n">scripts</span><span class="p">:</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                <span class="n">globalsDict</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">globalsDict</span>
+                <span class="n">prevFile</span> <span class="o">=</span> <span class="n">globalsDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__file__&#39;</span><span class="p">)</span>
+                <span class="n">globalsDict</span><span class="p">[</span><span class="s1">&#39;__file__&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filename</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">execfile</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">fields</span><span class="o">.</span><span class="n">globalsDict</span><span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="n">prevFile</span> <span class="o">=</span> <span class="n">globalsDict</span><span class="p">[</span><span class="s1">&#39;__file__&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prevFile</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">registerStartupCallback</span><span class="p">(</span><span class="n">loadScripts</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MainWindowPanelFactory"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory">[docs]</a><span class="k">class</span> <span class="nc">MainWindowPanelFactory</span><span class="p">(</span><span class="n">ComponentFactory</span><span class="p">):</span>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initDefaultOptions"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initDefaultOptions">[docs]</a>    <span class="k">def</span> <span class="nf">initDefaultOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Components are enabled by default.  This function</span>
+<span class="sd">        determines which components should be disabled.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># these components depend on lcm and lcmgl, so they</span>
+        <span class="c1"># are disabled by default</span>
+        <span class="n">options</span><span class="o">.</span><span class="n">useDrakeVisualizer</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">options</span><span class="o">.</span><span class="n">useTreeViewer</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">options</span><span class="o">.</span><span class="n">useLCMGLRenderer</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.addComponents"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.addComponents">[docs]</a>    <span class="k">def</span> <span class="nf">addComponents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">componentGraph</span><span class="p">):</span>
+
+        <span class="n">addComponent</span> <span class="o">=</span> <span class="n">componentGraph</span><span class="o">.</span><span class="n">addComponent</span>
+
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;OpenDataHandler&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;ScreenGrabberPanel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;CameraBookmarksPanel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;CameraControlPanel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;MeasurementPanel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;OutputConsole&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;DrakeVisualizer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;TreeViewer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span>
+        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;LCMGLRenderer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initMainWindow"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initMainWindow">[docs]</a>    <span class="k">def</span> <span class="nf">initMainWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">fields</span><span class="o">.</span><span class="n">view</span> <span class="ow">and</span> <span class="n">fields</span><span class="o">.</span><span class="n">app</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initOpenDataHandler"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initOpenDataHandler">[docs]</a>    <span class="k">def</span> <span class="nf">initOpenDataHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">opendatahandler</span>
+        <span class="n">openDataHandler</span> <span class="o">=</span> <span class="n">opendatahandler</span><span class="o">.</span><span class="n">OpenDataHandler</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">loadData</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">drcargs</span><span class="o">.</span><span class="n">args</span><span class="p">()</span><span class="o">.</span><span class="n">data_files</span><span class="p">:</span>
+                <span class="n">openDataHandler</span><span class="o">.</span><span class="n">openGeometry</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">registerStartupCallback</span><span class="p">(</span><span class="n">loadData</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">openDataHandler</span><span class="o">=</span><span class="n">openDataHandler</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initOutputConsole"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initOutputConsole">[docs]</a>    <span class="k">def</span> <span class="nf">initOutputConsole</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">outputconsole</span>
+        <span class="n">outputConsole</span> <span class="o">=</span> <span class="n">outputconsole</span><span class="o">.</span><span class="n">OutputConsole</span><span class="p">()</span>
+        <span class="n">outputConsole</span><span class="o">.</span><span class="n">addToAppWindow</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">outputConsole</span><span class="o">=</span><span class="n">outputConsole</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initMeasurementPanel"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initMeasurementPanel">[docs]</a>    <span class="k">def</span> <span class="nf">initMeasurementPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">measurementpanel</span>
+        <span class="n">measurementPanel</span> <span class="o">=</span> <span class="n">measurementpanel</span><span class="o">.</span><span class="n">MeasurementPanel</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="n">measurementDock</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">measurementPanel</span><span class="o">.</span><span class="n">widget</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+          <span class="n">measurementPanel</span><span class="o">=</span><span class="n">measurementPanel</span><span class="p">,</span>
+          <span class="n">measurementDock</span><span class="o">=</span><span class="n">measurementDock</span>
+          <span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initScreenGrabberPanel"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initScreenGrabberPanel">[docs]</a>    <span class="k">def</span> <span class="nf">initScreenGrabberPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director.screengrabberpanel</span> <span class="k">import</span> <span class="n">ScreenGrabberPanel</span>
+        <span class="n">screenGrabberPanel</span> <span class="o">=</span> <span class="n">ScreenGrabberPanel</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="n">screenGrabberDock</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">screenGrabberPanel</span><span class="o">.</span><span class="n">widget</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+          <span class="n">screenGrabberPanel</span><span class="o">=</span><span class="n">screenGrabberPanel</span><span class="p">,</span>
+          <span class="n">screenGrabberDock</span><span class="o">=</span><span class="n">screenGrabberDock</span>
+          <span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initCameraBookmarksPanel"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initCameraBookmarksPanel">[docs]</a>    <span class="k">def</span> <span class="nf">initCameraBookmarksPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">camerabookmarks</span>
+
+        <span class="n">cameraBookmarksPanel</span> <span class="o">=</span> <span class="n">camerabookmarks</span><span class="o">.</span><span class="n">CameraBookmarkWidget</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="n">cameraBookmarksDock</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">cameraBookmarksPanel</span><span class="o">.</span><span class="n">widget</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+          <span class="n">cameraBookmarksPanel</span><span class="o">=</span><span class="n">cameraBookmarksPanel</span><span class="p">,</span>
+          <span class="n">cameraBookmarksDock</span><span class="o">=</span><span class="n">cameraBookmarksDock</span>
+          <span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initCameraControlPanel"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initCameraControlPanel">[docs]</a>    <span class="k">def</span> <span class="nf">initCameraControlPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">cameracontrolpanel</span>
+        <span class="n">cameraControlPanel</span> <span class="o">=</span> <span class="n">cameracontrolpanel</span><span class="o">.</span><span class="n">CameraControlPanel</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="n">cameraControlDock</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">cameraControlPanel</span><span class="o">.</span><span class="n">widget</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+          <span class="n">cameraControlPanel</span><span class="o">=</span><span class="n">cameraControlPanel</span><span class="p">,</span>
+          <span class="n">cameraControlDock</span><span class="o">=</span><span class="n">cameraControlDock</span>
+          <span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initDrakeVisualizer"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initDrakeVisualizer">[docs]</a>    <span class="k">def</span> <span class="nf">initDrakeVisualizer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">drakevisualizer</span>
+        <span class="n">drakeVisualizer</span> <span class="o">=</span> <span class="n">drakevisualizer</span><span class="o">.</span><span class="n">DrakeVisualizer</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+
+        <span class="n">applogic</span><span class="o">.</span><span class="n">MenuActionToggleHelper</span><span class="p">(</span><span class="s1">&#39;Tools&#39;</span><span class="p">,</span> <span class="n">drakeVisualizer</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">drakeVisualizer</span><span class="o">.</span><span class="n">isEnabled</span><span class="p">,</span> <span class="n">drakeVisualizer</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+          <span class="n">drakeVisualizer</span><span class="o">=</span><span class="n">drakeVisualizer</span>
+          <span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initTreeViewer"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initTreeViewer">[docs]</a>    <span class="k">def</span> <span class="nf">initTreeViewer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">treeviewer</span>
+        <span class="n">treeViewer</span> <span class="o">=</span> <span class="n">treeviewer</span><span class="o">.</span><span class="n">TreeViewer</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+
+        <span class="n">applogic</span><span class="o">.</span><span class="n">MenuActionToggleHelper</span><span class="p">(</span><span class="s1">&#39;Tools&#39;</span><span class="p">,</span> <span class="n">treeViewer</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">treeViewer</span><span class="o">.</span><span class="n">isEnabled</span><span class="p">,</span> <span class="n">treeViewer</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+          <span class="n">treeViewer</span><span class="o">=</span><span class="n">treeViewer</span>
+          <span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindowPanelFactory.initLCMGLRenderer"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.MainWindowPanelFactory.initLCMGLRenderer">[docs]</a>    <span class="k">def</span> <span class="nf">initLCMGLRenderer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">lcmgl</span>
+        <span class="k">if</span> <span class="n">lcmgl</span><span class="o">.</span><span class="n">LCMGL_AVAILABLE</span><span class="p">:</span>
+            <span class="n">lcmglManager</span> <span class="o">=</span> <span class="n">lcmgl</span><span class="o">.</span><span class="n">LCMGLManager</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+            <span class="n">applogic</span><span class="o">.</span><span class="n">MenuActionToggleHelper</span><span class="p">(</span><span class="s1">&#39;Tools&#39;</span><span class="p">,</span> <span class="s1">&#39;LCMGL Renderer&#39;</span><span class="p">,</span> <span class="n">lcmglManager</span><span class="o">.</span><span class="n">isEnabled</span><span class="p">,</span> <span class="n">lcmglManager</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lcmglManager</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span>
+          <span class="n">lcmglManager</span><span class="o">=</span><span class="n">lcmglManager</span>
+          <span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="construct"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.construct">[docs]</a><span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="n">globalsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">MainWindowAppFactory</span><span class="p">()</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="n">globalsDict</span><span class="o">=</span><span class="n">globalsDict</span><span class="p">)</span>
+    <span class="n">MainWindowPanelFactory</span><span class="p">()</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="n">view</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">app</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../generated/director.mainwindowapp.html#director.mainwindowapp.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">globalsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">globalsDict</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">globalsDict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">globalsDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">app</span><span class="p">))</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><span class="nb">globals</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

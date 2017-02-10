@@ -1,7 +1,0 @@
-director.mappingdemo module
-===========================
-
-.. automodule:: director.mappingdemo
-    :members:
-    :undoc-members:
-    :show-inheritance:

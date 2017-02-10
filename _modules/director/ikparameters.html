@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,46 +132,46 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.ikparameters</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">director.fieldcontainer</span> <span class="kn">import</span> <span class="n">FieldContainer</span>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">director.fieldcontainer</span> <span class="k">import</span> <span class="n">FieldContainer</span>
 
 <div class="viewcode-block" id="IkParameters"><a class="viewcode-back" href="../../generated/director.ikparameters.html#director.ikparameters.IkParameters">[docs]</a><span class="k">class</span> <span class="nc">IkParameters</span><span class="p">(</span><span class="n">FieldContainer</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_fields</span><span class="p">(</span>
-            <span class="n">usePointwise</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">useCollision</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">majorIterationsLimit</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">majorOptimalityTolerance</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">majorFeasibilityTolerance</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">maxDegreesPerSecond</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">maxBaseMetersPerSecond</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">maxBaseRPYDegreesPerSecond</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">maxBackDegreesPerSecond</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">accelerationParam</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">accelerationFraction</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">maxPlanDuration</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">fixInitialState</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">numberOfAddedKnots</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">numberOfInterpolatedCollisionChecks</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">collisionMinDistance</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">rrtMaxEdgeLength</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">rrtGoalBias</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">rrtHand</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">rrtMaxNumVertices</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">rrtNSmoothingPasses</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">maxBodyTranslationSpeed</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">maxBodyRotationSpeed</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">rescaleBodyNames</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">rescaleBodyPts</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="n">quasiStaticShrinkFactor</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">usePointwise</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">useCollision</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">majorIterationsLimit</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">majorOptimalityTolerance</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">majorFeasibilityTolerance</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">maxDegreesPerSecond</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">maxBaseMetersPerSecond</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">maxBaseRPYDegreesPerSecond</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">maxBackDegreesPerSecond</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">accelerationParam</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">accelerationFraction</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">maxPlanDuration</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">fixInitialState</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">numberOfAddedKnots</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">numberOfInterpolatedCollisionChecks</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">collisionMinDistance</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">rrtMaxEdgeLength</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">rrtGoalBias</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">rrtHand</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">rrtMaxNumVertices</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">rrtNSmoothingPasses</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">maxBodyTranslationSpeed</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">maxBodyRotationSpeed</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">rescaleBodyNames</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">rescaleBodyPts</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">quasiStaticShrinkFactor</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="p">)</span>
 
-        <span class="n">FieldContainer</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">FieldContainer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="IkParameters.setToDefaults"><a class="viewcode-back" href="../../generated/director.ikparameters.html#director.ikparameters.IkParameters.setToDefaults">[docs]</a>    <span class="k">def</span> <span class="nf">setToDefaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">usePointwise</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">useCollision</span> <span class="o">=</span> <span class="s">&#39;none&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">usePointwise</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">useCollision</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">majorIterationsLimit</span> <span class="o">=</span> <span class="mi">500</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">majorOptimalityTolerance</span> <span class="o">=</span> <span class="mf">1e-4</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">majorFeasibilityTolerance</span> <span class="o">=</span> <span class="mf">1e-6</span>
@@ -182,20 +186,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">accelerationParam</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">accelerationFraction</span> <span class="o">=</span> <span class="mf">0.3</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">maxPlanDuration</span> <span class="o">=</span> <span class="mf">30.0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fixInitialState</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fixInitialState</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">numberOfAddedKnots</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">numberOfInterpolatedCollisionChecks</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">collisionMinDistance</span> <span class="o">=</span> <span class="mf">0.03</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rrtMaxEdgeLength</span> <span class="o">=</span> <span class="mf">0.05</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rrtGoalBias</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rrtHand</span> <span class="o">=</span> <span class="s">&#39;left&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrtHand</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rrtMaxNumVertices</span> <span class="o">=</span> <span class="mi">5000</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rrtNSmoothingPasses</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">quasiStaticShrinkFactor</span> <span class="o">=</span> <span class="mf">0.2</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quasiStaticShrinkFactor</span> <span class="o">=</span> <span class="mf">0.2</span></div>
+
 <div class="viewcode-block" id="IkParameters.fillInWith"><a class="viewcode-back" href="../../generated/director.ikparameters.html#director.ikparameters.IkParameters.fillInWith">[docs]</a>    <span class="k">def</span> <span class="nf">fillInWith</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">deepcopy</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field</span><span class="p">)))</span></div></div>
 </pre></div>
 

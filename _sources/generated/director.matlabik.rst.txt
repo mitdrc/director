@@ -1,0 +1,7 @@
+director.matlabik module
+========================
+
+.. automodule:: director.matlabik
+    :members:
+    :undoc-members:
+    :show-inheritance:

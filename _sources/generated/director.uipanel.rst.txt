@@ -1,0 +1,7 @@
+director.uipanel module
+=======================
+
+.. automodule:: director.uipanel
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,8 +132,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.jointpropagator</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">vtkAll</span> <span class="kn">as</span> <span class="nn">vtk</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">vtkAll</span> <span class="k">as</span> <span class="nn">vtk</span>
 
 <div class="viewcode-block" id="JointPropagator"><a class="viewcode-back" href="../../generated/director.jointpropagator.html#director.jointpropagator.JointPropagator">[docs]</a><span class="k">class</span> <span class="nc">JointPropagator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
@@ -137,18 +141,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parentRobotModel</span> <span class="o">=</span> <span class="n">parentRobotModel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">childRobotModel</span> <span class="o">=</span> <span class="n">childRobotModel</span>
 
-        <span class="c"># Figure out which joint indices we&#39;re going to</span>
-        <span class="c"># be propagating</span>
+        <span class="c1"># Figure out which joint indices we&#39;re going to</span>
+        <span class="c1"># be propagating</span>
         <span class="n">all_joint_names</span> <span class="o">=</span> <span class="n">parentRobotModel</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getJointNames</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">childRobotModel</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getJointNames</span><span class="p">()</span> <span class="o">!=</span> <span class="n">all_joint_names</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;parent and child robot model joints don</span><span class="se">\&#39;</span><span class="s">t match!&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;parent and child robot model joints don</span><span class="se">\&#39;</span><span class="s1">t match!&#39;</span><span class="p">)</span>
         <span class="n">all_joint_names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">joint</span><span class="p">)</span> <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">all_joint_names</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jointIndices</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">jointsToPropagate</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">all_joint_names</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">jointIndices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">all_joint_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">joint</span><span class="p">))</span>
-            <span class="c">#else:</span>
-            <span class="c">#    raise Exception(&#39;Couldn\&#39;t find dof &#39; + joint)</span>
+            <span class="c1">#else:</span>
+            <span class="c1">#    raise Exception(&#39;Couldn\&#39;t find dof &#39; + joint)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jointsToPropagate</span> <span class="o">=</span> <span class="n">jointsToPropagate</span>
 
 <div class="viewcode-block" id="JointPropagator.doPropagation"><a class="viewcode-back" href="../../generated/director.jointpropagator.html#director.jointpropagator.JointPropagator.doPropagation">[docs]</a>    <span class="k">def</span> <span class="nf">doPropagation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

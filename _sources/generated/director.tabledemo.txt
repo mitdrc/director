@@ -1,7 +1,0 @@
-director.tabledemo module
-=========================
-
-.. automodule:: director.tabledemo
-    :members:
-    :undoc-members:
-    :show-inheritance:

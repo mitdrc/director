@@ -1,0 +1,26 @@
+director.thirdparty package
+===========================
+
+Submodules
+----------
+
+.. toctree::
+
+   director.thirdparty.NumericStringParser
+   director.thirdparty.conversions
+   director.thirdparty.geometry_msgs_mock
+   director.thirdparty.min_bounding_rect
+   director.thirdparty.naming
+   director.thirdparty.numpyjsoncoder
+   director.thirdparty.pysdf
+   director.thirdparty.qhull_2d
+   director.thirdparty.toposort
+   director.thirdparty.transformations
+
+Module contents
+---------------
+
+.. automodule:: director.thirdparty
+    :members:
+    :undoc-members:
+    :show-inheritance:

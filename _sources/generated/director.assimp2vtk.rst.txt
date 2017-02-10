@@ -1,0 +1,7 @@
+director.assimp2vtk module
+==========================
+
+.. automodule:: director.assimp2vtk
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -30,10 +30,13 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="director package" href="director.html"/>
         <link rel="next" title="director.colorize module" href="director.colorize.html"/>
-        <link rel="prev" title="director.cameracontrol module" href="director.cameracontrol.html"/> 
+        <link rel="prev" title="director.cameracontrolpanel module" href="director.cameracontrolpanel.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -81,7 +84,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="director.html#subpackages">Subpackages</a></li>
@@ -93,6 +97,8 @@
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.asynctaskqueue.html">director.asynctaskqueue module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriver.html">director.atlasdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriverpanel.html">director.atlasdriverpanel module</a></li>
@@ -102,8 +108,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.callbacks.html">director.callbacks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.camerabookmarks.html">director.camerabookmarks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameracontrol.html">director.cameracontrol module</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="">director.cameraview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameracontrolpanel.html">director.cameracontrolpanel module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">director.cameraview module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.colorize.html">director.colorize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.componentgraph.html">director.componentgraph module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.consoleapp.html">director.consoleapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.continuouswalkingdemo.html">director.continuouswalkingdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.copmonitor.html">director.copmonitor module</a></li>
@@ -111,8 +119,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.debrisdemo.html">director.debrisdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.debugVis.html">director.debugVis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.depthimageprovider.html">director.depthimageprovider module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.depthscanner.html">director.depthscanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.doordemo.html">director.doordemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drakevisualizer.html">director.drakevisualizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drakevisualizerapp.html">director.drakevisualizerapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drcargs.html">director.drcargs module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drilldemo.html">director.drilldemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drivingplanner.html">director.drivingplanner module</a></li>
@@ -127,47 +137,62 @@
 <li class="toctree-l4"><a class="reference internal" href="director.geometryencoder.html">director.geometryencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handcontrolpanel.html">director.handcontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handdriver.html">director.handdriver module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.ik.html">director.ik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraintencoder.html">director.ikconstraintencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraints.html">director.ikconstraints module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikparameters.html">director.ikparameters module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikplanner.html">director.ikplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageview.html">director.imageview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageviewapp.html">director.imageviewapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ioUtils.html">director.ioUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisUtils.html">director.irisUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisdriver.html">director.irisdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointcontrol.html">director.jointcontrol module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointpropagator.html">director.jointpropagator module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.kinectlcm.html">director.kinectlcm module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.kinematicposeplanner.html">director.kinematicposeplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.korgnano.html">director.korgnano module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmUtils.html">director.lcmUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmcollections.html">director.lcmcollections module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingdemo.html">director.mappingdemo module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingpanel.html">director.mappingpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.mainwindowapp.html">director.mainwindowapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.mapsregistrar.html">director.mapsregistrar module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.matlab.html">director.matlab module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.matlabik.html">director.matlabik module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.measurementpanel.html">director.measurementpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.meshmanager.html">director.meshmanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.midi.html">director.midi module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.motionplanningpanel.html">director.motionplanningpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.multisensepanel.html">director.multisensepanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.navigationpanel.html">director.navigationpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.perception.html">director.perception module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.plannerPublisher.html">director.plannerPublisher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.planningutils.html">director.planningutils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.planplayback.html">director.planplayback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.playbackpanel.html">director.playbackpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointcloudlcm.html">director.pointcloudlcm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointpicker.html">director.pointpicker module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.polarisplatformplanner.html">director.polarisplatformplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.propertyanimation.html">director.propertyanimation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.propertyset.html">director.propertyset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pydrakeik.html">director.pydrakeik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.raycastdriver.html">director.raycastdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotlinkselector.html">director.robotlinkselector module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotplanlistener.html">director.robotplanlistener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotposegui.html">director.robotposegui module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotstate.html">director.robotstate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotsystem.html">director.robotsystem module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.roboturdf.html">director.roboturdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotviewbehaviors.html">director.robotviewbehaviors module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.sceneloader.html">director.sceneloader module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.screengrabberpanel.html">director.screengrabberpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.segmentation.html">director.segmentation module</a></li>
@@ -184,7 +209,6 @@
 <li class="toctree-l4"><a class="reference internal" href="director.statelistener.html">director.statelistener module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.surprisetask.html">director.surprisetask module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.switchplanner.html">director.switchplanner module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.tabledemo.html">director.tabledemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.takktilevis.html">director.takktilevis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tasklaunchpanel.html">director.tasklaunchpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tdx.html">director.tdx module</a></li>
@@ -195,10 +219,17 @@
 <li class="toctree-l4"><a class="reference internal" href="director.timercallback.html">director.timercallback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.trackers.html">director.trackers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.transformUtils.html">director.transformUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.treeviewer.html">director.treeviewer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.uipanel.html">director.uipanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.utime.html">director.utime module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.uuidutil.html">director.uuidutil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.valvedemo.html">director.valvedemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.version.html">director.version module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viconvisualizer.html">director.viconvisualizer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.viewbehaviors.html">director.viewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewcolors.html">director.viewcolors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewerclient.html">director.viewerclient module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vieweventfilter.html">director.vieweventfilter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.visualization.html">director.visualization module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkAll.html">director.vtkAll module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkNumpy.html">director.vtkNumpy module</a></li>
@@ -233,7 +264,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -257,305 +288,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-director.cameraview">
-<span id="director-cameraview-module"></span><h1>director.cameraview module<a class="headerlink" href="#module-director.cameraview" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="director.cameraview.CameraFrustumVisualizer">
-<em class="property">class </em><code class="descclassname">director.cameraview.</code><code class="descname">CameraFrustumVisualizer</code><span class="sig-paren">(</span><em>robotModel</em>, <em>imageManager</em>, <em>cameraName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraFrustumVisualizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraFrustumVisualizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.cameraview.CameraFrustumVisualizer.getCameraFrustumGeometry">
-<code class="descname">getCameraFrustumGeometry</code><span class="sig-paren">(</span><em>rayLength</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraFrustumVisualizer.getCameraFrustumGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraFrustumVisualizer.getCameraFrustumGeometry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraFrustumVisualizer.getCameraFrustumRays">
-<code class="descname">getCameraFrustumRays</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraFrustumVisualizer.getCameraFrustumRays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraFrustumVisualizer.getCameraFrustumRays" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns (cameraPositions, rays)
-cameraPosition is in world frame.
-rays are four unit length vectors in world frame that point in the
-direction of the camera frustum edges</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraFrustumVisualizer.getCameraToLocal">
-<code class="descname">getCameraToLocal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraFrustumVisualizer.getCameraToLocal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraFrustumVisualizer.getCameraToLocal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns cameraToLocal.  cameraToHead is pulled from bot frames while
-headToLocal is pulled from the robot model forward kinematics.</p>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="director.cameraview.CameraFrustumVisualizer.isCompatibleWithConfig">
-<em class="property">static </em><code class="descname">isCompatibleWithConfig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraFrustumVisualizer.isCompatibleWithConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraFrustumVisualizer.isCompatibleWithConfig" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraFrustumVisualizer.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>robotModel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraFrustumVisualizer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraFrustumVisualizer.update" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.cameraview.CameraImageView">
-<em class="property">class </em><code class="descclassname">director.cameraview.</code><code class="descname">CameraImageView</code><span class="sig-paren">(</span><em>imageManager</em>, <em>imageName</em>, <em>viewName=None</em>, <em>view=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.filterEvent">
-<code class="descname">filterEvent</code><span class="sig-paren">(</span><em>obj</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.filterEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.filterEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.fitImageToView">
-<code class="descname">fitImageToView</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.fitImageToView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.fitImageToView" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.getImage">
-<code class="descname">getImage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.getImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.getImage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.getImagePixel">
-<code class="descname">getImagePixel</code><span class="sig-paren">(</span><em>displayPoint</em>, <em>restrictToImageDimensions=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.getImagePixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.getImagePixel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.getWorldPositionAndRay">
-<code class="descname">getWorldPositionAndRay</code><span class="sig-paren">(</span><em>imagePixel</em>, <em>imageUtime=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.getWorldPositionAndRay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.getWorldPositionAndRay" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given an XY image pixel, computes an equivalent ray in the world
-coordinate system using the camera to local transform at the given
-imageUtime.  If imageUtime is None, then the utime of the most recent
-image is used.</p>
-<p>Returns the camera xyz position in world, and a ray unit vector.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.initEventFilter">
-<code class="descname">initEventFilter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.initEventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.initEventFilter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.initView">
-<code class="descname">initView</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.initView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.initView" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.onRubberBandPick">
-<code class="descname">onRubberBandPick</code><span class="sig-paren">(</span><em>obj</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.onRubberBandPick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.onRubberBandPick" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.resetCamera">
-<code class="descname">resetCamera</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.resetCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.resetCamera" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.setImageName">
-<code class="descname">setImageName</code><span class="sig-paren">(</span><em>imageName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.setImageName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.setImageName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraImageView.updateView">
-<code class="descname">updateView</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraImageView.updateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraImageView.updateView" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.cameraview.CameraView">
-<em class="property">class </em><code class="descclassname">director.cameraview.</code><code class="descname">CameraView</code><span class="sig-paren">(</span><em>imageManager</em>, <em>view=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.cameraview.CameraView.filterEvent">
-<code class="descname">filterEvent</code><span class="sig-paren">(</span><em>obj</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView.filterEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView.filterEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraView.getSphereGeometry">
-<code class="descname">getSphereGeometry</code><span class="sig-paren">(</span><em>imageName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView.getSphereGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView.getSphereGeometry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraView.initEventFilter">
-<code class="descname">initEventFilter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView.initEventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView.initEventFilter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraView.initView">
-<code class="descname">initView</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView.initView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView.initView" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraView.onViewDoubleClicked">
-<code class="descname">onViewDoubleClicked</code><span class="sig-paren">(</span><em>displayPoint</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView.onViewDoubleClicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView.onViewDoubleClicked" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraView.resetCamera">
-<code class="descname">resetCamera</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView.resetCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView.resetCamera" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraView.updateImages">
-<code class="descname">updateImages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView.updateImages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView.updateImages" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraView.updateSphereGeometry">
-<code class="descname">updateSphereGeometry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView.updateSphereGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView.updateSphereGeometry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.CameraView.updateView">
-<code class="descname">updateView</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#CameraView.updateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.CameraView.updateView" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.cameraview.ImageManager">
-<em class="property">class </em><code class="descclassname">director.cameraview.</code><code class="descname">ImageManager</code><a class="reference internal" href="../_modules/director/cameraview.html#ImageManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.cameraview.ImageManager.addImage">
-<code class="descname">addImage</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageManager.addImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageManager.addImage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.ImageManager.getImage">
-<code class="descname">getImage</code><span class="sig-paren">(</span><em>imageName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageManager.getImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageManager.getImage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.ImageManager.getTexture">
-<code class="descname">getTexture</code><span class="sig-paren">(</span><em>imageName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageManager.getTexture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageManager.getTexture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.ImageManager.getUtime">
-<code class="descname">getUtime</code><span class="sig-paren">(</span><em>imageName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageManager.getUtime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageManager.getUtime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.ImageManager.hasImage">
-<code class="descname">hasImage</code><span class="sig-paren">(</span><em>imageName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageManager.hasImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageManager.hasImage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.ImageManager.updateImage">
-<code class="descname">updateImage</code><span class="sig-paren">(</span><em>imageName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageManager.updateImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageManager.updateImage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.ImageManager.updateImages">
-<code class="descname">updateImages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageManager.updateImages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageManager.updateImages" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.ImageManager.writeImage">
-<code class="descname">writeImage</code><span class="sig-paren">(</span><em>imageName</em>, <em>outFile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageManager.writeImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageManager.writeImage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.cameraview.ImageWidget">
-<em class="property">class </em><code class="descclassname">director.cameraview.</code><code class="descname">ImageWidget</code><span class="sig-paren">(</span><em>imageManager</em>, <em>imageName</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.cameraview.ImageWidget.hide">
-<code class="descname">hide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageWidget.hide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageWidget.hide" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.ImageWidget.show">
-<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageWidget.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageWidget.show" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.ImageWidget.updateView">
-<code class="descname">updateView</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#ImageWidget.updateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.ImageWidget.updateView" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.cameraview.KintinuousMapping">
-<em class="property">class </em><code class="descclassname">director.cameraview.</code><code class="descname">KintinuousMapping</code><a class="reference internal" href="../_modules/director/cameraview.html#KintinuousMapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.KintinuousMapping" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.cameraview.KintinuousMapping.cameraFusedCallback">
-<code class="descname">cameraFusedCallback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#KintinuousMapping.cameraFusedCallback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.KintinuousMapping.cameraFusedCallback" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.KintinuousMapping.getStereoPointCloudElapsed">
-<code class="descname">getStereoPointCloudElapsed</code><span class="sig-paren">(</span><em>decimation=4</em>, <em>imagesChannel='CAMERA'</em>, <em>cameraName='CAMERA_LEFT'</em>, <em>removeSize=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#KintinuousMapping.getStereoPointCloudElapsed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.KintinuousMapping.getStereoPointCloudElapsed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.cameraview.KintinuousMapping.showFusedMaps">
-<code class="descname">showFusedMaps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#KintinuousMapping.showFusedMaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.KintinuousMapping.showFusedMaps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.addCameraView">
-<code class="descclassname">director.cameraview.</code><code class="descname">addCameraView</code><span class="sig-paren">(</span><em>channel</em>, <em>viewName=None</em>, <em>cameraName=None</em>, <em>imageType=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#addCameraView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.addCameraView" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.applyCameraTexture">
-<code class="descclassname">director.cameraview.</code><code class="descname">applyCameraTexture</code><span class="sig-paren">(</span><em>obj</em>, <em>imageManager</em>, <em>imageName='CAMERA_LEFT'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#applyCameraTexture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.applyCameraTexture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.clipRange">
-<code class="descclassname">director.cameraview.</code><code class="descname">clipRange</code><span class="sig-paren">(</span><em>dataObj</em>, <em>arrayName</em>, <em>thresholdRange</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#clipRange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.clipRange" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.colorizePoints">
-<code class="descclassname">director.cameraview.</code><code class="descname">colorizePoints</code><span class="sig-paren">(</span><em>polyData</em>, <em>cameraName='CAMERA_LEFT'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#colorizePoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.colorizePoints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.disableCameraTexture">
-<code class="descclassname">director.cameraview.</code><code class="descname">disableCameraTexture</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#disableCameraTexture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.disableCameraTexture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.getStereoPointCloud">
-<code class="descclassname">director.cameraview.</code><code class="descname">getStereoPointCloud</code><span class="sig-paren">(</span><em>decimation=4</em>, <em>imagesChannel='CAMERA'</em>, <em>cameraName='CAMERA_LEFT'</em>, <em>removeSize=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#getStereoPointCloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.getStereoPointCloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.init">
-<code class="descclassname">director.cameraview.</code><code class="descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.makeSphere">
-<code class="descclassname">director.cameraview.</code><code class="descname">makeSphere</code><span class="sig-paren">(</span><em>radius</em>, <em>resolution</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#makeSphere"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.makeSphere" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.rayDebug">
-<code class="descclassname">director.cameraview.</code><code class="descname">rayDebug</code><span class="sig-paren">(</span><em>position</em>, <em>ray</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#rayDebug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.rayDebug" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.sendFOVRequest">
-<code class="descclassname">director.cameraview.</code><code class="descname">sendFOVRequest</code><span class="sig-paren">(</span><em>channel</em>, <em>imagePoints</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#sendFOVRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.sendFOVRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.cameraview.testColorize">
-<code class="descclassname">director.cameraview.</code><code class="descname">testColorize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/cameraview.html#testColorize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.cameraview.testColorize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+  <div class="section" id="director-cameraview-module">
+<h1>director.cameraview module<a class="headerlink" href="#director-cameraview-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -568,7 +302,7 @@ image is used.</p>
         <a href="director.colorize.html" class="btn btn-neutral float-right" title="director.colorize module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="director.cameracontrol.html" class="btn btn-neutral" title="director.cameracontrol module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="director.cameracontrolpanel.html" class="btn btn-neutral" title="director.cameracontrolpanel module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

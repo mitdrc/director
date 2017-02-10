@@ -1,0 +1,7 @@
+director.vieweventfilter module
+===============================
+
+.. automodule:: director.vieweventfilter
+    :members:
+    :undoc-members:
+    :show-inheritance:

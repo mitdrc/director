@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="Module code" href="index.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -126,12 +130,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 
 <span class="k">def</span> <span class="nf">_initCoverage</span><span class="p">():</span>
-    <span class="k">if</span>  <span class="s">&#39;COVERAGE_PROCESS_START&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+    <span class="k">if</span>  <span class="s1">&#39;COVERAGE_PROCESS_START&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">import</span> <span class="nn">coverage</span>
             <span class="n">coverage</span><span class="o">.</span><span class="n">process_startup</span><span class="p">()</span>
@@ -140,27 +144,29 @@
 
 
 <div class="viewcode-block" id="getDRCBaseDir"><a class="viewcode-back" href="../generated/director.html#director.getDRCBaseDir">[docs]</a><span class="k">def</span> <span class="nf">getDRCBaseDir</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;DRC_BASE&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;DRC_BASE&#39;</span><span class="p">]</span></div>
 
-</div>
+<div class="viewcode-block" id="getDRCBaseIsSet"><a class="viewcode-back" href="../generated/director.html#director.getDRCBaseIsSet">[docs]</a><span class="k">def</span> <span class="nf">getDRCBaseIsSet</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s1">&#39;DRC_BASE&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span></div>
+
 <div class="viewcode-block" id="updateSysPath"><a class="viewcode-back" href="../generated/director.html#director.updateSysPath">[docs]</a><span class="k">def</span> <span class="nf">updateSysPath</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">path</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">True</span>
-    <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
 
-</div>
+
 <span class="n">_initCoverage</span><span class="p">()</span>
 
-<span class="c"># this is for mac homebrew users</span>
-<span class="n">updateSysPath</span><span class="p">(</span><span class="s">&#39;/usr/local/opt/vtk5/lib/python2.7/site-packages&#39;</span><span class="p">)</span>
+<span class="c1"># this is for mac homebrew users</span>
+<span class="n">updateSysPath</span><span class="p">(</span><span class="s1">&#39;/usr/local/opt/vtk5/lib/python2.7/site-packages&#39;</span><span class="p">)</span>
 
-<span class="c"># this inserts the build dirs in the path before anything else</span>
-<span class="c"># this ensures modules in the build dirs will take precedence over</span>
-<span class="c"># system versions (homebrew)</span>
-<span class="k">for</span> <span class="n">relDir</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;../../dist-packages&#39;</span><span class="p">,</span> <span class="s">&#39;../../site-packages&#39;</span><span class="p">]:</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="n">relDir</span><span class="p">)))</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="n">relDir</span><span class="p">)))</span>
+<span class="c1"># this inserts the build dirs in the path before anything else</span>
+<span class="c1"># this ensures modules in the build dirs will take precedence over</span>
+<span class="c1"># system versions (homebrew)</span>
+<span class="k">for</span> <span class="n">relDir</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;../../dist-packages&#39;</span><span class="p">,</span> <span class="s1">&#39;../../site-packages&#39;</span><span class="p">]:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">relDir</span><span class="p">)))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">relDir</span><span class="p">)))</span>
 </pre></div>
 
            </div>

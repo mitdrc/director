@@ -1,0 +1,7 @@
+director.robotposegui module
+============================
+
+.. automodule:: director.robotposegui
+    :members:
+    :undoc-members:
+    :show-inheritance:

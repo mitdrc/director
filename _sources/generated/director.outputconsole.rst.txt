@@ -1,0 +1,7 @@
+director.outputconsole module
+=============================
+
+.. automodule:: director.outputconsole
+    :members:
+    :undoc-members:
+    :show-inheritance:

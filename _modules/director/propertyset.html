@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,21 +132,22 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.propertyset</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">callbacks</span>
-<span class="kn">from</span> <span class="nn">director.fieldcontainer</span> <span class="kn">import</span> <span class="n">FieldContainer</span>
+<span></span><span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">callbacks</span>
+<span class="kn">from</span> <span class="nn">director.fieldcontainer</span> <span class="k">import</span> <span class="n">FieldContainer</span>
+<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="k">import</span> <span class="n">TimerCallback</span>
 
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
 
 
 <div class="viewcode-block" id="cleanPropertyName"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.cleanPropertyName">[docs]</a><span class="k">def</span> <span class="nf">cleanPropertyName</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a valid python property name by replacing all non-alphanumeric characters with underscores and adding an initial underscore if the first character is a digit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r&#39;\W|^(?=\d)&#39;</span><span class="p">,</span><span class="s">&#39;_&#39;</span><span class="p">,</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c"># \W matches non-alphanumeric, ^(?=\d) matches the first position if followed by a digit</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\W|^(?=\d)&#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c1"># \W matches non-alphanumeric, ^(?=\d) matches the first position if followed by a digit</span></div>
 
-</div>
+
 <div class="viewcode-block" id="PropertyAttributes"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertyAttributes">[docs]</a><span class="k">class</span> <span class="nc">PropertyAttributes</span><span class="p">(</span><span class="n">FieldContainer</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -152,46 +157,46 @@
           <span class="n">minimum</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e4</span><span class="p">,</span>
           <span class="n">maximum</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">,</span>
           <span class="n">singleStep</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="n">hidden</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
-          <span class="n">enumNames</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-          <span class="n">readOnly</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+          <span class="n">hidden</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+          <span class="n">enumNames</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+          <span class="n">readOnly</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
           <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_fields</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</div>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtGui</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_fields</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtGui</span>
 
 <div class="viewcode-block" id="fromQColor"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.fromQColor">[docs]</a><span class="k">def</span> <span class="nf">fromQColor</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">propertyValue</span><span class="o">.</span><span class="n">red</span><span class="p">()</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="n">propertyValue</span><span class="o">.</span><span class="n">green</span><span class="p">()</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="n">propertyValue</span><span class="o">.</span><span class="n">blue</span><span class="p">()</span><span class="o">/</span><span class="mf">255.0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">propertyValue</span>
-</div>
+        <span class="k">return</span> <span class="n">propertyValue</span></div>
+
 <div class="viewcode-block" id="toQProperty"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.toQProperty">[docs]</a><span class="k">def</span> <span class="nf">toQProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">):</span>
-    <span class="k">if</span> <span class="s">&#39;color&#39;</span> <span class="ow">in</span> <span class="n">propertyName</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;color&#39;</span> <span class="ow">in</span> <span class="n">propertyName</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">255.0</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mf">255.0</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mf">255.0</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">propertyValue</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">propertyValue</span>
+        <span class="k">return</span> <span class="n">propertyValue</span></div>
 
-</div>
+
 <div class="viewcode-block" id="PropertySet"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet">[docs]</a><span class="k">class</span> <span class="nc">PropertySet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="n">PROPERTY_CHANGED_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;PROPERTY_CHANGED_SIGNAL&#39;</span>
-    <span class="n">PROPERTY_ADDED_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;PROPERTY_ADDED_SIGNAL&#39;</span>
-    <span class="n">PROPERTY_ATTRIBUTE_CHANGED_SIGNAL</span> <span class="o">=</span> <span class="s">&#39;PROPERTY_ATTRIBUTE_CHANGED_SIGNAL&#39;</span>
+    <span class="n">PROPERTY_CHANGED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;PROPERTY_CHANGED_SIGNAL&#39;</span>
+    <span class="n">PROPERTY_ADDED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;PROPERTY_ADDED_SIGNAL&#39;</span>
+    <span class="n">PROPERTY_ATTRIBUTE_CHANGED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;PROPERTY_ATTRIBUTE_CHANGED_SIGNAL&#39;</span>
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">_properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">,</span> <span class="n">_attributes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_attributes</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span>
 
     <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="n">attrs</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;_attributes&#39;</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">propName</span><span class="p">,</span> <span class="n">propValue</span> <span class="ow">in</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;_properties&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_attributes&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">propName</span><span class="p">,</span> <span class="n">propValue</span> <span class="ow">in</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_properties&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="n">propName</span><span class="p">,</span> <span class="n">propValue</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">propName</span><span class="p">))</span>
 
 
@@ -206,51 +211,51 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_alternateNames</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="PropertySet.propertyNames"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.propertyNames">[docs]</a>    <span class="k">def</span> <span class="nf">propertyNames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="PropertySet.hasProperty"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.hasProperty">[docs]</a>    <span class="k">def</span> <span class="nf">hasProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">propertyName</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
-</div>
+        <span class="k">return</span> <span class="n">propertyName</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span></div>
+
 <div class="viewcode-block" id="PropertySet.assertProperty"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.assertProperty">[docs]</a>    <span class="k">def</span> <span class="nf">assertProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">),</span> <span class="s">&quot;Missing property: {:s}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
-</div>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">),</span> <span class="s2">&quot;Missing property: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.connectPropertyChanged"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.connectPropertyChanged">[docs]</a>    <span class="k">def</span> <span class="nf">connectPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_CHANGED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_CHANGED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.disconnectPropertyChanged"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.disconnectPropertyChanged">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.connectPropertyAdded"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.connectPropertyAdded">[docs]</a>    <span class="k">def</span> <span class="nf">connectPropertyAdded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_ADDED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_ADDED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.disconnectPropertyAdded"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.disconnectPropertyAdded">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectPropertyAdded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.connectPropertyAttributeChanged"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.connectPropertyAttributeChanged">[docs]</a>    <span class="k">def</span> <span class="nf">connectPropertyAttributeChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_ATTRIBUTE_CHANGED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_ATTRIBUTE_CHANGED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.disconnectPropertyAttributeChanged"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.disconnectPropertyAttributeChanged">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectPropertyAttributeChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.getProperty"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.getProperty">[docs]</a>    <span class="k">def</span> <span class="nf">getProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="PropertySet.getPropertyEnumValue"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.getPropertyEnumValue">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertyEnumValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attributes</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span><span class="o">.</span><span class="n">enumNames</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]]</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attributes</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span><span class="o">.</span><span class="n">enumNames</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]]</span></div>
+
 <div class="viewcode-block" id="PropertySet.removeProperty"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.removeProperty">[docs]</a>    <span class="k">def</span> <span class="nf">removeProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
         <span class="n">alternateName</span> <span class="o">=</span> <span class="n">cleanPropertyName</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alternateNames</span><span class="p">[</span><span class="n">alternateName</span><span class="p">]</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span>
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attributes</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span>
-</div>
-<div class="viewcode-block" id="PropertySet.addProperty"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.addProperty">[docs]</a>    <span class="k">def</span> <span class="nf">addProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attributes</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="PropertySet.addProperty"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.addProperty">[docs]</a>    <span class="k">def</span> <span class="nf">addProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">alternateName</span> <span class="o">=</span> <span class="n">cleanPropertyName</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">propertyName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="ow">and</span> <span class="n">alternateName</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alternateNames</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Adding this property would conflict with a different existing property with alternate name {:s}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alternateName</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Adding this property would conflict with a different existing property with alternate name </span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alternateName</span><span class="p">))</span>
 
         <span class="n">propertyValue</span> <span class="o">=</span> <span class="n">fromQColor</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">)</span>
 
@@ -258,8 +263,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span> <span class="o">=</span> <span class="n">propertyValue</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_attributes</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span> <span class="o">=</span> <span class="n">attributes</span> <span class="ow">or</span> <span class="n">PropertyAttributes</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_ADDED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_ADDED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.setPropertyIndex"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.setPropertyIndex">[docs]</a>    <span class="k">def</span> <span class="nf">setPropertyIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">newIndex</span><span class="p">):</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
         <span class="n">currentIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
@@ -267,59 +272,67 @@
         <span class="n">inds</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">currentIndex</span><span class="p">)</span>
         <span class="n">inds</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">newIndex</span><span class="p">,</span> <span class="n">currentIndex</span><span class="p">)</span>
         <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">])</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="PropertySet.setProperty"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.setProperty">[docs]</a>    <span class="k">def</span> <span class="nf">setProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
         <span class="n">propertyValue</span> <span class="o">=</span> <span class="n">fromQColor</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">)</span>
 
-        <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPropertyAttribute</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="s">&#39;enumNames&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPropertyAttribute</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="s1">&#39;enumNames&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">names</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">propertyValue</span> <span class="o">=</span> <span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">oldPropertyValue</span> <span class="o">=</span> <span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span> <span class="o">=</span> <span class="n">propertyValue</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">oldPropertyValue</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_CHANGED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oldPropertyValue</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_CHANGED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.getPropertyAttribute"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.getPropertyAttribute">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertyAttribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attributes</span><span class="p">[</span><span class="n">propertyName</span><span class="p">],</span> <span class="n">propertyAttribute</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attributes</span><span class="p">[</span><span class="n">propertyName</span><span class="p">],</span> <span class="n">propertyAttribute</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PropertySet.setPropertyAttribute"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertySet.setPropertyAttribute">[docs]</a>    <span class="k">def</span> <span class="nf">setPropertyAttribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
         <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attributes</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">),</span> <span class="s">&quot;Missing attribute: {:s}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">propertyAttribute</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">),</span> <span class="s2">&quot;Missing attribute: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">propertyAttribute</span><span class="p">)</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_ATTRIBUTE_CHANGED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PROPERTY_ATTRIBUTE_CHANGED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">alternateNames</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;_alternateNames&#39;</span><span class="p">)</span>
+            <span class="n">alternateNames</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_alternateNames&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">alternateNames</span><span class="p">:</span>
-                <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;getProperty&#39;</span><span class="p">)(</span><span class="n">alternateNames</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+                <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;getProperty&#39;</span><span class="p">)(</span><span class="n">alternateNames</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="PropertyPanelHelper"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertyPanelHelper">[docs]</a><span class="k">class</span> <span class="nc">PropertyPanelHelper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="PropertyPanelHelper.addPropertiesToPanel"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertyPanelHelper.addPropertiesToPanel">[docs]</a>    <span class="k">def</span> <span class="nf">addPropertiesToPanel</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">panel</span><span class="p">):</span>
+<div class="viewcode-block" id="PropertyPanelHelper.addPropertiesToPanel"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertyPanelHelper.addPropertiesToPanel">[docs]</a>    <span class="k">def</span> <span class="nf">addPropertiesToPanel</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">panel</span><span class="p">,</span> <span class="n">propertyNamesToAdd</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 
         <span class="k">for</span> <span class="n">propertyName</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">propertyNames</span><span class="p">():</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
             <span class="n">attributes</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">_attributes</span><span class="p">[</span><span class="n">propertyName</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">attributes</span><span class="o">.</span><span class="n">hidden</span><span class="p">:</span>
-                <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">_addProperty</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-</div>
+
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">attributes</span><span class="o">.</span><span class="n">hidden</span><span class="p">:</span>
+                <span class="n">addThisProperty</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">propertyNamesToAdd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">propertyName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">propertyNamesToAdd</span><span class="p">):</span>
+                        <span class="n">addThisProperty</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="n">addThisProperty</span><span class="p">:</span>
+                    <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">_addProperty</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="PropertyPanelHelper.onPropertyValueChanged"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertyPanelHelper.onPropertyValueChanged">[docs]</a>    <span class="k">def</span> <span class="nf">onPropertyValueChanged</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
         <span class="n">prop</span> <span class="o">=</span> <span class="n">panel</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">prop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">prop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
             <span class="n">propertyValue</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
             <span class="n">propertyValue</span> <span class="o">=</span> <span class="n">toQProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">)</span>
@@ -332,8 +345,8 @@
                 <span class="n">prop</span><span class="o">.</span><span class="n">setPropertyName</span><span class="p">(</span><span class="n">groupName</span><span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">prop</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">)</span>
-</div>
+                <span class="n">prop</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">)</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="PropertyPanelHelper.setPropertyFromPanel"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertyPanelHelper.setPropertyFromPanel">[docs]</a>    <span class="k">def</span> <span class="nf">setPropertyFromPanel</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">propertiesPanel</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">):</span>
 
@@ -343,7 +356,7 @@
 
             <span class="n">propertyIndex</span> <span class="o">=</span> <span class="n">propertiesPanel</span><span class="o">.</span><span class="n">getSubPropertyIndex</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
             <span class="n">propertyName</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="n">propertyName</span><span class="p">()</span>
-            <span class="n">propertyName</span> <span class="o">=</span> <span class="n">propertyName</span><span class="p">[:</span><span class="n">propertyName</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s">&#39;[&#39;</span><span class="p">)]</span>
+            <span class="n">propertyName</span> <span class="o">=</span> <span class="n">propertyName</span><span class="p">[:</span><span class="n">propertyName</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)]</span>
 
             <span class="n">propertyValue</span> <span class="o">=</span> <span class="n">propertySet</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
             <span class="n">propertyValue</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">)</span>
@@ -359,24 +372,24 @@
             <span class="n">propertyName</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="n">propertyName</span><span class="p">()</span>
             <span class="n">propertyValue</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
             <span class="n">propertyValue</span> <span class="o">=</span> <span class="n">fromQColor</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">)</span>
-            <span class="n">propertySet</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">)</span>
+            <span class="n">propertySet</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">)</span></div>
 
-</div>
+
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_setPropertyAttributes</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
 
-        <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s">&#39;decimals&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">decimals</span><span class="p">)</span>
-        <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s">&#39;minimum&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">minimum</span><span class="p">)</span>
-        <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s">&#39;maximum&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">maximum</span><span class="p">)</span>
-        <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s">&#39;singleStep&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">singleStep</span><span class="p">)</span>
+        <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;decimals&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">decimals</span><span class="p">)</span>
+        <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;minimum&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">minimum</span><span class="p">)</span>
+        <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;maximum&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">maximum</span><span class="p">)</span>
+        <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;singleStep&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">singleStep</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">attributes</span><span class="o">.</span><span class="n">enumNames</span><span class="p">:</span>
-            <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s">&#39;enumNames&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">enumNames</span><span class="p">)</span>
+            <span class="n">prop</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;enumNames&#39;</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">enumNames</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="PropertyPanelHelper.getPropertyGroupName"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertyPanelHelper.getPropertyGroupName">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertyGroupName</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> [</span><span class="si">%s</span><span class="s">]&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;</span><span class="si">%.2f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">v</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> [</span><span class="si">%s</span><span class="s1">]&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">v</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]))</span></div>
 
-</div>
+
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_addProperty</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 
@@ -397,38 +410,49 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">p</span> <span class="o">=</span> <span class="n">panel</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
             <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">_setPropertyAttributes</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">p</span>
+            <span class="k">return</span> <span class="n">p</span></div>
 
-</div>
+
 <div class="viewcode-block" id="PropertyPanelConnector"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertyPanelConnector">[docs]</a><span class="k">class</span> <span class="nc">PropertyPanelConnector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertiesPanel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertiesPanel</span><span class="p">,</span> <span class="n">propertyNamesToAdd</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">propertySet</span> <span class="o">=</span> <span class="n">propertySet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">propertyNamesToAdd</span> <span class="o">=</span> <span class="n">propertyNamesToAdd</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span> <span class="o">=</span> <span class="n">propertiesPanel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">propertySet</span><span class="o">.</span><span class="n">connectPropertyAdded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onPropertyAdded</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">propertySet</span><span class="o">.</span><span class="n">connectPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onPropertyChanged</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">propertySet</span><span class="o">.</span><span class="n">connectPropertyAttributeChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onPropertyAttributeChanged</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;propertyValueChanged(QtVariantProperty*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onPanelPropertyChanged</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;propertyValueChanged(QtVariantProperty*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onPanelPropertyChanged</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">TimerCallback</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rebuildNow</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">addPropertiesToPanel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">propertySet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">propertyNamesToAdd</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="PropertyPanelConnector.cleanup"><a class="viewcode-back" href="../../generated/director.propertyset.html#director.propertyset.PropertyPanelConnector.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="s1">&#39;propertyValueChanged(QtVariantProperty*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onPanelPropertyChanged</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">singleShotTimer</span><span class="o">.</span><span class="n">isActive</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_rebuildNow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">addPropertiesToPanel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">propertySet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_onPropertyAdded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">addPropertiesToPanel</span><span class="p">(</span><span class="n">propertySet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_onPropertyAttributeChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">addPropertiesToPanel</span><span class="p">(</span><span class="n">propertySet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_onPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">onPropertyValueChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">propertiesPanel</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_onPanelPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">panelProperty</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span><span class="p">:</span>

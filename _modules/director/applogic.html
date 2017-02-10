@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,75 +132,84 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.applogic</h1><div class="highlight"><pre>
+<span></span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="kn">as</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="k">as</span> <span class="nn">vtk</span>
 <span class="kn">import</span> <span class="nn">PythonQt</span>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtGui</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">getDRCBaseDir</span> <span class="k">as</span> <span class="n">getDRCBase</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">botspy</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">openscope</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtGui</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">getDRCBaseDir</span> <span class="k">as</span> <span class="n">getDRCBase</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">botspy</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">openscope</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 
-<span class="n">_mainWindow</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">_defaultRenderView</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">_mainWindow</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">_defaultRenderView</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="k">def</span> <span class="nf">getMainWindow</span><span class="p">():</span>
-<div class="viewcode-block" id="getMainWindow"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getMainWindow">[docs]</a>    <span class="k">return</span> <span class="n">_mainWindow</span>
+<div class="viewcode-block" id="getMainWindow"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getMainWindow">[docs]</a><span class="k">def</span> <span class="nf">getMainWindow</span><span class="p">():</span>
 
+    <span class="k">global</span> <span class="n">_mainWindow</span>
+    <span class="k">if</span> <span class="n">_mainWindow</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">topLevelWidgets</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+                <span class="n">_mainWindow</span> <span class="o">=</span> <span class="n">widget</span>
+                <span class="k">break</span>
 
-<span class="k">def</span> <span class="nf">quit</span><span class="p">():</span></div>
-<div class="viewcode-block" id="quit"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.quit">[docs]</a>    <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-
-
-<span class="k">def</span> <span class="nf">getViewManager</span><span class="p">():</span></div>
-<div class="viewcode-block" id="getViewManager"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getViewManager">[docs]</a>    <span class="k">return</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">viewManager</span><span class="p">()</span>
-
-
-<span class="k">def</span> <span class="nf">getDRCView</span><span class="p">():</span></div>
-<div class="viewcode-block" id="getDRCView"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getDRCView">[docs]</a>    <span class="k">return</span> <span class="n">_defaultRenderView</span> <span class="ow">or</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">viewManager</span><span class="p">()</span><span class="o">.</span><span class="n">findView</span><span class="p">(</span><span class="s">&#39;DRC View&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_mainWindow</span></div>
 
 
-<span class="k">def</span> <span class="nf">getSpreadsheetView</span><span class="p">():</span></div>
-<div class="viewcode-block" id="getSpreadsheetView"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getSpreadsheetView">[docs]</a>    <span class="k">return</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">viewManager</span><span class="p">()</span><span class="o">.</span><span class="n">findView</span><span class="p">(</span><span class="s">&#39;Spreadsheet View&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="quit"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.quit">[docs]</a><span class="k">def</span> <span class="nf">quit</span><span class="p">():</span>
+    <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">getCurrentView</span><span class="p">():</span></div>
-<div class="viewcode-block" id="getCurrentView"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getCurrentView">[docs]</a>    <span class="k">return</span> <span class="n">_defaultRenderView</span> <span class="ow">or</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">viewManager</span><span class="p">()</span><span class="o">.</span><span class="n">currentView</span><span class="p">()</span>
+<div class="viewcode-block" id="getViewManager"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getViewManager">[docs]</a><span class="k">def</span> <span class="nf">getViewManager</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">viewManager</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">getCurrentRenderView</span><span class="p">():</span></div>
-<div class="viewcode-block" id="getCurrentRenderView"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getCurrentRenderView">[docs]</a>    <span class="n">view</span> <span class="o">=</span> <span class="n">getCurrentView</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s">&#39;camera&#39;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">view</span>
+<div class="viewcode-block" id="getDRCView"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getDRCView">[docs]</a><span class="k">def</span> <span class="nf">getDRCView</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_defaultRenderView</span> <span class="ow">or</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">viewManager</span><span class="p">()</span><span class="o">.</span><span class="n">findView</span><span class="p">(</span><span class="s1">&#39;DRC View&#39;</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">getOutputConsole</span><span class="p">():</span></div>
-<div class="viewcode-block" id="getOutputConsole"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getOutputConsole">[docs]</a>    <span class="k">return</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">outputConsole</span><span class="p">()</span>
+<div class="viewcode-block" id="getSpreadsheetView"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getSpreadsheetView">[docs]</a><span class="k">def</span> <span class="nf">getSpreadsheetView</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">viewManager</span><span class="p">()</span><span class="o">.</span><span class="n">findView</span><span class="p">(</span><span class="s1">&#39;Spreadsheet View&#39;</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">getPythonConsole</span><span class="p">():</span></div>
-<div class="viewcode-block" id="getPythonConsole"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getPythonConsole">[docs]</a>    <span class="k">return</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">_pythonManager</span><span class="o">.</span><span class="n">consoleWidget</span><span class="p">()</span>
+<div class="viewcode-block" id="getCurrentView"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getCurrentView">[docs]</a><span class="k">def</span> <span class="nf">getCurrentView</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_defaultRenderView</span> <span class="ow">or</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">viewManager</span><span class="p">()</span><span class="o">.</span><span class="n">currentView</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">showPythonConsole</span><span class="p">():</span></div>
-<div class="viewcode-block" id="showPythonConsole"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.showPythonConsole">[docs]</a>    <span class="n">getPythonConsole</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="viewcode-block" id="getCurrentRenderView"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getCurrentRenderView">[docs]</a><span class="k">def</span> <span class="nf">getCurrentRenderView</span><span class="p">():</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">getCurrentView</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s1">&#39;camera&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">view</span></div>
 
 
-<span class="n">_exclusiveDockWidgets</span> <span class="o">=</span> <span class="p">{}</span></div>
+<div class="viewcode-block" id="getOutputConsole"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getOutputConsole">[docs]</a><span class="k">def</span> <span class="nf">getOutputConsole</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">outputConsole</span><span class="p">()</span></div>
 
-<span class="k">def</span> <span class="nf">hideDockWidgets</span><span class="p">(</span><span class="n">action</span><span class="p">):</span>
-<div class="viewcode-block" id="hideDockWidgets"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.hideDockWidgets">[docs]</a>    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">_exclusiveDockWidgets</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+
+<div class="viewcode-block" id="getPythonConsole"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getPythonConsole">[docs]</a><span class="k">def</span> <span class="nf">getPythonConsole</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">_pythonManager</span><span class="o">.</span><span class="n">consoleWidget</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="showPythonConsole"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.showPythonConsole">[docs]</a><span class="k">def</span> <span class="nf">showPythonConsole</span><span class="p">():</span>
+    <span class="n">getPythonConsole</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<span class="n">_exclusiveDockWidgets</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="hideDockWidgets"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.hideDockWidgets">[docs]</a><span class="k">def</span> <span class="nf">hideDockWidgets</span><span class="p">(</span><span class="n">action</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">_exclusiveDockWidgets</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">action</span><span class="p">:</span>
             <span class="n">dock</span><span class="p">,</span> <span class="n">widget</span> <span class="o">=</span> <span class="n">w</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">dock</span><span class="o">.</span><span class="n">isFloating</span><span class="p">():</span>
-                <span class="n">dock</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="n">dock</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">addWidgetToDock</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">dockArea</span><span class="o">=</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span></div>
-<div class="viewcode-block" id="addWidgetToDock"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.addWidgetToDock">[docs]</a>
+<div class="viewcode-block" id="addWidgetToDock"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.addWidgetToDock">[docs]</a><span class="k">def</span> <span class="nf">addWidgetToDock</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">dockArea</span><span class="o">=</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
     <span class="n">dock</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QDockWidget</span><span class="p">()</span>
     <span class="n">dock</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
     <span class="n">dock</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">windowTitle</span><span class="p">)</span>
@@ -204,63 +217,63 @@
 
     <span class="k">if</span> <span class="n">dockArea</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span> <span class="ow">and</span> <span class="n">action</span><span class="p">:</span>
         <span class="n">_exclusiveDockWidgets</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dock</span><span class="p">,</span> <span class="n">widget</span><span class="p">)</span>
-        <span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">hideDockWidgets</span><span class="p">,</span> <span class="n">action</span><span class="p">))</span>
+        <span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">hideDockWidgets</span><span class="p">,</span> <span class="n">action</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">addWidgetToViewMenu</span><span class="p">(</span><span class="n">dock</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">addWidgetToViewMenu</span><span class="p">(</span><span class="n">dock</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
 
 
-    <span class="k">return</span> <span class="n">dock</span>
+    <span class="k">return</span> <span class="n">dock</span></div>
 
 
-<span class="k">def</span> <span class="nf">resetCamera</span><span class="p">(</span><span class="n">viewDirection</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span></div>
-<div class="viewcode-block" id="resetCamera"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.resetCamera">[docs]</a>
+<div class="viewcode-block" id="resetCamera"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.resetCamera">[docs]</a><span class="k">def</span> <span class="nf">resetCamera</span><span class="p">(</span><span class="n">viewDirection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
     <span class="n">view</span> <span class="o">=</span> <span class="n">view</span> <span class="ow">or</span> <span class="n">getCurrentRenderView</span><span class="p">()</span>
     <span class="k">assert</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">viewDirection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">viewDirection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">camera</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">()</span>
         <span class="n">camera</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
         <span class="n">camera</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">viewDirection</span><span class="p">)</span>
         <span class="n">camera</span><span class="o">.</span><span class="n">SetViewUp</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="n">view</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">()</span>
-    <span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">setBackgroundColor</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">color2</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span></div>
-<div class="viewcode-block" id="setBackgroundColor"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.setBackgroundColor">[docs]</a>    <span class="n">view</span> <span class="o">=</span> <span class="n">view</span> <span class="ow">or</span> <span class="n">getCurrentRenderView</span><span class="p">()</span>
+<div class="viewcode-block" id="setBackgroundColor"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.setBackgroundColor">[docs]</a><span class="k">def</span> <span class="nf">setBackgroundColor</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">color2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">view</span> <span class="ow">or</span> <span class="n">getCurrentRenderView</span><span class="p">()</span>
     <span class="k">assert</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">color2</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">color2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">color2</span> <span class="o">=</span> <span class="n">color</span>
     <span class="n">ren</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">backgroundRenderer</span><span class="p">()</span>
     <span class="n">ren</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
-    <span class="n">ren</span><span class="o">.</span><span class="n">SetBackground2</span><span class="p">(</span><span class="n">color2</span><span class="p">)</span>
+    <span class="n">ren</span><span class="o">.</span><span class="n">SetBackground2</span><span class="p">(</span><span class="n">color2</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">displaySnoptInfo</span><span class="p">(</span><span class="n">info</span><span class="p">):</span></div>
-<div class="viewcode-block" id="displaySnoptInfo"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.displaySnoptInfo">[docs]</a>    <span class="k">if</span> <span class="n">getMainWindow</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s">&#39;Info: </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">info</span><span class="p">)</span>
+<div class="viewcode-block" id="displaySnoptInfo"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.displaySnoptInfo">[docs]</a><span class="k">def</span> <span class="nf">displaySnoptInfo</span><span class="p">(</span><span class="n">info</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">getMainWindow</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s1">&#39;Info: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">info</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">toggleStereoRender</span><span class="p">():</span></div>
-<div class="viewcode-block" id="toggleStereoRender"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.toggleStereoRender">[docs]</a>    <span class="n">view</span> <span class="o">=</span> <span class="n">getCurrentRenderView</span><span class="p">()</span>
+<div class="viewcode-block" id="toggleStereoRender"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.toggleStereoRender">[docs]</a><span class="k">def</span> <span class="nf">toggleStereoRender</span><span class="p">():</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">getCurrentRenderView</span><span class="p">()</span>
     <span class="k">assert</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
 
     <span class="n">renderWindow</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span>
     <span class="n">renderWindow</span><span class="o">.</span><span class="n">SetStereoRender</span><span class="p">(</span><span class="ow">not</span> <span class="n">renderWindow</span><span class="o">.</span><span class="n">GetStereoRender</span><span class="p">())</span>
-    <span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">getCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">):</span></div>
-<div class="viewcode-block" id="getCameraTerrainModeEnabled"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getCameraTerrainModeEnabled">[docs]</a>    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractorStyle</span><span class="p">(),</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkInteractorStyleTerrain2</span><span class="p">)</span>
+<div class="viewcode-block" id="getCameraTerrainModeEnabled"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getCameraTerrainModeEnabled">[docs]</a><span class="k">def</span> <span class="nf">getCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractorStyle</span><span class="p">(),</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkInteractorStyleTerrain2</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">setCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">enabled</span><span class="p">):</span></div>
-<div class="viewcode-block" id="setCameraTerrainModeEnabled"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.setCameraTerrainModeEnabled">[docs]</a>
+<div class="viewcode-block" id="setCameraTerrainModeEnabled"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.setCameraTerrainModeEnabled">[docs]</a><span class="k">def</span> <span class="nf">setCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">enabled</span><span class="p">):</span>
+
     <span class="k">if</span> <span class="n">getCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">)</span> <span class="o">==</span> <span class="n">enabled</span><span class="p">:</span>
         <span class="k">return</span>
 
@@ -270,166 +283,189 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="p">())</span>
 
-    <span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">toggleCameraTerrainMode</span><span class="p">(</span><span class="n">view</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span></div>
-<div class="viewcode-block" id="toggleCameraTerrainMode"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.toggleCameraTerrainMode">[docs]</a>
+<div class="viewcode-block" id="toggleCameraTerrainMode"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.toggleCameraTerrainMode">[docs]</a><span class="k">def</span> <span class="nf">toggleCameraTerrainMode</span><span class="p">(</span><span class="n">view</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
     <span class="n">view</span> <span class="o">=</span> <span class="n">view</span> <span class="ow">or</span> <span class="n">getCurrentRenderView</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">view</span>
 
     <span class="n">setCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="ow">not</span> <span class="n">getCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">))</span>
-    <span class="n">updateToggleTerrainAction</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+    <span class="n">updateToggleTerrainAction</span><span class="p">(</span><span class="n">view</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">findMenu</span><span class="p">(</span><span class="n">menuTitle</span><span class="p">,</span> <span class="n">mainWindow</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span></div>
-<div class="viewcode-block" id="findMenu"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.findMenu">[docs]</a>    <span class="n">mainWindow</span> <span class="o">=</span> <span class="n">mainWindow</span> <span class="ow">or</span> <span class="n">getMainWindow</span><span class="p">()</span>
-    <span class="n">menus</span> <span class="o">=</span> <span class="n">mainWindow</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s">&#39;QMenu&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="findMenu"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.findMenu">[docs]</a><span class="k">def</span> <span class="nf">findMenu</span><span class="p">(</span><span class="n">menuTitle</span><span class="p">,</span> <span class="n">mainWindow</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">mainWindow</span> <span class="o">=</span> <span class="n">mainWindow</span> <span class="ow">or</span> <span class="n">getMainWindow</span><span class="p">()</span>
+    <span class="n">menus</span> <span class="o">=</span> <span class="n">mainWindow</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s1">&#39;QMenu&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">menu</span> <span class="ow">in</span> <span class="n">menus</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">menu</span><span class="o">.</span><span class="n">title</span> <span class="o">==</span> <span class="n">menuTitle</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">menu</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">menu</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">title</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">):</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">title</span> <span class="o">==</span> <span class="n">menuTitle</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">menu</span></div>
 
 
-<span class="k">def</span> <span class="nf">addMenuAction</span><span class="p">(</span><span class="n">menuTitle</span><span class="p">,</span> <span class="n">actionName</span><span class="p">):</span></div>
-<div class="viewcode-block" id="addMenuAction"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.addMenuAction">[docs]</a>    <span class="n">menu</span> <span class="o">=</span> <span class="n">findMenu</span><span class="p">(</span><span class="n">menuTitle</span><span class="p">)</span>
+<div class="viewcode-block" id="findToolBar"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.findToolBar">[docs]</a><span class="k">def</span> <span class="nf">findToolBar</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">mainWindow</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">mainWindow</span> <span class="o">=</span> <span class="n">mainWindow</span> <span class="ow">or</span> <span class="n">getMainWindow</span><span class="p">()</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">mainWindow</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s1">&#39;QToolBar&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">bars</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">title</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">windowTitle</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">bar</span></div>
+
+
+<div class="viewcode-block" id="addMenuAction"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.addMenuAction">[docs]</a><span class="k">def</span> <span class="nf">addMenuAction</span><span class="p">(</span><span class="n">menuTitle</span><span class="p">,</span> <span class="n">actionName</span><span class="p">):</span>
+    <span class="n">menu</span> <span class="o">=</span> <span class="n">findMenu</span><span class="p">(</span><span class="n">menuTitle</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">menu</span>
-    <span class="k">return</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">actionName</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">actionName</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">getToolBarActions</span><span class="p">():</span></div>
-<div class="viewcode-block" id="getToolBarActions"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getToolBarActions">[docs]</a>    <span class="k">return</span> <span class="n">getActionsDict</span><span class="p">(</span><span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">toolBarActions</span><span class="p">())</span>
+<div class="viewcode-block" id="getToolBarActions"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getToolBarActions">[docs]</a><span class="k">def</span> <span class="nf">getToolBarActions</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">getActionsDict</span><span class="p">(</span><span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">toolBarActions</span><span class="p">())</span></div>
 
 
-<span class="k">def</span> <span class="nf">getToolsMenuActions</span><span class="p">():</span></div>
-<div class="viewcode-block" id="getToolsMenuActions"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getToolsMenuActions">[docs]</a>    <span class="k">return</span> <span class="n">getActionsDict</span><span class="p">(</span><span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">toolsMenu</span><span class="p">()</span><span class="o">.</span><span class="n">actions</span><span class="p">())</span>
+<div class="viewcode-block" id="getToolsMenuActions"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getToolsMenuActions">[docs]</a><span class="k">def</span> <span class="nf">getToolsMenuActions</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">getActionsDict</span><span class="p">(</span><span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">toolsMenu</span><span class="p">()</span><span class="o">.</span><span class="n">actions</span><span class="p">())</span></div>
 
 
-<span class="k">def</span> <span class="nf">getActionsDict</span><span class="p">(</span><span class="n">actions</span><span class="p">):</span></div>
-<div class="viewcode-block" id="getActionsDict"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getActionsDict">[docs]</a>    <span class="n">actionsDict</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="viewcode-block" id="getActionsDict"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.getActionsDict">[docs]</a><span class="k">def</span> <span class="nf">getActionsDict</span><span class="p">(</span><span class="n">actions</span><span class="p">):</span>
+    <span class="n">actionsDict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
             <span class="n">actionsDict</span><span class="p">[</span><span class="n">action</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span>
-    <span class="k">return</span> <span class="n">actionsDict</span>
+    <span class="k">return</span> <span class="n">actionsDict</span></div>
 
 
-<span class="k">def</span> <span class="nf">updateToggleTerrainAction</span><span class="p">(</span><span class="n">view</span><span class="p">):</span></div>
-<div class="viewcode-block" id="updateToggleTerrainAction"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.updateToggleTerrainAction">[docs]</a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">getMainWindow</span><span class="p">():</span>
+<div class="viewcode-block" id="updateToggleTerrainAction"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.updateToggleTerrainAction">[docs]</a><span class="k">def</span> <span class="nf">updateToggleTerrainAction</span><span class="p">(</span><span class="n">view</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">getMainWindow</span><span class="p">():</span>
         <span class="k">return</span>
-    <span class="n">isTerrainMode</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s">&#39;renderWindow&#39;</span><span class="p">):</span>
+    <span class="n">isTerrainMode</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s1">&#39;renderWindow&#39;</span><span class="p">):</span>
         <span class="n">isTerrainMode</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractorStyle</span><span class="p">(),</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkInteractorStyleTerrain2</span><span class="p">)</span>
-    <span class="n">getToolBarActions</span><span class="p">()[</span><span class="s">&#39;ActionToggleCameraTerrainMode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="n">isTerrainMode</span>
+    <span class="n">getToolBarActions</span><span class="p">()[</span><span class="s1">&#39;ActionToggleCameraTerrainMode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="n">isTerrainMode</span></div>
 
 
-<span class="k">class</span> <span class="nc">MenuActionToggleHelper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span></div>
-<div class="viewcode-block" id="MenuActionToggleHelper"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.MenuActionToggleHelper">[docs]</a>    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    This class manages a checkable menu action and  forwards checked events</span>
+<div class="viewcode-block" id="ActionToggleHelper"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.ActionToggleHelper">[docs]</a><span class="k">class</span> <span class="nc">ActionToggleHelper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This class manages a checkable action and forwards checked events</span>
 <span class="sd">    to user selected callbacks.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">menuName</span><span class="p">,</span> <span class="n">actionName</span><span class="p">,</span> <span class="n">getEnabledFunc</span><span class="p">,</span> <span class="n">setEnabledFunc</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">getEnabledFunc</span><span class="p">,</span> <span class="n">setEnabledFunc</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">getEnabled</span> <span class="o">=</span> <span class="n">getEnabledFunc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setEnabled</span> <span class="o">=</span> <span class="n">setEnabledFunc</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">addMenuAction</span><span class="p">(</span><span class="n">menuName</span><span class="p">,</span> <span class="n">actionName</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">action</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="n">getEnabledFunc</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;triggered()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onActionChanged</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onActionChanged</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">updateAction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<div class="viewcode-block" id="MenuActionToggleHelper.updateAction"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.MenuActionToggleHelper.updateAction">[docs]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEnabled</span><span class="p">()</span>
+<div class="viewcode-block" id="ActionToggleHelper.updateAction"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.ActionToggleHelper.updateAction">[docs]</a>    <span class="k">def</span> <span class="nf">updateAction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEnabled</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">onActionChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
-<div class="viewcode-block" id="MenuActionToggleHelper.onActionChanged"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.MenuActionToggleHelper.onActionChanged">[docs]</a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="ActionToggleHelper.onActionChanged"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.ActionToggleHelper.onActionChanged">[docs]</a>    <span class="k">def</span> <span class="nf">onActionChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">updateAction</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateAction</span><span class="p">()</span></div></div>
 
 
-<span class="k">def</span> <span class="nf">onCurrentViewChanged</span><span class="p">(</span><span class="n">previousView</span><span class="p">,</span> <span class="n">currentView</span><span class="p">):</span></div></div>
-<div class="viewcode-block" id="onCurrentViewChanged"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.onCurrentViewChanged">[docs]</a>    <span class="n">updateToggleTerrainAction</span><span class="p">(</span><span class="n">currentView</span><span class="p">)</span>
+<div class="viewcode-block" id="MenuActionToggleHelper"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.MenuActionToggleHelper">[docs]</a><span class="k">class</span> <span class="nc">MenuActionToggleHelper</span><span class="p">(</span><span class="n">ActionToggleHelper</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">menuName</span><span class="p">,</span> <span class="n">actionName</span><span class="p">,</span> <span class="n">getEnabledFunc</span><span class="p">,</span> <span class="n">setEnabledFunc</span><span class="p">):</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">addMenuAction</span><span class="p">(</span><span class="n">menuName</span><span class="p">,</span> <span class="n">actionName</span><span class="p">)</span>
+        <span class="n">ActionToggleHelper</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">getEnabledFunc</span><span class="p">,</span> <span class="n">setEnabledFunc</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">addToolbarMacro</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span></div>
-<div class="viewcode-block" id="addToolbarMacro"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.addToolbarMacro">[docs]</a>
+<div class="viewcode-block" id="onCurrentViewChanged"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.onCurrentViewChanged">[docs]</a><span class="k">def</span> <span class="nf">onCurrentViewChanged</span><span class="p">(</span><span class="n">previousView</span><span class="p">,</span> <span class="n">currentView</span><span class="p">):</span>
+    <span class="n">updateToggleTerrainAction</span><span class="p">(</span><span class="n">currentView</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="addToolbarMacro"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.addToolbarMacro">[docs]</a><span class="k">def</span> <span class="nf">addToolbarMacro</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
     <span class="n">toolbar</span> <span class="o">=</span> <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">macrosToolBar</span><span class="p">()</span>
     <span class="n">action</span> <span class="o">=</span> <span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+    <span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">addShortcut</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">keySequence</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span></div>
-<div class="viewcode-block" id="addShortcut"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.addShortcut">[docs]</a>    <span class="n">shortcut</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QShortcut</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QKeySequence</span><span class="p">(</span><span class="n">keySequence</span><span class="p">),</span> <span class="n">widget</span><span class="p">)</span>
-    <span class="n">shortcut</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;activated()&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-    <span class="n">shortcut</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;activatedAmbiguously()&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">shortcut</span>
+<div class="viewcode-block" id="removeToolbarMacro"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.removeToolbarMacro">[docs]</a><span class="k">def</span> <span class="nf">removeToolbarMacro</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="n">getToolBarActions</span><span class="p">()[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">action</span><span class="p">:</span>
+        <span class="n">getMainWindow</span><span class="p">()</span><span class="o">.</span><span class="n">panelToolBar</span><span class="p">()</span><span class="o">.</span><span class="n">removeAction</span><span class="p">(</span><span class="n">action</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">setupActions</span><span class="p">():</span></div>
-<div class="viewcode-block" id="setupActions"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.setupActions">[docs]</a>    <span class="n">botApyAction</span> <span class="o">=</span> <span class="n">getToolsMenuActions</span><span class="p">()[</span><span class="s">&#39;ActionBotSpy&#39;</span><span class="p">]</span>
-    <span class="n">botApyAction</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">botApyAction</span><span class="p">,</span> <span class="s">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">botspy</span><span class="o">.</span><span class="n">startBotSpy</span><span class="p">)</span>
-    <span class="n">scopeAction</span> <span class="o">=</span> <span class="n">getToolsMenuActions</span><span class="p">()[</span><span class="s">&#39;ActionSignalScope&#39;</span><span class="p">]</span>
-    <span class="n">scopeAction</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">scopeAction</span><span class="p">,</span> <span class="s">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">openscope</span><span class="o">.</span><span class="n">startSignalScope</span><span class="p">)</span>
+<div class="viewcode-block" id="addShortcut"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.addShortcut">[docs]</a><span class="k">def</span> <span class="nf">addShortcut</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">keySequence</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+    <span class="n">shortcut</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QShortcut</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QKeySequence</span><span class="p">(</span><span class="n">keySequence</span><span class="p">),</span> <span class="n">widget</span><span class="p">)</span>
+    <span class="n">shortcut</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;activated()&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+    <span class="n">shortcut</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;activatedAmbiguously()&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">shortcut</span></div>
 
 
-<span class="k">def</span> <span class="nf">showErrorMessage</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;Error&#39;</span><span class="p">):</span></div>
-<div class="viewcode-block" id="showErrorMessage"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.showErrorMessage">[docs]</a>    <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">getMainWindow</span><span class="p">(),</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+<div class="viewcode-block" id="setupActions"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.setupActions">[docs]</a><span class="k">def</span> <span class="nf">setupActions</span><span class="p">():</span>
+    <span class="n">botApyAction</span> <span class="o">=</span> <span class="n">getToolsMenuActions</span><span class="p">()[</span><span class="s1">&#39;ActionBotSpy&#39;</span><span class="p">]</span>
+    <span class="n">botApyAction</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">botApyAction</span><span class="p">,</span> <span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">botspy</span><span class="o">.</span><span class="n">startBotSpy</span><span class="p">)</span>
+    <span class="n">scopeAction</span> <span class="o">=</span> <span class="n">getToolsMenuActions</span><span class="p">()[</span><span class="s1">&#39;ActionSignalScope&#39;</span><span class="p">]</span>
+    <span class="n">scopeAction</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">scopeAction</span><span class="p">,</span> <span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">openscope</span><span class="o">.</span><span class="n">startSignalScope</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">showInfoMessage</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;Info&#39;</span><span class="p">):</span></div>
-<div class="viewcode-block" id="showInfoMessage"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.showInfoMessage">[docs]</a>    <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="n">getMainWindow</span><span class="p">(),</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+<div class="viewcode-block" id="showErrorMessage"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.showErrorMessage">[docs]</a><span class="k">def</span> <span class="nf">showErrorMessage</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Error&#39;</span><span class="p">):</span>
+    <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">getMainWindow</span><span class="p">(),</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">showViewTabContextMenu</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">tabBar</span><span class="p">,</span> <span class="n">menuPosition</span><span class="p">):</span></div>
-<div class="viewcode-block" id="showViewTabContextMenu"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.showViewTabContextMenu">[docs]</a>
+<div class="viewcode-block" id="showInfoMessage"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.showInfoMessage">[docs]</a><span class="k">def</span> <span class="nf">showInfoMessage</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span><span class="p">):</span>
+    <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="n">getMainWindow</span><span class="p">(),</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="showViewTabContextMenu"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.showViewTabContextMenu">[docs]</a><span class="k">def</span> <span class="nf">showViewTabContextMenu</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">tabBar</span><span class="p">,</span> <span class="n">menuPosition</span><span class="p">):</span>
+
     <span class="k">def</span> <span class="nf">onPopOut</span><span class="p">():</span>
         <span class="n">getViewManager</span><span class="p">()</span><span class="o">.</span><span class="n">popOut</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
 
     <span class="n">menu</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMenu</span><span class="p">(</span><span class="n">tabBar</span><span class="p">)</span>
-    <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s">&#39;Pop out&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">onPopOut</span><span class="p">)</span>
-    <span class="n">menu</span><span class="o">.</span><span class="n">popup</span><span class="p">(</span><span class="n">menuPosition</span><span class="p">)</span>
+    <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Pop out&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">onPopOut</span><span class="p">)</span>
+    <span class="n">menu</span><span class="o">.</span><span class="n">popup</span><span class="p">(</span><span class="n">menuPosition</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">onTabWidgetContextMenu</span><span class="p">(</span><span class="n">mouseClick</span><span class="p">):</span></div>
-<div class="viewcode-block" id="onTabWidgetContextMenu"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.onTabWidgetContextMenu">[docs]</a>
-    <span class="n">tabBar</span> <span class="o">=</span> <span class="n">getViewManager</span><span class="p">()</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s">&#39;QTabBar&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="viewcode-block" id="onTabWidgetContextMenu"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.onTabWidgetContextMenu">[docs]</a><span class="k">def</span> <span class="nf">onTabWidgetContextMenu</span><span class="p">(</span><span class="n">mouseClick</span><span class="p">):</span>
+
+    <span class="n">tabBar</span> <span class="o">=</span> <span class="n">getViewManager</span><span class="p">()</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s1">&#39;QTabBar&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">tabIndex</span> <span class="o">=</span> <span class="n">tabBar</span><span class="o">.</span><span class="n">tabAt</span><span class="p">(</span><span class="n">mouseClick</span><span class="p">)</span>
     <span class="n">viewName</span> <span class="o">=</span> <span class="n">tabBar</span><span class="o">.</span><span class="n">tabText</span><span class="p">(</span><span class="n">tabIndex</span><span class="p">)</span>
     <span class="n">view</span> <span class="o">=</span> <span class="n">getViewManager</span><span class="p">()</span><span class="o">.</span><span class="n">findView</span><span class="p">(</span><span class="n">viewName</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">view</span><span class="p">:</span>
-        <span class="n">showViewTabContextMenu</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">tabBar</span><span class="p">,</span> <span class="n">tabBar</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">mouseClick</span><span class="p">))</span>
+        <span class="n">showViewTabContextMenu</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">tabBar</span><span class="p">,</span> <span class="n">tabBar</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">mouseClick</span><span class="p">))</span></div>
 
 
-<span class="k">def</span> <span class="nf">setupViewManager</span><span class="p">():</span></div>
-<div class="viewcode-block" id="setupViewManager"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.setupViewManager">[docs]</a>
+<div class="viewcode-block" id="setupViewManager"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.setupViewManager">[docs]</a><span class="k">def</span> <span class="nf">setupViewManager</span><span class="p">():</span>
+
     <span class="n">vm</span> <span class="o">=</span> <span class="n">getViewManager</span><span class="p">()</span>
-    <span class="n">vm</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;currentViewChanged(ddViewBase*, ddViewBase*)&#39;</span><span class="p">,</span> <span class="n">onCurrentViewChanged</span><span class="p">)</span>
+    <span class="n">vm</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;currentViewChanged(ddViewBase*, ddViewBase*)&#39;</span><span class="p">,</span> <span class="n">onCurrentViewChanged</span><span class="p">)</span>
 
-    <span class="n">tabBar</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s">&#39;QTabBar&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tabBar</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s1">&#39;QTabBar&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">tabBar</span><span class="o">.</span><span class="n">setContextMenuPolicy</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">CustomContextMenu</span><span class="p">)</span>
-    <span class="n">tabBar</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;customContextMenuRequested(const QPoint &amp;)&#39;</span><span class="p">,</span> <span class="n">onTabWidgetContextMenu</span><span class="p">)</span>
+    <span class="n">tabBar</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;customContextMenuRequested(const QPoint &amp;)&#39;</span><span class="p">,</span> <span class="n">onTabWidgetContextMenu</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">startup</span><span class="p">(</span><span class="nb">globals</span><span class="p">):</span></div>
-<div class="viewcode-block" id="startup"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.startup">[docs]</a>
+<div class="viewcode-block" id="startup"><a class="viewcode-back" href="../../generated/director.applogic.html#director.applogic.startup">[docs]</a><span class="k">def</span> <span class="nf">startup</span><span class="p">(</span><span class="nb">globals</span><span class="p">):</span>
+
     <span class="k">global</span> <span class="n">_mainWindow</span>
-    <span class="n">_mainWindow</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">[</span><span class="s">&#39;_mainWindow&#39;</span><span class="p">]</span>
+    <span class="n">_mainWindow</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">[</span><span class="s1">&#39;_mainWindow&#39;</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="s">&#39;DRC_BASE&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
-        <span class="n">showErrorMessage</span><span class="p">(</span><span class="s">&#39;DRC_BASE environment variable is not set&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;DRC_BASE&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="n">showErrorMessage</span><span class="p">(</span><span class="s1">&#39;DRC_BASE environment variable is not set&#39;</span><span class="p">)</span>
         <span class="k">return</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">getDRCBase</span><span class="p">()):</span>
-        <span class="n">showErrorMessage</span><span class="p">(</span><span class="s">&#39;DRC_BASE directory does not exist: &#39;</span> <span class="o">+</span> <span class="n">getDRCBase</span><span class="p">())</span>
+        <span class="n">showErrorMessage</span><span class="p">(</span><span class="s1">&#39;DRC_BASE directory does not exist: &#39;</span> <span class="o">+</span> <span class="n">getDRCBase</span><span class="p">())</span>
         <span class="k">return</span>
 
-    <span class="n">_mainWindow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;resetCamera()&#39;</span><span class="p">,</span> <span class="n">resetCamera</span><span class="p">)</span>
-    <span class="n">_mainWindow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;toggleStereoRender()&#39;</span><span class="p">,</span> <span class="n">toggleStereoRender</span><span class="p">)</span>
-    <span class="n">_mainWindow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;toggleCameraTerrainMode()&#39;</span><span class="p">,</span> <span class="n">toggleCameraTerrainMode</span><span class="p">)</span>
+    <span class="n">_mainWindow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;resetCamera()&#39;</span><span class="p">,</span> <span class="n">resetCamera</span><span class="p">)</span>
+    <span class="n">_mainWindow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;toggleStereoRender()&#39;</span><span class="p">,</span> <span class="n">toggleStereoRender</span><span class="p">)</span>
+    <span class="n">_mainWindow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;toggleCameraTerrainMode()&#39;</span><span class="p">,</span> <span class="n">toggleCameraTerrainMode</span><span class="p">)</span>
 
     <span class="n">setupActions</span><span class="p">()</span>
-    <span class="n">setupViewManager</span><span class="p">()</span>
-</pre></div></div>
+    <span class="n">setupViewManager</span><span class="p">()</span></div>
+</pre></div>
 
            </div>
           </div>

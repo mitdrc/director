@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>director.robotlinkselector &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Director  documentation" href="../../index.html"/>
+        <link rel="up" title="director" href="../director.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../director.html">director</a> &raquo;</li>
+      
+    <li>director.robotlinkselector</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for director.robotlinkselector</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+
+
+
+<div class="viewcode-block" id="RobotLinkSelector"><a class="viewcode-back" href="../../generated/director.robotlinkselector.html#director.robotlinkselector.RobotLinkSelector">[docs]</a><span class="k">class</span> <span class="nc">RobotLinkSelector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setupMenuAction</span><span class="p">()</span>
+
+<div class="viewcode-block" id="RobotLinkSelector.setupMenuAction"><a class="viewcode-back" href="../../generated/director.robotlinkselector.html#director.robotlinkselector.RobotLinkSelector.setupMenuAction">[docs]</a>    <span class="k">def</span> <span class="nf">setupMenuAction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">applogic</span><span class="o">.</span><span class="n">addMenuAction</span><span class="p">(</span><span class="s1">&#39;Tools&#39;</span><span class="p">,</span> <span class="s1">&#39;Robot Link Selector&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="RobotLinkSelector.enabled"><a class="viewcode-back" href="../../generated/director.robotlinkselector.html#director.robotlinkselector.RobotLinkSelector.enabled">[docs]</a>    <span class="k">def</span> <span class="nf">enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span> <span class="o">==</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="RobotLinkSelector.setEnabled"><a class="viewcode-back" href="../../generated/director.robotlinkselector.html#director.robotlinkselector.RobotLinkSelector.setEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">setEnabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">enabled</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">enabled</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">trigger</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="RobotLinkSelector.onLeftDoubleClick"><a class="viewcode-back" href="../../generated/director.robotlinkselector.html#director.robotlinkselector.RobotLinkSelector.onLeftDoubleClick">[docs]</a>    <span class="k">def</span> <span class="nf">onLeftDoubleClick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectLink</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RobotLinkSelector.selectLink"><a class="viewcode-back" href="../../generated/director.robotlinkselector.html#director.robotlinkselector.RobotLinkSelector.selectLink">[docs]</a>    <span class="k">def</span> <span class="nf">selectLink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">robotModel</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">findPickedObject</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">robotModel</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getLinkNameForMesh</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">robotModel</span><span class="o">.</span><span class="n">model</span>
+
+        <span class="n">pickedPoint</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">polyData</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickProp</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+
+        <span class="n">linkName</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getLinkNameForMesh</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">linkName</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">fadeValue</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">linkName</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span> <span class="k">else</span> <span class="mf">0.05</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">getLinkNames</span><span class="p">():</span>
+            <span class="n">linkColor</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getLinkColor</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">linkColor</span><span class="o">.</span><span class="n">setAlphaF</span><span class="p">(</span><span class="n">fadeValue</span><span class="p">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">setLinkColor</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">linkColor</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">linkName</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">vis</span><span class="o">.</span><span class="n">hideCaptionWidget</span><span class="p">()</span>
+            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s1">&#39;selected link frame&#39;</span><span class="p">))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span> <span class="o">=</span> <span class="n">linkName</span>
+            <span class="n">linkColor</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getLinkColor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">)</span>
+            <span class="n">linkColor</span><span class="o">.</span><span class="n">setAlphaF</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">setLinkColor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">,</span> <span class="n">linkColor</span><span class="p">)</span>
+            <span class="n">vis</span><span class="o">.</span><span class="n">showCaptionWidget</span><span class="p">(</span><span class="n">robotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">)</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">)</span>
+            <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">robotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">),</span> <span class="s1">&#39;selected link frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">robotModel</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

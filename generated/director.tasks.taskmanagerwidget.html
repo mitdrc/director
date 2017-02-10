@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="director.tasks package" href="director.tasks.html"/>
         <link rel="next" title="director.tasks.taskuserpanel module" href="director.tasks.taskuserpanel.html"/>
@@ -81,7 +84,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="director.html#subpackages">Subpackages</a><ul class="current">
@@ -117,7 +121,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -143,188 +147,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-director.tasks.taskmanagerwidget">
-<span id="director-tasks-taskmanagerwidget-module"></span><h1>director.tasks.taskmanagerwidget module<a class="headerlink" href="#module-director.tasks.taskmanagerwidget" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="director.tasks.taskmanagerwidget.TaskItem">
-<em class="property">class </em><code class="descclassname">director.tasks.taskmanagerwidget.</code><code class="descname">TaskItem</code><span class="sig-paren">(</span><em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="director.objectmodel.html#director.objectmodel.ObjectModelItem" title="director.objectmodel.ObjectModelItem"><code class="xref py py-class docutils literal"><span class="pre">director.objectmodel.ObjectModelItem</span></code></a></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="director.tasks.taskmanagerwidget.TaskLibraryWidget">
-<em class="property">class </em><code class="descclassname">director.tasks.taskmanagerwidget.</code><code class="descname">TaskLibraryWidget</code><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskLibraryWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskLibraryWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskLibraryWidget.addTask">
-<code class="descname">addTask</code><span class="sig-paren">(</span><em>task</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskLibraryWidget.addTask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskLibraryWidget.addTask" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskLibraryWidget.onAddTaskClicked">
-<code class="descname">onAddTaskClicked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskLibraryWidget.onAddTaskClicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskLibraryWidget.onAddTaskClicked" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget">
-<em class="property">class </em><code class="descclassname">director.tasks.taskmanagerwidget.</code><code class="descname">TaskQueueWidget</code><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.loadTaskDescription">
-<code class="descname">loadTaskDescription</code><span class="sig-paren">(</span><em>name</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.loadTaskDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.loadTaskDescription" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.onAddQueue">
-<code class="descname">onAddQueue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.onAddQueue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.onAddQueue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.onClear">
-<code class="descname">onClear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.onClear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.onClear" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.onQueueComboChanged">
-<code class="descname">onQueueComboChanged</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.onQueueComboChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.onQueueComboChanged" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.onStart">
-<code class="descname">onStart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.onStart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.onStart" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.onStep">
-<code class="descname">onStep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.onStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.onStep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.onTaskEnded">
-<code class="descname">onTaskEnded</code><span class="sig-paren">(</span><em>taskQueue</em>, <em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.onTaskEnded"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.onTaskEnded" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.onTaskStarted">
-<code class="descname">onTaskStarted</code><span class="sig-paren">(</span><em>taskQueue</em>, <em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.onTaskStarted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.onTaskStarted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.setCurrentQueue">
-<code class="descname">setCurrentQueue</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.setCurrentQueue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.setCurrentQueue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.updateDisplay">
-<code class="descname">updateDisplay</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.updateDisplay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.updateDisplay" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskQueueWidget.updateStatusMessage">
-<code class="descname">updateStatusMessage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskQueueWidget.updateStatusMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskQueueWidget.updateStatusMessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.tasks.taskmanagerwidget.TaskTree">
-<em class="property">class </em><code class="descclassname">director.tasks.taskmanagerwidget.</code><code class="descname">TaskTree</code><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.addGroup">
-<code class="descname">addGroup</code><span class="sig-paren">(</span><em>groupName</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.addGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.addGroup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.assureSelection">
-<code class="descname">assureSelection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.assureSelection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.assureSelection" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.findTaskItem">
-<code class="descname">findTaskItem</code><span class="sig-paren">(</span><em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.findTaskItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.findTaskItem" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.findTaskItemByName">
-<code class="descname">findTaskItemByName</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.findTaskItemByName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.findTaskItemByName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.getSelectedFolder">
-<code class="descname">getSelectedFolder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.getSelectedFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.getSelectedFolder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.getSelectedTask">
-<code class="descname">getSelectedTask</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.getSelectedTask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.getSelectedTask" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.getSelectedTasks">
-<code class="descname">getSelectedTasks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.getSelectedTasks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.getSelectedTasks" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.getTasks">
-<code class="descname">getTasks</code><span class="sig-paren">(</span><em>parent=None</em>, <em>fromSelected=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.getTasks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.getTasks" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.loadTaskDescription">
-<code class="descname">loadTaskDescription</code><span class="sig-paren">(</span><em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.loadTaskDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.loadTaskDescription" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.onAddTask">
-<code class="descname">onAddTask</code><span class="sig-paren">(</span><em>task</em>, <em>parent=None</em>, <em>copy=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.onAddTask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.onAddTask" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.onLoad">
-<code class="descname">onLoad</code><span class="sig-paren">(</span><em>serializedData</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.onLoad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.onLoad" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.onSave">
-<code class="descname">onSave</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.onSave"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.onSave" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.removeAllTasks">
-<code class="descname">removeAllTasks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.removeAllTasks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.removeAllTasks" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.selectTask">
-<code class="descname">selectTask</code><span class="sig-paren">(</span><em>task</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.selectTask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.selectTask" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskTree.selectTaskByName">
-<code class="descname">selectTaskByName</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskTree.selectTaskByName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskTree.selectTaskByName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.tasks.taskmanagerwidget.TaskWidgetManager">
-<em class="property">class </em><code class="descclassname">director.tasks.taskmanagerwidget.</code><code class="descname">TaskWidgetManager</code><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskWidgetManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskWidgetManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.tasks.taskmanagerwidget.TaskWidgetManager.addDefaultTasksToLibrary">
-<code class="descname">addDefaultTasksToLibrary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#TaskWidgetManager.addDefaultTasksToLibrary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.TaskWidgetManager.addDefaultTasksToLibrary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="director.tasks.taskmanagerwidget.init">
-<code class="descclassname">director.tasks.taskmanagerwidget.</code><code class="descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/tasks/taskmanagerwidget.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.tasks.taskmanagerwidget.init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+  <div class="section" id="director-tasks-taskmanagerwidget-module">
+<h1>director.tasks.taskmanagerwidget module<a class="headerlink" href="#director-tasks-taskmanagerwidget-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,10 +132,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.meshmanager</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">lcmobjectcollection</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">geometryencoder</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">ioUtils</span>
-<span class="kn">from</span> <span class="nn">director.uuidutil</span> <span class="kn">import</span> <span class="n">newUUID</span>
+<span></span><span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">lcmobjectcollection</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">geometryencoder</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">ioUtils</span>
+<span class="kn">from</span> <span class="nn">director.uuidutil</span> <span class="k">import</span> <span class="n">newUUID</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 
@@ -139,36 +143,40 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">meshes</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cacheDirectory</span> <span class="o">=</span> <span class="s">&#39;/tmp&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cacheDataType</span> <span class="o">=</span> <span class="s">&#39;stl&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">lcmobjectcollection</span><span class="o">.</span><span class="n">LCMObjectCollection</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="s">&#39;MESH_COLLECTION_COMMAND&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cacheDirectory</span> <span class="o">=</span> <span class="s1">&#39;/tmp&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cacheDataType</span> <span class="o">=</span> <span class="s1">&#39;stl&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">lcmobjectcollection</span><span class="o">.</span><span class="n">LCMObjectCollection</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="s1">&#39;MESH_COLLECTION_COMMAND&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">connectDescriptionUpdated</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onDescriptionUpdated</span><span class="p">)</span>
 
-<div class="viewcode-block" id="MeshManager.add"><a class="viewcode-back" href="../../generated/director.meshmanager.html#director.meshmanager.MeshManager.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">polyData</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="MeshManager.add"><a class="viewcode-back" href="../../generated/director.meshmanager.html#director.meshmanager.MeshManager.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">polyData</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">meshId</span> <span class="o">=</span> <span class="n">newUUID</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">meshes</span><span class="p">[</span><span class="n">meshId</span><span class="p">]</span> <span class="o">=</span> <span class="n">polyData</span>
-        <span class="k">if</span> <span class="n">publish</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">updateDescription</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="n">meshId</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">geometryencoder</span><span class="o">.</span><span class="n">encodePolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">)),</span> <span class="n">notify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">meshId</span>
-</div>
+        <span class="k">if</span> <span class="n">publish</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_publishMesh</span><span class="p">(</span><span class="n">meshId</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">meshId</span></div>
+
 <div class="viewcode-block" id="MeshManager.get"><a class="viewcode-back" href="../../generated/director.meshmanager.html#director.meshmanager.MeshManager.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meshId</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">meshes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">meshId</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">meshes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">meshId</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="MeshManager.getFilesystemFilename"><a class="viewcode-back" href="../../generated/director.meshmanager.html#director.meshmanager.MeshManager.getFilesystemFilename">[docs]</a>    <span class="k">def</span> <span class="nf">getFilesystemFilename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meshId</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">meshId</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meshes</span><span class="p">:</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cacheDirectory</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">meshId</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cacheDataType</span><span class="p">))</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cacheDirectory</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">meshId</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cacheDataType</span><span class="p">))</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
                 <span class="n">ioUtils</span><span class="o">.</span><span class="n">writePolyData</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">meshId</span><span class="p">),</span> <span class="n">filename</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">filename</span>
-        <span class="k">return</span> <span class="bp">None</span>
-</div>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">_publishMesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meshId</span><span class="p">):</span>
+        <span class="n">polyData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meshes</span><span class="p">[</span><span class="n">meshId</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">updateDescription</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="n">meshId</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">geometryencoder</span><span class="o">.</span><span class="n">encodePolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">)),</span> <span class="n">notify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_onDescriptionUpdated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">descriptionId</span><span class="p">):</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">getDescription</span><span class="p">(</span><span class="n">descriptionId</span><span class="p">)</span>
-        <span class="n">meshId</span> <span class="o">=</span> <span class="n">desc</span><span class="p">[</span><span class="s">&#39;uuid&#39;</span><span class="p">]</span>
+        <span class="n">meshId</span> <span class="o">=</span> <span class="n">desc</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">meshId</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meshes</span><span class="p">:</span>
-            <span class="n">polyData</span> <span class="o">=</span> <span class="n">geometryencoder</span><span class="o">.</span><span class="n">decodePolyData</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">meshes</span><span class="p">[</span><span class="n">meshId</span><span class="p">]</span> <span class="o">=</span> <span class="n">polyData</span>
-            <span class="c">#print &#39;decoded polydata with %d points&#39; % polyData.GetNumberOfPoints()</span></div>
+            <span class="n">polyData</span> <span class="o">=</span> <span class="n">geometryencoder</span><span class="o">.</span><span class="n">decodePolyData</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">meshes</span><span class="p">[</span><span class="n">meshId</span><span class="p">]</span> <span class="o">=</span> <span class="n">polyData</span></div>
+            <span class="c1">#print &#39;decoded polydata with %d points&#39; % polyData.GetNumberOfPoints()</span>
 </pre></div>
 
            </div>

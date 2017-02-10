@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>director.measurementpanel &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Director  documentation" href="../../index.html"/>
+        <link rel="up" title="director" href="../director.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../director.html">director</a> &raquo;</li>
+      
+    <li>director.measurementpanel</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for director.measurementpanel</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">uipanel</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">pointpicker</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vieweventfilter</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
+<span class="kn">from</span> <span class="nn">director.debugVis</span> <span class="k">import</span> <span class="n">DebugData</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="MyEventFilter"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MyEventFilter">[docs]</a><span class="k">class</span> <span class="nc">MyEventFilter</span><span class="p">(</span><span class="n">vieweventfilter</span><span class="o">.</span><span class="n">ViewEventFilter</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">panel</span><span class="p">):</span>
+        <span class="n">vieweventfilter</span><span class="o">.</span><span class="n">ViewEventFilter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">panel</span> <span class="o">=</span> <span class="n">panel</span>
+
+<div class="viewcode-block" id="MyEventFilter.onMouseMove"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MyEventFilter.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">displayPoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMousePositionInView</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">onMouseMove</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MyEventFilter.onLeftClick"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MyEventFilter.onLeftClick">[docs]</a>    <span class="k">def</span> <span class="nf">onLeftClick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">displayPoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMousePositionInView</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ShiftModifier</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">onShiftMouseClick</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="MeasurementPanel"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel">[docs]</a><span class="k">class</span> <span class="nc">MeasurementPanel</span><span class="p">(</span><span class="n">uipanel</span><span class="o">.</span><span class="n">UiPanel</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="n">uipanel</span><span class="o">.</span><span class="n">UiPanel</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ddMeasurementPanel.ui&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">enabledCheck</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;toggled(bool)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEnabledCheckBox</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">clearButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onClear</span><span class="p">)</span>
+
+        <span class="c1">#self.snapshotTextShortcut = applogic.addShortcut(app.mainWindow, &#39; &#39;, self.snapshotText)</span>
+        <span class="c1">#self.snapshotGeometryShortcut = applogic.addShortcut(app.mainWindow, &#39;Shift+ &#39;, self.snapshotGeometry)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">MyEventFilter</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">PolyDataItem</span><span class="p">(</span><span class="s1">&#39;annotation&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span> <span class="n">view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetPickable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetUserTransform</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pickPoints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="MeasurementPanel.onEnabledCheckBox"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.onEnabledCheckBox">[docs]</a>    <span class="k">def</span> <span class="nf">onEnabledCheckBox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">isEnabled</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.isEnabled"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.isEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">isEnabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">enabledCheck</span><span class="o">.</span><span class="n">checked</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.setEnabled"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.setEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">setEnabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">enabledCheck</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="n">enabled</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">folder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRootFolder</span><span class="p">(</span><span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">folder</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetPickable</span><span class="p">(</span><span class="ow">not</span> <span class="n">enabled</span><span class="p">)</span>
+
+        <span class="c1">#self.snapshotTextShortcut.enabled = self.isEnabled()</span>
+        <span class="c1">#self.snapshotGeometryShortcut.enabled = self.isEnabled()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isEnabled</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">panelContents</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">enabled</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.onClear"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.onClear">[docs]</a>    <span class="k">def</span> <span class="nf">onClear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">textEdit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getRootFolder</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pickPoints</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.pickIsValid"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.pickIsValid">[docs]</a>    <span class="k">def</span> <span class="nf">pickIsValid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">objName</span><span class="o">.</span><span class="n">text</span> <span class="o">!=</span> <span class="s1">&#39;none&#39;</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.getRootFolder"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.getRootFolder">[docs]</a>    <span class="k">def</span> <span class="nf">getRootFolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;measurements&#39;</span>
+        <span class="k">if</span> <span class="n">create</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">om</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.makeSphere"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.makeSphere">[docs]</a>    <span class="k">def</span> <span class="nf">makeSphere</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.0075</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">DebugData</span><span class="p">()</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">addSphere</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.snapshotGeometry"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.snapshotGeometry">[docs]</a>    <span class="k">def</span> <span class="nf">snapshotGeometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pickIsValid</span><span class="p">():</span>
+            <span class="k">return</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pickPt</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pickPoints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">polyData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRootFolder</span><span class="p">()</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">children</span><span class="p">())</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s1">&#39;point </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="n">folder</span><span class="p">)</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetPickable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.snapshotText"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.snapshotText">[docs]</a>    <span class="k">def</span> <span class="nf">snapshotText</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pickIsValid</span><span class="p">():</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pickPoints</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pickPoints</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pickPoints</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;pick_point &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pickPt</span><span class="o">.</span><span class="n">text</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;pick_normal &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pickNormal</span><span class="o">.</span><span class="n">text</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;dist_to_previous_point &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dist</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">textEdit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;br/&gt;&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.onShiftMouseClick"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.onShiftMouseClick">[docs]</a>    <span class="k">def</span> <span class="nf">onShiftMouseClick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatePick</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">snapshotGeometry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">snapshotText</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.onMouseMove"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatePick</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeasurementPanel.updatePick"><a class="viewcode-back" href="../../generated/director.measurementpanel.html#director.measurementpanel.MeasurementPanel.updatePick">[docs]</a>    <span class="k">def</span> <span class="nf">updatePick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">):</span>
+
+        <span class="n">pickType</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pickTypeCombo</span><span class="o">.</span><span class="n">currentText</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;render&#39;</span> <span class="ow">in</span> <span class="n">pickType</span><span class="p">:</span>
+            <span class="n">pickType</span> <span class="o">=</span> <span class="s1">&#39;render&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;vertex&#39;</span> <span class="ow">in</span> <span class="n">pickType</span><span class="p">:</span>
+            <span class="n">pickType</span> <span class="o">=</span> <span class="s1">&#39;points&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;surface&#39;</span> <span class="ow">in</span> <span class="n">pickType</span><span class="p">:</span>
+            <span class="n">pickType</span> <span class="o">=</span> <span class="s1">&#39;cells&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;unknown pick type&#39;</span><span class="p">)</span>
+
+
+        <span class="n">tolerance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">toleranceSpinBox</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">worldPoint</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">normal</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span>
+            <span class="n">displayPoint</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span>
+            <span class="n">pickType</span><span class="o">=</span><span class="n">pickType</span><span class="p">,</span>
+            <span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span><span class="p">,</span>
+            <span class="n">returnNormal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">prop</span><span class="p">:</span>
+            <span class="n">worldPoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">getObjectByProp</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">displayPt</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">, </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">worldPt</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%.5f</span><span class="s1">, </span><span class="si">%.5f</span><span class="s1">, </span><span class="si">%.5f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">worldPoint</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pickPt</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%.5f</span><span class="s1">, </span><span class="si">%.5f</span><span class="s1">, </span><span class="si">%.5f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">worldPoint</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pickNormal</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%.5f</span><span class="s1">, </span><span class="si">%.5f</span><span class="s1">, </span><span class="si">%.5f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">normal</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="n">prop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">worldPoint</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetUserTransform</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">_renderAllViews</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">obj</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">objName</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">objName</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
+
+        <span class="k">if</span> <span class="n">dataset</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">numPts</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">numCells</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">GetNumberOfCells</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">numPts</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">numCells</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

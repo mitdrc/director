@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>director.depthscanner &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Director  documentation" href="../../index.html"/>
+        <link rel="up" title="director" href="../director.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../director.html">director</a> &raquo;</li>
+      
+    <li>director.depthscanner</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for director.depthscanner</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">imageview</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">transformUtils</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">viewbehaviors</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkNumpy</span> <span class="k">as</span> <span class="n">vnp</span>
+<span class="kn">from</span> <span class="nn">director.debugVis</span> <span class="k">import</span> <span class="n">DebugData</span>
+<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="k">import</span> <span class="n">TimerCallback</span>
+<span class="kn">import</span> <span class="nn">PythonQt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="computeDepthImageAndPointCloud"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.computeDepthImageAndPointCloud">[docs]</a><span class="k">def</span> <span class="nf">computeDepthImageAndPointCloud</span><span class="p">(</span><span class="n">depthBuffer</span><span class="p">,</span> <span class="n">colorBuffer</span><span class="p">,</span> <span class="n">camera</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Input args are an OpenGL depth buffer and color buffer as vtkImageData objects,</span>
+<span class="sd">    and the vtkCamera instance that was used to render the scene.  The function returns</span>
+<span class="sd">    returns a depth image and a point cloud as vtkImageData and vtkPolyData.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">depthImage</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImageData</span><span class="p">()</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+    <span class="n">ptColors</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnsignedCharArray</span><span class="p">()</span>
+    <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDepthImageUtils</span><span class="o">.</span><span class="n">DepthBufferToDepthImage</span><span class="p">(</span><span class="n">depthBuffer</span><span class="p">,</span> <span class="n">colorBuffer</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">depthImage</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">ptColors</span><span class="p">)</span>
+
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">vnp</span><span class="o">.</span><span class="n">numpy_support</span><span class="o">.</span><span class="n">vtk_to_numpy</span><span class="p">(</span><span class="n">pts</span><span class="o">.</span><span class="n">GetData</span><span class="p">())</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">vnp</span><span class="o">.</span><span class="n">numpyToPolyData</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">createVertexCells</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ptColors</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s1">&#39;rgb&#39;</span><span class="p">)</span>
+    <span class="n">polyData</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">AddArray</span><span class="p">(</span><span class="n">ptColors</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">depthImage</span><span class="p">,</span> <span class="n">polyData</span></div>
+
+
+<div class="viewcode-block" id="DepthScanner"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.DepthScanner">[docs]</a><span class="k">class</span> <span class="nc">DepthScanner</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthImage</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pointCloudObj</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">renderObserver</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowToDepthBuffer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkWindowToImageFilter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowToDepthBuffer</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowToDepthBuffer</span><span class="o">.</span><span class="n">SetInputBufferTypeToZBuffer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowToDepthBuffer</span><span class="o">.</span><span class="n">ShouldRerenderOff</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowToColorBuffer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkWindowToImageFilter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowToColorBuffer</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowToColorBuffer</span><span class="o">.</span><span class="n">SetInputBufferTypeToRGB</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowToColorBuffer</span><span class="o">.</span><span class="n">ShouldRerenderOff</span><span class="p">()</span>
+
+        <span class="n">useBackBuffer</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">useBackBuffer</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">windowToDepthBuffer</span><span class="o">.</span><span class="n">ReadFrontBufferOff</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">windowToColorBuffer</span><span class="o">.</span><span class="n">ReadFrontBufferOff</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initDepthImageView</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initPointCloudView</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">singleShotTimer</span> <span class="o">=</span> <span class="n">TimerCallback</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">singleShotTimer</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span>
+
+<div class="viewcode-block" id="DepthScanner.getDepthBufferImage"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.DepthScanner.getDepthBufferImage">[docs]</a>    <span class="k">def</span> <span class="nf">getDepthBufferImage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowToDepthBuffer</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DepthScanner.getDepthImage"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.DepthScanner.getDepthImage">[docs]</a>    <span class="k">def</span> <span class="nf">getDepthImage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthScaleFilter</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DepthScanner.getColorBufferImage"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.DepthScanner.getColorBufferImage">[docs]</a>    <span class="k">def</span> <span class="nf">getColorBufferImage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowToColorBuffer</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DepthScanner.updateBufferImages"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.DepthScanner.updateBufferImages">[docs]</a>    <span class="k">def</span> <span class="nf">updateBufferImages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">windowToDepthBuffer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowToColorBuffer</span><span class="p">]:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">Modified</span><span class="p">()</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DepthScanner.initDepthImageView"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.DepthScanner.initDepthImageView">[docs]</a>    <span class="k">def</span> <span class="nf">initDepthImageView</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthImageColorByRange</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]</span>
+
+        <span class="n">lut</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetNumberOfColors</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetHueRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.667</span><span class="p">)</span> <span class="c1"># red to blue</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetRange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">depthImageColorByRange</span><span class="p">)</span> <span class="c1"># map red (near) to blue (far)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetRampToLinear</span><span class="p">()</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">Build</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthScaleFilter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImageShiftScale</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthScaleFilter</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthScaleFilter</span><span class="o">.</span><span class="n">SetOutputScalarTypeToUnsignedShort</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthImageLookupTable</span> <span class="o">=</span> <span class="n">lut</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageMapToColors</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImageMapToColors</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageMapToColors</span><span class="o">.</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">depthImageLookupTable</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageMapToColors</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">depthScaleFilter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span> <span class="o">=</span> <span class="n">imageview</span><span class="o">.</span><span class="n">ImageView</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Depth image&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">setImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imageMapToColors</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="DepthScanner.initPointCloudView"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.DepthScanner.initPointCloudView">[docs]</a>    <span class="k">def</span> <span class="nf">initPointCloudView</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pointCloudView</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddQVTKWidgetView</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pointCloudView</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Pointcloud&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pointCloudViewBehaviors</span> <span class="o">=</span> <span class="n">viewbehaviors</span><span class="o">.</span><span class="n">ViewBehaviors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pointCloudView</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DepthScanner.update"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.DepthScanner.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">renderObserver</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">onEndRender</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block</span><span class="p">:</span>
+                    <span class="k">return</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">singleShotTimer</span><span class="o">.</span><span class="n">singleShotTimer</span><span class="o">.</span><span class="n">isActive</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">singleShotTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">renderObserver</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s1">&#39;EndEvent&#39;</span><span class="p">,</span> <span class="n">onEndRender</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">forceRender</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateBufferImages</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">depthImage</span><span class="p">,</span> <span class="n">polyData</span> <span class="o">=</span> <span class="n">computeDepthImageAndPointCloud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getDepthBufferImage</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getColorBufferImage</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthScaleFilter</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">depthImage</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthScaleFilter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthImageLookupTable</span><span class="o">.</span><span class="n">SetRange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">depthScaleFilter</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalarRange</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageMapToColors</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">()</span>
+        <span class="c1">#self.imageView.view.render()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pointCloudObj</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pointCloudObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="s1">&#39;point cloud&#39;</span><span class="p">,</span> <span class="n">colorByName</span><span class="o">=</span><span class="s1">&#39;rgb&#39;</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pointCloudView</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">setPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pointCloudView</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div></div>
+
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../generated/director.depthscanner.html#director.depthscanner.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">globalsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">mainwindowapp</span>
+    <span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">mainwindowapp</span><span class="o">.</span><span class="n">construct</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">gridObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">viewOptions</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Orientation widget&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">viewOptions</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;View angle&#39;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">sceneBrowserDock</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">propertiesDock</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Depth Scanner&#39;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">920</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">view</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">view</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">mdiArea</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMdiArea</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">mdiArea</span><span class="p">)</span>
+    <span class="n">subWindow</span> <span class="o">=</span> <span class="n">mdiArea</span><span class="o">.</span><span class="n">addSubWindow</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+    <span class="n">subWindow</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">subWindow</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Camera image&#39;</span><span class="p">)</span>
+    <span class="n">subWindow</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">)</span>
+    <span class="n">mdiArea</span><span class="o">.</span><span class="n">tileSubWindows</span><span class="p">()</span>
+
+    <span class="c1">#affordanceManager = affordancemanager.AffordanceObjectModelManager(view)</span>
+
+    <span class="n">depthScanner</span> <span class="o">=</span> <span class="n">DepthScanner</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+    <span class="n">depthScanner</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+    <span class="n">dock</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">depthScanner</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">)</span>
+    <span class="n">dock</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">dock</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+
+    <span class="n">dock</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">depthScanner</span><span class="o">.</span><span class="n">pointCloudView</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">)</span>
+    <span class="n">dock</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">dock</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+
+
+    <span class="c1"># add some test data</span>
+    <span class="k">def</span> <span class="nf">addTestData</span><span class="p">():</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">DebugData</span><span class="p">()</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">addArrow</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">addArrow</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">(),</span> <span class="s1">&#39;debug data&#39;</span><span class="p">,</span> <span class="n">colorByName</span><span class="o">=</span><span class="s1">&#39;RGB255&#39;</span><span class="p">)</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">()</span>
+
+    <span class="n">addTestData</span><span class="p">()</span>
+
+    <span class="c1"># xvfb command</span>
+    <span class="c1"># /usr/bin/Xvfb  :99 -ac -screen 0 1280x1024x16</span>
+
+    <span class="k">if</span> <span class="n">globalsDict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">globalsDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">,</span> <span class="n">depthScanner</span><span class="o">=</span><span class="n">depthScanner</span><span class="p">))</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">restoreWindow</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><span class="nb">globals</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

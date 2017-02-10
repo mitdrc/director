@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../../index.html"/>
         <link rel="up" title="director" href="../../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,24 +132,25 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.thirdparty.naming</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">re</span>
 
 
 
 <div class="viewcode-block" id="sdf2tfname"><a class="viewcode-back" href="../../../generated/director.thirdparty.naming.html#director.thirdparty.naming.sdf2tfname">[docs]</a><span class="k">def</span> <span class="nf">sdf2tfname</span><span class="p">(</span><span class="n">sdfname</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">sdfname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;::&#39;</span><span class="p">,</span> <span class="s">&#39;__&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;@&#39;</span><span class="p">,</span> <span class="s">&#39;AT&#39;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">sdfname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;::&#39;</span><span class="p">,</span> <span class="s1">&#39;__&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="s1">&#39;AT&#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="name2modelname"><a class="viewcode-back" href="../../../generated/director.thirdparty.naming.html#director.thirdparty.naming.name2modelname">[docs]</a><span class="k">def</span> <span class="nf">name2modelname</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-  <span class="c"># Cope with</span>
-  <span class="c"># - adding the same model multiple times through the GUI</span>
-  <span class="c"># - renamed models (e.g. because model occurs multiple times as sub-model)</span>
-  <span class="n">modelname</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;_[0-9]*$&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-  <span class="n">modelname</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;@.*$&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">modelname</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">modelname</span>
-</pre></div></div>
+  <span class="c1"># Cope with</span>
+  <span class="c1"># - adding the same model multiple times through the GUI</span>
+  <span class="c1"># - renamed models (e.g. because model occurs multiple times as sub-model)</span>
+  <span class="n">modelname</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;_[0-9]*$&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+  <span class="n">modelname</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;@.*$&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">modelname</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">modelname</span></div>
+
+</pre></div>
 
            </div>
           </div>

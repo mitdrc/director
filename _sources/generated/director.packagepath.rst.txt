@@ -1,0 +1,7 @@
+director.packagepath module
+===========================
+
+.. automodule:: director.packagepath
+    :members:
+    :undoc-members:
+    :show-inheritance:

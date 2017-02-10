@@ -1,0 +1,7 @@
+director.propertyanimation module
+=================================
+
+.. automodule:: director.propertyanimation
+    :members:
+    :undoc-members:
+    :show-inheritance:

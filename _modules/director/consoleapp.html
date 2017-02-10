@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,41 +132,37 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.consoleapp</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">import</span> <span class="nn">PythonQt</span>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
-
-<span class="kn">import</span> <span class="nn">director</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">applogic</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">vtkNumpy</span> <span class="k">as</span> <span class="n">vnp</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">viewbehaviors</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
-<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="kn">import</span> <span class="n">TimerCallback</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">viewbehaviors</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="k">import</span> <span class="n">TimerCallback</span>
+
+<span class="kn">import</span> <span class="nn">PythonQt</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
 
 
 <span class="k">def</span> <span class="nf">_consoleAppExceptionHook</span><span class="p">(</span><span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">exc_traceback</span><span class="p">):</span>
-    <span class="n">msg</span> <span class="o">=</span>  <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exception</span><span class="p">(</span><span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">exc_traceback</span><span class="p">))</span>
+    <span class="n">msg</span> <span class="o">=</span>  <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exception</span><span class="p">(</span><span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">exc_traceback</span><span class="p">))</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
     <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ConsoleApp"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp">[docs]</a><span class="k">class</span> <span class="nc">ConsoleApp</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
+    <span class="n">_startupCallbacks</span> <span class="o">=</span> <span class="p">[]</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">om</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="ConsoleApp.start"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">enableAutomaticQuit</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="ConsoleApp.start"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">enableAutomaticQuit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        In testing mode, the application will quit automatically after starting</span>
 <span class="sd">        unless enableAutomaticQuit is set to False.  Tests that need to perform</span>
@@ -178,36 +178,48 @@
         <span class="k">if</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingEnabled</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingInteractiveEnabled</span><span class="p">():</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">_consoleAppExceptionHook</span>
 
+        <span class="k">def</span> <span class="nf">onStartup</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">_startupCallbacks</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">func</span><span class="p">()</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="nb">print</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
+
+        <span class="n">startTimer</span> <span class="o">=</span> <span class="n">TimerCallback</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">onStartup</span><span class="p">)</span>
+        <span class="n">startTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
         <span class="n">result</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingEnabled</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingInteractiveEnabled</span><span class="p">():</span>
-            <span class="k">print</span> <span class="s">&#39;TESTING PROGRAM RETURNING EXIT CODE:&#39;</span><span class="p">,</span> <span class="n">result</span>
+            <span class="nb">print</span> <span class="s1">&#39;TESTING PROGRAM RETURNING EXIT CODE:&#39;</span><span class="p">,</span> <span class="n">result</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-</div>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.startTestingModeQuitTimer"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.startTestingModeQuitTimer">[docs]</a>    <span class="k">def</span> <span class="nf">startTestingModeQuitTimer</span><span class="p">(</span><span class="n">timeoutInSeconds</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingEnabled</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingInteractiveEnabled</span><span class="p">():</span>
-            <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">startQuitTimer</span><span class="p">(</span><span class="n">timeoutInSeconds</span><span class="p">)</span>
-</div>
+            <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">startQuitTimer</span><span class="p">(</span><span class="n">timeoutInSeconds</span><span class="p">)</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.startQuitTimer"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.startQuitTimer">[docs]</a>    <span class="k">def</span> <span class="nf">startQuitTimer</span><span class="p">(</span><span class="n">timeoutInSeconds</span><span class="p">):</span>
         <span class="n">quitTimer</span> <span class="o">=</span> <span class="n">TimerCallback</span><span class="p">()</span>
         <span class="n">quitTimer</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">quit</span>
-        <span class="n">quitTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="n">timeoutInSeconds</span><span class="p">)</span>
-</div>
+        <span class="n">quitTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="n">timeoutInSeconds</span><span class="p">)</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.quit"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">():</span>
-        <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-</div>
+        <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.exit"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.exit">[docs]</a>    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="n">exitCode</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">exitCode</span><span class="p">)</span>
-</div>
+        <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">applicationInstance</span><span class="p">()</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">exitCode</span><span class="p">)</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.applicationInstance"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.applicationInstance">[docs]</a>    <span class="k">def</span> <span class="nf">applicationInstance</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
-</div>
+        <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ConsoleApp.showObjectModel"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.showObjectModel">[docs]</a>    <span class="k">def</span> <span class="nf">showObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span><span class="p">:</span>
@@ -216,103 +228,106 @@
             <span class="n">model</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">getDefaultObjectModel</span><span class="p">()</span>
             <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">())</span>
             <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">getPropertiesPanel</span><span class="p">())</span>
-            <span class="n">applogic</span><span class="o">.</span><span class="n">addShortcut</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">&#39;Ctrl+Q&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+            <span class="n">applogic</span><span class="o">.</span><span class="n">addShortcut</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s1">&#39;Ctrl+Q&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span> <span class="o">=</span> <span class="n">w</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span>
-</div>
-<div class="viewcode-block" id="ConsoleApp.createView"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.createView">[docs]</a>    <span class="k">def</span> <span class="nf">createView</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">useGrid</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectModelWidget</span></div>
+
+<div class="viewcode-block" id="ConsoleApp.createView"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.createView">[docs]</a>    <span class="k">def</span> <span class="nf">createView</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">useGrid</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">view</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddQVTKWidgetView</span><span class="p">()</span>
         <span class="n">view</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
 
-        <span class="n">applogic</span><span class="o">.</span><span class="n">setCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">setCameraTerrainModeEnabled</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">useGrid</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">gridObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showGrid</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s">&#39;scene&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gridObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showGrid</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;scene&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewOptions</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">ViewOptionsItem</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
-        <span class="n">om</span><span class="o">.</span><span class="n">addToObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewOptions</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">))</span>
+        <span class="n">om</span><span class="o">.</span><span class="n">addToObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewOptions</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s1">&#39;scene&#39;</span><span class="p">))</span>
 
         <span class="n">applogic</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">(</span><span class="n">viewDirection</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.3</span><span class="p">],</span> <span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">)</span>
-        <span class="n">viewBehaviors</span> <span class="o">=</span> <span class="n">viewbehaviors</span><span class="o">.</span><span class="n">ViewBehaviors</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewBehaviors</span> <span class="o">=</span> <span class="n">viewbehaviors</span><span class="o">.</span><span class="n">ViewBehaviors</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
         <span class="n">applogic</span><span class="o">.</span><span class="n">_defaultRenderView</span> <span class="o">=</span> <span class="n">view</span>
 
-        <span class="n">applogic</span><span class="o">.</span><span class="n">addShortcut</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s">&#39;Ctrl+Q&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
-        <span class="n">applogic</span><span class="o">.</span><span class="n">addShortcut</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s">&#39;F8&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">showPythonConsole</span><span class="p">)</span>
-        <span class="n">applogic</span><span class="o">.</span><span class="n">addShortcut</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s">&#39;F1&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">showObjectModel</span><span class="p">)</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">addShortcut</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s1">&#39;Ctrl+Q&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">addShortcut</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s1">&#39;F8&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">showPythonConsole</span><span class="p">)</span>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">addShortcut</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s1">&#39;F1&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">showObjectModel</span><span class="p">)</span>
 
         <span class="n">view</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">Icons</span><span class="o">.</span><span class="n">getIcon</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">Icons</span><span class="o">.</span><span class="n">Robot</span><span class="p">))</span>
-        <span class="n">view</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;View&#39;</span><span class="p">)</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;View&#39;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">view</span>
-</div>
+        <span class="k">return</span> <span class="n">view</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.showPythonConsole"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.showPythonConsole">[docs]</a>    <span class="k">def</span> <span class="nf">showPythonConsole</span><span class="p">():</span>
-        <span class="n">applogic</span><span class="o">.</span><span class="n">showPythonConsole</span><span class="p">()</span>
-</div>
+        <span class="n">applogic</span><span class="o">.</span><span class="n">showPythonConsole</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ConsoleApp.setupGlobals"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.setupGlobals">[docs]</a>    <span class="k">def</span> <span class="nf">setupGlobals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">globalsDict</span><span class="p">):</span>
 
         <span class="n">quit</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">quit</span>
-        <span class="nb">exit</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">exit</span>
+        <span class="n">exit</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">exit</span>
 
         <span class="n">globalsDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">locals</span><span class="p">())</span>
-        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;globalsDict&#39;</span><span class="p">,</span> <span class="s">&#39;self&#39;</span><span class="p">]:</span>
-            <span class="k">del</span> <span class="n">globalsDict</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span>
-</div>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;globalsDict&#39;</span><span class="p">,</span> <span class="s1">&#39;self&#39;</span><span class="p">]:</span>
+            <span class="k">del</span> <span class="n">globalsDict</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span></div>
+
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="ConsoleApp.getTestingArgs"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.getTestingArgs">[docs]</a>    <span class="k">def</span> <span class="nf">getTestingArgs</span><span class="p">(</span><span class="n">dataDirRequired</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">outputDirRequired</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="ConsoleApp.getTestingArgs"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.getTestingArgs">[docs]</a>    <span class="k">def</span> <span class="nf">getTestingArgs</span><span class="p">(</span><span class="n">dataDirRequired</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">outputDirRequired</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
       <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
-      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--testing&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;enable testing mode&#39;</span><span class="p">)</span>
-      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-d&#39;</span><span class="p">,</span> <span class="s">&#39;--data-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;testing data directory&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">dataDirRequired</span><span class="p">)</span>
-      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="s">&#39;--output-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;output directory for writing test output&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">outputDirRequired</span><span class="p">)</span>
-      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-i&#39;</span><span class="p">,</span> <span class="s">&#39;--interactive&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&#39;enable interactive testing mode&#39;</span><span class="p">)</span>
+      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--testing&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;enable testing mode&#39;</span><span class="p">)</span>
+      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--data-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;testing data directory&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">dataDirRequired</span><span class="p">)</span>
+      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--output-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;output directory for writing test output&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">outputDirRequired</span><span class="p">)</span>
+      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;--interactive&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;enable interactive testing mode&#39;</span><span class="p">)</span>
 
       <span class="n">args</span><span class="p">,</span> <span class="n">unknown</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">()</span>
-      <span class="k">return</span> <span class="n">args</span>
-</div>
+      <span class="k">return</span> <span class="n">args</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.getTestingDataDirectory"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.getTestingDataDirectory">[docs]</a>    <span class="k">def</span> <span class="nf">getTestingDataDirectory</span><span class="p">():</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingArgs</span><span class="p">(</span><span class="n">dataDirRequired</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">data_dir</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingArgs</span><span class="p">(</span><span class="n">dataDirRequired</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">data_dir</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Testing data directory does not exist: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">path</span>
-</div>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Testing data directory does not exist: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span></div>
+
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="ConsoleApp.getTestingOutputDirectory"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.getTestingOutputDirectory">[docs]</a>    <span class="k">def</span> <span class="nf">getTestingOutputDirectory</span><span class="p">(</span><span class="n">outputDirRequired</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="ConsoleApp.getTestingOutputDirectory"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.getTestingOutputDirectory">[docs]</a>    <span class="k">def</span> <span class="nf">getTestingOutputDirectory</span><span class="p">(</span><span class="n">outputDirRequired</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingArgs</span><span class="p">()</span><span class="o">.</span><span class="n">output_dir</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Testing output directory does not exist: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">path</span>
-</div>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Testing output directory does not exist: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.getTestingInteractiveEnabled"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.getTestingInteractiveEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">getTestingInteractiveEnabled</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingArgs</span><span class="p">()</span><span class="o">.</span><span class="n">interactive</span>
-</div>
+        <span class="k">return</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingArgs</span><span class="p">()</span><span class="o">.</span><span class="n">interactive</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.getTestingEnabled"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.getTestingEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">getTestingEnabled</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingArgs</span><span class="p">()</span><span class="o">.</span><span class="n">testing</span>
+        <span class="k">return</span> <span class="n">ConsoleApp</span><span class="o">.</span><span class="n">getTestingArgs</span><span class="p">()</span><span class="o">.</span><span class="n">testing</span></div></div>
 
 
-</div></div>
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 
-    <span class="k">global</span> <span class="n">app</span><span class="p">,</span> <span class="n">view</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">globalsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
     <span class="n">app</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="p">()</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">setupGlobals</span><span class="p">(</span><span class="nb">globals</span><span class="p">())</span>
     <span class="n">app</span><span class="o">.</span><span class="n">showPythonConsole</span><span class="p">()</span>
     <span class="n">view</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">createView</span><span class="p">()</span>
     <span class="n">view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="n">view</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
     <span class="n">view</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-</div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">globalsDict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">setupGlobals</span><span class="p">(</span><span class="n">globalsDict</span><span class="p">)</span>
+        <span class="n">globalsDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">))</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><span class="nb">globals</span><span class="p">())</span>
 </pre></div>
 
            </div>

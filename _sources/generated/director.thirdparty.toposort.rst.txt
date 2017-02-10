@@ -1,0 +1,7 @@
+director.thirdparty.toposort module
+===================================
+
+.. automodule:: director.thirdparty.toposort
+    :members:
+    :undoc-members:
+    :show-inheritance:

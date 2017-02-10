@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,17 +132,17 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.tdx</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">functools</span>
+<span></span><span class="kn">import</span> <span class="nn">functools</span>
 
-<span class="n">_editor</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">_editor</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="motionEvent"><a class="viewcode-back" href="../../generated/director.tdx.html#director.tdx.motionEvent">[docs]</a><span class="k">def</span> <span class="nf">motionEvent</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">eventId</span><span class="p">):</span>
-    <span class="n">_editor</span><span class="o">.</span><span class="n">handleTDxMotionEvent</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">lastTDxMotion</span><span class="p">())</span>
-</div>
+    <span class="n">_editor</span><span class="o">.</span><span class="n">handleTDxMotionEvent</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">lastTDxMotion</span><span class="p">())</span></div>
+
 <div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.tdx.html#director.tdx.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">editor</span><span class="p">):</span>
 
     <span class="n">tdxStyle</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractorStyle</span><span class="p">()</span><span class="o">.</span><span class="n">GetTDxStyle</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">tdxStyle</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">tdxStyle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span>
 
     <span class="k">global</span> <span class="n">_editor</span>
@@ -153,7 +157,7 @@
     <span class="n">tdxSettings</span><span class="o">.</span><span class="n">SetTranslationZSensitivity</span><span class="p">(</span><span class="n">translationSensitivity</span><span class="p">)</span>
 
     <span class="n">eventHandler</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">motionEvent</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-    <span class="n">tdxStyle</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s">&#39;TDxMotionEvent&#39;</span><span class="p">,</span> <span class="n">eventHandler</span><span class="p">)</span></div>
+    <span class="n">tdxStyle</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s1">&#39;TDxMotionEvent&#39;</span><span class="p">,</span> <span class="n">eventHandler</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

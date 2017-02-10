@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>director.lcmobjectcollection &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Director  documentation" href="../../index.html"/>
+        <link rel="up" title="director" href="../director.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../director.html">director</a> &raquo;</li>
+      
+    <li>director.lcmobjectcollection</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for director.lcmobjectcollection</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">director.thirdparty</span> <span class="k">import</span> <span class="n">numpyjsoncoder</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">callbacks</span>
+<span class="kn">from</span> <span class="nn">director.utime</span> <span class="k">import</span> <span class="n">getUtime</span>
+<span class="kn">from</span> <span class="nn">director.uuidutil</span> <span class="k">import</span> <span class="n">newUUID</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">bot_core</span> <span class="k">as</span> <span class="nn">lcmbotcore</span>
+    <span class="n">USE_LCM</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">USE_LCM</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="n">USE_LCM</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">lcmUtils</span>
+
+
+<div class="viewcode-block" id="LCMObjectCollection"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection">[docs]</a><span class="k">class</span> <span class="nc">LCMObjectCollection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">DESCRIPTION_UPDATED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;DESCRIPTION_UPDATED_SIGNAL&#39;</span>
+    <span class="n">DESCRIPTION_REMOVED_SIGNAL</span> <span class="o">=</span> <span class="s1">&#39;DESCRIPTION_REMOVED_SIGNAL&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collectionId</span> <span class="o">=</span> <span class="n">newUUID</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sentCommands</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sentRequest</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">CallbackRegistry</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">DESCRIPTION_UPDATED_SIGNAL</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">DESCRIPTION_REMOVED_SIGNAL</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modified</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">USE_LCM</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sub</span> <span class="o">=</span> <span class="n">lcmUtils</span><span class="o">.</span><span class="n">addSubscriber</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">messageClass</span><span class="o">=</span><span class="n">lcmbotcore</span><span class="o">.</span><span class="n">system_status_t</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_onCommandMessage</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">setNotifyAllMessagesEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="p">:</span>
+            <span class="n">lcmUtils</span><span class="o">.</span><span class="n">removeSubscriber</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LCMObjectCollection.connectDescriptionUpdated"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.connectDescriptionUpdated">[docs]</a>    <span class="k">def</span> <span class="nf">connectDescriptionUpdated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DESCRIPTION_UPDATED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.disconnectDescriptionUpdated"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.disconnectDescriptionUpdated">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectDescriptionUpdated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.connectDescriptionRemoved"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.connectDescriptionRemoved">[docs]</a>    <span class="k">def</span> <span class="nf">connectDescriptionRemoved</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DESCRIPTION_REMOVED_SIGNAL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.disconnectDescriptionRemoved"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.disconnectDescriptionRemoved">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectDescriptionRemoved</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.getDescriptionId"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.getDescriptionId">[docs]</a>    <span class="k">def</span> <span class="nf">getDescriptionId</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">desc</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">desc</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.prettyPrintCollection"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.prettyPrintCollection">[docs]</a>    <span class="k">def</span> <span class="nf">prettyPrintCollection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">numpyjsoncoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="p">)),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.getDescription"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.getDescription">[docs]</a>    <span class="k">def</span> <span class="nf">getDescription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">descriptionId</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="n">descriptionId</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.updateDescription"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.updateDescription">[docs]</a>    <span class="k">def</span> <span class="nf">updateDescription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">notify</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">getDescriptionId</span><span class="p">(</span><span class="n">desc</span><span class="p">)]</span> <span class="o">=</span> <span class="n">desc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modified</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">publish</span> <span class="ow">and</span> <span class="n">USE_LCM</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newCommandMessage</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">desc</span><span class="p">)</span>
+            <span class="n">lcmUtils</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">notify</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DESCRIPTION_UPDATED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getDescriptionId</span><span class="p">(</span><span class="n">desc</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.removeDescription"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.removeDescription">[docs]</a>    <span class="k">def</span> <span class="nf">removeDescription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">descriptionId</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">notify</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="n">descriptionId</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_modified</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="n">publish</span> <span class="ow">and</span> <span class="n">USE_LCM</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newCommandMessage</span><span class="p">(</span><span class="s1">&#39;remove&#39;</span><span class="p">,</span> <span class="n">descriptionId</span><span class="o">=</span><span class="n">descriptionId</span><span class="p">,)</span>
+            <span class="n">lcmUtils</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">notify</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DESCRIPTION_REMOVED_SIGNAL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">descriptionId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.sendEchoRequest"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.sendEchoRequest">[docs]</a>    <span class="k">def</span> <span class="nf">sendEchoRequest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sentRequest</span> <span class="o">=</span> <span class="n">newUUID</span><span class="p">()</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newCommandMessage</span><span class="p">(</span><span class="s1">&#39;echo_request&#39;</span><span class="p">,</span> <span class="n">requestId</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sentRequest</span><span class="p">)</span>
+        <span class="n">lcmUtils</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LCMObjectCollection.sendEchoResponse"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.sendEchoResponse">[docs]</a>    <span class="k">def</span> <span class="nf">sendEchoResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requestId</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">requestId</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">requestId</span> <span class="o">=</span> <span class="n">newUUID</span><span class="p">()</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newCommandMessage</span><span class="p">(</span><span class="s1">&#39;echo_response&#39;</span><span class="p">,</span> <span class="n">requestId</span><span class="o">=</span><span class="n">requestId</span><span class="p">,</span> <span class="n">descriptions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="p">)</span>
+        <span class="n">lcmUtils</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LCMObjectCollection.handleEchoResponse"><a class="viewcode-back" href="../../generated/director.lcmobjectcollection.html#director.lcmobjectcollection.LCMObjectCollection.handleEchoResponse">[docs]</a>    <span class="k">def</span> <span class="nf">handleEchoResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1">#if data[&#39;requestId&#39;] != self.sentRequest:</span>
+        <span class="c1">#    return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sentRequest</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;descriptions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updateDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mtime</span> <span class="o">=</span> <span class="n">getUtime</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_newCommandMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commandName</span><span class="p">,</span> <span class="o">**</span><span class="n">commandArgs</span><span class="p">):</span>
+        <span class="n">commandId</span> <span class="o">=</span> <span class="n">newUUID</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sentCommands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">commandId</span><span class="p">)</span>
+        <span class="n">commandArgs</span><span class="p">[</span><span class="s1">&#39;commandId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commandId</span>
+        <span class="n">commandArgs</span><span class="p">[</span><span class="s1">&#39;collectionId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collectionId</span>
+        <span class="n">commandArgs</span><span class="p">[</span><span class="s1">&#39;command&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commandName</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">lcmbotcore</span><span class="o">.</span><span class="n">system_status_t</span><span class="p">()</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">numpyjsoncoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">commandArgs</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">utime</span> <span class="o">=</span> <span class="n">getUtime</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">_onCommandMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">numpyjsoncoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="n">commandId</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;commandId&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">commandId</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentCommands</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sentCommands</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">commandId</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;command&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;update&#39;</span><span class="p">:</span>
+            <span class="n">desc</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updateDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;remove&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">removeDescription</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;descriptionId&#39;</span><span class="p">],</span> <span class="n">publish</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;echo_request&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sendEchoResponse</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;requestId&#39;</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;echo_response&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handleEchoResponse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

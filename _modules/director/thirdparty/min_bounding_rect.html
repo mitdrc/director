@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../../index.html"/>
         <link rel="up" title="director" href="../../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,146 +132,147 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.thirdparty.min_bounding_rect</h1><div class="highlight"><pre>
-<span class="c">#!/usr/bin/python</span>
+<span></span><span class="ch">#!/usr/bin/python</span>
 
-<span class="c"># Find the minimum-area bounding box of a set of 2D points</span>
-<span class="c">#</span>
-<span class="c"># The input is a 2D convex hull, in an Nx2 numpy array of x-y co-ordinates. </span>
-<span class="c"># The first and last points points must be the same, making a closed polygon.</span>
-<span class="c"># This program finds the rotation angles of each edge of the convex polygon,</span>
-<span class="c"># then tests the area of a bounding box aligned with the unique angles in</span>
-<span class="c"># 90 degrees of the 1st Quadrant.</span>
-<span class="c"># Returns the </span>
-<span class="c">#</span>
-<span class="c"># Tested with Python 2.6.5 on Ubuntu 10.04.4</span>
-<span class="c"># Results verified using Matlab</span>
+<span class="c1"># Find the minimum-area bounding box of a set of 2D points</span>
+<span class="c1">#</span>
+<span class="c1"># The input is a 2D convex hull, in an Nx2 numpy array of x-y co-ordinates. </span>
+<span class="c1"># The first and last points points must be the same, making a closed polygon.</span>
+<span class="c1"># This program finds the rotation angles of each edge of the convex polygon,</span>
+<span class="c1"># then tests the area of a bounding box aligned with the unique angles in</span>
+<span class="c1"># 90 degrees of the 1st Quadrant.</span>
+<span class="c1"># Returns the </span>
+<span class="c1">#</span>
+<span class="c1"># Tested with Python 2.6.5 on Ubuntu 10.04.4</span>
+<span class="c1"># Results verified using Matlab</span>
 
-<span class="c"># Copyright (c) 2013, David Butterworth, University of Queensland</span>
-<span class="c"># All rights reserved.</span>
-<span class="c">#</span>
-<span class="c"># Redistribution and use in source and binary forms, with or without</span>
-<span class="c"># modification, are permitted provided that the following conditions are met:</span>
-<span class="c">#</span>
-<span class="c">#     * Redistributions of source code must retain the above copyright</span>
-<span class="c">#       notice, this list of conditions and the following disclaimer.</span>
-<span class="c">#     * Redistributions in binary form must reproduce the above copyright</span>
-<span class="c">#       notice, this list of conditions and the following disclaimer in the</span>
-<span class="c">#       documentation and/or other materials provided with the distribution.</span>
-<span class="c">#     * Neither the name of the Willow Garage, Inc. nor the names of its</span>
-<span class="c">#       contributors may be used to endorse or promote products derived from</span>
-<span class="c">#       this software without specific prior written permission.</span>
-<span class="c">#</span>
-<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;</span>
-<span class="c"># AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span>
-<span class="c"># IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span>
-<span class="c"># ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE</span>
-<span class="c"># LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span>
-<span class="c"># CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span>
-<span class="c"># SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS</span>
-<span class="c"># INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN</span>
-<span class="c"># CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)</span>
-<span class="c"># ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
-<span class="c"># POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c1"># Copyright (c) 2013, David Butterworth, University of Queensland</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c1"># modification, are permitted provided that the following conditions are met:</span>
+<span class="c1">#</span>
+<span class="c1">#     * Redistributions of source code must retain the above copyright</span>
+<span class="c1">#       notice, this list of conditions and the following disclaimer.</span>
+<span class="c1">#     * Redistributions in binary form must reproduce the above copyright</span>
+<span class="c1">#       notice, this list of conditions and the following disclaimer in the</span>
+<span class="c1">#       documentation and/or other materials provided with the distribution.</span>
+<span class="c1">#     * Neither the name of the Willow Garage, Inc. nor the names of its</span>
+<span class="c1">#       contributors may be used to endorse or promote products derived from</span>
+<span class="c1">#       this software without specific prior written permission.</span>
+<span class="c1">#</span>
+<span class="c1"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;</span>
+<span class="c1"># AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span>
+<span class="c1"># IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span>
+<span class="c1"># ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE</span>
+<span class="c1"># LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span>
+<span class="c1"># CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span>
+<span class="c1"># SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS</span>
+<span class="c1"># INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN</span>
+<span class="c1"># CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)</span>
+<span class="c1"># ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span class="c1"># POSSIBILITY OF SUCH DAMAGE.</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">sys</span>  <span class="c"># maxint</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">sys</span>  <span class="c1"># maxint</span>
 
 <div class="viewcode-block" id="minBoundingRect"><a class="viewcode-back" href="../../../generated/director.thirdparty.min_bounding_rect.html#director.thirdparty.min_bounding_rect.minBoundingRect">[docs]</a><span class="k">def</span> <span class="nf">minBoundingRect</span><span class="p">(</span><span class="n">hull_points_2d</span><span class="p">):</span>
-    <span class="c">#print &quot;Input convex hull points: &quot;</span>
-    <span class="c">#print hull_points_2d</span>
+    <span class="c1">#print &quot;Input convex hull points: &quot;</span>
+    <span class="c1">#print hull_points_2d</span>
 
-    <span class="c"># Compute edges (x2-x1,y2-y1)</span>
-    <span class="n">edges</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hull_points_2d</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="c"># empty 2 column array</span>
+    <span class="c1"># Compute edges (x2-x1,y2-y1)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hull_points_2d</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># empty 2 column array</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="p">):</span>
         <span class="n">edge_x</span> <span class="o">=</span> <span class="n">hull_points_2d</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">hull_points_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">edge_y</span> <span class="o">=</span> <span class="n">hull_points_2d</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">hull_points_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">edge_x</span><span class="p">,</span><span class="n">edge_y</span><span class="p">]</span>
-    <span class="c">#print &quot;Edges: \n&quot;, edges</span>
+    <span class="c1">#print &quot;Edges: \n&quot;, edges</span>
 
-    <span class="c"># Calculate edge angles   atan2(y/x)</span>
-    <span class="n">edge_angles</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span> <span class="p">)</span> <span class="c"># empty 1 column array</span>
+    <span class="c1"># Calculate edge angles   atan2(y/x)</span>
+    <span class="n">edge_angles</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span> <span class="p">)</span> <span class="c1"># empty 1 column array</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_angles</span><span class="p">)</span> <span class="p">):</span>
         <span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span> <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
-    <span class="c">#print &quot;Edge angles: \n&quot;, edge_angles</span>
+    <span class="c1">#print &quot;Edge angles: \n&quot;, edge_angles</span>
 
-    <span class="c"># Check for angles in 1st quadrant</span>
+    <span class="c1"># Check for angles in 1st quadrant</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_angles</span><span class="p">)</span> <span class="p">):</span>
-        <span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span> <span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="c"># want strictly positive answers</span>
-    <span class="c">#print &quot;Edge angles in 1st Quadrant: \n&quot;, edge_angles</span>
+        <span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span> <span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># want strictly positive answers</span>
+    <span class="c1">#print &quot;Edge angles in 1st Quadrant: \n&quot;, edge_angles</span>
 
-    <span class="c"># Remove duplicate angles</span>
+    <span class="c1"># Remove duplicate angles</span>
     <span class="n">edge_angles</span> <span class="o">=</span> <span class="n">unique</span><span class="p">(</span><span class="n">edge_angles</span><span class="p">)</span>
-    <span class="c">#print &quot;Unique edge angles: \n&quot;, edge_angles</span>
+    <span class="c1">#print &quot;Unique edge angles: \n&quot;, edge_angles</span>
 
-    <span class="c"># Test each angle to find bounding box with smallest area</span>
-    <span class="n">min_bbox</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxint</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c"># rot_angle, area, width, height, min_x, max_x, min_y, max_y</span>
-    <span class="c">#print &quot;Testing&quot;, len(edge_angles), &quot;possible rotations for bounding box... \n&quot;</span>
+    <span class="c1"># Test each angle to find bounding box with smallest area</span>
+    <span class="n">min_bbox</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxint</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># rot_angle, area, width, height, min_x, max_x, min_y, max_y</span>
+    <span class="c1">#print &quot;Testing&quot;, len(edge_angles), &quot;possible rotations for bounding box... \n&quot;</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_angles</span><span class="p">)</span> <span class="p">):</span>
 
-        <span class="c"># Create rotation matrix to shift points to baseline</span>
-        <span class="c"># R = [ cos(theta)      , cos(theta-PI/2)</span>
-        <span class="c">#       cos(theta+PI/2) , cos(theta)     ]</span>
+        <span class="c1"># Create rotation matrix to shift points to baseline</span>
+        <span class="c1"># R = [ cos(theta)      , cos(theta-PI/2)</span>
+        <span class="c1">#       cos(theta+PI/2) , cos(theta)     ]</span>
         <span class="n">R</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span> <span class="p">[</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> <span class="p">],</span> <span class="p">[</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)),</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">]</span> <span class="p">])</span>
-        <span class="c">#print &quot;Rotation matrix for &quot;, edge_angles[i], &quot; is \n&quot;, R</span>
+        <span class="c1">#print &quot;Rotation matrix for &quot;, edge_angles[i], &quot; is \n&quot;, R</span>
 
-        <span class="c"># Apply this rotation to convex hull points</span>
-        <span class="n">rot_points</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">hull_points_2d</span><span class="p">)</span> <span class="p">)</span> <span class="c"># 2x2 * 2xn</span>
-        <span class="c">#print &quot;Rotated hull points are \n&quot;, rot_points</span>
+        <span class="c1"># Apply this rotation to convex hull points</span>
+        <span class="n">rot_points</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">hull_points_2d</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># 2x2 * 2xn</span>
+        <span class="c1">#print &quot;Rotated hull points are \n&quot;, rot_points</span>
 
-        <span class="c"># Find min/max x,y points</span>
+        <span class="c1"># Find min/max x,y points</span>
         <span class="n">min_x</span> <span class="o">=</span> <span class="n">nanmin</span><span class="p">(</span><span class="n">rot_points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">max_x</span> <span class="o">=</span> <span class="n">nanmax</span><span class="p">(</span><span class="n">rot_points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">min_y</span> <span class="o">=</span> <span class="n">nanmin</span><span class="p">(</span><span class="n">rot_points</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">max_y</span> <span class="o">=</span> <span class="n">nanmax</span><span class="p">(</span><span class="n">rot_points</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="c">#print &quot;Min x:&quot;, min_x, &quot; Max x: &quot;, max_x, &quot;   Min y:&quot;, min_y, &quot; Max y: &quot;, max_y</span>
+        <span class="c1">#print &quot;Min x:&quot;, min_x, &quot; Max x: &quot;, max_x, &quot;   Min y:&quot;, min_y, &quot; Max y: &quot;, max_y</span>
 
-        <span class="c"># Calculate height/width/area of this bounding rectangle</span>
+        <span class="c1"># Calculate height/width/area of this bounding rectangle</span>
         <span class="n">width</span> <span class="o">=</span> <span class="n">max_x</span> <span class="o">-</span> <span class="n">min_x</span>
         <span class="n">height</span> <span class="o">=</span> <span class="n">max_y</span> <span class="o">-</span> <span class="n">min_y</span>
         <span class="n">area</span> <span class="o">=</span> <span class="n">width</span><span class="o">*</span><span class="n">height</span>
-        <span class="c">#print &quot;Potential bounding box &quot;, i, &quot;:  width: &quot;, width, &quot; height: &quot;, height, &quot;  area: &quot;, area </span>
+        <span class="c1">#print &quot;Potential bounding box &quot;, i, &quot;:  width: &quot;, width, &quot; height: &quot;, height, &quot;  area: &quot;, area </span>
 
-        <span class="c"># Store the smallest rect found first (a simple convex hull might have 2 answers with same area)</span>
+        <span class="c1"># Store the smallest rect found first (a simple convex hull might have 2 answers with same area)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">area</span> <span class="o">&lt;</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
             <span class="n">min_bbox</span> <span class="o">=</span> <span class="p">(</span> <span class="n">edge_angles</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">area</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span><span class="p">,</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span> <span class="p">)</span>
-        <span class="c"># Bypass, return the last found rect</span>
-        <span class="c">#min_bbox = ( edge_angles[i], area, width, height, min_x, max_x, min_y, max_y )</span>
+        <span class="c1"># Bypass, return the last found rect</span>
+        <span class="c1">#min_bbox = ( edge_angles[i], area, width, height, min_x, max_x, min_y, max_y )</span>
 
-    <span class="c"># Re-create rotation matrix for smallest rect</span>
+    <span class="c1"># Re-create rotation matrix for smallest rect</span>
     <span class="n">angle</span> <span class="o">=</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   
     <span class="n">R</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span> <span class="p">[</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="o">-</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> <span class="p">],</span> <span class="p">[</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="o">+</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)),</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="p">]</span> <span class="p">])</span>
-    <span class="c">#print &quot;Projection matrix: \n&quot;, R</span>
+    <span class="c1">#print &quot;Projection matrix: \n&quot;, R</span>
 
-    <span class="c"># Project convex hull points onto rotated frame</span>
-    <span class="n">proj_points</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">hull_points_2d</span><span class="p">)</span> <span class="p">)</span> <span class="c"># 2x2 * 2xn</span>
-    <span class="c">#print &quot;Project hull points are \n&quot;, proj_points</span>
+    <span class="c1"># Project convex hull points onto rotated frame</span>
+    <span class="n">proj_points</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">hull_points_2d</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># 2x2 * 2xn</span>
+    <span class="c1">#print &quot;Project hull points are \n&quot;, proj_points</span>
 
-    <span class="c"># min/max x,y points are against baseline</span>
+    <span class="c1"># min/max x,y points are against baseline</span>
     <span class="n">min_x</span> <span class="o">=</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
     <span class="n">max_x</span> <span class="o">=</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
     <span class="n">min_y</span> <span class="o">=</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
     <span class="n">max_y</span> <span class="o">=</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
-    <span class="c">#print &quot;Min x:&quot;, min_x, &quot; Max x: &quot;, max_x, &quot;   Min y:&quot;, min_y, &quot; Max y: &quot;, max_y</span>
+    <span class="c1">#print &quot;Min x:&quot;, min_x, &quot; Max x: &quot;, max_x, &quot;   Min y:&quot;, min_y, &quot; Max y: &quot;, max_y</span>
 
-    <span class="c"># Calculate center point and project onto rotated frame</span>
+    <span class="c1"># Calculate center point and project onto rotated frame</span>
     <span class="n">center_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">min_x</span> <span class="o">+</span> <span class="n">max_x</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
     <span class="n">center_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">min_y</span> <span class="o">+</span> <span class="n">max_y</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
     <span class="n">center_point</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span> <span class="p">[</span> <span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span> <span class="p">],</span> <span class="n">R</span> <span class="p">)</span>
-    <span class="c">#print &quot;Bounding box center point: \n&quot;, center_point</span>
+    <span class="c1">#print &quot;Bounding box center point: \n&quot;, center_point</span>
 
-    <span class="c"># Calculate corner points and project onto rotated frame</span>
-    <span class="n">corner_points</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="c"># empty 2 column array</span>
+    <span class="c1"># Calculate corner points and project onto rotated frame</span>
+    <span class="n">corner_points</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># empty 2 column array</span>
     <span class="n">corner_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span> <span class="p">[</span> <span class="n">max_x</span><span class="p">,</span> <span class="n">min_y</span> <span class="p">],</span> <span class="n">R</span> <span class="p">)</span>
     <span class="n">corner_points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span> <span class="p">[</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">min_y</span> <span class="p">],</span> <span class="n">R</span> <span class="p">)</span>
     <span class="n">corner_points</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span> <span class="p">[</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_y</span> <span class="p">],</span> <span class="n">R</span> <span class="p">)</span>
     <span class="n">corner_points</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span> <span class="p">[</span> <span class="n">max_x</span><span class="p">,</span> <span class="n">max_y</span> <span class="p">],</span> <span class="n">R</span> <span class="p">)</span>
-    <span class="c">#print &quot;Bounding box corner points: \n&quot;, corner_points</span>
+    <span class="c1">#print &quot;Bounding box corner points: \n&quot;, corner_points</span>
 
-    <span class="c">#print &quot;Angle of rotation: &quot;, angle, &quot;rad  &quot;, angle * (180/math.pi), &quot;deg&quot;</span>
+    <span class="c1">#print &quot;Angle of rotation: &quot;, angle, &quot;rad  &quot;, angle * (180/math.pi), &quot;deg&quot;</span>
 
-    <span class="k">return</span> <span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">center_point</span><span class="p">,</span> <span class="n">corner_points</span><span class="p">)</span> <span class="c"># rot_angle, area, width, height, center_point, corner_points</span>
-</pre></div></div>
+    <span class="k">return</span> <span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">min_bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">center_point</span><span class="p">,</span> <span class="n">corner_points</span><span class="p">)</span> <span class="c1"># rot_angle, area, width, height, center_point, corner_points</span></div>
+
+</pre></div>
 
            </div>
           </div>

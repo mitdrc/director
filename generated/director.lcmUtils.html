@@ -30,10 +30,13 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="director package" href="director.html"/>
-        <link rel="next" title="director.lcmgl module" href="director.lcmgl.html"/>
-        <link rel="prev" title="director.kinematicposeplanner module" href="director.kinematicposeplanner.html"/> 
+        <link rel="next" title="director.lcmcollections module" href="director.lcmcollections.html"/>
+        <link rel="prev" title="director.korgnano module" href="director.korgnano.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -81,7 +84,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="director.html#subpackages">Subpackages</a></li>
@@ -93,6 +97,8 @@
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.asynctaskqueue.html">director.asynctaskqueue module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriver.html">director.atlasdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriverpanel.html">director.atlasdriverpanel module</a></li>
@@ -102,8 +108,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.callbacks.html">director.callbacks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.camerabookmarks.html">director.camerabookmarks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameracontrol.html">director.cameracontrol module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameracontrolpanel.html">director.cameracontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameraview.html">director.cameraview module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.colorize.html">director.colorize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.componentgraph.html">director.componentgraph module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.consoleapp.html">director.consoleapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.continuouswalkingdemo.html">director.continuouswalkingdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.copmonitor.html">director.copmonitor module</a></li>
@@ -111,8 +119,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.debrisdemo.html">director.debrisdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.debugVis.html">director.debugVis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.depthimageprovider.html">director.depthimageprovider module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.depthscanner.html">director.depthscanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.doordemo.html">director.doordemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drakevisualizer.html">director.drakevisualizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drakevisualizerapp.html">director.drakevisualizerapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drcargs.html">director.drcargs module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drilldemo.html">director.drilldemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drivingplanner.html">director.drivingplanner module</a></li>
@@ -127,47 +137,62 @@
 <li class="toctree-l4"><a class="reference internal" href="director.geometryencoder.html">director.geometryencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handcontrolpanel.html">director.handcontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handdriver.html">director.handdriver module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.ik.html">director.ik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraintencoder.html">director.ikconstraintencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraints.html">director.ikconstraints module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikparameters.html">director.ikparameters module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikplanner.html">director.ikplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageview.html">director.imageview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageviewapp.html">director.imageviewapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ioUtils.html">director.ioUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisUtils.html">director.irisUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisdriver.html">director.irisdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointcontrol.html">director.jointcontrol module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointpropagator.html">director.jointpropagator module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.kinectlcm.html">director.kinectlcm module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.kinematicposeplanner.html">director.kinematicposeplanner module</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="">director.lcmUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.korgnano.html">director.korgnano module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">director.lcmUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmcollections.html">director.lcmcollections module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingdemo.html">director.mappingdemo module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingpanel.html">director.mappingpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.mainwindowapp.html">director.mainwindowapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.mapsregistrar.html">director.mapsregistrar module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.matlab.html">director.matlab module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.matlabik.html">director.matlabik module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.measurementpanel.html">director.measurementpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.meshmanager.html">director.meshmanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.midi.html">director.midi module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.motionplanningpanel.html">director.motionplanningpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.multisensepanel.html">director.multisensepanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.navigationpanel.html">director.navigationpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.perception.html">director.perception module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.plannerPublisher.html">director.plannerPublisher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.planningutils.html">director.planningutils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.planplayback.html">director.planplayback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.playbackpanel.html">director.playbackpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointcloudlcm.html">director.pointcloudlcm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointpicker.html">director.pointpicker module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.polarisplatformplanner.html">director.polarisplatformplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.propertyanimation.html">director.propertyanimation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.propertyset.html">director.propertyset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pydrakeik.html">director.pydrakeik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.raycastdriver.html">director.raycastdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotlinkselector.html">director.robotlinkselector module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotplanlistener.html">director.robotplanlistener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotposegui.html">director.robotposegui module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotstate.html">director.robotstate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotsystem.html">director.robotsystem module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.roboturdf.html">director.roboturdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotviewbehaviors.html">director.robotviewbehaviors module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.sceneloader.html">director.sceneloader module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.screengrabberpanel.html">director.screengrabberpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.segmentation.html">director.segmentation module</a></li>
@@ -184,7 +209,6 @@
 <li class="toctree-l4"><a class="reference internal" href="director.statelistener.html">director.statelistener module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.surprisetask.html">director.surprisetask module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.switchplanner.html">director.switchplanner module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.tabledemo.html">director.tabledemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.takktilevis.html">director.takktilevis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tasklaunchpanel.html">director.tasklaunchpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tdx.html">director.tdx module</a></li>
@@ -195,10 +219,17 @@
 <li class="toctree-l4"><a class="reference internal" href="director.timercallback.html">director.timercallback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.trackers.html">director.trackers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.transformUtils.html">director.transformUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.treeviewer.html">director.treeviewer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.uipanel.html">director.uipanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.utime.html">director.utime module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.uuidutil.html">director.uuidutil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.valvedemo.html">director.valvedemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.version.html">director.version module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viconvisualizer.html">director.viconvisualizer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.viewbehaviors.html">director.viewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewcolors.html">director.viewcolors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewerclient.html">director.viewerclient module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vieweventfilter.html">director.vieweventfilter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.visualization.html">director.visualization module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkAll.html">director.vtkAll module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkNumpy.html">director.vtkNumpy module</a></li>
@@ -233,7 +264,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -257,288 +288,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-director.lcmUtils">
-<span id="director-lcmutils-module"></span><h1>director.lcmUtils module<a class="headerlink" href="#module-director.lcmUtils" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="director.lcmUtils.GlobalLCM">
-<em class="property">class </em><code class="descclassname">director.lcmUtils.</code><code class="descname">GlobalLCM</code><a class="reference internal" href="../_modules/director/lcmUtils.html#GlobalLCM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.GlobalLCM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="classmethod">
-<dt id="director.lcmUtils.GlobalLCM.finalize">
-<em class="property">classmethod </em><code class="descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#GlobalLCM.finalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.GlobalLCM.finalize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="director.lcmUtils.GlobalLCM.get">
-<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#GlobalLCM.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.GlobalLCM.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="director.lcmUtils.GlobalLCM.getThread">
-<em class="property">classmethod </em><code class="descname">getThread</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#GlobalLCM.getThread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.GlobalLCM.getThread" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.lcmUtils.HistoricalLCMLoader">
-<em class="property">class </em><code class="descclassname">director.lcmUtils.</code><code class="descname">HistoricalLCMLoader</code><span class="sig-paren">(</span><em>package_name</em>, <em>lcmtypes_path</em>, <em>repo_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#HistoricalLCMLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A helper class which can be added to a call to addSubscriber in order to allow the subscriber to decode messages which were generated with an older version of the LCM type definitions.</p>
-<dl class="method">
-<dt id="director.lcmUtils.HistoricalLCMLoader.buildTypeAtSHA">
-<code class="descname">buildTypeAtSHA</code><span class="sig-paren">(</span><em>type_name</em>, <em>sha</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#HistoricalLCMLoader.buildTypeAtSHA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.buildTypeAtSHA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build the python source files for the given type and revision. We rename the python module from its default (which is just the LCM package name) to [packagename][sha] to prevent namespace conflicts.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="director.lcmUtils.HistoricalLCMLoader.build_dir">
-<code class="descname">build_dir</code><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.build_dir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.HistoricalLCMLoader.decode">
-<code class="descname">decode</code><span class="sig-paren">(</span><em>type_name</em>, <em>msg_data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#HistoricalLCMLoader.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.decode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Try to decode an LCM message using its historical definitions. Uses a MRU (most recently used) queue of commit SHAs to try to ensure that repeated calls for messages of the same type are fast</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.HistoricalLCMLoader.getChildTypes">
-<code class="descname">getChildTypes</code><span class="sig-paren">(</span><em>type_name</em>, <em>sha</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#HistoricalLCMLoader.getChildTypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.getChildTypes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the children of a given type by parsing the output of lcm-gen -d</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.HistoricalLCMLoader.getOrCreateBuildFile">
-<code class="descname">getOrCreateBuildFile</code><span class="sig-paren">(</span><em>type_name</em>, <em>sha</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#HistoricalLCMLoader.getOrCreateBuildFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.getOrCreateBuildFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.HistoricalLCMLoader.getOrCreateSourceFiles">
-<code class="descname">getOrCreateSourceFiles</code><span class="sig-paren">(</span><em>type_name</em>, <em>sha</em>, <em>recursive=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#HistoricalLCMLoader.getOrCreateSourceFiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.getOrCreateSourceFiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the LCM source files for the given type at the given revision, pulling them out of the git history as needed. Also finds the source files for the children of that type if recursive=True.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.HistoricalLCMLoader.getSHAsForType">
-<code class="descname">getSHAsForType</code><span class="sig-paren">(</span><em>type_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#HistoricalLCMLoader.getSHAsForType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.getSHAsForType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the git SHAs for all revisions to a particular type</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.HistoricalLCMLoader.getSHAsForTypeAndChildren">
-<code class="descname">getSHAsForTypeAndChildren</code><span class="sig-paren">(</span><em>type_name</em>, <em>processed=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#HistoricalLCMLoader.getSHAsForTypeAndChildren"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.getSHAsForTypeAndChildren" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the git SHAs for all revisions to a type <em>and</em> all of its children</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.HistoricalLCMLoader.getTypeAtSHA">
-<code class="descname">getTypeAtSHA</code><span class="sig-paren">(</span><em>type_name</em>, <em>sha</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#HistoricalLCMLoader.getTypeAtSHA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.getTypeAtSHA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the python class for a given LCM type at a given revision, building it as necessary</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="director.lcmUtils.HistoricalLCMLoader.source_dir">
-<code class="descname">source_dir</code><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.source_dir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="director.lcmUtils.HistoricalLCMLoader.tmpdir">
-<code class="descname">tmpdir</code><a class="headerlink" href="#director.lcmUtils.HistoricalLCMLoader.tmpdir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.lcmUtils.LCMLoggerManager">
-<em class="property">class </em><code class="descclassname">director.lcmUtils.</code><code class="descname">LCMLoggerManager</code><a class="reference internal" href="../_modules/director/lcmUtils.html#LCMLoggerManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LCMLoggerManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>This class provides some convenient methods for managing instances of
-the lcm-logger process.  You can start/stop instances of the lcm-logger
-process, and search for existing instances of the process.  It also has
-support for parsing command lines to attempt to extract log file names
-from running instances of lcm-logger.</p>
-<dl class="method">
-<dt id="director.lcmUtils.LCMLoggerManager.getActiveLogFilenames">
-<code class="descname">getActiveLogFilenames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LCMLoggerManager.getActiveLogFilenames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LCMLoggerManager.getActiveLogFilenames" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LCMLoggerManager.getActiveLoggerPids">
-<code class="descname">getActiveLoggerPids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LCMLoggerManager.getActiveLoggerPids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LCMLoggerManager.getActiveLoggerPids" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="director.lcmUtils.LCMLoggerManager.getTimeTag">
-<em class="property">static </em><code class="descname">getTimeTag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LCMLoggerManager.getTimeTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LCMLoggerManager.getTimeTag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LCMLoggerManager.killAllLoggingProcesses">
-<code class="descname">killAllLoggingProcesses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LCMLoggerManager.killAllLoggingProcesses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LCMLoggerManager.killAllLoggingProcesses" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LCMLoggerManager.startNewLogger">
-<code class="descname">startNewLogger</code><span class="sig-paren">(</span><em>tag=''</em>, <em>baseDir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LCMLoggerManager.startNewLogger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LCMLoggerManager.startNewLogger" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LCMLoggerManager.updateExistingLoggerProcesses">
-<code class="descname">updateExistingLoggerProcesses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LCMLoggerManager.updateExistingLoggerProcesses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LCMLoggerManager.updateExistingLoggerProcesses" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.lcmUtils.LogPlayerCommander">
-<em class="property">class </em><code class="descclassname">director.lcmUtils.</code><code class="descname">LogPlayerCommander</code><a class="reference internal" href="../_modules/director/lcmUtils.html#LogPlayerCommander"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LogPlayerCommander" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.lcmUtils.LogPlayerCommander.back">
-<code class="descname">back</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LogPlayerCommander.back"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LogPlayerCommander.back" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LogPlayerCommander.faster">
-<code class="descname">faster</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LogPlayerCommander.faster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LogPlayerCommander.faster" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LogPlayerCommander.forward">
-<code class="descname">forward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LogPlayerCommander.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LogPlayerCommander.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LogPlayerCommander.sendCommand">
-<code class="descname">sendCommand</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LogPlayerCommander.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LogPlayerCommander.sendCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LogPlayerCommander.slower">
-<code class="descname">slower</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LogPlayerCommander.slower"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LogPlayerCommander.slower" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LogPlayerCommander.step">
-<code class="descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LogPlayerCommander.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LogPlayerCommander.step" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.LogPlayerCommander.togglePlay">
-<code class="descname">togglePlay</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#LogPlayerCommander.togglePlay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.LogPlayerCommander.togglePlay" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.lcmUtils.MessageCollector">
-<em class="property">class </em><code class="descclassname">director.lcmUtils.</code><code class="descname">MessageCollector</code><span class="sig-paren">(</span><em>channel</em>, <em>messageClass=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#MessageCollector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.MessageCollector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.lcmUtils.MessageCollector.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#MessageCollector.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.MessageCollector.clear" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.MessageCollector.onMessage">
-<code class="descname">onMessage</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#MessageCollector.onMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.MessageCollector.onMessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.MessageCollector.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#MessageCollector.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.MessageCollector.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.MessageCollector.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#MessageCollector.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.MessageCollector.stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.lcmUtils.MessageResponseHelper">
-<em class="property">class </em><code class="descclassname">director.lcmUtils.</code><code class="descname">MessageResponseHelper</code><span class="sig-paren">(</span><em>responseChannel</em>, <em>responseMessageClass=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#MessageResponseHelper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.MessageResponseHelper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.lcmUtils.MessageResponseHelper.finish">
-<code class="descname">finish</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#MessageResponseHelper.finish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.MessageResponseHelper.finish" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="director.lcmUtils.MessageResponseHelper.publishAndWait">
-<em class="property">static </em><code class="descname">publishAndWait</code><span class="sig-paren">(</span><em>channel</em>, <em>message</em>, <em>responseChannel</em>, <em>responseMessageClass=None</em>, <em>timeout=5000</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#MessageResponseHelper.publishAndWait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.MessageResponseHelper.publishAndWait" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.lcmUtils.MessageResponseHelper.waitForResponse">
-<code class="descname">waitForResponse</code><span class="sig-paren">(</span><em>timeout=5000</em>, <em>keepAlive=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#MessageResponseHelper.waitForResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.MessageResponseHelper.waitForResponse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="exception">
-<dt id="director.lcmUtils.TypeNotFoundError">
-<em class="property">exception </em><code class="descclassname">director.lcmUtils.</code><code class="descname">TypeNotFoundError</code><a class="reference internal" href="../_modules/director/lcmUtils.html#TypeNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.TypeNotFoundError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.addSubscriber">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">addSubscriber</code><span class="sig-paren">(</span><em>channel</em>, <em>messageClass=None</em>, <em>callback=None</em>, <em>historicalLoader=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#addSubscriber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.addSubscriber" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.captureMessage">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">captureMessage</code><span class="sig-paren">(</span><em>channel</em>, <em>messageClass</em>, <em>lcmHandle=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#captureMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.captureMessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.captureMessageAsync">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">captureMessageAsync</code><span class="sig-paren">(</span><em>channel</em>, <em>messageClass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#captureMessageAsync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.captureMessageAsync" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.captureMessageCallback">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">captureMessageCallback</code><span class="sig-paren">(</span><em>channel</em>, <em>messageClass</em>, <em>callback</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#captureMessageCallback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.captureMessageCallback" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.dumpMessage">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">dumpMessage</code><span class="sig-paren">(</span><em>msg</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#dumpMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.dumpMessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.getGlobalLCM">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">getGlobalLCM</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#getGlobalLCM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.getGlobalLCM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.getGlobalLCMThread">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">getGlobalLCMThread</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#getGlobalLCMThread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.getGlobalLCMThread" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.getNextMessage">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">getNextMessage</code><span class="sig-paren">(</span><em>subscriber</em>, <em>messageClass=None</em>, <em>timeout=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#getNextMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.getNextMessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.loadMessage">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">loadMessage</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#loadMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.loadMessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.publish">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">publish</code><span class="sig-paren">(</span><em>channel</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#publish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.publish" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.lcmUtils.removeSubscriber">
-<code class="descclassname">director.lcmUtils.</code><code class="descname">removeSubscriber</code><span class="sig-paren">(</span><em>subscriber</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/lcmUtils.html#removeSubscriber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.lcmUtils.removeSubscriber" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+  <div class="section" id="director-lcmutils-module">
+<h1>director.lcmUtils module<a class="headerlink" href="#director-lcmutils-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -548,10 +299,10 @@ from running instances of lcm-logger.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="director.lcmgl.html" class="btn btn-neutral float-right" title="director.lcmgl module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="director.lcmcollections.html" class="btn btn-neutral float-right" title="director.lcmcollections module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="director.kinematicposeplanner.html" class="btn btn-neutral" title="director.kinematicposeplanner module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="director.korgnano.html" class="btn btn-neutral" title="director.korgnano module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

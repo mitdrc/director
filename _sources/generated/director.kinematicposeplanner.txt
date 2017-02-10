@@ -1,7 +1,0 @@
-director.kinematicposeplanner module
-====================================
-
-.. automodule:: director.kinematicposeplanner
-    :members:
-    :undoc-members:
-    :show-inheritance:

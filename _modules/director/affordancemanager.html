@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,73 +132,73 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.affordancemanager</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">affordanceitems</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">lcmobjectcollection</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
-<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="kn">import</span> <span class="n">TimerCallback</span>
-<span class="kn">from</span> <span class="nn">director.uuidutil</span> <span class="kn">import</span> <span class="n">newUUID</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
-<span class="kn">from</span> <span class="nn">director.thirdparty</span> <span class="kn">import</span> <span class="n">numpyjsoncoder</span>
+<span></span><span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">affordanceitems</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">lcmobjectcollection</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="k">import</span> <span class="n">TimerCallback</span>
+<span class="kn">from</span> <span class="nn">director.uuidutil</span> <span class="k">import</span> <span class="n">newUUID</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
+<span class="kn">from</span> <span class="nn">director.thirdparty</span> <span class="k">import</span> <span class="n">numpyjsoncoder</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 
 <div class="viewcode-block" id="AffordanceObjectModelManager"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager">[docs]</a><span class="k">class</span> <span class="nc">AffordanceObjectModelManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">lcmobjectcollection</span><span class="o">.</span><span class="n">LCMObjectCollection</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="s">&#39;AFFORDANCE_COLLECTION_COMMAND&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">lcmobjectcollection</span><span class="o">.</span><span class="n">LCMObjectCollection</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="s1">&#39;AFFORDANCE_COLLECTION_COMMAND&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">connectDescriptionUpdated</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onDescriptionUpdated</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">connectDescriptionRemoved</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onDescriptionRemoved</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">notifyFrequency</span> <span class="o">=</span> <span class="mi">30</span> <span class="c"># throttle lcm messages per second sent for affordance updates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifyFrequency</span> <span class="o">=</span> <span class="mi">30</span> <span class="c1"># throttle lcm messages per second sent for affordance updates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_pendingUpdates</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">TimerCallback</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notifyPendingUpdates</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">affordanceUpdater</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">affordanceUpdater</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="AffordanceObjectModelManager.setAffordanceUpdater"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.setAffordanceUpdater">[docs]</a>    <span class="k">def</span> <span class="nf">setAffordanceUpdater</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affordanceUpdater</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">affordanceUpdater</span> <span class="o">=</span> <span class="n">affordanceUpdater</span>
-</div>
-<div class="viewcode-block" id="AffordanceObjectModelManager.getAffordances"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.getAffordances">[docs]</a>    <span class="k">def</span> <span class="nf">getAffordances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">obj</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">om</span><span class="o">.</span><span class="n">getObjects</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">affordanceitems</span><span class="o">.</span><span class="n">AffordanceItem</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">affordanceUpdater</span> <span class="o">=</span> <span class="n">affordanceUpdater</span></div>
 
-</div>
+<div class="viewcode-block" id="AffordanceObjectModelManager.getAffordances"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.getAffordances">[docs]</a>    <span class="k">def</span> <span class="nf">getAffordances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">obj</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">om</span><span class="o">.</span><span class="n">getObjects</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">affordanceitems</span><span class="o">.</span><span class="n">AffordanceItem</span><span class="p">)]</span></div>
+
+
 <div class="viewcode-block" id="AffordanceObjectModelManager.getCollisionAffordances"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.getCollisionAffordances">[docs]</a>    <span class="k">def</span> <span class="nf">getCollisionAffordances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">affs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">aff</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordances</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">aff</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Collision Enabled&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">aff</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Collision Enabled&#39;</span><span class="p">):</span>
                 <span class="n">affs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aff</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">affs</span>
-</div>
+        <span class="k">return</span> <span class="n">affs</span></div>
+
 <div class="viewcode-block" id="AffordanceObjectModelManager.getAffordanceId"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.getAffordanceId">[docs]</a>    <span class="k">def</span> <span class="nf">getAffordanceId</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aff</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">aff</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;uuid&#39;</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">aff</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;uuid&#39;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordanceObjectModelManager.newAffordanceFromDescription"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.newAffordanceFromDescription">[docs]</a>    <span class="k">def</span> <span class="nf">newAffordanceFromDescription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">desc</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s">&#39;uuid&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">desc</span><span class="p">:</span>
-            <span class="n">desc</span><span class="p">[</span><span class="s">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">newUUID</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s1">&#39;uuid&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">desc</span><span class="p">:</span>
+            <span class="n">desc</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">newUUID</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">updateDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceById</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="s">&#39;uuid&#39;</span><span class="p">])</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceById</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="AffordanceObjectModelManager.getAffordanceById"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.getAffordanceById">[docs]</a>    <span class="k">def</span> <span class="nf">getAffordanceById</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affordanceId</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">aff</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordances</span><span class="p">():</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceId</span><span class="p">(</span><span class="n">aff</span><span class="p">)</span> <span class="o">==</span> <span class="n">affordanceId</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">aff</span>
-</div>
+                <span class="k">return</span> <span class="n">aff</span></div>
+
 <div class="viewcode-block" id="AffordanceObjectModelManager.getAffordanceDescription"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.getAffordanceDescription">[docs]</a>    <span class="k">def</span> <span class="nf">getAffordanceDescription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aff</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">aff</span><span class="o">.</span><span class="n">getDescription</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AffordanceObjectModelManager.registerAffordance"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.registerAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">registerAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aff</span><span class="p">,</span> <span class="n">notify</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">aff</span><span class="o">.</span><span class="n">getDescription</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AffordanceObjectModelManager.registerAffordance"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.registerAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">registerAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aff</span><span class="p">,</span> <span class="n">notify</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">aff</span><span class="o">.</span><span class="n">connectRemovedFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onAffordanceRemovedFromObjectModel</span><span class="p">)</span>
         <span class="n">aff</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">connectPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onAffordancePropertyChanged</span><span class="p">)</span>
         <span class="n">aff</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span><span class="o">.</span><span class="n">connectFrameModified</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onAffordanceFrameChanged</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">notify</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">notifyAffordanceUpdate</span><span class="p">(</span><span class="n">aff</span><span class="p">)</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notifyAffordanceUpdate</span><span class="p">(</span><span class="n">aff</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordanceObjectModelManager.removeAffordance"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.removeAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">removeAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aff</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">removeDescription</span><span class="p">(</span><span class="n">aff</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;uuid&#39;</span><span class="p">),</span> <span class="n">notify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">removeDescription</span><span class="p">(</span><span class="n">aff</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;uuid&#39;</span><span class="p">),</span> <span class="n">notify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordanceObjectModelManager.notifyAffordanceUpdate"><a class="viewcode-back" href="../../generated/director.affordancemanager.html#director.affordancemanager.AffordanceObjectModelManager.notifyAffordanceUpdate">[docs]</a>    <span class="k">def</span> <span class="nf">notifyAffordanceUpdate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aff</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aff</span><span class="p">,</span> <span class="n">affordanceitems</span><span class="o">.</span><span class="n">AffordanceItem</span><span class="p">):</span>
@@ -203,8 +207,8 @@
         <span class="n">shouldNotify</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pendingUpdates</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">singleShotTimer</span><span class="o">.</span><span class="n">isActive</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pendingUpdates</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aff</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">shouldNotify</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_notifyPendingUpdates</span><span class="p">()</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_notifyPendingUpdates</span><span class="p">()</span></div>
+
     <span class="k">def</span> <span class="nf">_notifyPendingUpdates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pendingUpdates</span><span class="p">:</span>
@@ -212,16 +216,16 @@
 
         <span class="k">for</span> <span class="n">aff</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pendingUpdates</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">updateDescription</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceDescription</span><span class="p">(</span><span class="n">aff</span><span class="p">),</span> <span class="n">notify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">updateDescription</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceDescription</span><span class="p">(</span><span class="n">aff</span><span class="p">),</span> <span class="n">notify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
+                <span class="nb">print</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_pendingUpdates</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_onAffordancePropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">notifyAffordanceUpdate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceById</span><span class="p">(</span><span class="n">propertySet</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;uuid&#39;</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifyAffordanceUpdate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceById</span><span class="p">(</span><span class="n">propertySet</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;uuid&#39;</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="nf">_onAffordanceFrameChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frameObj</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span><span class="p">:</span>
@@ -235,30 +239,31 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">removeAffordance</span><span class="p">(</span><span class="n">aff</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_loadAffordanceFromDescription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">desc</span><span class="p">):</span>
-        <span class="n">className</span> <span class="o">=</span> <span class="n">desc</span><span class="p">[</span><span class="s">&#39;classname&#39;</span><span class="p">]</span>
-        <span class="n">cls</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">affordanceitems</span><span class="p">,</span> <span class="n">className</span><span class="p">)</span>
-        <span class="n">aff</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="s">&#39;Name&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
-        <span class="n">om</span><span class="o">.</span><span class="n">addToObjectModel</span><span class="p">(</span><span class="n">aff</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="s">&#39;affordances&#39;</span><span class="p">))</span>
-        <span class="n">vis</span><span class="o">.</span><span class="n">addChildFrame</span><span class="p">(</span><span class="n">aff</span><span class="p">)</span>
+        <span class="n">className</span> <span class="o">=</span> <span class="n">desc</span><span class="p">[</span><span class="s1">&#39;classname&#39;</span><span class="p">]</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">affordanceitems</span><span class="p">,</span> <span class="n">className</span><span class="p">)</span>
+        <span class="n">aff</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="n">om</span><span class="o">.</span><span class="n">addToObjectModel</span><span class="p">(</span><span class="n">aff</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="s1">&#39;affordances&#39;</span><span class="p">))</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">addChildFrame</span><span class="p">(</span><span class="n">aff</span><span class="p">)</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Deletable&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">aff</span><span class="o">.</span><span class="n">loadDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span> <span class="n">copyMode</span><span class="o">=</span><span class="n">aff</span><span class="o">.</span><span class="n">COPY_MODE_ALL</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">registerAffordance</span><span class="p">(</span><span class="n">aff</span><span class="p">,</span> <span class="n">notify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registerAffordance</span><span class="p">(</span><span class="n">aff</span><span class="p">,</span> <span class="n">notify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_onDescriptionUpdated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">descriptionId</span><span class="p">):</span>
         <span class="n">aff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceById</span><span class="p">(</span><span class="n">descriptionId</span><span class="p">)</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">getDescription</span><span class="p">(</span><span class="n">descriptionId</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">aff</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">aff</span><span class="o">.</span><span class="n">loadDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span> <span class="n">copyMode</span><span class="o">=</span><span class="n">aff</span><span class="o">.</span><span class="n">COPY_MODE_SKIP_LOCAL</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="n">aff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loadAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_onDescriptionRemoved</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">descriptionId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceById</span><span class="p">(</span><span class="n">descriptionId</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="bp">False</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ignoreChanges</span> <span class="o">=</span> <span class="kc">False</span></div>
 </pre></div>
 
            </div>

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,70 +132,71 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.spreadsheet</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span></span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">applogic</span> <span class="k">as</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span> <span class="k">as</span> <span class="n">app</span>
 
-<span class="n">_spreadsheetView</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="k">def</span> <span class="nf">getSpreadsheetView</span><span class="p">():</span>
-<div class="viewcode-block" id="getSpreadsheetView"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.getSpreadsheetView">[docs]</a>    <span class="k">return</span> <span class="n">_spreadsheetView</span>
+<span class="n">_spreadsheetView</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="viewcode-block" id="getSpreadsheetView"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.getSpreadsheetView">[docs]</a><span class="k">def</span> <span class="nf">getSpreadsheetView</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_spreadsheetView</span></div>
 
 
-<span class="k">def</span> <span class="nf">setSpreadsheetColumnData</span><span class="p">(</span><span class="n">columnIndex</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span></div>
-<div class="viewcode-block" id="setSpreadsheetColumnData"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.setSpreadsheetColumnData">[docs]</a>
+<div class="viewcode-block" id="setSpreadsheetColumnData"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.setSpreadsheetColumnData">[docs]</a><span class="k">def</span> <span class="nf">setSpreadsheetColumnData</span><span class="p">(</span><span class="n">columnIndex</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+
     <span class="n">sv</span> <span class="o">=</span> <span class="n">getSpreadsheetView</span><span class="p">()</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
 
     <span class="n">model</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">columnIndex</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-          <span class="n">model</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">columnIndex</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+          <span class="n">model</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">columnIndex</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">updateSpreadsheetPoses</span><span class="p">(</span><span class="n">poseCollection</span><span class="p">,</span> <span class="n">poseName</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span></div>
-<div class="viewcode-block" id="updateSpreadsheetPoses"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.updateSpreadsheetPoses">[docs]</a>
+<div class="viewcode-block" id="updateSpreadsheetPoses"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.updateSpreadsheetPoses">[docs]</a><span class="k">def</span> <span class="nf">updateSpreadsheetPoses</span><span class="p">(</span><span class="n">poseCollection</span><span class="p">,</span> <span class="n">poseName</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
     <span class="n">poseMap</span> <span class="o">=</span> <span class="n">poseCollection</span><span class="o">.</span><span class="n">map</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">poseName</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">poseMap</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
-        <span class="n">setSpreadsheetColumnData</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">poseName</span><span class="p">,</span> <span class="n">poseMap</span><span class="p">[</span><span class="n">poseName</span><span class="p">])</span>
+        <span class="n">setSpreadsheetColumnData</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">poseName</span><span class="p">,</span> <span class="n">poseMap</span><span class="p">[</span><span class="n">poseName</span><span class="p">])</span></div>
 
 
-<span class="k">def</span> <span class="nf">initSpreadsheetColumns</span><span class="p">(</span><span class="n">costCollection</span><span class="p">):</span></div>
-<div class="viewcode-block" id="initSpreadsheetColumns"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.initSpreadsheetColumns">[docs]</a>
+<div class="viewcode-block" id="initSpreadsheetColumns"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.initSpreadsheetColumns">[docs]</a><span class="k">def</span> <span class="nf">initSpreadsheetColumns</span><span class="p">(</span><span class="n">costCollection</span><span class="p">):</span>
+
     <span class="n">jointNames</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="s">&#39;base_x&#39;</span><span class="p">,</span>
-      <span class="s">&#39;base_y&#39;</span><span class="p">,</span>
-      <span class="s">&#39;base_z&#39;</span><span class="p">,</span>
-      <span class="s">&#39;base_roll&#39;</span><span class="p">,</span>
-      <span class="s">&#39;base_pitch&#39;</span><span class="p">,</span>
-      <span class="s">&#39;base_yaw&#39;</span><span class="p">,</span>
-      <span class="s">&#39;back_bkz&#39;</span><span class="p">,</span>
-      <span class="s">&#39;back_bky&#39;</span><span class="p">,</span>
-      <span class="s">&#39;back_bkx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_arm_usy&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_arm_shx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_arm_ely&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_arm_elx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_arm_uwy&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_leg_hpz&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_leg_hpx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_leg_hpy&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_leg_kny&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_leg_aky&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_leg_akx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;l_arm_mwx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_arm_usy&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_arm_shx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_arm_ely&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_arm_elx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_arm_uwy&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_leg_hpz&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_leg_hpx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_leg_hpy&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_leg_kny&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_leg_aky&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_leg_akx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;r_arm_mwx&#39;</span><span class="p">,</span>
-      <span class="s">&#39;neck_ay&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;base_x&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;base_y&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;base_z&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;base_roll&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;base_pitch&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;base_yaw&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;back_bkz&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;back_bky&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;back_bkx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_arm_usy&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_arm_shx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_arm_ely&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_arm_elx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_arm_uwy&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_leg_hpz&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_leg_hpx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_leg_hpy&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_leg_kny&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_leg_aky&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_leg_akx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;l_arm_mwx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_arm_usy&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_arm_shx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_arm_ely&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_arm_elx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_arm_uwy&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_leg_hpz&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_leg_hpx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_leg_hpy&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_leg_kny&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_leg_aky&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_leg_akx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;r_arm_mwx&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;neck_ay&#39;</span><span class="p">,</span>
     <span class="p">]</span>
 
     <span class="n">costData</span> <span class="o">=</span> <span class="p">[</span>
@@ -202,26 +207,27 @@
       <span class="mf">0.0</span><span class="p">,</span>
     <span class="p">]</span>
 
-    <span class="n">costData</span> <span class="o">+=</span> <span class="p">[</span><span class="mf">100.0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">jointNames</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">costData</span><span class="p">))]</span>
-    <span class="n">costCollection</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="s">&#39;default_costs&#39;</span><span class="p">,</span> <span class="n">costData</span><span class="p">)</span>
+    <span class="n">costData</span> <span class="o">+=</span> <span class="p">[</span><span class="mf">100.0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">jointNames</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">costData</span><span class="p">))]</span>
+    <span class="n">costCollection</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="s1">&#39;default_costs&#39;</span><span class="p">,</span> <span class="n">costData</span><span class="p">)</span>
 
-    <span class="n">setSpreadsheetColumnData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;joint_names&#39;</span><span class="p">,</span> <span class="n">jointNames</span><span class="p">)</span>
-    <span class="n">setSpreadsheetColumnData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;default_costs&#39;</span><span class="p">,</span> <span class="n">costData</span><span class="p">)</span>
+    <span class="n">setSpreadsheetColumnData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;joint_names&#39;</span><span class="p">,</span> <span class="n">jointNames</span><span class="p">)</span>
+    <span class="n">setSpreadsheetColumnData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;default_costs&#39;</span><span class="p">,</span> <span class="n">costData</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">poseCollection</span><span class="p">,</span> <span class="n">costCollection</span><span class="p">):</span></div>
-<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.init">[docs]</a>
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.spreadsheet.html#director.spreadsheet.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">poseCollection</span><span class="p">,</span> <span class="n">costCollection</span><span class="p">):</span>
+
     <span class="k">global</span> <span class="n">_spreadsheetView</span>
-    <span class="n">_spreadsheetView</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">getViewManager</span><span class="p">()</span><span class="o">.</span><span class="n">createView</span><span class="p">(</span><span class="s">&#39;Spreadsheet View&#39;</span><span class="p">,</span> <span class="s">&#39;Spreadsheet View&#39;</span><span class="p">)</span>
+    <span class="n">_spreadsheetView</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">getViewManager</span><span class="p">()</span><span class="o">.</span><span class="n">createView</span><span class="p">(</span><span class="s1">&#39;Spreadsheet View&#39;</span><span class="p">,</span> <span class="s1">&#39;Spreadsheet View&#39;</span><span class="p">)</span>
 
     <span class="n">updateMethod</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">updateSpreadsheetPoses</span><span class="p">,</span> <span class="n">poseCollection</span><span class="p">)</span>
-    <span class="n">poseCollection</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;itemChanged(const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">updateMethod</span><span class="p">)</span>
-    <span class="n">poseCollection</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;itemAdded(const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">updateMethod</span><span class="p">)</span>
-    <span class="n">poseCollection</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;itemRemoved(const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">updateMethod</span><span class="p">)</span>
+    <span class="n">poseCollection</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;itemChanged(const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">updateMethod</span><span class="p">)</span>
+    <span class="n">poseCollection</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;itemAdded(const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">updateMethod</span><span class="p">)</span>
+    <span class="n">poseCollection</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;itemRemoved(const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">updateMethod</span><span class="p">)</span>
 
     <span class="n">initSpreadsheetColumns</span><span class="p">(</span><span class="n">costCollection</span><span class="p">)</span>
-    <span class="n">updateMethod</span><span class="p">()</span>
-</pre></div></div>
+    <span class="n">updateMethod</span><span class="p">()</span></div>
+
+</pre></div>
 
            </div>
           </div>

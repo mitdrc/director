@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,10 +132,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.geometryencoder</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">vtkNumpy</span> <span class="k">as</span> <span class="n">vnp</span>
-<span class="kn">from</span> <span class="nn">director.shallowCopy</span> <span class="kn">import</span> <span class="n">shallowCopy</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span></span><span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkNumpy</span> <span class="k">as</span> <span class="n">vnp</span>
+<span class="kn">from</span> <span class="nn">director.shallowCopy</span> <span class="k">import</span> <span class="n">shallowCopy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <div class="viewcode-block" id="encodePolyData"><a class="viewcode-back" href="../../generated/director.geometryencoder.html#director.geometryencoder.encodePolyData">[docs]</a><span class="k">def</span> <span class="nf">encodePolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Given a vtkPolyData, returns a numpy int8 array that contains</span>
@@ -139,7 +143,7 @@
 <span class="sd">    decodePolyData function to construct a new vtkPolyData object from</span>
 <span class="sd">    the serialized data.&#39;&#39;&#39;</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">vtk</span><span class="p">,</span> <span class="s">&#39;vtkCommunicator&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">vtk</span><span class="p">,</span> <span class="s1">&#39;vtkCommunicator&#39;</span><span class="p">):</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataWriter</span><span class="p">()</span>
         <span class="n">w</span><span class="o">.</span><span class="n">WriteToOutputStringOn</span><span class="p">()</span>
         <span class="n">w</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
@@ -150,13 +154,13 @@
     <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCommunicator</span><span class="o">.</span><span class="n">MarshalDataObject</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">charArray</span><span class="p">)</span>
     <span class="n">numpyArray</span> <span class="o">=</span> <span class="n">vnp</span><span class="o">.</span><span class="n">numpy_support</span><span class="o">.</span><span class="n">vtk_to_numpy</span><span class="p">(</span><span class="n">charArray</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">numpyArray</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span>
-    <span class="k">return</span> <span class="n">numpyArray</span>
-</div>
+    <span class="k">return</span> <span class="n">numpyArray</span></div>
+
 <div class="viewcode-block" id="decodePolyData"><a class="viewcode-back" href="../../generated/director.geometryencoder.html#director.geometryencoder.decodePolyData">[docs]</a><span class="k">def</span> <span class="nf">decodePolyData</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Given a numpy int8 array, deserializes the data to construct a new</span>
 <span class="sd">    vtkPolyData object and returns the result.&#39;&#39;&#39;</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">vtk</span><span class="p">,</span> <span class="s">&#39;vtkCommunicator&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">vtk</span><span class="p">,</span> <span class="s1">&#39;vtkCommunicator&#39;</span><span class="p">):</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataReader</span><span class="p">()</span>
         <span class="n">r</span><span class="o">.</span><span class="n">ReadFromInputStringOn</span><span class="p">()</span>
         <span class="n">r</span><span class="o">.</span><span class="n">SetInputString</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>

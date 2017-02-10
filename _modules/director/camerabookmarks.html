@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,10 +132,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.camerabookmarks</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">applogic</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">cameracontrol</span>
+<span></span><span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">cameracontrol</span>
 
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
 
 
 <div class="viewcode-block" id="CameraBookmarks"><a class="viewcode-back" href="../../generated/director.camerabookmarks.html#director.camerabookmarks.CameraBookmarks">[docs]</a><span class="k">class</span> <span class="nc">CameraBookmarks</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -145,29 +149,29 @@
 <div class="viewcode-block" id="CameraBookmarks.storeCameraBookmark"><a class="viewcode-back" href="../../generated/director.camerabookmarks.html#director.camerabookmarks.CameraBookmarks.storeCameraBookmark">[docs]</a>    <span class="k">def</span> <span class="nf">storeCameraBookmark</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="n">camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">()</span>
         <span class="n">focal</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">GetFocalPoint</span><span class="p">(),</span> <span class="n">camera</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">focal</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">focal</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="CameraBookmarks.clear"><a class="viewcode-back" href="../../generated/director.camerabookmarks.html#director.camerabookmarks.CameraBookmarks.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span> <span class="o">=</span> <span class="p">{}</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span> <span class="o">=</span> <span class="p">{}</span></div>
+
 <div class="viewcode-block" id="CameraBookmarks.getBookmark"><a class="viewcode-back" href="../../generated/director.camerabookmarks.html#director.camerabookmarks.CameraBookmarks.getBookmark">[docs]</a>    <span class="k">def</span> <span class="nf">getBookmark</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="CameraBookmarks.flyToBookmark"><a class="viewcode-back" href="../../generated/director.camerabookmarks.html#director.camerabookmarks.CameraBookmarks.flyToBookmark">[docs]</a>    <span class="k">def</span> <span class="nf">flyToBookmark</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="n">focal</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getBookmark</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">flyer</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">(</span><span class="n">focal</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flyer</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">(</span><span class="n">focal</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="CameraBookmarkWidget"><a class="viewcode-back" href="../../generated/director.camerabookmarks.html#director.camerabookmarks.CameraBookmarkWidget">[docs]</a><span class="k">class</span> <span class="nc">CameraBookmarkWidget</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span> <span class="o">=</span> <span class="n">CameraBookmarks</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QScrollArea</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;Camera Bookmarks&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Camera Bookmarks&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">storeMapper</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QSignalMapper</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flyMapper</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QSignalMapper</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">storeMapper</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;mapped(QObject*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onStoreCamera</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">flyMapper</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;mapped(QObject*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onFlyToCamera</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storeMapper</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;mapped(QObject*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onStoreCamera</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flyMapper</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;mapped(QObject*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onFlyToCamera</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">numberOfBookmarks</span> <span class="o">=</span> <span class="mi">8</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateLayout</span><span class="p">()</span>
 
@@ -178,12 +182,12 @@
         <span class="n">w</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="p">()</span>
         <span class="n">l</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QGridLayout</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfBookmarks</span><span class="p">):</span>
-            <span class="n">storeButton</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;set&#39;</span><span class="p">)</span>
-            <span class="n">flyButton</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;fly&#39;</span><span class="p">)</span>
-            <span class="n">textEdit</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span><span class="s">&#39;camera </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
-            <span class="n">storeButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storeMapper</span><span class="p">,</span> <span class="s">&#39;map()&#39;</span><span class="p">)</span>
-            <span class="n">flyButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">flyMapper</span><span class="p">,</span> <span class="s">&#39;map()&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfBookmarks</span><span class="p">):</span>
+            <span class="n">storeButton</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;set&#39;</span><span class="p">)</span>
+            <span class="n">flyButton</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;fly&#39;</span><span class="p">)</span>
+            <span class="n">textEdit</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span><span class="s1">&#39;camera </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">storeButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storeMapper</span><span class="p">,</span> <span class="s1">&#39;map()&#39;</span><span class="p">)</span>
+            <span class="n">flyButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;clicked()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">flyMapper</span><span class="p">,</span> <span class="s1">&#39;map()&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">storeMapper</span><span class="o">.</span><span class="n">setMapping</span><span class="p">(</span><span class="n">storeButton</span><span class="p">,</span> <span class="n">storeButton</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">flyMapper</span><span class="o">.</span><span class="n">setMapping</span><span class="p">(</span><span class="n">flyButton</span><span class="p">,</span> <span class="n">flyButton</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">storeButtons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">storeButton</span><span class="p">)</span>
@@ -191,36 +195,36 @@
             <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">storeButton</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">flyButton</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">textEdit</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="n">flyButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">flyButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QDoubleSpinBox</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span><span class="o">.</span><span class="n">setDecimals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span><span class="o">.</span><span class="n">setSuffix</span><span class="p">(</span><span class="s">&#39; seconds&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span><span class="o">.</span><span class="n">setSuffix</span><span class="p">(</span><span class="s1">&#39; seconds&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
 
-        <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Fly speed:&#39;</span><span class="p">),</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Fly speed:&#39;</span><span class="p">),</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">l</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">w</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="CameraBookmarkWidget.onStoreCamera"><a class="viewcode-back" href="../../generated/director.camerabookmarks.html#director.camerabookmarks.CameraBookmarkWidget.onStoreCamera">[docs]</a>    <span class="k">def</span> <span class="nf">onStoreCamera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button</span><span class="p">):</span>
         <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storeButtons</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span><span class="o">.</span><span class="n">storeCameraBookmark</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">flyButtons</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flyButtons</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="CameraBookmarkWidget.onFlyToCamera"><a class="viewcode-back" href="../../generated/director.camerabookmarks.html#director.camerabookmarks.CameraBookmarkWidget.onFlyToCamera">[docs]</a>    <span class="k">def</span> <span class="nf">onFlyToCamera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button</span><span class="p">):</span>
         <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flyButtons</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span><span class="o">.</span><span class="n">flyer</span><span class="o">.</span><span class="n">flyTime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flySpeedSpinner</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span><span class="o">.</span><span class="n">flyToBookmark</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bookmarks</span><span class="o">.</span><span class="n">flyToBookmark</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.camerabookmarks.html#director.camerabookmarks.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">view</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">widget</span><span class="p">,</span> <span class="n">dock</span>
     <span class="n">widget</span> <span class="o">=</span> <span class="n">CameraBookmarkWidget</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
-    <span class="n">dock</span> <span class="o">=</span> <span class="n">applogic</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">widget</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+    <span class="n">dock</span> <span class="o">=</span> <span class="n">applogic</span><span class="o">.</span><span class="n">addWidgetToDock</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">widget</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">dock</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
 </pre></div>
 

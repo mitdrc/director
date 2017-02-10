@@ -30,10 +30,13 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Director  documentation" href="../index.html"/>
         <link rel="up" title="director package" href="director.html"/>
-        <link rel="next" title="director.visualization module" href="director.visualization.html"/>
-        <link rel="prev" title="director.valvedemo module" href="director.valvedemo.html"/> 
+        <link rel="next" title="director.viewcolors module" href="director.viewcolors.html"/>
+        <link rel="prev" title="director.viconvisualizer module" href="director.viconvisualizer.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -81,7 +84,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="director.html#subpackages">Subpackages</a></li>
@@ -93,6 +97,8 @@
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.asynctaskqueue.html">director.asynctaskqueue module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriver.html">director.atlasdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.atlasdriverpanel.html">director.atlasdriverpanel module</a></li>
@@ -102,8 +108,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.callbacks.html">director.callbacks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.camerabookmarks.html">director.camerabookmarks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameracontrol.html">director.cameracontrol module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameracontrolpanel.html">director.cameracontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.cameraview.html">director.cameraview module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.colorize.html">director.colorize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.componentgraph.html">director.componentgraph module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.consoleapp.html">director.consoleapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.continuouswalkingdemo.html">director.continuouswalkingdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.copmonitor.html">director.copmonitor module</a></li>
@@ -111,8 +119,10 @@
 <li class="toctree-l4"><a class="reference internal" href="director.debrisdemo.html">director.debrisdemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.debugVis.html">director.debugVis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.depthimageprovider.html">director.depthimageprovider module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.depthscanner.html">director.depthscanner module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.doordemo.html">director.doordemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drakevisualizer.html">director.drakevisualizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drakevisualizerapp.html">director.drakevisualizerapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drcargs.html">director.drcargs module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drilldemo.html">director.drilldemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.drivingplanner.html">director.drivingplanner module</a></li>
@@ -127,47 +137,62 @@
 <li class="toctree-l4"><a class="reference internal" href="director.geometryencoder.html">director.geometryencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handcontrolpanel.html">director.handcontrolpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.handdriver.html">director.handdriver module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.ik.html">director.ik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraintencoder.html">director.ikconstraintencoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikconstraints.html">director.ikconstraints module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikparameters.html">director.ikparameters module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ikplanner.html">director.ikplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageview.html">director.imageview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageviewapp.html">director.imageviewapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.ioUtils.html">director.ioUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisUtils.html">director.irisUtils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.irisdriver.html">director.irisdriver module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointcontrol.html">director.jointcontrol module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.jointpropagator.html">director.jointpropagator module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.kinectlcm.html">director.kinectlcm module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.kinematicposeplanner.html">director.kinematicposeplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.korgnano.html">director.korgnano module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmUtils.html">director.lcmUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmcollections.html">director.lcmcollections module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingdemo.html">director.mappingdemo module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.mappingpanel.html">director.mappingpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.mainwindowapp.html">director.mainwindowapp module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.mapsregistrar.html">director.mapsregistrar module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.matlab.html">director.matlab module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.matlabik.html">director.matlabik module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.measurementpanel.html">director.measurementpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.meshmanager.html">director.meshmanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.midi.html">director.midi module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.motionplanningpanel.html">director.motionplanningpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.multisensepanel.html">director.multisensepanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.navigationpanel.html">director.navigationpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.perception.html">director.perception module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.plannerPublisher.html">director.plannerPublisher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.planningutils.html">director.planningutils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.planplayback.html">director.planplayback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.playbackpanel.html">director.playbackpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointcloudlcm.html">director.pointcloudlcm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.pointpicker.html">director.pointpicker module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.polarisplatformplanner.html">director.polarisplatformplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.propertyanimation.html">director.propertyanimation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.propertyset.html">director.propertyset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pydrakeik.html">director.pydrakeik module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.raycastdriver.html">director.raycastdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotlinkselector.html">director.robotlinkselector module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotplanlistener.html">director.robotplanlistener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotposegui.html">director.robotposegui module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotstate.html">director.robotstate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.robotsystem.html">director.robotsystem module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.roboturdf.html">director.roboturdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotviewbehaviors.html">director.robotviewbehaviors module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.sceneloader.html">director.sceneloader module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.screengrabberpanel.html">director.screengrabberpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.segmentation.html">director.segmentation module</a></li>
@@ -184,7 +209,6 @@
 <li class="toctree-l4"><a class="reference internal" href="director.statelistener.html">director.statelistener module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.surprisetask.html">director.surprisetask module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.switchplanner.html">director.switchplanner module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="director.tabledemo.html">director.tabledemo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.takktilevis.html">director.takktilevis module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tasklaunchpanel.html">director.tasklaunchpanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.tdx.html">director.tdx module</a></li>
@@ -195,10 +219,17 @@
 <li class="toctree-l4"><a class="reference internal" href="director.timercallback.html">director.timercallback module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.trackers.html">director.trackers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.transformUtils.html">director.transformUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.treeviewer.html">director.treeviewer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.uipanel.html">director.uipanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.utime.html">director.utime module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.uuidutil.html">director.uuidutil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.valvedemo.html">director.valvedemo module</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="">director.viewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.version.html">director.version module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viconvisualizer.html">director.viconvisualizer module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">director.viewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewcolors.html">director.viewcolors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewerclient.html">director.viewerclient module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vieweventfilter.html">director.vieweventfilter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.visualization.html">director.visualization module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkAll.html">director.vtkAll module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.vtkNumpy.html">director.vtkNumpy module</a></li>
@@ -233,7 +264,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -260,165 +291,30 @@
   <div class="section" id="module-director.viewbehaviors">
 <span id="director-viewbehaviors-module"></span><h1>director.viewbehaviors module<a class="headerlink" href="#module-director.viewbehaviors" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="director.viewbehaviors.KeyEventFilter">
-<em class="property">class </em><code class="descclassname">director.viewbehaviors.</code><code class="descname">KeyEventFilter</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#KeyEventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.KeyEventFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.viewbehaviors.KeyEventFilter.filterEvent">
-<code class="descname">filterEvent</code><span class="sig-paren">(</span><em>obj</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#KeyEventFilter.filterEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.KeyEventFilter.filterEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.KeyEventFilter.getCursorDisplayPosition">
-<code class="descname">getCursorDisplayPosition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#KeyEventFilter.getCursorDisplayPosition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.KeyEventFilter.getCursorDisplayPosition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.KeyEventFilter.initEventFilter">
-<code class="descname">initEventFilter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#KeyEventFilter.initEventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.KeyEventFilter.initEventFilter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.viewbehaviors.KeyPressLogCommander">
-<em class="property">class </em><code class="descclassname">director.viewbehaviors.</code><code class="descname">KeyPressLogCommander</code><span class="sig-paren">(</span><em>widget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#KeyPressLogCommander"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.KeyPressLogCommander" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.viewbehaviors.KeyPressLogCommander.filterEvent">
-<code class="descname">filterEvent</code><span class="sig-paren">(</span><em>obj</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#KeyPressLogCommander.filterEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.KeyPressLogCommander.filterEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.KeyPressLogCommander.initEventFilter">
-<code class="descname">initEventFilter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#KeyPressLogCommander.initEventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.KeyPressLogCommander.initEventFilter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.viewbehaviors.MidiBehaviorControl">
-<em class="property">class </em><code class="descclassname">director.viewbehaviors.</code><code class="descname">MidiBehaviorControl</code><a class="reference internal" href="../_modules/director/viewbehaviors.html#MidiBehaviorControl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.MidiBehaviorControl" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.viewbehaviors.MidiBehaviorControl.initReader">
-<code class="descname">initReader</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#MidiBehaviorControl.initReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.MidiBehaviorControl.initReader" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.MidiBehaviorControl.onButtonDown">
-<code class="descname">onButtonDown</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#MidiBehaviorControl.onButtonDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.MidiBehaviorControl.onButtonDown" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.MidiBehaviorControl.onButtonUp">
-<code class="descname">onButtonUp</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#MidiBehaviorControl.onButtonUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.MidiBehaviorControl.onButtonUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.MidiBehaviorControl.onContinuousInput">
-<code class="descname">onContinuousInput</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#MidiBehaviorControl.onContinuousInput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.MidiBehaviorControl.onContinuousInput" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.MidiBehaviorControl.onMidiCommand">
-<code class="descname">onMidiCommand</code><span class="sig-paren">(</span><em>channel</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#MidiBehaviorControl.onMidiCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.MidiBehaviorControl.onMidiCommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.MidiBehaviorControl.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#MidiBehaviorControl.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.MidiBehaviorControl.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.MidiBehaviorControl.tick">
-<code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#MidiBehaviorControl.tick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.MidiBehaviorControl.tick" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="director.viewbehaviors.RobotLinkSelector">
-<em class="property">class </em><code class="descclassname">director.viewbehaviors.</code><code class="descname">RobotLinkSelector</code><a class="reference internal" href="../_modules/director/viewbehaviors.html#RobotLinkSelector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.RobotLinkSelector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.viewbehaviors.RobotLinkSelector.enabled">
-<code class="descname">enabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#RobotLinkSelector.enabled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.RobotLinkSelector.enabled" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.RobotLinkSelector.selectLink">
-<code class="descname">selectLink</code><span class="sig-paren">(</span><em>displayPoint</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#RobotLinkSelector.selectLink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.RobotLinkSelector.selectLink" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.RobotLinkSelector.setupMenuAction">
-<code class="descname">setupMenuAction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#RobotLinkSelector.setupMenuAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.RobotLinkSelector.setupMenuAction" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="director.viewbehaviors.ViewBehaviors">
 <em class="property">class </em><code class="descclassname">director.viewbehaviors.</code><code class="descname">ViewBehaviors</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewBehaviors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewBehaviors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="staticmethod">
-<dt id="director.viewbehaviors.ViewBehaviors.addRobotBehaviors">
-<em class="property">static </em><code class="descname">addRobotBehaviors</code><span class="sig-paren">(</span><em>_robotSystem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewBehaviors.addRobotBehaviors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewBehaviors.addRobotBehaviors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="director.vieweventfilter.html#director.vieweventfilter.ViewEventFilter" title="director.vieweventfilter.ViewEventFilter"><code class="xref py py-class docutils literal"><span class="pre">director.vieweventfilter.ViewEventFilter</span></code></a></p>
+<dl class="method">
+<dt id="director.viewbehaviors.ViewBehaviors.onKeyPress">
+<code class="descname">onKeyPress</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewBehaviors.onKeyPress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewBehaviors.onKeyPress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.viewbehaviors.ViewBehaviors.onKeyPressRepeat">
+<code class="descname">onKeyPressRepeat</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewBehaviors.onKeyPressRepeat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewBehaviors.onKeyPressRepeat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.viewbehaviors.ViewBehaviors.onLeftDoubleClick">
+<code class="descname">onLeftDoubleClick</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewBehaviors.onLeftDoubleClick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewBehaviors.onLeftDoubleClick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.viewbehaviors.ViewBehaviors.onRightClick">
+<code class="descname">onRightClick</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewBehaviors.onRightClick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewBehaviors.onRightClick" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
-
-<dl class="class">
-<dt id="director.viewbehaviors.ViewEventFilter">
-<em class="property">class </em><code class="descclassname">director.viewbehaviors.</code><code class="descname">ViewEventFilter</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewEventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewEventFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.viewbehaviors.ViewEventFilter.consumeEvent">
-<code class="descname">consumeEvent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewEventFilter.consumeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewEventFilter.consumeEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.ViewEventFilter.filterEvent">
-<code class="descname">filterEvent</code><span class="sig-paren">(</span><em>obj</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewEventFilter.filterEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewEventFilter.filterEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.ViewEventFilter.initEventFilter">
-<code class="descname">initEventFilter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewEventFilter.initEventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewEventFilter.initEventFilter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.ViewEventFilter.onLeftDoubleClick">
-<code class="descname">onLeftDoubleClick</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewEventFilter.onLeftDoubleClick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewEventFilter.onLeftDoubleClick" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.ViewEventFilter.onLeftMousePress">
-<code class="descname">onLeftMousePress</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewEventFilter.onLeftMousePress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewEventFilter.onLeftMousePress" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.ViewEventFilter.onMouseMove">
-<code class="descname">onMouseMove</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewEventFilter.onMouseMove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewEventFilter.onMouseMove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.ViewEventFilter.onRightClick">
-<code class="descname">onRightClick</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewEventFilter.onRightClick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewEventFilter.onRightClick" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.viewbehaviors.ViewEventFilter.onWheelEvent">
-<code class="descname">onWheelEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#ViewEventFilter.onWheelEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.ViewEventFilter.onWheelEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="director.viewbehaviors.getAsFrame">
-<code class="descclassname">director.viewbehaviors.</code><code class="descname">getAsFrame</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#getAsFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.getAsFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="function">
 <dt id="director.viewbehaviors.getChildFrame">
@@ -426,50 +322,28 @@
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="director.viewbehaviors.getCollisionParent">
-<code class="descclassname">director.viewbehaviors.</code><code class="descname">getCollisionParent</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#getCollisionParent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.getCollisionParent" title="Permalink to this definition">¶</a></dt>
-<dd><p>If obj is an affordance, return obj
-If obj is a frame or a grasp seed, return first parent.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="director.viewbehaviors.isGraspSeed">
-<code class="descclassname">director.viewbehaviors.</code><code class="descname">isGraspSeed</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#isGraspSeed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.isGraspSeed" title="Permalink to this definition">¶</a></dt>
+<dt id="director.viewbehaviors.getContextMenuActions">
+<code class="descclassname">director.viewbehaviors.</code><code class="descname">getContextMenuActions</code><span class="sig-paren">(</span><em>view</em>, <em>pickedObj</em>, <em>pickedPoint</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#getContextMenuActions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.getContextMenuActions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="director.viewbehaviors.newWalkingGoal">
-<code class="descclassname">director.viewbehaviors.</code><code class="descname">newWalkingGoal</code><span class="sig-paren">(</span><em>displayPoint</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#newWalkingGoal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.newWalkingGoal" title="Permalink to this definition">¶</a></dt>
+<dt id="director.viewbehaviors.getDefaultContextMenuActions">
+<code class="descclassname">director.viewbehaviors.</code><code class="descname">getDefaultContextMenuActions</code><span class="sig-paren">(</span><em>view</em>, <em>pickedObj</em>, <em>pickedPoint</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#getDefaultContextMenuActions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.getDefaultContextMenuActions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="director.viewbehaviors.placeHandModel">
-<code class="descclassname">director.viewbehaviors.</code><code class="descname">placeHandModel</code><span class="sig-paren">(</span><em>displayPoint</em>, <em>view</em>, <em>side='left'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#placeHandModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.placeHandModel" title="Permalink to this definition">¶</a></dt>
+<dt id="director.viewbehaviors.getShortenedName">
+<code class="descclassname">director.viewbehaviors.</code><code class="descname">getShortenedName</code><span class="sig-paren">(</span><em>name</em>, <em>maxLength=30</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#getShortenedName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.getShortenedName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="director.viewbehaviors.reachToFrame">
-<code class="descclassname">director.viewbehaviors.</code><code class="descname">reachToFrame</code><span class="sig-paren">(</span><em>frameObj</em>, <em>side</em>, <em>collisionObj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#reachToFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.reachToFrame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.viewbehaviors.resetCameraToHeadView">
-<code class="descclassname">director.viewbehaviors.</code><code class="descname">resetCameraToHeadView</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#resetCameraToHeadView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.resetCameraToHeadView" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.viewbehaviors.resetCameraToRobot">
-<code class="descclassname">director.viewbehaviors.</code><code class="descname">resetCameraToRobot</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#resetCameraToRobot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.resetCameraToRobot" title="Permalink to this definition">¶</a></dt>
+<dt id="director.viewbehaviors.registerContextMenuActions">
+<code class="descclassname">director.viewbehaviors.</code><code class="descname">registerContextMenuActions</code><span class="sig-paren">(</span><em>getActionsFunction</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#registerContextMenuActions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.registerContextMenuActions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="director.viewbehaviors.showRightClickMenu">
 <code class="descclassname">director.viewbehaviors.</code><code class="descname">showRightClickMenu</code><span class="sig-paren">(</span><em>displayPoint</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#showRightClickMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.showRightClickMenu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="director.viewbehaviors.toggleFootstepWidget">
-<code class="descclassname">director.viewbehaviors.</code><code class="descname">toggleFootstepWidget</code><span class="sig-paren">(</span><em>displayPoint</em>, <em>view</em>, <em>useHorizontalWidget=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/viewbehaviors.html#toggleFootstepWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.viewbehaviors.toggleFootstepWidget" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -491,10 +365,10 @@ If obj is a frame or a grasp seed, return first parent.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="director.visualization.html" class="btn btn-neutral float-right" title="director.visualization module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="director.viewcolors.html" class="btn btn-neutral float-right" title="director.viewcolors module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="director.valvedemo.html" class="btn btn-neutral" title="director.valvedemo module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="director.viconvisualizer.html" class="btn btn-neutral" title="director.viconvisualizer module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

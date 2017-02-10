@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Remote Tree Viewer Interface &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Director  documentation" href="../index.html"/>
+        <link rel="up" title="User Guide" href="index.html"/>
+        <link rel="next" title="Developer Guide" href="../developer_guide/index.html"/>
+        <link rel="prev" title="Keyboard Shortcuts" href="keyboard_shortcuts.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="keyboard_shortcuts.html">Keyboard Shortcuts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Remote Tree Viewer Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#viewer-tree">Viewer Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#protocol">Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setgeometry-command">Setgeometry Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#settransform-command">Settransform Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-command">Delete Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#handling-responses">Handling Responses</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">User Guide</a> &raquo;</li>
+      
+    <li>Remote Tree Viewer Interface</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="remote-tree-viewer-interface">
+<h1>Remote Tree Viewer Interface<a class="headerlink" href="#remote-tree-viewer-interface" title="Permalink to this headline">¶</a></h1>
+<p>Most of this documentation focuses on developing visualizations from within Director itself, but it is also possible to use Director as a standalone remote-controlled 3D viewer. By sending messages from your application over LCM, you can create and move geometric primitives in the viewer.</p>
+<p>To launch the viewer, run the <code class="docutils literal"><span class="pre">drake-visualizer</span></code> binary which is created by Director. For an example of a Python client, see director/viewerclient.py. The remote tree viewer protocol is described below. The current implementation uses LCM for the message transport and JSON to encode the viewer commands. Future versions may add new encoding methods for better performance.</p>
+<div class="section" id="viewer-tree">
+<h2>Viewer Tree<a class="headerlink" href="#viewer-tree" title="Permalink to this headline">¶</a></h2>
+<p>The remote viewer is built around the concept of a tree of objects (in other words, an acyclic scene graph). We refer to nodes in the tree by their <cite>path</cite>, that is, by the list of nodes traversed from the root of the tree. We can create and delete 3D objects anywhere in the tree by specifying their paths, and we can set the homogeneous transform of any path. The pose of an object in the viewer is determined by the composition of all transforms in its path.</p>
+<p>For example, if we have a viewer with two objects, a box at path <code class="docutils literal"><span class="pre">robot/box1</span></code> and a box at path <code class="docutils literal"><span class="pre">robot/box2</span></code>, our tree will look like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">robot</span>
+   <span class="o">|-</span><span class="n">box1</span>
+   <span class="o">|-</span><span class="n">box2</span>
+</pre></div>
+</div>
+<p>If we apply a transform to the path <code class="docutils literal"><span class="pre">robot/box1</span></code>, then only box1 will be affected, but if we apply a transform to the path <code class="docutils literal"><span class="pre">robot</span></code>, then both boxes will move together.</p>
+</div>
+<div class="section" id="protocol">
+<h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
+<p>Communication with the viewer happens over two LCM channels:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">DIRECTOR_TREE_VIEWER_REQUEST:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">for communication from the client to the viewer</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">DIRECTOR_TREE_VIEWER_RESPONSE:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">for communication from the viewer back to the client</td>
+</tr>
+</tbody>
+</table>
+<p>Two-way communication is not mandatory: a simple client may just publish on <code class="docutils literal"><span class="pre">_REQUEST</span></code> and ignore all responses. But handling responses from the viewer enables better synchronization of the client and viewer state, as discussed in <a class="reference internal" href="#responses">responses</a>.</p>
+<p>All communication on both channels uses a single general-purpose LCM type: <a class="reference external" href="https://github.com/RobotLocomotion/lcmtypes/blob/master/lcmtypes/viewer2_comms_t.lcm">viewer2_comms_t</a>. The <code class="docutils literal"><span class="pre">viewer2_comms_t</span></code> message contains a byte array of encoded command data along with information about the format of that data. Currently, only one format is defined: <code class="docutils literal"><span class="pre">treeviewer_json</span></code> version 1.0. This format consists of a string of JSON-encoded commands.</p>
+<p>Sample LCM message:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msg</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s2">&quot;treeviewer_json&quot;</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">format_version_major</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">format_version_minor</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data_payload</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">num_bytes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_payload</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">data_payload</span></code> is a JSON-encoded dictionary with four fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">timestamp:</th><td class="field-body">Microseconds since the Unix epoch and expressed as an integer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">setgeometry:</th><td class="field-body">A list of <a class="reference internal" href="#setgeometry">setgeometry</a> commands. May be empty.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">settransform:</th><td class="field-body">A list of <a class="reference internal" href="#settransform">settransform</a> commands. May be empty.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">delete:</th><td class="field-body">A list of <a class="reference internal" href="#delete">delete</a> commands. May be empty.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="setgeometry-command">
+<span id="setgeometry"></span><h2>Setgeometry Command<a class="headerlink" href="#setgeometry-command" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>setgeometry</cite> command sets geometric object at a given path, creating nodes in the viewer tree as necessary. It will overwrite any geometry that was already present at that path in the viewer. A <cite>setgeometry</cite> command is a dictionary with the following keys:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">the path for the geometry in the tree as a list of strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">geometries:</th><td class="field-body">a list of geometry descriptions</td>
+</tr>
+</tbody>
+</table>
+<p>Each geometry description, in turn, is a dictionary with the key <code class="docutils literal"><span class="pre">type</span></code> that indicates the kind of geometric primitive. Various geometry descriptions have other mandatory or optional fields:</p>
+<p>Fields for all geometry types:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">(required) a keyword indicating the kind of geometry. Currently supports: <code class="docutils literal"><span class="pre">box</span></code>, <code class="docutils literal"><span class="pre">sphere</span></code>, <code class="docutils literal"><span class="pre">cylinder</span></code>, <code class="docutils literal"><span class="pre">capsule</span></code>, <code class="docutils literal"><span class="pre">ellipsoid</span></code>, <code class="docutils literal"><span class="pre">mesh_file</span></code>, <code class="docutils literal"><span class="pre">mesh_data</span></code>, <code class="docutils literal"><span class="pre">pointcloud</span></code>, <code class="docutils literal"><span class="pre">planar_lidar</span></code>, <code class="docutils literal"><span class="pre">triad</span></code></td>
+</tr>
+<tr class="field-even field"><th class="field-name">color:</th><td class="field-body">(optional) the geometry&#8217;s color, in RGBA order, as a list of 4 floating point values between 0 and 1. Defaults to [1, 1, 1, 1]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">transform:</th><td class="field-body">(optional) a transform to apply to this geometry, in the same format as used in <cite>settransform</cite>. Defaults to identity.</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Box fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">lengths:</th><td class="field-body">the lengths of the box along each dimension, in XYZ order as a list of 3 floating point values</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Sphere fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">radius:</th><td class="field-body">radius of the sphere</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Cylinder fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">radius:</th><td class="field-body">radius</td>
+</tr>
+<tr class="field-even field"><th class="field-name">length:</th><td class="field-body">length along the Z axis</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Capsule fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">radius:</th><td class="field-body">radius of the capsule and the hemispheres at each end</td>
+</tr>
+<tr class="field-even field"><th class="field-name">length:</th><td class="field-body">length of the capsule, not including the end caps</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Ellipsoid Fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">radii:</th><td class="field-body">the radii of the ellipsoid along the XYZ axes</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Mesh File Fields:</p>
+<p>A <code class="docutils literal"><span class="pre">mesh_file</span></code> geometry type contains a path to a mesh file on disk.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">filename:</th><td class="field-body">the absolute path to the mesh file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">scale:</th><td class="field-body">(optional) a scaling factor to apply to the mesh. Defaults to 1.</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Mesh Data Fields:</p>
+<p>A <code class="docutils literal"><span class="pre">mesh_data</span></code> geometry encodes the entire mesh in the message itself..</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">vertices:</th><td class="field-body">the mesh vertices as a list of triplets in XYZ order.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">faces:</th><td class="field-body">a list of triplets describing the faces of the mesh. Each element in the list gives the indices (0-based) of three vertices which are joined as a triangular face.</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Pointcloud Fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">points:</th><td class="field-body">the point coordinates as a list of triplets in XYZ order</td>
+</tr>
+<tr class="field-even field"><th class="field-name">channels:</th><td class="field-body">(optional) a dictionary of channel data to attach to the points. Each key in the dict should be the name of the channel, and the corresponding value should be a list of length (number of points). The channel <code class="docutils literal"><span class="pre">rgb</span></code> is special: its value (a list of triplets in RGB order) will be used to color the points by default.</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Planar Lidar Fields:</p>
+<p>The <code class="docutils literal"><span class="pre">planar_lidar</span></code> type is simply a shortcut for generating a pointcloud without specifying the coordinates of every point. Instead, we only need to specify a list of distances and the angles over which those ranges were measured.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">ranges:</th><td class="field-body">a list of distance measurements</td>
+</tr>
+<tr class="field-even field"><th class="field-name">angle_start:</th><td class="field-body">the angle about the Z axis (in rad) corresponding to <code class="docutils literal"><span class="pre">ranges[0]</span></code></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">angle_step:</th><td class="field-body">the angular spacing between adjacent range measurements (in rad) about the Z axis</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="settransform-command">
+<span id="settransform"></span><h2>Settransform Command<a class="headerlink" href="#settransform-command" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>settransform</cite> command sets the transform of a given path. A command has two fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">the path, as a list of strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">transform:</th><td class="field-body">the transform, as a dictionary</td>
+</tr>
+</tbody>
+</table>
+<p>The format of the <code class="docutils literal"><span class="pre">transform</span></code> field is a dictionary with two keys:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">translation:</th><td class="field-body">(optional) the translational component, in [x, y, z] order. Defaults to [0, 0, 0].</td>
+</tr>
+<tr class="field-even field"><th class="field-name">quaternion:</th><td class="field-body">(optional) the rotational component, in [w, x, y, z] order. Defaults to [1, 0, 0, 0]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="delete-command">
+<span id="delete"></span><h2>Delete Command<a class="headerlink" href="#delete-command" title="Permalink to this headline">¶</a></h2>
+<p>A delete command has just one field:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">the path of the geometry to delete. Any geometries and transforms at this path and its descendants will be deleted.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Create a box at path &#8220;robot1/link1&#8221;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1486691399249288</span><span class="p">,</span>
+        <span class="s2">&quot;setgeometry&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;robot1&quot;</span><span class="p">,</span> <span class="s2">&quot;link1&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;box&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                                <span class="s2">&quot;lengths&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+                        <span class="p">}</span>
+                <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;settransform&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;delete&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Create a sphere at path &#8220;robot1/link2&#8221; and a pointcloud at &#8220;perception/cloud1&#8221;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1486691399249288</span><span class="p">,</span>
+        <span class="s2">&quot;setgeometry&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;robot1&quot;</span><span class="p">,</span> <span class="s2">&quot;link2&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;sphere&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.5</span>
+                        <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="s2">&quot;cloud1&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pointcloud&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                           <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                           <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                           <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+                                <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">&quot;rgb&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>  <span class="c1"># white</span>
+                                                <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>  <span class="c1"># red</span>
+                                                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>  <span class="c1"># green</span>
+                                                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>  <span class="c1"># blue</span>
+                                <span class="p">}</span>
+                        <span class="p">}</span>
+                <span class="p">},</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;settransform&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;delete&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Translate the entire <code class="docutils literal"><span class="pre">robot</span></code> group 1 meter in Z:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="s2">&quot;setgeometry&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;settransform&quot;</span><span class="p">:</span>
+                <span class="p">{</span>
+                        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;robot1&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;transform&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">&quot;translation&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                <span class="s2">&quot;quaternion&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+                        <span class="p">}</span>
+                <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;delete&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Delete the sphere at <code class="docutils literal"><span class="pre">robot1/link2</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="s2">&quot;setgeometry&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;settransform&quot;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="s2">&quot;delete&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;robot1&quot;</span><span class="p">,</span> <span class="s2">&quot;link2&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+        <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="handling-responses">
+<span id="responses"></span><h2>Handling Responses<a class="headerlink" href="#handling-responses" title="Permalink to this headline">¶</a></h2>
+<p>When the viewer receives a request, it will respond with a message on the <code class="docutils literal"><span class="pre">DIRECTOR_TREE_VIEWER_RESPONSE</span></code> channel. This message will be in the same format as the request: an LCM message containing JSON-encoded data.</p>
+<p>The viewer response data is a dictionary with at least one field. It will always contain the field <code class="docutils literal"><span class="pre">status</span></code> with an integer value. The following status values are defined:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">status == 0:</th><td class="field-body">OK</td>
+</tr>
+<tr class="field-even field"><th class="field-name">status == 1:</th><td class="field-body">MISSING_PATHS</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">status == -1:</th><td class="field-body">ERROR_UNKNOWN_FORMAT</td>
+</tr>
+<tr class="field-even field"><th class="field-name">status == -2:</th><td class="field-body">ERROR_UNKNOWN_FORMAT_VERSION</td>
+</tr>
+</tbody>
+</table>
+<p>Status MISSING_PATHS means that the viewer received a <a class="reference internal" href="#settransform">settransform</a> command for a path which has no geometry at that path or any of its descendants. This can happen if, for example, the client sends a <a class="reference internal" href="#settransform">settransform</a> before sending a <a class="reference internal" href="#setgeometry">setgeometry</a>, or if the viewer is restarted and loses its state. A MISSING_PATHS status will be accompanied by a field <code class="docutils literal"><span class="pre">missing_paths</span></code> in the viewer response data, listing all of the paths which were not found. The client should send the appropriate <a class="reference internal" href="#setgeometry">setgeometry</a> commands for those paths.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../developer_guide/index.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="keyboard_shortcuts.html" class="btn btn-neutral" title="Keyboard Shortcuts" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

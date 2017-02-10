@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,41 +132,42 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.pointpicker</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">PythonQt</span>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
-<span class="kn">import</span> <span class="nn">director.visualization</span> <span class="kn">as</span> <span class="nn">vis</span>
-<span class="kn">import</span> <span class="nn">director.objectmodel</span> <span class="kn">as</span> <span class="nn">om</span>
-<span class="kn">from</span> <span class="nn">director.debugVis</span> <span class="kn">import</span> <span class="n">DebugData</span>
-<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="kn">as</span> <span class="nn">vtk</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">callbacks</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">director.affordanceitems</span> <span class="kn">import</span> <span class="n">AffordanceItem</span>
+<span></span><span class="kn">import</span> <span class="nn">PythonQt</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">import</span> <span class="nn">director.visualization</span> <span class="k">as</span> <span class="nn">vis</span>
+<span class="kn">import</span> <span class="nn">director.objectmodel</span> <span class="k">as</span> <span class="nn">om</span>
+<span class="kn">from</span> <span class="nn">director.debugVis</span> <span class="k">import</span> <span class="n">DebugData</span>
+<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="k">as</span> <span class="nn">vtk</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">callbacks</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">director.affordanceitems</span> <span class="k">import</span> <span class="n">AffordanceItem</span>
 
 
 <div class="viewcode-block" id="PointPicker"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker">[docs]</a><span class="k">class</span> <span class="nc">PointPicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">numberOfPoints</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">drawLines</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">abortCallback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">numberOfPoints</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">drawLines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">abortCallback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pickType</span> <span class="o">=</span> <span class="s">&#39;points&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pickType</span> <span class="o">=</span> <span class="s1">&#39;points&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span> <span class="o">=</span> <span class="mf">0.01</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">numberOfPoints</span> <span class="o">=</span> <span class="n">numberOfPoints</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">drawLines</span> <span class="o">=</span> <span class="n">drawLines</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drawClosedLoop</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span> <span class="o">=</span> <span class="n">callback</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span> <span class="o">=</span> <span class="n">abortCallback</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotationName</span> <span class="o">=</span> <span class="s">&#39;annotation&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotationFolder</span> <span class="o">=</span> <span class="s">&#39;segmentation&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotationName</span> <span class="o">=</span> <span class="s1">&#39;annotation&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotationFolder</span> <span class="o">=</span> <span class="s1">&#39;segmentation&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
 <div class="viewcode-block" id="PointPicker.start"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="PointPicker.stop"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="PointPicker.installEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.installEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
@@ -172,128 +177,133 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyRelease</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PointPicker.removeEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.removeEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PointPicker.onEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Escape</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span><span class="p">()</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">!=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ShiftModifier</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">onMouseMove</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">onMousePress</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
-</div>
-<div class="viewcode-block" id="PointPicker.clear"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfPoints</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-</div>
-<div class="viewcode-block" id="PointPicker.onMouseMove"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span> <span class="o">=</span> <span class="n">displayPoint</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="PointPicker.onMousePress"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.onMousePress">[docs]</a>    <span class="k">def</span> <span class="nf">onMousePress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onMousePress</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span></div>
 
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfPoints</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PointPicker.clear"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfPoints</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="PointPicker.onMouseMove"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span> <span class="o">=</span> <span class="n">displayPoint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="PointPicker.onMousePress"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.onMousePress">[docs]</a>    <span class="k">def</span> <span class="nf">onMousePress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfPoints</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span>
                 <span class="k">break</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
-</div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="PointPicker.finish"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">]</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="PointPicker.draw"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="n">DebugData</span><span class="p">()</span>
 
-        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">]</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">]</span>
 
-        <span class="c"># draw points</span>
+        <span class="c1"># draw points</span>
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">d</span><span class="o">.</span><span class="n">addSphere</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.008</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">drawLines</span><span class="p">:</span>
-            <span class="c"># draw lines</span>
+            <span class="c1"># draw lines</span>
             <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
-                <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">d</span><span class="o">.</span><span class="n">addLine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
-            <span class="c"># connect end points</span>
-            <span class="k">if</span> <span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># connect end points</span>
+            <span class="k">if</span> <span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">drawClosedLoop</span><span class="p">:</span>
                 <span class="n">d</span><span class="o">.</span><span class="n">addLine</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationName</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">annotationFolder</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetPickable</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">(),</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">annotationName</span><span class="p">,</span>
+                                                <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">annotationFolder</span><span class="p">,</span>
+                                                <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetPickable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="PointPicker.tick"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.tick">[docs]</a>    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pickType</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">prop</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">if</span> <span class="n">prop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pickType</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div></div>
 
 
-</div></div>
+
 <div class="viewcode-block" id="ImagePointPicker"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker">[docs]</a><span class="k">class</span> <span class="nc">ImagePointPicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
 
-    <span class="n">DOUBLE_CLICK_EVENT</span> <span class="o">=</span> <span class="s">&#39;DOUBLE_CLICK_EVENT&#39;</span>
+    <span class="n">DOUBLE_CLICK_EVENT</span> <span class="o">=</span> <span class="s1">&#39;DOUBLE_CLICK_EVENT&#39;</span>
 
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imageView</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">numberOfPoints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">drawLines</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imageView</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">numberOfPoints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">drawLines</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span> <span class="o">=</span> <span class="n">imageView</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">imageView</span><span class="o">.</span><span class="n">view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">drawLines</span> <span class="o">=</span> <span class="n">drawLines</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span> <span class="o">=</span> <span class="n">callback</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">numberOfPoints</span> <span class="o">=</span> <span class="n">numberOfPoints</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">showCursor</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">showCursor</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">CallbackRegistry</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">DOUBLE_CLICK_EVENT</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ImagePointPicker.start"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ImagePointPicker.stop"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ImagePointPicker.installEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.installEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
@@ -304,17 +314,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonDblClick</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyRelease</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ImagePointPicker.removeEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.removeEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ImagePointPicker.connectDoubleClickEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.connectDoubleClickEvent">[docs]</a>    <span class="k">def</span> <span class="nf">connectDoubleClickEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DOUBLE_CLICK_EVENT</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DOUBLE_CLICK_EVENT</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ImagePointPicker.disconnectDoubleClickEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.disconnectDoubleClickEvent">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectDoubleClickEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ImagePointPicker.onEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonDblClick</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
@@ -326,71 +336,71 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">updateCursor</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Shift</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">showCursor</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">showCursor</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyRelease</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Shift</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">showCursor</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">showCursor</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">hideCursor</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">!=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ShiftModifier</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">onMouseMove</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
 
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">onMousePress</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onMousePress</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span></div>
 
-</div>
+
 <div class="viewcode-block" id="ImagePointPicker.clear"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-</div>
-<div class="viewcode-block" id="ImagePointPicker.onMouseMove"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ImagePointPicker.onMouseMove"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span> <span class="o">=</span> <span class="n">displayPoint</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">displayPointToImagePoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="ImagePointPicker.onMousePress"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.onMousePress">[docs]</a>    <span class="k">def</span> <span class="nf">onMousePress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ImagePointPicker.onMousePress"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.onMousePress">[docs]</a>    <span class="k">def</span> <span class="nf">onMousePress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">displayPointToImagePoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">numberOfPoints</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="ImagePointPicker.finish"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span>
-</div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ImagePointPicker.draw"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="n">DebugData</span><span class="p">()</span>
 
         <span class="n">points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span><span class="p">)</span>
 
-        <span class="c"># draw points</span>
+        <span class="c1"># draw points</span>
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
             <span class="n">d</span><span class="o">.</span><span class="n">addSphere</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
@@ -398,42 +408,42 @@
             <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
                 <span class="n">d</span><span class="o">.</span><span class="n">addLine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
-            <span class="c"># connect end points</span>
-            <span class="c"># d.addLine(points[0], points[-1])</span>
+            <span class="c1"># connect end points</span>
+            <span class="c1"># d.addLine(points[0], points[-1])</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">setPolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">(),</span> <span class="s">&#39;annotation&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s">&#39;segmentation&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">(),</span> <span class="s1">&#39;annotation&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;segmentation&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">addToView</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetPickable</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetPickable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ImagePointPicker.hideCursor"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.hideCursor">[docs]</a>    <span class="k">def</span> <span class="nf">hideCursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span><span class="p">:</span>
-            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span><span class="p">)</span>
-</div>
+            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ImagePointPicker.updateCursor"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.updateCursor">[docs]</a>    <span class="k">def</span> <span class="nf">updateCursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">):</span>
 
-        <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">displayPointToImagePoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">restrictToImageDimensions</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">displayPointToImagePoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">restrictToImageDimensions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="n">DebugData</span><span class="p">()</span>
         <span class="n">d</span><span class="o">.</span><span class="n">addLine</span><span class="p">(</span><span class="n">center</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">center</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
         <span class="n">d</span><span class="o">.</span><span class="n">addLine</span><span class="p">(</span><span class="n">center</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">center</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">(),</span> <span class="s">&#39;cursor&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getPolyData</span><span class="p">(),</span> <span class="s1">&#39;cursor&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span><span class="o">.</span><span class="n">addToView</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetUseBounds</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetPickable</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="ImagePointPicker.displayPointToImagePoint"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.displayPointToImagePoint">[docs]</a>    <span class="k">def</span> <span class="nf">displayPointToImagePoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">restrictToImageDimensions</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">getImagePixel</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">restrictToImageDimensions</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-            <span class="k">return</span> <span class="n">point</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetUseBounds</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetPickable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div>
 
-</div></div>
+<div class="viewcode-block" id="ImagePointPicker.displayPointToImagePoint"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.displayPointToImagePoint">[docs]</a>    <span class="k">def</span> <span class="nf">displayPointToImagePoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">restrictToImageDimensions</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">getImagePixel</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">restrictToImageDimensions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+            <span class="k">return</span> <span class="n">point</span></div></div>
+
+
 <div class="viewcode-block" id="PlacerWidget"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget">[docs]</a><span class="k">class</span> <span class="nc">PlacerWidget</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
@@ -444,14 +454,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handle</span> <span class="o">=</span> <span class="n">handle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">points</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">moving</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moving</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="PlacerWidget.start"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="PlacerWidget.stop"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="PlacerWidget.installEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.installEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
@@ -460,11 +470,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonRelease</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PlacerWidget.removeEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.removeEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PlacerWidget.onEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
@@ -472,9 +482,9 @@
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">onMousePress</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonRelease</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">onMouseRelease</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
-</div>
-<div class="viewcode-block" id="PlacerWidget.onMouseMove"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onMouseRelease</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="PlacerWidget.onMouseMove"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">updateHighlight</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span>
 
@@ -482,75 +492,71 @@
             <span class="k">return</span>
 
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">pickPoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPointPick</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span>
-        <span class="c"># print displayPoint, pickPoint</span>
+        <span class="c1"># print displayPoint, pickPoint</span>
 
-        <span class="k">if</span> <span class="n">pickPoint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pickPoint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetUserTransform</span><span class="p">()</span>
             <span class="k">assert</span> <span class="n">t</span>
             <span class="n">currentPos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
             <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pickPoint</span> <span class="o">-</span> <span class="n">currentPos</span><span class="p">))</span>
             <span class="n">t</span><span class="o">.</span><span class="n">Modified</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">_renderAllViews</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="PlacerWidget.onMousePress"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.onMousePress">[docs]</a>    <span class="k">def</span> <span class="nf">onMousePress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">_renderAllViews</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="PlacerWidget.onMousePress"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.onMousePress">[docs]</a>    <span class="k">def</span> <span class="nf">onMousePress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="n">picked</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getHandlePick</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">picked</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">moving</span> <span class="o">=</span> <span class="bp">True</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="PlacerWidget.onMouseRelease"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.onMouseRelease">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseRelease</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">picked</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">moving</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PlacerWidget.onMouseRelease"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.onMouseRelease">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseRelease</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">moving</span> <span class="o">=</span> <span class="bp">False</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">moving</span> <span class="o">=</span> <span class="kc">False</span></div>
+
 <div class="viewcode-block" id="PlacerWidget.updateHighlight"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.updateHighlight">[docs]</a>    <span class="k">def</span> <span class="nf">updateHighlight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getHandlePick</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getHandlePick</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">_renderAllViews</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">_renderAllViews</span><span class="p">()</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">_renderAllViews</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="PlacerWidget.getHandlePick"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.getHandlePick">[docs]</a>    <span class="k">def</span> <span class="nf">getHandlePick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="PlacerWidget.getPointPick"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.getPointPick">[docs]</a>    <span class="k">def</span> <span class="nf">getPointPick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span></div></div>
 
 
+<div class="viewcode-block" id="ObjectPicker"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker">[docs]</a><span class="k">class</span> <span class="nc">ObjectPicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-
-
-</div></div>
-<div class="viewcode-block" id="AffordancePicker"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker">[docs]</a><span class="k">class</span> <span class="nc">AffordancePicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">numberOfObjects</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">drawLines</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">abortCallback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">filterFunc</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">hoverColor</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">abortCallback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">numberOfObjects</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">getObjectsFunction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hoverColor</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span> <span class="o">=</span> <span class="n">manager</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span> <span class="o">=</span> <span class="mf">0.01</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">numberOfObjects</span> <span class="o">=</span> <span class="n">numberOfObjects</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">getObjectsFunction</span> <span class="o">=</span> <span class="n">getObjectsFunction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbackFunc</span> <span class="o">=</span> <span class="n">callback</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span> <span class="o">=</span> <span class="n">abortCallback</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">filterFunc</span> <span class="o">=</span> <span class="n">filterFunc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hoverColor</span> <span class="o">=</span> <span class="n">hoverColor</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hoverAlpha</span> <span class="o">=</span> <span class="n">hoverColor</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
-<div class="viewcode-block" id="AffordancePicker.start"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ObjectPicker.start"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AffordancePicker.stop"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AffordancePicker.installEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.installEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ObjectPicker.stop"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ObjectPicker.installEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.installEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
@@ -559,83 +565,102 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyRelease</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AffordancePicker.removeEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.removeEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AffordancePicker.onEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectPicker.removeEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.removeEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectPicker.onEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Escape</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span><span class="p">()</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">onMouseMove</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
-        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">onMousePress</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
-</div>
-<div class="viewcode-block" id="AffordancePicker.clear"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfObjects</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onMousePress</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="ObjectPicker.clear"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfObjects</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span><span class="p">[</span><span class="s">&#39;Color&#39;</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Alpha&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span><span class="p">[</span><span class="s">&#39;Alpha&#39;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="s">&#39;Alpha&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">}</span>
-</div>
-<div class="viewcode-block" id="AffordancePicker.onMouseMove"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unsetHoverProperties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="ObjectPicker.onMouseMove"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span> <span class="o">=</span> <span class="n">displayPoint</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AffordancePicker.onMousePress"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.onMousePress">[docs]</a>    <span class="k">def</span> <span class="nf">onMousePress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfObjects</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ObjectPicker.onMousePress"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.onMousePress">[docs]</a>    <span class="k">def</span> <span class="nf">onMousePress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfObjects</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span>
                 <span class="k">break</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AffordancePicker.finish"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbackFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">callbackFunc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span></div>
 
-</div>
-<div class="viewcode-block" id="AffordancePicker.draw"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-        <span class="c"># TODO</span>
-</div>
-<div class="viewcode-block" id="AffordancePicker.tick"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.tick">[docs]</a>    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ObjectPicker.finish"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbackFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">callbackFunc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
 
-        <span class="c"># get affordances</span>
-        <span class="n">affs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">getAffordances</span><span class="p">()</span>
-        <span class="n">affs</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">affs</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">)]</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">affs</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">affs</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterFunc</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span>
+<div class="viewcode-block" id="ObjectPicker.unsetHoverProperties"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.unsetHoverProperties">[docs]</a>    <span class="k">def</span> <span class="nf">unsetHoverProperties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
 
-        <span class="c"># get picked affordance</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">affs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">propName</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="n">propName</span><span class="p">):</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">propName</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+<div class="viewcode-block" id="ObjectPicker.setHoverProperties"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.setHoverProperties">[docs]</a>    <span class="k">def</span> <span class="nf">setHoverProperties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">for</span> <span class="n">propName</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hoverColor</span><span class="p">],</span>
+                                <span class="p">[</span><span class="s1">&#39;Color Mode&#39;</span><span class="p">,</span> <span class="s1">&#39;Solid Color&#39;</span><span class="p">],</span>
+                                <span class="p">[</span><span class="s1">&#39;Alpha&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hoverAlpha</span><span class="p">]]:</span>
+
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="n">propName</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span><span class="p">[</span><span class="n">propName</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="n">propName</span><span class="p">)</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">propName</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectPicker.tick"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.tick">[docs]</a>    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">objs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getObjectsFunction</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getObjectsFunction</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">objs</span><span class="p">)</span>
         <span class="n">prevPickedObj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span>
         <span class="n">curPickedObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">getObjectByProp</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">curPickedObj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">prevPickedObj</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">prevPickedObj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">prevPickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span><span class="p">[</span><span class="s">&#39;Color&#39;</span><span class="p">])</span>
-                <span class="n">prevPickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Alpha&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span><span class="p">[</span><span class="s">&#39;Alpha&#39;</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">curPickedObj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span><span class="p">[</span><span class="s">&#39;Color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">curPickedObj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span><span class="p">[</span><span class="s">&#39;Alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">curPickedObj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Alpha&#39;</span><span class="p">)</span>
-                <span class="n">curPickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hoverColor</span><span class="p">)</span>
-                <span class="n">curPickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Alpha&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hoverAlpha</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span> <span class="o">=</span> <span class="n">curPickedObj</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div></div>
+        <span class="k">if</span> <span class="n">curPickedObj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">prevPickedObj</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unsetHoverProperties</span><span class="p">(</span><span class="n">prevPickedObj</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setHoverProperties</span><span class="p">(</span><span class="n">curPickedObj</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span> <span class="o">=</span> <span class="n">curPickedObj</span></div></div>
+
+
+<div class="viewcode-block" id="AffordancePicker"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker">[docs]</a><span class="k">class</span> <span class="nc">AffordancePicker</span><span class="p">(</span><span class="n">ObjectPicker</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">affordanceManager</span><span class="p">,</span> <span class="n">filterFunc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">AffordancePicker</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">getObjectsFunction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getObjects</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span> <span class="o">=</span> <span class="n">affordanceManager</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filterFunc</span> <span class="o">=</span> <span class="n">filterFunc</span>
+
+<div class="viewcode-block" id="AffordancePicker.getObjects"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.AffordancePicker.getObjects">[docs]</a>    <span class="k">def</span> <span class="nf">getObjects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">affs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">getAffordances</span><span class="p">()</span>
+        <span class="n">affs</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">affs</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterFunc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">affs</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">affs</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterFunc</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">affs</span></div></div>
 </pre></div>
 
            </div>

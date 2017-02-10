@@ -1,0 +1,7 @@
+director.robotlinkselector module
+=================================
+
+.. automodule:: director.robotlinkselector
+    :members:
+    :undoc-members:
+    :show-inheritance:

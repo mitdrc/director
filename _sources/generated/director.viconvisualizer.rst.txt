@@ -1,0 +1,7 @@
+director.viconvisualizer module
+===============================
+
+.. automodule:: director.viconvisualizer
+    :members:
+    :undoc-members:
+    :show-inheritance:

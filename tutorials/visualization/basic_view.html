@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="Visualization" href="index.html"/>
         <link rel="next" title="Read and draw a mesh file" href="read_mesh.html"/>
@@ -83,7 +86,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Tutorials</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Visualization</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="intro_to_vtk.html">Intro to VTK</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">Basic Visualization Window</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Basic Visualization Window</a></li>
 <li class="toctree-l3"><a class="reference internal" href="read_mesh.html">Read and draw a mesh file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="draw_shapes.html">Drawing Shapes and Geometry Primitives</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frames_and_transforms.html">Frames and Transforms</a></li>
@@ -95,7 +98,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../robot/index.html">Robots</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -119,7 +123,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -147,14 +151,14 @@
 <h1>Basic Visualization Window<a class="headerlink" href="#basic-visualization-window" title="Permalink to this headline">¶</a></h1>
 <p>The <a class="reference internal" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp" title="director.consoleapp.ConsoleApp"><code class="xref py py-class docutils literal"><span class="pre">director.consoleapp.ConsoleApp</span></code></a> provides the basic components to
 create a 3D visualization window.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">ddapp.consoleapp</span> <span class="kn">import</span> <span class="n">ConsoleApp</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">director.consoleapp</span> <span class="k">import</span> <span class="n">ConsoleApp</span>
 
-<span class="c"># initialize application components</span>
+<span class="c1"># initialize application components</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">ConsoleApp</span><span class="p">()</span>
 <span class="n">view</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">createView</span><span class="p">()</span>
 <span class="n">view</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
 
-<span class="c"># start the application</span>
+<span class="c1"># start the application</span>
 <span class="n">app</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>

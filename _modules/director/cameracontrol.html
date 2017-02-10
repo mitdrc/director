@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,15 +132,18 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.cameracontrol</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">vtk</span>
+<span></span><span class="kn">import</span> <span class="nn">vtk</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="kn">import</span> <span class="n">TimerCallback</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">transformUtils</span>
+<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="k">import</span> <span class="n">TimerCallback</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">propertyset</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
 
 <div class="viewcode-block" id="OrbitController"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.OrbitController">[docs]</a><span class="k">class</span> <span class="nc">OrbitController</span><span class="p">(</span><span class="n">TimerCallback</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
-        <span class="n">TimerCallback</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">TimerCallback</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">orbitTime</span> <span class="o">=</span> <span class="mf">20.0</span>
 
@@ -144,25 +151,25 @@
         <span class="n">speed</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">orbitTime</span>
         <span class="n">degrees</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elapsed</span> <span class="o">*</span> <span class="n">speed</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">()</span><span class="o">.</span><span class="n">Azimuth</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="Flyer"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.Flyer">[docs]</a><span class="k">class</span> <span class="nc">Flyer</span><span class="p">(</span><span class="n">TimerCallback</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
-        <span class="n">TimerCallback</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">TimerCallback</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flyTime</span> <span class="o">=</span> <span class="mf">0.5</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">startTime</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">maintainViewDirection</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maintainViewDirection</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">positionZoom</span> <span class="o">=</span> <span class="mf">0.7</span>
 
 <div class="viewcode-block" id="Flyer.getCameraCopy"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.Flyer.getCameraCopy">[docs]</a>    <span class="k">def</span> <span class="nf">getCameraCopy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">camera</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCamera</span><span class="p">()</span>
         <span class="n">camera</span><span class="o">.</span><span class="n">DeepCopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">())</span>
-        <span class="k">return</span> <span class="n">camera</span>
-</div>
-<div class="viewcode-block" id="Flyer.zoomTo"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.Flyer.zoomTo">[docs]</a>    <span class="k">def</span> <span class="nf">zoomTo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFocalPoint</span><span class="p">,</span> <span class="n">newPosition</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">camera</span></div>
+
+<div class="viewcode-block" id="Flyer.zoomTo"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.Flyer.zoomTo">[docs]</a>    <span class="k">def</span> <span class="nf">zoomTo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFocalPoint</span><span class="p">,</span> <span class="n">newPosition</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">interp</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCameraInterpolator</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="o">.</span><span class="n">AddCamera</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCameraCopy</span><span class="p">())</span>
@@ -172,13 +179,13 @@
         <span class="n">oldFocalPoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">GetFocalPoint</span><span class="p">())</span>
         <span class="n">oldPosition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
 
-        <span class="k">if</span> <span class="n">newPosition</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">newPosition</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maintainViewDirection</span><span class="p">:</span>
                 <span class="n">newPosition</span> <span class="o">=</span> <span class="n">oldPosition</span> <span class="o">+</span> <span class="p">(</span><span class="n">newFocalPoint</span> <span class="o">-</span> <span class="n">oldFocalPoint</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">newPosition</span> <span class="o">=</span> <span class="n">oldPosition</span>
             <span class="n">newPosition</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">positionZoom</span><span class="o">*</span><span class="p">(</span><span class="n">newFocalPoint</span> <span class="o">-</span> <span class="n">newPosition</span><span class="p">)</span>
-            <span class="c">#newPosition = newFocalPoint - self.positionZoom*(newFocalPoint - newPosition)</span>
+            <span class="c1">#newPosition = newFocalPoint - self.positionZoom*(newFocalPoint - newPosition)</span>
 
         <span class="n">c</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">newFocalPoint</span><span class="p">)</span>
         <span class="n">c</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">newPosition</span><span class="p">)</span>
@@ -186,9 +193,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="o">.</span><span class="n">AddCamera</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">startTime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="Flyer.tick"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.Flyer.tick">[docs]</a>    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">startTime</span>
@@ -198,35 +205,403 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;=</span> <span class="mf">1.0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
 
-</div></div>
+
+<div class="viewcode-block" id="CameraTracker"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker">[docs]</a><span class="k">class</span> <span class="nc">CameraTracker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span> <span class="o">=</span> <span class="n">targetFrame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="n">propertyset</span><span class="o">.</span><span class="n">PropertySet</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">connectPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onPropertyChanged</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+
+<div class="viewcode-block" id="CameraTracker.getTargetPose"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.getTargetPose">[docs]</a>    <span class="k">def</span> <span class="nf">getTargetPose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">poseFromTransform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraTracker.getTargetQuaternion"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.getTargetQuaternion">[docs]</a>    <span class="k">def</span> <span class="nf">getTargetQuaternion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTargetPose</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="CameraTracker.getTargetPosition"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.getTargetPosition">[docs]</a>    <span class="k">def</span> <span class="nf">getTargetPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="CameraTracker.getCameraTransform"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.getCameraTransform">[docs]</a>    <span class="k">def</span> <span class="nf">getCameraTransform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span>
+        <span class="k">return</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">getLookAtTransform</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">GetFocalPoint</span><span class="p">(),</span> <span class="n">c</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">(),</span> <span class="n">c</span><span class="o">.</span><span class="n">GetViewUp</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="CameraTracker.getCameraToTargetTransform"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.getCameraToTargetTransform">[docs]</a>    <span class="k">def</span> <span class="nf">getCameraToTargetTransform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">):</span>
+
+        <span class="n">targetToWorld</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">targetFrame</span><span class="p">)</span>
+        <span class="n">cameraToWorld</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCameraTransform</span><span class="p">()</span>
+
+        <span class="n">cameraToTarget</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">concatenateTransforms</span><span class="p">([</span><span class="n">cameraToWorld</span><span class="p">,</span> <span class="n">targetToWorld</span><span class="o">.</span><span class="n">GetLinearInverse</span><span class="p">()])</span>
+        <span class="n">focalDistance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetFocalPoint</span><span class="p">())</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="n">cameraToTarget</span><span class="p">,</span> <span class="n">focalDistance</span></div>
+
+<div class="viewcode-block" id="CameraTracker.setCameraFocalPointToTarget"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.setCameraFocalPointToTarget">[docs]</a>    <span class="k">def</span> <span class="nf">setCameraFocalPointToTarget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getTargetPosition</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraTracker.getProperties"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.getProperties">[docs]</a>    <span class="k">def</span> <span class="nf">getProperties</span><span class="p">():</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span></div>
+
+<div class="viewcode-block" id="CameraTracker.setup"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CameraTracker.reset"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CameraTracker.update"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CameraTracker.onAction"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.onAction">[docs]</a>    <span class="k">def</span> <span class="nf">onAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actionName</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CameraTracker.getMinimumUpdateRate"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.getMinimumUpdateRate">[docs]</a>    <span class="k">def</span> <span class="nf">getMinimumUpdateRate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="CameraTracker.onPropertyChanged"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTracker.onPropertyChanged">[docs]</a>    <span class="k">def</span> <span class="nf">onPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="PositionTracker"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.PositionTracker">[docs]</a><span class="k">class</span> <span class="nc">PositionTracker</span><span class="p">(</span><span class="n">CameraTracker</span><span class="p">):</span>
+
+<div class="viewcode-block" id="PositionTracker.setup"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.PositionTracker.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Re-center&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="PositionTracker.onAction"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.PositionTracker.onAction">[docs]</a>    <span class="k">def</span> <span class="nf">onAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actionName</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">actionName</span> <span class="o">==</span> <span class="s1">&#39;Re-center&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setCameraFocalPointToTarget</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="PositionTracker.reset"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.PositionTracker.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastTargetPosition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTargetPosition</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastTargetQuaternion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTargetQuaternion</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="PositionTracker.update"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.PositionTracker.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">newTargetPosition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTargetPosition</span><span class="p">()</span>
+
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">newTargetPosition</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastTargetPosition</span>
+
+        <span class="n">followAxes</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">followAxes</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">delta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastTargetPosition</span> <span class="o">=</span> <span class="n">newTargetPosition</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span>
+
+        <span class="n">oldFocalPoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">GetFocalPoint</span><span class="p">())</span>
+        <span class="n">oldPosition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
+
+        <span class="n">c</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">oldFocalPoint</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">oldPosition</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="LookAtTracker"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.LookAtTracker">[docs]</a><span class="k">class</span> <span class="nc">LookAtTracker</span><span class="p">(</span><span class="n">CameraTracker</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LookAtTracker.update"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.LookAtTracker.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCameraFocalPointToTarget</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="LookAtTracker.reset"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.LookAtTracker.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="OrbitTracker"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.OrbitTracker">[docs]</a><span class="k">class</span> <span class="nc">OrbitTracker</span><span class="p">(</span><span class="n">PositionTracker</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrbitTracker.setup"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.OrbitTracker.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OrbitTracker</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s1">&#39;Orbit Time (s)&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">propertyset</span><span class="o">.</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">singleStep</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="OrbitTracker.update"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.OrbitTracker.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OrbitTracker</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="n">orbitTime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Orbit Time (s)&#39;</span><span class="p">)</span>
+        <span class="n">speed</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">/</span> <span class="n">orbitTime</span>
+        <span class="n">degrees</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">*</span> <span class="n">speed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">()</span><span class="o">.</span><span class="n">Azimuth</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="OrbitTracker.getMinimumUpdateRate"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.OrbitTracker.getMinimumUpdateRate">[docs]</a>    <span class="k">def</span> <span class="nf">getMinimumUpdateRate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">60</span></div></div>
+
+
+<div class="viewcode-block" id="PositionOrientationTracker"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.PositionOrientationTracker">[docs]</a><span class="k">class</span> <span class="nc">PositionOrientationTracker</span><span class="p">(</span><span class="n">CameraTracker</span><span class="p">):</span>
+
+<div class="viewcode-block" id="PositionOrientationTracker.storeTargetPose"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.PositionOrientationTracker.storeTargetPose">[docs]</a>    <span class="k">def</span> <span class="nf">storeTargetPose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastTargetPosition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTargetPosition</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastTargetQuaternion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTargetQuaternion</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="PositionOrientationTracker.reset"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.PositionOrientationTracker.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storeTargetPose</span><span class="p">()</span>
+
+        <span class="n">targetToWorld</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
+        <span class="n">cameraToWorld</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCameraTransform</span><span class="p">()</span>
+
+        <span class="n">cameraToTarget</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">concatenateTransforms</span><span class="p">([</span><span class="n">cameraToWorld</span><span class="p">,</span> <span class="n">targetToWorld</span><span class="o">.</span><span class="n">GetLinearInverse</span><span class="p">()])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boomTransform</span> <span class="o">=</span> <span class="n">cameraToTarget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">focalDistance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetFocalPoint</span><span class="p">())</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()))</span></div>
+
+<div class="viewcode-block" id="PositionOrientationTracker.update"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.PositionOrientationTracker.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">previousTargetFrame</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">transformFromPose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastTargetPosition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastTargetQuaternion</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storeTargetPose</span><span class="p">()</span>
+
+        <span class="n">cameraToTarget</span><span class="p">,</span> <span class="n">focalDistance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCameraToTargetTransform</span><span class="p">(</span><span class="n">previousTargetFrame</span><span class="p">)</span>
+
+        <span class="n">targetToWorld</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="o">.</span><span class="n">transform</span>
+        <span class="c1">#cameraToTarget = self.boomTransform</span>
+        <span class="n">cameraToWorld</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">concatenateTransforms</span><span class="p">([</span><span class="n">cameraToTarget</span><span class="p">,</span> <span class="n">targetToWorld</span><span class="p">])</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span>
+
+        <span class="n">focalPoint</span> <span class="o">=</span> <span class="n">cameraToWorld</span><span class="o">.</span><span class="n">TransformPoint</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">focalDistance</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">focalPoint</span> <span class="o">=</span> <span class="n">targetToWorld</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()</span>
+
+        <span class="c1">#print &#39;focal distance:&#39;, self.focalDistance</span>
+        <span class="c1">#print &#39;cameraToTarget pos:&#39;, cameraToTarget.GetPosition()</span>
+        <span class="c1">#print &#39;cameraToWorld pos:&#39;, cameraToWorld.GetPosition()</span>
+        <span class="c1">#print &#39;targetToWorld pos:&#39;, targetToWorld.GetPosition()</span>
+        <span class="c1">#print &#39;focal pos:&#39;, focalPoint</span>
+
+        <span class="n">c</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">cameraToWorld</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">focalPoint</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="SmoothFollowTracker"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.SmoothFollowTracker">[docs]</a><span class="k">class</span> <span class="nc">SmoothFollowTracker</span><span class="p">(</span><span class="n">CameraTracker</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SmoothFollowTracker.getMinimumUpdateRate"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.SmoothFollowTracker.getMinimumUpdateRate">[docs]</a>    <span class="k">def</span> <span class="nf">getMinimumUpdateRate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">30</span></div>
+
+<div class="viewcode-block" id="SmoothFollowTracker.setup"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.SmoothFollowTracker.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s1">&#39;Smooth Time (s)&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">propertyset</span><span class="o">.</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minimum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">singleStep</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s1">&#39;Distance (m)&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">propertyset</span><span class="o">.</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minimum</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">singleStep</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s1">&#39;Elevation (deg)&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">propertyset</span><span class="o">.</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">minimum</span><span class="o">=-</span><span class="mi">90</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">singleStep</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s1">&#39;Azimuth (deg)&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">propertyset</span><span class="o">.</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">minimum</span><span class="o">=-</span><span class="mi">180</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">singleStep</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SmoothFollowTracker.reset"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.SmoothFollowTracker.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currentVelocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="SmoothFollowTracker.update"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.SmoothFollowTracker.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="p">:</span>
+            <span class="k">return</span>
+
+
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Distance (m)&#39;</span><span class="p">)</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">90</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Elevation (deg)&#39;</span><span class="p">))</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Azimuth (deg)&#39;</span><span class="p">))</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+
+
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span>
+        <span class="n">targetToWorld</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="o">.</span><span class="n">transform</span>
+
+        <span class="n">currentPosition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
+        <span class="n">desiredPosition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">targetToWorld</span><span class="o">.</span><span class="n">TransformPoint</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]))</span>
+
+        <span class="n">smoothTime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Smooth Time (s)&#39;</span><span class="p">)</span>
+
+        <span class="n">newPosition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentVelocity</span> <span class="o">=</span> <span class="n">smoothDamp</span><span class="p">(</span><span class="n">currentPosition</span><span class="p">,</span> <span class="n">desiredPosition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentVelocity</span><span class="p">,</span> <span class="n">smoothTime</span><span class="p">,</span> <span class="n">maxSpeed</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">deltaTime</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+
+        <span class="n">trackerToWorld</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">getLookAtTransform</span><span class="p">(</span><span class="n">targetToWorld</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">(),</span> <span class="n">newPosition</span><span class="p">)</span>
+
+        <span class="n">c</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">targetToWorld</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">trackerToWorld</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="TargetFrameConverter"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.TargetFrameConverter">[docs]</a><span class="k">class</span> <span class="nc">TargetFrameConverter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="TargetFrameConverter.getTargetFrame"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.TargetFrameConverter.getTargetFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getTargetFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TargetFrameConverter.canConvert"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.TargetFrameConverter.canConvert">[docs]</a>    <span class="k">def</span> <span class="nf">canConvert</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+
+
+<div class="viewcode-block" id="CameraTrackerManager"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager">[docs]</a><span class="k">class</span> <span class="nc">CameraTrackerManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trackerClass</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">TimerCallback</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">updateTimer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addTrackers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initTracker</span><span class="p">()</span>
+
+<div class="viewcode-block" id="CameraTrackerManager.updateTimer"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.updateTimer">[docs]</a>    <span class="k">def</span> <span class="nf">updateTimer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">tNow</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">tNow</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tLast</span>
+        <span class="k">if</span> <span class="n">dt</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">elapsed</span><span class="o">/</span><span class="mf">2.0</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.setView"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.setView">[docs]</a>    <span class="k">def</span> <span class="nf">setView</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.setTarget"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.setTarget">[docs]</a>    <span class="k">def</span> <span class="nf">setTarget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        target should be an instance of TargetFrameConverter or</span>
+<span class="sd">        any object that provides a method getTargetFrame().</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">disableActiveTracker</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">getTargetFrame</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbackId</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="o">.</span><span class="n">connectFrameModified</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onTargetFrameModified</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initTracker</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.disableActiveTracker"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.disableActiveTracker">[docs]</a>    <span class="k">def</span> <span class="nf">disableActiveTracker</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="o">.</span><span class="n">disconnectFrameModified</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callbackId</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initTracker</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.update"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">tNow</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">tNow</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tLast</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tLast</span> <span class="o">=</span> <span class="n">tNow</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.reset"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tLast</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="CameraTrackerManager.getModeActions"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.getModeActions">[docs]</a>    <span class="k">def</span> <span class="nf">getModeActions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="o">.</span><span class="n">actions</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.onModeAction"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.onModeAction">[docs]</a>    <span class="k">def</span> <span class="nf">onModeAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actionName</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="o">.</span><span class="n">onAction</span><span class="p">(</span><span class="n">actionName</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.getModeProperties"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.getModeProperties">[docs]</a>    <span class="k">def</span> <span class="nf">getModeProperties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="o">.</span><span class="n">properties</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.onTargetFrameModified"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.onTargetFrameModified">[docs]</a>    <span class="k">def</span> <span class="nf">onTargetFrameModified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.initTracker"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.initTracker">[docs]</a>    <span class="k">def</span> <span class="nf">initTracker</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackerClass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackerClass</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">targetFrame</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="p">:</span>
+            <span class="n">minimumUpdateRate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activeTracker</span><span class="o">.</span><span class="n">getMinimumUpdateRate</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">minimumUpdateRate</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">targetFps</span> <span class="o">=</span> <span class="n">minimumUpdateRate</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.addTrackers"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.addTrackers">[docs]</a>    <span class="k">def</span> <span class="nf">addTrackers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trackers</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span>
+          <span class="p">[</span><span class="s1">&#39;Off&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;Position&#39;</span><span class="p">,</span> <span class="n">PositionTracker</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;Position &amp; Orientation&#39;</span><span class="p">,</span> <span class="n">PositionOrientationTracker</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;Smooth Follow&#39;</span><span class="p">,</span> <span class="n">SmoothFollowTracker</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;Look At&#39;</span><span class="p">,</span> <span class="n">LookAtTracker</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;Orbit&#39;</span><span class="p">,</span> <span class="n">OrbitTracker</span><span class="p">],</span>
+        <span class="p">])</span></div>
+
+<div class="viewcode-block" id="CameraTrackerManager.setTrackerMode"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraTrackerManager.setTrackerMode">[docs]</a>    <span class="k">def</span> <span class="nf">setTrackerMode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modeName</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">modeName</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trackerClass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackers</span><span class="p">[</span><span class="n">modeName</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initTracker</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="smoothDamp"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.smoothDamp">[docs]</a><span class="k">def</span> <span class="nf">smoothDamp</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">currentVelocity</span><span class="p">,</span> <span class="n">smoothTime</span><span class="p">,</span> <span class="n">maxSpeed</span><span class="p">,</span> <span class="n">deltaTime</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Based on Unity3D SmoothDamp</span>
+<span class="sd">    See: http://answers.unity3d.com/answers/310645/view.html</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">smoothTime</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">smoothTime</span><span class="p">)</span>
+
+    <span class="n">num</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">smoothTime</span><span class="p">;</span>
+    <span class="n">num2</span> <span class="o">=</span> <span class="n">num</span> <span class="o">*</span> <span class="n">deltaTime</span><span class="p">;</span>
+    <span class="n">num3</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">num2</span> <span class="o">+</span> <span class="mf">0.48</span> <span class="o">*</span> <span class="n">num2</span> <span class="o">*</span> <span class="n">num2</span> <span class="o">+</span> <span class="mf">0.235</span> <span class="o">*</span> <span class="n">num2</span> <span class="o">*</span> <span class="n">num2</span> <span class="o">*</span> <span class="n">num2</span><span class="p">)</span>
+    <span class="n">num4</span> <span class="o">=</span> <span class="n">current</span> <span class="o">-</span> <span class="n">target</span>
+    <span class="n">num5</span> <span class="o">=</span> <span class="n">target</span>
+    <span class="n">num6</span> <span class="o">=</span> <span class="n">maxSpeed</span> <span class="o">*</span> <span class="n">smoothTime</span>
+    <span class="n">num4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">num4</span><span class="p">,</span> <span class="o">-</span><span class="n">num6</span><span class="p">,</span> <span class="n">num6</span><span class="p">)</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">current</span> <span class="o">-</span> <span class="n">num4</span>
+    <span class="n">num7</span> <span class="o">=</span> <span class="p">(</span><span class="n">currentVelocity</span> <span class="o">+</span> <span class="n">num</span> <span class="o">*</span> <span class="n">num4</span><span class="p">)</span> <span class="o">*</span> <span class="n">deltaTime</span>
+    <span class="n">currentVelocity</span> <span class="o">=</span> <span class="p">(</span><span class="n">currentVelocity</span> <span class="o">-</span> <span class="n">num</span> <span class="o">*</span> <span class="n">num7</span><span class="p">)</span> <span class="o">*</span> <span class="n">num3</span>
+    <span class="n">num8</span> <span class="o">=</span> <span class="n">target</span> <span class="o">+</span> <span class="p">(</span><span class="n">num4</span> <span class="o">+</span> <span class="n">num7</span><span class="p">)</span> <span class="o">*</span> <span class="n">num3</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">current</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">num5</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">current</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="o">==</span> <span class="n">num8</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">num5</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+            <span class="n">num8</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">num5</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">currentVelocity</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">num8</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">num5</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">deltaTime</span>
+
+    <span class="k">return</span> <span class="n">num8</span><span class="p">,</span> <span class="n">currentVelocity</span></div>
+
+
 <div class="viewcode-block" id="RobotModelFollower"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.RobotModelFollower">[docs]</a><span class="k">class</span> <span class="nc">RobotModelFollower</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">,</span> <span class="n">jointController</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span> <span class="o">=</span> <span class="n">robotModel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span> <span class="o">=</span> <span class="n">jointController</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">followAxes</span> <span class="o">=</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbackId</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">followAxes</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbackId</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="RobotModelFollower.start"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.RobotModelFollower.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbackId</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span><span class="o">.</span><span class="n">connectModelChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onModelChanged</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastTrackPosition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">q</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastTrackPosition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">q</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="RobotModelFollower.stop"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.RobotModelFollower.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span><span class="o">.</span><span class="n">disconnectModelChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span><span class="o">.</span><span class="n">disconnectModelChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callbackId</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="RobotModelFollower.getCameraCopy"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.RobotModelFollower.getCameraCopy">[docs]</a>    <span class="k">def</span> <span class="nf">getCameraCopy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">camera</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCamera</span><span class="p">()</span>
         <span class="n">camera</span><span class="o">.</span><span class="n">DeepCopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">())</span>
-        <span class="k">return</span> <span class="n">camera</span>
-</div>
+        <span class="k">return</span> <span class="n">camera</span></div>
+
 <div class="viewcode-block" id="RobotModelFollower.onModelChanged"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.RobotModelFollower.onModelChanged">[docs]</a>    <span class="k">def</span> <span class="nf">onModelChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
         <span class="n">newTrackPosition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">q</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
 
         <span class="n">delta</span> <span class="o">=</span> <span class="n">newTrackPosition</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastTrackPosition</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">followAxes</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
                 <span class="n">delta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 

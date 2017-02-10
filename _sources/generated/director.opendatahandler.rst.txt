@@ -1,0 +1,7 @@
+director.opendatahandler module
+===============================
+
+.. automodule:: director.opendatahandler
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>director.opendatahandler &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Director  documentation" href="../../index.html"/>
+        <link rel="up" title="director" href="../director.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../director.html">director</a> &raquo;</li>
+      
+    <li>director.opendatahandler</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for director.opendatahandler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">ioUtils</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtGui</span>
+
+
+<div class="viewcode-block" id="OpenDataHandler"><a class="viewcode-back" href="../../generated/director.opendatahandler.html#director.opendatahandler.OpenDataHandler">[docs]</a><span class="k">class</span> <span class="nc">OpenDataHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mainWindowApp</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">mainWindowApp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rootFolderName</span> <span class="o">=</span> <span class="s1">&#39;data files&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">openAction</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;&amp;Open Data...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fileMenu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fileMenu</span><span class="o">.</span><span class="n">insertAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">quitAction</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">openAction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fileMenu</span><span class="o">.</span><span class="n">insertSeparator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">quitAction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">openAction</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QKeySequence</span><span class="p">(</span><span class="s1">&#39;Ctrl+O&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">openAction</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onOpenDataFile</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="OpenDataHandler.getRootFolder"><a class="viewcode-back" href="../../generated/director.opendatahandler.html#director.opendatahandler.OpenDataHandler.getRootFolder">[docs]</a>    <span class="k">def</span> <span class="nf">getRootFolder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">om</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rootFolderName</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenDataHandler.onOpenVrml"><a class="viewcode-back" href="../../generated/director.opendatahandler.html#director.opendatahandler.OpenDataHandler.onOpenVrml">[docs]</a>    <span class="k">def</span> <span class="nf">onOpenVrml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="n">meshes</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">ioUtils</span><span class="o">.</span><span class="n">readVrml</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">parentObj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getRootFolder</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">meshes</span><span class="p">,</span> <span class="n">color</span><span class="p">)):</span>
+            <span class="n">mesh</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">pair</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s1">&#39;mesh </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">folder</span><span class="p">)</span>
+            <span class="n">vis</span><span class="o">.</span><span class="n">addChildFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenDataHandler.openGeometry"><a class="viewcode-back" href="../../generated/director.opendatahandler.html#director.opendatahandler.OpenDataHandler.openGeometry">[docs]</a>    <span class="k">def</span> <span class="nf">openGeometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;wrl&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onOpenVrml</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">polyData</span> <span class="o">=</span> <span class="n">ioUtils</span><span class="o">.</span><span class="n">readPolyData</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">polyData</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">polyData</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">showErrorMessage</span><span class="p">(</span><span class="s1">&#39;Failed to read any data from file: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Reader error&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getRootFolder</span><span class="p">())</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">addChildFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenDataHandler.onOpenDataFile"><a class="viewcode-back" href="../../generated/director.opendatahandler.html#director.opendatahandler.OpenDataHandler.onOpenDataFile">[docs]</a>    <span class="k">def</span> <span class="nf">onOpenDataFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">fileFilters</span> <span class="o">=</span> <span class="s1">&#39;Data Files (*.obj *.ply *.stl *.vtk *.vtp *.wrl)&#39;</span><span class="p">;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">,</span> <span class="s1">&#39;Open...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getOpenDataDirectory</span><span class="p">(),</span> <span class="n">fileFilters</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">storeOpenDataDirectory</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">openGeometry</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenDataHandler.getOpenDataDirectory"><a class="viewcode-back" href="../../generated/director.opendatahandler.html#director.opendatahandler.OpenDataHandler.getOpenDataDirectory">[docs]</a>    <span class="k">def</span> <span class="nf">getOpenDataDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;OpenDataDir&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenDataHandler.storeOpenDataDirectory"><a class="viewcode-back" href="../../generated/director.opendatahandler.html#director.opendatahandler.OpenDataHandler.storeOpenDataDirectory">[docs]</a>    <span class="k">def</span> <span class="nf">storeOpenDataDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s1">&#39;OpenDataDir&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

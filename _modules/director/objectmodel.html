@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,24 +132,26 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.objectmodel</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">PythonQt</span>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
-<span class="kn">from</span> <span class="nn">director.propertyset</span> <span class="kn">import</span> <span class="n">PropertySet</span><span class="p">,</span> <span class="n">PropertyAttributes</span><span class="p">,</span> <span class="n">PropertyPanelHelper</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">callbacks</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">from</span> <span class="nn">director.propertyset</span> <span class="k">import</span> <span class="n">PropertySet</span><span class="p">,</span> <span class="n">PropertyAttributes</span><span class="p">,</span> <span class="n">PropertyPanelHelper</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">callbacks</span>
 
 <div class="viewcode-block" id="Icons"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.Icons">[docs]</a><span class="k">class</span> <span class="nc">Icons</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
   <span class="n">Directory</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QStyle</span><span class="o">.</span><span class="n">SP_DirIcon</span><span class="p">)</span>
-  <span class="n">Axes</span> <span class="o">=</span> <span class="s">&#39;:/images/axes_icon.png&#39;</span>
-  <span class="n">Eye</span> <span class="o">=</span> <span class="s">&#39;:/images/eye_icon.png&#39;</span>
-  <span class="n">EyeOff</span> <span class="o">=</span> <span class="s">&#39;:/images/eye_icon_gray.png&#39;</span>
-  <span class="n">Matlab</span> <span class="o">=</span> <span class="s">&#39;:/images/matlab_logo.png&#39;</span>
-  <span class="n">Robot</span> <span class="o">=</span> <span class="s">&#39;:/images/robot_icon.png&#39;</span>
-  <span class="n">Hammer</span> <span class="o">=</span> <span class="s">&#39;:/images/hammer_icon.png&#39;</span>
-  <span class="n">Laser</span> <span class="o">=</span> <span class="s">&#39;:/images/laser_icon.jpg&#39;</span>
-  <span class="n">Feet</span> <span class="o">=</span> <span class="s">&#39;:/images/feet.png&#39;</span>
-  <span class="n">Hand</span> <span class="o">=</span> <span class="s">&#39;:/images/claw.png&#39;</span>
+  <span class="n">Axes</span> <span class="o">=</span> <span class="s1">&#39;:/images/axes_icon.png&#39;</span>
+  <span class="n">Eye</span> <span class="o">=</span> <span class="s1">&#39;:/images/eye_icon.png&#39;</span>
+  <span class="n">EyeOff</span> <span class="o">=</span> <span class="s1">&#39;:/images/eye_icon_gray.png&#39;</span>
+  <span class="n">Matlab</span> <span class="o">=</span> <span class="s1">&#39;:/images/matlab_logo.png&#39;</span>
+  <span class="n">Robot</span> <span class="o">=</span> <span class="s1">&#39;:/images/robot_icon.png&#39;</span>
+  <span class="n">Hammer</span> <span class="o">=</span> <span class="s1">&#39;:/images/hammer_icon.png&#39;</span>
+  <span class="n">Laser</span> <span class="o">=</span> <span class="s1">&#39;:/images/laser_icon.jpg&#39;</span>
+  <span class="n">Feet</span> <span class="o">=</span> <span class="s1">&#39;:/images/feet.png&#39;</span>
+  <span class="n">Hand</span> <span class="o">=</span> <span class="s1">&#39;:/images/claw.png&#39;</span>
+  <span class="n">Octomap</span> <span class="o">=</span> <span class="s1">&#39;:/images/octomap.jpg&#39;</span>
+  <span class="n">Collections</span> <span class="o">=</span> <span class="s1">&#39;:/images/rubix_cube.jpg&#39;</span>
 
   <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Icons.getIcon"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.Icons.getIcon">[docs]</a>  <span class="k">def</span> <span class="nf">getIcon</span><span class="p">(</span><span class="n">iconId</span><span class="p">):</span>
@@ -155,68 +161,68 @@
       <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">iconId</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">:</span>
           <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">iconId</span><span class="p">)</span>
       <span class="k">else</span><span class="p">:</span>
-          <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">iconId</span><span class="p">)</span>
-</div></div>
+          <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">iconId</span><span class="p">)</span></div></div>
+
 <div class="viewcode-block" id="ObjectModelItem"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem">[docs]</a><span class="k">class</span> <span class="nc">ObjectModelItem</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="n">REMOVED_FROM_OBJECT_MODEL</span> <span class="o">=</span> <span class="s">&#39;REMOVED_FROM_OBJECT_MODEL&#39;</span>
+    <span class="n">REMOVED_FROM_OBJECT_MODEL</span> <span class="o">=</span> <span class="s1">&#39;REMOVED_FROM_OBJECT_MODEL&#39;</span>
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c">#print &#39;getstate called on:&#39;, self</span>
+        <span class="c1">#print &#39;getstate called on:&#39;, self</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span>
 
     <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
-        <span class="c">#print &#39;setstate called on:&#39;, self</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;properties&#39;</span><span class="p">]</span>
+        <span class="c1">#print &#39;setstate called on:&#39;, self</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;properties&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">Icons</span><span class="o">.</span><span class="n">Robot</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">Icons</span><span class="o">.</span><span class="n">Robot</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
-        <span class="c">#print &#39;init called on:&#39;, self</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c1">#print &#39;init called on:&#39;, self</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">CallbackRegistry</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">REMOVED_FROM_OBJECT_MODEL</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="n">properties</span> <span class="ow">or</span> <span class="n">PropertySet</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">connectPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onPropertyChanged</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">connectPropertyAdded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onPropertyAdded</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">connectPropertyAttributeChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onPropertyAttributeChanged</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s">&#39;Icon&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">hidden</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s">&#39;Deletable&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">hidden</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">hidden</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s1">&#39;Icon&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">hidden</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s1">&#39;Deletable&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">hidden</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">PropertyAttributes</span><span class="p">(</span><span class="n">hidden</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
 <div class="viewcode-block" id="ObjectModelItem.setIcon"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.setIcon">[docs]</a>    <span class="k">def</span> <span class="nf">setIcon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icon</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Icon&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Icon&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.propertyNames"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.propertyNames">[docs]</a>    <span class="k">def</span> <span class="nf">propertyNames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">propertyNames</span><span class="p">()</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">propertyNames</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.hasProperty"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.hasProperty">[docs]</a>    <span class="k">def</span> <span class="nf">hasProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.getProperty"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.getProperty">[docs]</a>    <span class="k">def</span> <span class="nf">getProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.getPropertyEnumValue"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.getPropertyEnumValue">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertyEnumValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getPropertyEnumValue</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="ObjectModelItem.addProperty"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.addProperty">[docs]</a>    <span class="k">def</span> <span class="nf">addProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getPropertyEnumValue</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectModelItem.addProperty"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.addProperty">[docs]</a>    <span class="k">def</span> <span class="nf">addProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.removeProperty"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.removeProperty">[docs]</a>    <span class="k">def</span> <span class="nf">removeProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">removeProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">removeProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.setProperty"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.setProperty">[docs]</a>    <span class="k">def</span> <span class="nf">setProperty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyValue</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.getPropertyAttribute"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.getPropertyAttribute">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertyAttribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getPropertyAttribute</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">getPropertyAttribute</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.setPropertyAttribute"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.setPropertyAttribute">[docs]</a>    <span class="k">def</span> <span class="nf">setPropertyAttribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">setPropertyAttribute</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">setPropertyAttribute</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">propertyAttribute</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">_onPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">_onPropertyValueChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_onPropertyAdded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
@@ -226,112 +232,120 @@
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="ObjectModelItem.hasDataSet"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.hasDataSet">[docs]</a>    <span class="k">def</span> <span class="nf">hasDataSet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataSet</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">False</span>
-</div>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.getActionNames"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.getActionNames">[docs]</a>    <span class="k">def</span> <span class="nf">getActionNames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Rename&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">actions</span>
-</div>
+        <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Rename&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">actions</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.onAction"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.onAction">[docs]</a>    <span class="k">def</span> <span class="nf">onAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s">&#39;Rename&#39;</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;Rename&#39;</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
 
             <span class="n">inputDialog</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QInputDialog</span><span class="p">()</span>
             <span class="n">inputDialog</span><span class="o">.</span><span class="n">setInputMode</span><span class="p">(</span><span class="n">inputDialog</span><span class="o">.</span><span class="n">TextInput</span><span class="p">)</span>
-            <span class="n">inputDialog</span><span class="o">.</span><span class="n">setLabelText</span><span class="p">(</span><span class="s">&#39;Name:&#39;</span><span class="p">)</span>
-            <span class="n">inputDialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;Enter name&#39;</span><span class="p">)</span>
+            <span class="n">inputDialog</span><span class="o">.</span><span class="n">setLabelText</span><span class="p">(</span><span class="s1">&#39;Name:&#39;</span><span class="p">)</span>
+            <span class="n">inputDialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Enter name&#39;</span><span class="p">)</span>
             <span class="n">inputDialog</span><span class="o">.</span><span class="n">setTextValue</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">inputDialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">inputDialog</span><span class="o">.</span><span class="n">textValue</span><span class="p">())</span>
-</div>
-<div class="viewcode-block" id="ObjectModelItem.rename"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.rename">[docs]</a>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">renameChildren</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="n">oldName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">inputDialog</span><span class="o">.</span><span class="n">textValue</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="ObjectModelItem.rename"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.rename">[docs]</a>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">renameChildren</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">oldName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">renameChildren</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
-                <span class="n">childName</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+                <span class="n">childName</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">childName</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">oldName</span><span class="p">):</span>
-                    <span class="n">child</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">name</span> <span class="o">+</span> <span class="n">childName</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">oldName</span><span class="p">):])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-</div>
+                    <span class="n">child</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">name</span> <span class="o">+</span> <span class="n">childName</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">oldName</span><span class="p">):])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.getObjectTree"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.getObjectTree">[docs]</a>    <span class="k">def</span> <span class="nf">getObjectTree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.onRemoveFromObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.onRemoveFromObjectModel">[docs]</a>    <span class="k">def</span> <span class="nf">onRemoveFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-</div>
+        <span class="k">pass</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.connectRemovedFromObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.connectRemovedFromObjectModel">[docs]</a>    <span class="k">def</span> <span class="nf">connectRemovedFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">REMOVED_FROM_OBJECT_MODEL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">REMOVED_FROM_OBJECT_MODEL</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.disconnectRemovedFromObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.disconnectRemovedFromObjectModel">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectRemovedFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.parent"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.parent">[docs]</a>    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">getObjectParent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">getObjectParent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelItem.children"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.children">[docs]</a>    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">getObjectChildren</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-</div>
-<div class="viewcode-block" id="ObjectModelItem.findChild"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.findChild">[docs]</a>    <span class="k">def</span> <span class="nf">findChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">findChildByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
 
-</div></div>
+<div class="viewcode-block" id="ObjectModelItem.findChild"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelItem.findChild">[docs]</a>    <span class="k">def</span> <span class="nf">findChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">findChildByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div></div>
+
+
 <div class="viewcode-block" id="ContainerItem"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ContainerItem">[docs]</a><span class="k">class</span> <span class="nc">ContainerItem</span><span class="p">(</span><span class="n">ObjectModelItem</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="n">ObjectModelItem</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">Icons</span><span class="o">.</span><span class="n">Directory</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="n">ObjectModelItem</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">Icons</span><span class="o">.</span><span class="n">Directory</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_onPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
         <span class="n">ObjectModelItem</span><span class="o">.</span><span class="n">_onPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">propertyName</span> <span class="o">==</span> <span class="s">&#39;Visible&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">propertyName</span> <span class="o">==</span> <span class="s1">&#39;Visible&#39;</span><span class="p">:</span>
             <span class="n">visible</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">):</span>
-                    <span class="n">child</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">visible</span><span class="p">)</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">,</span> <span class="n">visible</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="ObjectModelTree"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree">[docs]</a><span class="k">class</span> <span class="nc">ObjectModelTree</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="n">ACTION_SELECTED</span> <span class="o">=</span> <span class="s">&#39;ACTION_SELECTED&#39;</span>
+    <span class="n">ACTION_SELECTED</span> <span class="o">=</span> <span class="s1">&#39;ACTION_SELECTED&#39;</span>
+    <span class="n">OBJECT_ADDED</span> <span class="o">=</span> <span class="s1">&#39;OBJECT_ADDED&#39;</span>
+    <span class="n">OBJECT_CLICKED</span> <span class="o">=</span> <span class="s1">&#39;OBJECT_CLICKED&#39;</span>
+    <span class="n">SELECTION_CHANGED</span> <span class="o">=</span> <span class="s1">&#39;SELECTION_CHANGED&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_treeWidget</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_propertiesPanel</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_treeWidget</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_propertiesPanel</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">CallbackRegistry</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">ACTION_SELECTED</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">CallbackRegistry</span><span class="p">([</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">ACTION_SELECTED</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">OBJECT_ADDED</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">OBJECT_CLICKED</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">SELECTION_CHANGED</span><span class="p">,</span>
+                            <span class="p">])</span>
 
 <div class="viewcode-block" id="ObjectModelTree.getTreeWidget"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.getTreeWidget">[docs]</a>    <span class="k">def</span> <span class="nf">getTreeWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_treeWidget</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_treeWidget</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.getPropertiesPanel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.getPropertiesPanel">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertiesPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_propertiesPanel</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_propertiesPanel</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.getObjectParent"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.getObjectParent">[docs]</a>    <span class="k">def</span> <span class="nf">getObjectParent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">():</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getObjectForItem</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">())</span>
-</div>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getObjectForItem</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">())</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.getObjectChildren"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.getObjectChildren">[docs]</a>    <span class="k">def</span> <span class="nf">getObjectChildren</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_getObjectForItem</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">childCount</span><span class="p">())]</span>
-</div>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_getObjectForItem</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">childCount</span><span class="p">())]</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.getTopLevelObjects"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.getTopLevelObjects">[docs]</a>    <span class="k">def</span> <span class="nf">getTopLevelObjects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_getObjectForItem</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_treeWidget</span><span class="o">.</span><span class="n">topLevelItem</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-                  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_treeWidget</span><span class="o">.</span><span class="n">topLevelItemCount</span><span class="p">)]</span>
-</div>
+                  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_treeWidget</span><span class="o">.</span><span class="n">topLevelItemCount</span><span class="p">)]</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.getActiveObject"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.getActiveObject">[docs]</a>    <span class="k">def</span> <span class="nf">getActiveObject</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getSelectedItem</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">None</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.setActiveObject"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.setActiveObject">[docs]</a>    <span class="k">def</span> <span class="nf">setActiveObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">item</span><span class="p">:</span>
@@ -339,17 +353,17 @@
             <span class="n">tree</span><span class="o">.</span><span class="n">setCurrentItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
             <span class="n">tree</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.clearSelection"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.clearSelection">[docs]</a>    <span class="k">def</span> <span class="nf">clearSelection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">setCurrentItem</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">setCurrentItem</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.getObjects"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.getObjects">[docs]</a>    <span class="k">def</span> <span class="nf">getObjects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
+
     <span class="k">def</span> <span class="nf">_getSelectedItem</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_getItemForObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">itemObj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
@@ -359,18 +373,18 @@
     <span class="k">def</span> <span class="nf">_getObjectForItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
 
-<div class="viewcode-block" id="ObjectModelTree.findObjectByName"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.findObjectByName">[docs]</a>    <span class="k">def</span> <span class="nf">findObjectByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ObjectModelTree.findObjectByName"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.findObjectByName">[docs]</a>    <span class="k">def</span> <span class="nf">findObjectByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">parent</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">findChildByName</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">obj</span>
-</div>
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">obj</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.findChildByName"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.findChildByName">[docs]</a>    <span class="k">def</span> <span class="nf">findChildByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getObjectChildren</span><span class="p">(</span><span class="n">parent</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">child</span>
-</div>
+            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">child</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.onPropertyChanged"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.onPropertyChanged">[docs]</a>    <span class="k">def</span> <span class="nf">onPropertyChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span><span class="p">:</span>
@@ -379,63 +393,63 @@
         <span class="n">propertiesPanel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPropertiesPanel</span><span class="p">()</span>
         <span class="n">propertySet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getActiveObject</span><span class="p">()</span><span class="o">.</span><span class="n">properties</span>
 
-        <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">setPropertyFromPanel</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">propertiesPanel</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">)</span>
+        <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">setPropertyFromPanel</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">propertiesPanel</span><span class="p">,</span> <span class="n">propertySet</span><span class="p">)</span></div>
 
-</div>
+
     <span class="k">def</span> <span class="nf">_onTreeSelectionChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">panel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPropertiesPanel</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">panel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getActiveObject</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="p">:</span>
-            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">addPropertiesToPanel</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="n">panel</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">addPropertiesToPanel</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="n">panel</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SELECTION_CHANGED</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ObjectModelTree.updateVisIcon"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.updateVisIcon">[docs]</a>    <span class="k">def</span> <span class="nf">updateVisIcon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">):</span>
             <span class="k">return</span>
 
-        <span class="n">isVisible</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">)</span>
+        <span class="n">isVisible</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">)</span>
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="n">item</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Icons</span><span class="o">.</span><span class="n">getIcon</span><span class="p">(</span><span class="n">Icons</span><span class="o">.</span><span class="n">Eye</span> <span class="k">if</span> <span class="n">isVisible</span> <span class="k">else</span> <span class="n">Icons</span><span class="o">.</span><span class="n">EyeOff</span><span class="p">))</span>
-</div>
+        <span class="n">item</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Icons</span><span class="o">.</span><span class="n">getIcon</span><span class="p">(</span><span class="n">Icons</span><span class="o">.</span><span class="n">Eye</span> <span class="k">if</span> <span class="n">isVisible</span> <span class="k">else</span> <span class="n">Icons</span><span class="o">.</span><span class="n">EyeOff</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.updateObjectIcon"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.updateObjectIcon">[docs]</a>    <span class="k">def</span> <span class="nf">updateObjectIcon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="n">item</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Icons</span><span class="o">.</span><span class="n">getIcon</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Icon&#39;</span><span class="p">)))</span>
-</div>
+        <span class="n">item</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Icons</span><span class="o">.</span><span class="n">getIcon</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Icon&#39;</span><span class="p">)))</span></div>
+
 <div class="viewcode-block" id="ObjectModelTree.updateObjectName"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.updateObjectName">[docs]</a>    <span class="k">def</span> <span class="nf">updateObjectName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="n">item</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">))</span>
-</div>
+        <span class="n">item</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">))</span></div>
+
     <span class="k">def</span> <span class="nf">_onPropertyValueChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="n">propertyName</span> <span class="o">==</span> <span class="s">&#39;Visible&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">propertyName</span> <span class="o">==</span> <span class="s1">&#39;Visible&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">updateVisIcon</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">propertyName</span> <span class="o">==</span> <span class="s">&#39;Name&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">propertyName</span> <span class="o">==</span> <span class="s1">&#39;Name&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">updateObjectName</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">propertyName</span> <span class="o">==</span> <span class="s">&#39;Icon&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">propertyName</span> <span class="o">==</span> <span class="s1">&#39;Icon&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">updateObjectIcon</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">obj</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">getActiveObject</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">onPropertyValueChanged</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPropertiesPanel</span><span class="p">(),</span> <span class="n">obj</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_blockSignals</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_onItemClicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
 
         <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">):</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">):</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">updateVisIcon</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">OBJECT_CLICKED</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_removeItemFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="k">while</span> <span class="n">item</span><span class="o">.</span><span class="n">childCount</span><span class="p">():</span>
@@ -448,7 +462,7 @@
 
         <span class="n">obj</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">REMOVED_FROM_OBJECT_MODEL</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">onRemoveFromObjectModel</span><span class="p">()</span>
-        <span class="n">obj</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">():</span>
             <span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
@@ -460,62 +474,64 @@
 
 
 <div class="viewcode-block" id="ObjectModelTree.removeFromObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.removeFromObjectModel">[docs]</a>    <span class="k">def</span> <span class="nf">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">item</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_removeItemFromObjectModel</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_removeItemFromObjectModel</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="ObjectModelTree.addToObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.addToObjectModel">[docs]</a>    <span class="k">def</span> <span class="nf">addToObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">obj</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="ObjectModelTree.addToObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.addToObjectModel">[docs]</a>    <span class="k">def</span> <span class="nf">addToObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">obj</span><span class="o">.</span><span class="n">_tree</span> <span class="ow">is</span> <span class="kc">None</span>
 
         <span class="n">parentItem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">parentObj</span><span class="p">)</span>
-        <span class="n">objName</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+        <span class="n">objName</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
 
         <span class="n">item</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QTreeWidgetItem</span><span class="p">(</span><span class="n">parentItem</span><span class="p">,</span> <span class="p">[</span><span class="n">objName</span><span class="p">])</span>
-        <span class="n">item</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Icons</span><span class="o">.</span><span class="n">getIcon</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Icon&#39;</span><span class="p">)))</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Icons</span><span class="o">.</span><span class="n">getIcon</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Icon&#39;</span><span class="p">)))</span>
 
         <span class="n">obj</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="bp">self</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateVisIcon</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">parentItem</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">parentItem</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span>
             <span class="n">tree</span><span class="o">.</span><span class="n">addTopLevelItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
             <span class="n">tree</span><span class="o">.</span><span class="n">expandItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">OBJECT_ADDED</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="ObjectModelTree.collapse"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.collapse">[docs]</a>    <span class="k">def</span> <span class="nf">collapse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">item</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">collapseItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">collapseItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="ObjectModelTree.expand"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.expand">[docs]</a>    <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getItemForObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">item</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">expandItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">expandItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="ObjectModelTree.addContainer"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.addContainer">[docs]</a>    <span class="k">def</span> <span class="nf">addContainer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ObjectModelTree.addContainer"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.addContainer">[docs]</a>    <span class="k">def</span> <span class="nf">addContainer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="n">ContainerItem</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addToObjectModel</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parentObj</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">obj</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
 
-</div>
-<div class="viewcode-block" id="ObjectModelTree.getOrCreateContainer"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.getOrCreateContainer">[docs]</a>    <span class="k">def</span> <span class="nf">getOrCreateContainer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ObjectModelTree.getOrCreateContainer"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.getOrCreateContainer">[docs]</a>    <span class="k">def</span> <span class="nf">getOrCreateContainer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">parentObj</span><span class="p">:</span>
             <span class="n">containerObj</span> <span class="o">=</span> <span class="n">parentObj</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">containerObj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">containerObj</span><span class="p">:</span>
             <span class="n">containerObj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">addContainer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">containerObj</span>
+        <span class="k">return</span> <span class="n">containerObj</span></div>
 
-</div>
+
     <span class="k">def</span> <span class="nf">_onShowContextMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clickPosition</span><span class="p">):</span>
 
         <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getActiveObject</span><span class="p">()</span>
@@ -528,7 +544,7 @@
     <span class="k">def</span> <span class="nf">_showMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">clickPosition</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">actions</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
         <span class="n">globalPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">clickPosition</span><span class="p">)</span>
 
@@ -542,10 +558,10 @@
 
         <span class="n">selectedAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="n">globalPos</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">selectedAction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">selectedAction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">selectedAction</span><span class="o">.</span><span class="n">text</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
 
     <span class="k">def</span> <span class="nf">_onTreeContextMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clickPosition</span><span class="p">):</span>
@@ -559,13 +575,13 @@
 
         <span class="n">actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getActionNames</span><span class="p">())</span>
 
-        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="s">&#39;Deletable&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Deletable&#39;</span><span class="p">):</span>
-            <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
-            <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;Remove&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="s1">&#39;Deletable&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Deletable&#39;</span><span class="p">):</span>
+            <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Remove&#39;</span><span class="p">)</span>
 
         <span class="n">selectedAction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_showMenu</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="n">clickPosition</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">selectedAction</span> <span class="o">==</span> <span class="s">&#39;Remove&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">selectedAction</span> <span class="o">==</span> <span class="s1">&#39;Remove&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">selectedAction</span><span class="p">:</span>
             <span class="n">obj</span><span class="o">.</span><span class="n">onAction</span><span class="p">(</span><span class="n">selectedAction</span><span class="p">)</span>
@@ -574,16 +590,33 @@
 <div class="viewcode-block" id="ObjectModelTree.removeSelectedItems"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.removeSelectedItems">[docs]</a>    <span class="k">def</span> <span class="nf">removeSelectedItems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTreeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">():</span>
             <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getObjectForItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="s">&#39;Deletable&#39;</span><span class="p">))</span> <span class="ow">or</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Deletable&#39;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_removeItemFromObjectModel</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasProperty</span><span class="p">(</span><span class="s1">&#39;Deletable&#39;</span><span class="p">))</span> <span class="ow">or</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Deletable&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_removeItemFromObjectModel</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
 
-</div>
+
     <span class="k">def</span> <span class="nf">_filterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Delete</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">removeSelectedItems</span><span class="p">()</span>
 
+<div class="viewcode-block" id="ObjectModelTree.connectSelectionChanged"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.connectSelectionChanged">[docs]</a>    <span class="k">def</span> <span class="nf">connectSelectionChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SELECTION_CHANGED</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectModelTree.disconnectSelectionChanged"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.disconnectSelectionChanged">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectSelectionChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectModelTree.connectObjectAdded"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.connectObjectAdded">[docs]</a>    <span class="k">def</span> <span class="nf">connectObjectAdded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">OBJECT_ADDED</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectModelTree.disconnectObjectAdded"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.disconnectObjectAdded">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectObjectAdded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callbackId</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectModelTree.connectObjectClicked"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.connectObjectClicked">[docs]</a>    <span class="k">def</span> <span class="nf">connectObjectClicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">OBJECT_CLICKED</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectModelTree.disconnectObjectClicked"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.disconnectObjectClicked">[docs]</a>    <span class="k">def</span> <span class="nf">disconnectObjectClicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackId</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ObjectModelTree.init"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.ObjectModelTree.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">treeWidget</span><span class="p">,</span> <span class="n">propertiesPanel</span><span class="p">):</span>
 
@@ -591,68 +624,69 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_propertiesPanel</span> <span class="o">=</span> <span class="n">propertiesPanel</span>
         <span class="n">propertiesPanel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="n">propertiesPanel</span><span class="o">.</span><span class="n">setBrowserModeToWidget</span><span class="p">()</span>
-        <span class="n">propertiesPanel</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;propertyValueChanged(QtVariantProperty*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onPropertyChanged</span><span class="p">)</span>
+        <span class="n">propertiesPanel</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;propertyValueChanged(QtVariantProperty*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onPropertyChanged</span><span class="p">)</span>
 
         <span class="n">treeWidget</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">treeWidget</span><span class="o">.</span><span class="n">setHeaderLabels</span><span class="p">([</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">])</span>
+        <span class="n">treeWidget</span><span class="o">.</span><span class="n">setHeaderLabels</span><span class="p">([</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">])</span>
         <span class="n">treeWidget</span><span class="o">.</span><span class="n">headerItem</span><span class="p">()</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Icons</span><span class="o">.</span><span class="n">getIcon</span><span class="p">(</span><span class="n">Icons</span><span class="o">.</span><span class="n">Eye</span><span class="p">))</span>
-        <span class="n">treeWidget</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">treeWidget</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setStretchLastSection</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">treeWidget</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">treeWidget</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setStretchLastSection</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">treeWidget</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
         <span class="n">treeWidget</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setResizeMode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Fixed</span><span class="p">)</span>
         <span class="n">treeWidget</span><span class="o">.</span><span class="n">setColumnWidth</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
-        <span class="n">treeWidget</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;itemSelectionChanged()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onTreeSelectionChanged</span><span class="p">)</span>
-        <span class="n">treeWidget</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;itemClicked(QTreeWidgetItem*, int)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onItemClicked</span><span class="p">)</span>
-        <span class="n">treeWidget</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;customContextMenuRequested(const QPoint&amp;)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onShowContextMenu</span><span class="p">)</span>
+        <span class="n">treeWidget</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;itemSelectionChanged()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onTreeSelectionChanged</span><span class="p">)</span>
+        <span class="n">treeWidget</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;itemClicked(QTreeWidgetItem*, int)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onItemClicked</span><span class="p">)</span>
+        <span class="n">treeWidget</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;customContextMenuRequested(const QPoint&amp;)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onShowContextMenu</span><span class="p">)</span>
+        <span class="n">treeWidget</span><span class="o">.</span><span class="n">setContextMenuPolicy</span><span class="p">(</span><span class="n">PythonQt</span><span class="o">.</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">CustomContextMenu</span><span class="p">);</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filterEvent</span><span class="p">)</span>
-        <span class="n">treeWidget</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eventFilter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filterEvent</span><span class="p">)</span>
+        <span class="n">treeWidget</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eventFilter</span><span class="p">)</span></div></div>
 
 
-<span class="c">#######################</span>
+<span class="c1">#######################</span>
 
-</div></div>
+
 <span class="n">_t</span> <span class="o">=</span> <span class="n">ObjectModelTree</span><span class="p">()</span>
 
 <div class="viewcode-block" id="getDefaultObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.getDefaultObjectModel">[docs]</a><span class="k">def</span> <span class="nf">getDefaultObjectModel</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_t</span>
-</div>
+    <span class="k">return</span> <span class="n">_t</span></div>
+
 <div class="viewcode-block" id="getActiveObject"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.getActiveObject">[docs]</a><span class="k">def</span> <span class="nf">getActiveObject</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">getActiveObject</span><span class="p">()</span>
-</div>
+    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">getActiveObject</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="setActiveObject"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.setActiveObject">[docs]</a><span class="k">def</span> <span class="nf">setActiveObject</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-    <span class="n">_t</span><span class="o">.</span><span class="n">setActiveObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</div>
+    <span class="n">_t</span><span class="o">.</span><span class="n">setActiveObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="clearSelection"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.clearSelection">[docs]</a><span class="k">def</span> <span class="nf">clearSelection</span><span class="p">():</span>
-    <span class="n">_t</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
-</div>
+    <span class="n">_t</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="getObjects"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.getObjects">[docs]</a><span class="k">def</span> <span class="nf">getObjects</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">getObjects</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="findObjectByName"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.findObjectByName">[docs]</a><span class="k">def</span> <span class="nf">findObjectByName</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
-</div>
+    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">getObjects</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="findObjectByName"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.findObjectByName">[docs]</a><span class="k">def</span> <span class="nf">findObjectByName</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="removeFromObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.removeFromObjectModel">[docs]</a><span class="k">def</span> <span class="nf">removeFromObjectModel</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-    <span class="n">_t</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="addToObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.addToObjectModel">[docs]</a><span class="k">def</span> <span class="nf">addToObjectModel</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="n">_t</span><span class="o">.</span><span class="n">addToObjectModel</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parentObj</span><span class="p">)</span>
-</div>
+    <span class="n">_t</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="addToObjectModel"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.addToObjectModel">[docs]</a><span class="k">def</span> <span class="nf">addToObjectModel</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">_t</span><span class="o">.</span><span class="n">addToObjectModel</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parentObj</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="collapse"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.collapse">[docs]</a><span class="k">def</span> <span class="nf">collapse</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-    <span class="n">_t</span><span class="o">.</span><span class="n">collapse</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</div>
+    <span class="n">_t</span><span class="o">.</span><span class="n">collapse</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="expand"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.expand">[docs]</a><span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-    <span class="n">_t</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="addContainer"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.addContainer">[docs]</a><span class="k">def</span> <span class="nf">addContainer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">addContainer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="getOrCreateContainer"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.getOrCreateContainer">[docs]</a><span class="k">def</span> <span class="nf">getOrCreateContainer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">objectTree</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">propertiesPanel</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">_t</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="addContainer"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.addContainer">[docs]</a><span class="k">def</span> <span class="nf">addContainer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">addContainer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="getOrCreateContainer"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.getOrCreateContainer">[docs]</a><span class="k">def</span> <span class="nf">getOrCreateContainer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_t</span><span class="o">.</span><span class="n">getOrCreateContainer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parentObj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../generated/director.objectmodel.html#director.objectmodel.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">objectTree</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">propertiesPanel</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">_t</span><span class="o">.</span><span class="n">_treeWidget</span><span class="p">:</span>
         <span class="k">return</span>

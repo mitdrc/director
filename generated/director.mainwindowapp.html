@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>director.mainwindowapp module &mdash; Director  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Director  documentation" href="../index.html"/>
+        <link rel="up" title="director package" href="director.html"/>
+        <link rel="next" title="director.mapsregistrar module" href="director.mapsregistrar.html"/>
+        <link rel="prev" title="director.lcmspy module" href="director.lcmspy.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Director
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python Module API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="director.html">director package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="director.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="director.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="director.actionhandlers.html">director.actionhandlers module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.affordanceitems.html">director.affordanceitems module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.affordancemanager.html">director.affordancemanager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.affordancepanel.html">director.affordancepanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.asynctaskqueue.html">director.asynctaskqueue module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.atlasdriver.html">director.atlasdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.atlasdriverpanel.html">director.atlasdriverpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.bihandeddemo.html">director.bihandeddemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.blackoutmonitor.html">director.blackoutmonitor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.botspy.html">director.botspy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.callbacks.html">director.callbacks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.camerabookmarks.html">director.camerabookmarks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameracontrol.html">director.cameracontrol module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameracontrolpanel.html">director.cameracontrolpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.cameraview.html">director.cameraview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.colorize.html">director.colorize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.componentgraph.html">director.componentgraph module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.consoleapp.html">director.consoleapp module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.continuouswalkingdemo.html">director.continuouswalkingdemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.copmonitor.html">director.copmonitor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.coursemodel.html">director.coursemodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.debrisdemo.html">director.debrisdemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.debugVis.html">director.debugVis module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.depthimageprovider.html">director.depthimageprovider module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.depthscanner.html">director.depthscanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.doordemo.html">director.doordemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drakevisualizer.html">director.drakevisualizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drakevisualizerapp.html">director.drakevisualizerapp module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drcargs.html">director.drcargs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drilldemo.html">director.drilldemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.drivingplanner.html">director.drivingplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.egressplanner.html">director.egressplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.fieldcontainer.html">director.fieldcontainer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.filterUtils.html">director.filterUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.footstepsdriver.html">director.footstepsdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.footstepsdriverpanel.html">director.footstepsdriverpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.frameupdater.html">director.frameupdater module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.framevisualization.html">director.framevisualization module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.gamepad.html">director.gamepad module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.geometryencoder.html">director.geometryencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.handcontrolpanel.html">director.handcontrolpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.handdriver.html">director.handdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.ikconstraintencoder.html">director.ikconstraintencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.ikconstraints.html">director.ikconstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.ikparameters.html">director.ikparameters module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.ikplanner.html">director.ikplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageview.html">director.imageview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.imageviewapp.html">director.imageviewapp module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.ioUtils.html">director.ioUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.irisUtils.html">director.irisUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.irisdriver.html">director.irisdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.jointcontrol.html">director.jointcontrol module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.jointpropagator.html">director.jointpropagator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.kinectlcm.html">director.kinectlcm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.korgnano.html">director.korgnano module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmUtils.html">director.lcmUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmcollections.html">director.lcmcollections module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">director.mainwindowapp module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.mapsregistrar.html">director.mapsregistrar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.matlab.html">director.matlab module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.matlabik.html">director.matlabik module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.measurementpanel.html">director.measurementpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.meshmanager.html">director.meshmanager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.midi.html">director.midi module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.motionplanningpanel.html">director.motionplanningpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.multisensepanel.html">director.multisensepanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.navigationpanel.html">director.navigationpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.perception.html">director.perception module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.plannerPublisher.html">director.plannerPublisher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.planningutils.html">director.planningutils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.planplayback.html">director.planplayback module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.playbackpanel.html">director.playbackpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pointcloudlcm.html">director.pointcloudlcm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pointpicker.html">director.pointpicker module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.polarisplatformplanner.html">director.polarisplatformplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.propertyanimation.html">director.propertyanimation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.propertyset.html">director.propertyset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.pydrakeik.html">director.pydrakeik module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.raycastdriver.html">director.raycastdriver module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotlinkselector.html">director.robotlinkselector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotplanlistener.html">director.robotplanlistener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotposegui.html">director.robotposegui module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotstate.html">director.robotstate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotsystem.html">director.robotsystem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.roboturdf.html">director.roboturdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.robotviewbehaviors.html">director.robotviewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.sceneloader.html">director.sceneloader module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.screengrabberpanel.html">director.screengrabberpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.segmentation.html">director.segmentation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.segmentationpanel.html">director.segmentationpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.segmentationroutines.html">director.segmentationroutines module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.sensordatarequestpanel.html">director.sensordatarequestpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.shallowCopy.html">director.shallowCopy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.simpletimer.html">director.simpletimer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.sitstandplanner.html">director.sitstandplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.skybox.html">director.skybox module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.splinewidget.html">director.splinewidget module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.spreadsheet.html">director.spreadsheet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.startup.html">director.startup module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.statelistener.html">director.statelistener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.surprisetask.html">director.surprisetask module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.switchplanner.html">director.switchplanner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.takktilevis.html">director.takktilevis module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.tasklaunchpanel.html">director.tasklaunchpanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.tdx.html">director.tdx module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.teleoppanel.html">director.teleoppanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.terrain.html">director.terrain module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.terrainitem.html">director.terrainitem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.terraintask.html">director.terraintask module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.timercallback.html">director.timercallback module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.trackers.html">director.trackers module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.transformUtils.html">director.transformUtils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.treeviewer.html">director.treeviewer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.uipanel.html">director.uipanel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.utime.html">director.utime module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.uuidutil.html">director.uuidutil module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.valvedemo.html">director.valvedemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.version.html">director.version module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viconvisualizer.html">director.viconvisualizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewbehaviors.html">director.viewbehaviors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewcolors.html">director.viewcolors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.viewerclient.html">director.viewerclient module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vieweventfilter.html">director.vieweventfilter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.visualization.html">director.visualization module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vtkAll.html">director.vtkAll module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.vtkNumpy.html">director.vtkNumpy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.walkingtestdemo.html">director.walkingtestdemo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.wristforcetorquevisualizer.html">director.wristforcetorquevisualizer module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="director.html#module-director">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Director</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">director</a> &raquo;</li>
+      
+          <li><a href="director.html">director package</a> &raquo;</li>
+      
+    <li>director.mainwindowapp module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-director.mainwindowapp">
+<span id="director-mainwindowapp-module"></span><h1>director.mainwindowapp module<a class="headerlink" href="#module-director.mainwindowapp" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="director.mainwindowapp.MainWindowApp">
+<em class="property">class </em><code class="descclassname">director.mainwindowapp.</code><code class="descname">MainWindowApp</code><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.addToolBar">
+<code class="descname">addToolBar</code><span class="sig-paren">(</span><em>title</em>, <em>area=4</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.addToolBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.addToolBar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.addToolBarAction">
+<code class="descname">addToolBarAction</code><span class="sig-paren">(</span><em>toolBar</em>, <em>text</em>, <em>icon=None</em>, <em>callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.addToolBarAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.addToolBarAction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.addViewMenuSeparator">
+<code class="descname">addViewMenuSeparator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.addViewMenuSeparator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.addViewMenuSeparator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.addWidgetToDock">
+<code class="descname">addWidgetToDock</code><span class="sig-paren">(</span><em>widget</em>, <em>dockArea</em>, <em>visible=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.addWidgetToDock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.addWidgetToDock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.addWidgetToViewMenu">
+<code class="descname">addWidgetToViewMenu</code><span class="sig-paren">(</span><em>widget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.addWidgetToViewMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.addWidgetToViewMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="director.mainwindowapp.MainWindowApp.applicationInstance">
+<em class="property">static </em><code class="descname">applicationInstance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.applicationInstance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.applicationInstance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.exit">
+<code class="descname">exit</code><span class="sig-paren">(</span><em>exitCode=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.exit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.exit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.initWindowSettings">
+<code class="descname">initWindowSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.initWindowSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.initWindowSettings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.quit">
+<code class="descname">quit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.quit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.registerStartupCallback">
+<code class="descname">registerStartupCallback</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.registerStartupCallback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.registerStartupCallback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.restoreDefaultWindowState">
+<code class="descname">restoreDefaultWindowState</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.restoreDefaultWindowState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.restoreDefaultWindowState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.showErrorMessage">
+<code class="descname">showErrorMessage</code><span class="sig-paren">(</span><em>message</em>, <em>title='Error'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.showErrorMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.showErrorMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.showInfoMessage">
+<code class="descname">showInfoMessage</code><span class="sig-paren">(</span><em>message</em>, <em>title='Info'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.showInfoMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.showInfoMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.showOnlineDocumentation">
+<code class="descname">showOnlineDocumentation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.showOnlineDocumentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.showOnlineDocumentation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.showOnlineKeyboardShortcuts">
+<code class="descname">showOnlineKeyboardShortcuts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.showOnlineKeyboardShortcuts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.showOnlineKeyboardShortcuts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.showPythonConsole">
+<code class="descname">showPythonConsole</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.showPythonConsole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.showPythonConsole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.start">
+<code class="descname">start</code><span class="sig-paren">(</span><em>enableAutomaticQuit=True</em>, <em>restoreWindow=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowApp.wrapScrollArea">
+<code class="descname">wrapScrollArea</code><span class="sig-paren">(</span><em>widget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowApp.wrapScrollArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowApp.wrapScrollArea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="director.mainwindowapp.MainWindowAppFactory">
+<em class="property">class </em><code class="descclassname">director.mainwindowapp.</code><code class="descname">MainWindowAppFactory</code><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="director.componentgraph.html#director.componentgraph.ComponentFactory" title="director.componentgraph.ComponentFactory"><code class="xref py py-class docutils literal"><span class="pre">director.componentgraph.ComponentFactory</span></code></a></p>
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.addComponents">
+<code class="descname">addComponents</code><span class="sig-paren">(</span><em>componentGraph</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.addComponents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.addComponents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initAdjustedClippingRange">
+<code class="descname">initAdjustedClippingRange</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initAdjustedClippingRange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initAdjustedClippingRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>This setting improves the near plane clipping resolution.
+Drake often draws a very large ground plane which is detrimental to
+the near clipping for up close objects.  The trade-off is Z buffer
+resolution but in practice things look good with this setting.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initDefaultOptions">
+<code class="descname">initDefaultOptions</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initDefaultOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initDefaultOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Components are enabled by default.  This function
+determines which components should be disabled.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initGlobalModules">
+<code class="descname">initGlobalModules</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initGlobalModules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initGlobalModules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initGlobals">
+<code class="descname">initGlobals</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initGlobals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initGlobals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initGrid">
+<code class="descname">initGrid</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initGrid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initMainToolBar">
+<code class="descname">initMainToolBar</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initMainToolBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initMainToolBar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initMainWindow">
+<code class="descname">initMainWindow</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initMainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initMainWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initObjectModel">
+<code class="descname">initObjectModel</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initObjectModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initObjectModel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initScriptLoader">
+<code class="descname">initScriptLoader</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initScriptLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initScriptLoader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initView">
+<code class="descname">initView</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initViewBehaviors">
+<code class="descname">initViewBehaviors</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initViewBehaviors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initViewBehaviors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowAppFactory.initViewOptions">
+<code class="descname">initViewOptions</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initViewOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initViewOptions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="director.mainwindowapp.MainWindowPanelFactory">
+<em class="property">class </em><code class="descclassname">director.mainwindowapp.</code><code class="descname">MainWindowPanelFactory</code><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="director.componentgraph.html#director.componentgraph.ComponentFactory" title="director.componentgraph.ComponentFactory"><code class="xref py py-class docutils literal"><span class="pre">director.componentgraph.ComponentFactory</span></code></a></p>
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.addComponents">
+<code class="descname">addComponents</code><span class="sig-paren">(</span><em>componentGraph</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.addComponents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.addComponents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initCameraBookmarksPanel">
+<code class="descname">initCameraBookmarksPanel</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initCameraBookmarksPanel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initCameraBookmarksPanel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initCameraControlPanel">
+<code class="descname">initCameraControlPanel</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initCameraControlPanel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initCameraControlPanel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initDefaultOptions">
+<code class="descname">initDefaultOptions</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initDefaultOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initDefaultOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Components are enabled by default.  This function
+determines which components should be disabled.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initDrakeVisualizer">
+<code class="descname">initDrakeVisualizer</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initDrakeVisualizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initDrakeVisualizer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initLCMGLRenderer">
+<code class="descname">initLCMGLRenderer</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initLCMGLRenderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initLCMGLRenderer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initMainWindow">
+<code class="descname">initMainWindow</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initMainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initMainWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initMeasurementPanel">
+<code class="descname">initMeasurementPanel</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initMeasurementPanel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initMeasurementPanel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initOpenDataHandler">
+<code class="descname">initOpenDataHandler</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initOpenDataHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initOpenDataHandler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initOutputConsole">
+<code class="descname">initOutputConsole</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initOutputConsole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initOutputConsole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initScreenGrabberPanel">
+<code class="descname">initScreenGrabberPanel</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initScreenGrabberPanel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initScreenGrabberPanel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.mainwindowapp.MainWindowPanelFactory.initTreeViewer">
+<code class="descname">initTreeViewer</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initTreeViewer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initTreeViewer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="director.mainwindowapp.construct">
+<code class="descclassname">director.mainwindowapp.</code><code class="descname">construct</code><span class="sig-paren">(</span><em>globalsDict=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#construct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.construct" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="director.mainwindowapp.main">
+<code class="descclassname">director.mainwindowapp.</code><code class="descname">main</code><span class="sig-paren">(</span><em>globalsDict=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="director.mapsregistrar.html" class="btn btn-neutral float-right" title="director.mapsregistrar module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="director.lcmspy.html" class="btn btn-neutral" title="director.lcmspy module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

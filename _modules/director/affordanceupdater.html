@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,16 +132,16 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.affordanceupdater</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">transformUtils</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">filterUtils</span>
-<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="kn">import</span> <span class="n">TimerCallback</span>
+<span></span><span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">transformUtils</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">filterUtils</span>
+<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="k">import</span> <span class="n">TimerCallback</span>
 
 <div class="viewcode-block" id="AffordanceGraspUpdater"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceGraspUpdater">[docs]</a><span class="k">class</span> <span class="nc">AffordanceGraspUpdater</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">,</span> <span class="n">ikPlanner</span><span class="p">,</span> <span class="n">extraModels</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">,</span> <span class="n">ikPlanner</span><span class="p">,</span> <span class="n">extraModels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span> <span class="o">=</span> <span class="n">robotModel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span> <span class="o">=</span> <span class="n">ikPlanner</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frameSyncs</span> <span class="o">=</span> <span class="p">{}</span>
@@ -154,29 +158,29 @@
         <span class="n">linkNames</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">handModel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">handModels</span><span class="p">:</span>
             <span class="n">linkNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handModel</span><span class="o">.</span><span class="n">handLinkName</span><span class="p">)</span>
-        <span class="c">#linkNames = [self.ikPlanner.getHandLink(&#39;left&#39;) , self.ikPlanner.getHandLink(&#39;right&#39;)]</span>
+        <span class="c1">#linkNames = [self.ikPlanner.getHandLink(&#39;left&#39;) , self.ikPlanner.getHandLink(&#39;right&#39;)]</span>
 
         <span class="k">for</span> <span class="n">linkName</span> <span class="ow">in</span> <span class="n">linkNames</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">updateLinkFrame</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">linkName</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AffordanceGraspUpdater.getAffordanceFrame"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceGraspUpdater.getAffordanceFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getAffordanceFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affordanceName</span><span class="p">):</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="n">affordanceName</span> <span class="o">+</span> <span class="s">&#39; frame&#39;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">frame</span>
-        <span class="k">return</span> <span class="n">frame</span>
-</div>
-<div class="viewcode-block" id="AffordanceGraspUpdater.updateLinkFrame"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceGraspUpdater.updateLinkFrame">[docs]</a>    <span class="k">def</span> <span class="nf">updateLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">,</span> <span class="n">linkName</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updateLinkFrame</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">linkName</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
-        <span class="n">linkFrameName</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> frame&#39;</span> <span class="o">%</span> <span class="n">linkName</span>
+<div class="viewcode-block" id="AffordanceGraspUpdater.getAffordanceFrame"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceGraspUpdater.getAffordanceFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getAffordanceFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affordanceName</span><span class="p">):</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="n">affordanceName</span> <span class="o">+</span> <span class="s1">&#39; frame&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">frame</span>
+        <span class="k">return</span> <span class="n">frame</span></div>
+
+<div class="viewcode-block" id="AffordanceGraspUpdater.updateLinkFrame"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceGraspUpdater.updateLinkFrame">[docs]</a>    <span class="k">def</span> <span class="nf">updateLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">,</span> <span class="n">linkName</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="n">linkFrameName</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> frame&#39;</span> <span class="o">%</span> <span class="n">linkName</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">create</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="n">linkFrameName</span><span class="p">):</span>
             <span class="k">return</span>
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">robotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="n">linkName</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">linkFrameName</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">linkFrameName</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordanceGraspUpdater.hasAffordance"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceGraspUpdater.hasAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">hasAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affordanceName</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">affordanceName</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameSyncs</span>
-</div>
+        <span class="k">return</span> <span class="n">affordanceName</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameSyncs</span></div>
+
 <div class="viewcode-block" id="AffordanceGraspUpdater.graspAffordance"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceGraspUpdater.graspAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">graspAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affordanceName</span><span class="p">,</span> <span class="n">side</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">affordanceName</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameSyncs</span><span class="p">:</span>
@@ -184,17 +188,17 @@
 
         <span class="n">affordanceFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceFrame</span><span class="p">(</span><span class="n">affordanceName</span><span class="p">)</span>
 
-        <span class="c">#linkName = &#39;l_hand&#39; if side == &#39;left&#39; else &#39;r_hand&#39;</span>
+        <span class="c1">#linkName = &#39;l_hand&#39; if side == &#39;left&#39; else &#39;r_hand&#39;</span>
         <span class="n">linkName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">getHandLink</span><span class="p">(</span><span class="n">side</span><span class="p">)</span>
         <span class="n">linkFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">updateLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span><span class="p">,</span> <span class="n">linkName</span><span class="p">)</span>
 
         <span class="n">frameSync</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">FrameSync</span><span class="p">()</span>
         <span class="n">frameSync</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">linkFrame</span><span class="p">)</span>
-        <span class="n">frameSync</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">affordanceFrame</span><span class="p">,</span> <span class="n">ignoreIncoming</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">frameSync</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">affordanceFrame</span><span class="p">,</span> <span class="n">ignoreIncoming</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">frameSyncs</span><span class="p">[</span><span class="n">affordanceName</span><span class="p">]</span> <span class="o">=</span> <span class="n">frameSync</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">attachedAffordances</span><span class="p">[</span><span class="n">affordanceName</span><span class="p">]</span> <span class="o">=</span> <span class="n">linkName</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attachedAffordances</span><span class="p">[</span><span class="n">affordanceName</span><span class="p">]</span> <span class="o">=</span> <span class="n">linkName</span></div>
+
 <div class="viewcode-block" id="AffordanceGraspUpdater.ungraspAffordance"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceGraspUpdater.ungraspAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">ungraspAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affordanceName</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameSyncs</span><span class="p">[</span><span class="n">affordanceName</span><span class="p">]</span>
@@ -203,17 +207,17 @@
             <span class="k">pass</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameSyncs</span><span class="p">:</span>
-            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;l_hand frame&#39;</span><span class="p">))</span>
-            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;r_hand frame&#39;</span><span class="p">))</span>
+            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s1">&#39;l_hand frame&#39;</span><span class="p">))</span>
+            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s1">&#39;r_hand frame&#39;</span><span class="p">))</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater">[docs]</a><span class="k">class</span> <span class="nc">AffordanceInCameraUpdater</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affordanceManager</span><span class="p">,</span> <span class="n">imageView</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">affordanceManager</span> <span class="o">=</span> <span class="n">affordanceManager</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">prependImageName</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">projectFootsteps</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">projectAffordances</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prependImageName</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectFootsteps</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectAffordances</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extraObjects</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span> <span class="o">=</span> <span class="n">imageView</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">imageQueue</span> <span class="o">=</span> <span class="n">imageView</span><span class="o">.</span><span class="n">imageManager</span><span class="o">.</span><span class="n">queue</span>
@@ -222,7 +226,7 @@
 
 <div class="viewcode-block" id="AffordanceInCameraUpdater.getOverlayRenderer"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.getOverlayRenderer">[docs]</a>    <span class="k">def</span> <span class="nf">getOverlayRenderer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imageView</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">imageView</span><span class="p">,</span> <span class="s">&#39;overlayRenderer&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">imageView</span><span class="p">,</span> <span class="s1">&#39;overlayRenderer&#39;</span><span class="p">):</span>
             <span class="n">renWin</span> <span class="o">=</span> <span class="n">imageView</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span>
             <span class="n">renWin</span><span class="o">.</span><span class="n">SetNumberOfLayers</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
             <span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
@@ -230,8 +234,8 @@
             <span class="n">ren</span><span class="o">.</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">imageView</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">())</span>
             <span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
             <span class="n">imageView</span><span class="o">.</span><span class="n">overlayRenderer</span> <span class="o">=</span> <span class="n">ren</span>
-        <span class="k">return</span> <span class="n">imageView</span><span class="o">.</span><span class="n">overlayRenderer</span>
-</div>
+        <span class="k">return</span> <span class="n">imageView</span><span class="o">.</span><span class="n">overlayRenderer</span></div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.addActorToImageOverlay"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.addActorToImageOverlay">[docs]</a>    <span class="k">def</span> <span class="nf">addActorToImageOverlay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">imageView</span><span class="p">):</span>
 
         <span class="n">obj</span><span class="o">.</span><span class="n">addToView</span><span class="p">(</span><span class="n">imageView</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
@@ -241,35 +245,35 @@
         <span class="n">overlayRenderer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getOverlayRenderer</span><span class="p">(</span><span class="n">imageView</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">overlayRenderer</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">renderers</span><span class="p">:</span>
             <span class="n">overlayRenderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="p">)</span>
-            <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">overlayRenderer</span><span class="p">)</span>
-</div>
+            <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">overlayRenderer</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.getFolderName"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.getFolderName">[docs]</a>    <span class="k">def</span> <span class="nf">getFolderName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prependImageName</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">imageName</span> <span class="o">+</span> <span class="s">&#39; camera overlay&#39;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">imageName</span> <span class="o">+</span> <span class="s1">&#39; camera overlay&#39;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s">&#39;camera overlay&#39;</span>
+            <span class="k">return</span> <span class="s1">&#39;camera overlay&#39;</span></div>
 
-</div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.setupObjectInCamera"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.setupObjectInCamera">[docs]</a>    <span class="k">def</span> <span class="nf">setupObjectInCamera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">imageView</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTransformedName</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">view</span><span class="o">=</span><span class="n">imageView</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFolderName</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">))</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updatePolyData</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTransformedName</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">view</span><span class="o">=</span><span class="n">imageView</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFolderName</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addActorToImageOverlay</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">imageView</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">obj</span>
-</div>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.getTransformedName"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.getTransformedName">[docs]</a>    <span class="k">def</span> <span class="nf">getTransformedName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prependImageName</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s">&#39;overlay &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">imageName</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s1">&#39;overlay &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span><span class="o">.</span><span class="n">imageName</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s">&#39;overlay &#39;</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s1">&#39;overlay &#39;</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.getFootsteps"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.getFootsteps">[docs]</a>    <span class="k">def</span> <span class="nf">getFootsteps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">plan</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;footstep plan&#39;</span><span class="p">)</span>
+        <span class="n">plan</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s1">&#39;footstep plan&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">plan</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">child</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">plan</span><span class="o">.</span><span class="n">children</span><span class="p">()</span> <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;step &#39;</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">child</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">plan</span><span class="o">.</span><span class="n">children</span><span class="p">()</span> <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;step &#39;</span><span class="p">)]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-</div>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.getObjectsToUpdate"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.getObjectsToUpdate">[docs]</a>    <span class="k">def</span> <span class="nf">getObjectsToUpdate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">objs</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -278,16 +282,16 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">projectFootsteps</span><span class="p">:</span>
             <span class="n">objs</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFootsteps</span><span class="p">()</span>
         <span class="n">objs</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extraObjects</span>
-        <span class="k">return</span> <span class="n">objs</span>
-</div>
+        <span class="k">return</span> <span class="n">objs</span></div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.getObjectInCamera"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.getObjectInCamera">[docs]</a>    <span class="k">def</span> <span class="nf">getObjectInCamera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">overlayObj</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getTransformedName</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">overlayObj</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">setupObjectInCamera</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">overlayObj</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">setupObjectInCamera</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.cleanUp"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.cleanUp">[docs]</a>    <span class="k">def</span> <span class="nf">cleanUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-        <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getFolderName</span><span class="p">()))</span>
-</div>
+        <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getFolderName</span><span class="p">()))</span></div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.update"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">imageView</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span>
 
@@ -308,8 +312,8 @@
         <span class="k">if</span> <span class="n">folder</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">child</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">updated</span><span class="p">:</span>
-                    <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-</div>
+                    <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">child</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="AffordanceInCameraUpdater.updateObjectInCamera"><a class="viewcode-back" href="../../generated/director.affordanceupdater.html#director.affordanceupdater.AffordanceInCameraUpdater.updateObjectInCamera">[docs]</a>    <span class="k">def</span> <span class="nf">updateObjectInCamera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">cameraObj</span><span class="p">):</span>
 
         <span class="n">imageView</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageView</span>
@@ -317,7 +321,7 @@
         <span class="n">objToLocalT</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetUserTransform</span><span class="p">()</span> <span class="ow">or</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">())</span>
 
         <span class="n">localToCameraT</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">imageQueue</span><span class="o">.</span><span class="n">getTransform</span><span class="p">(</span><span class="s">&#39;local&#39;</span><span class="p">,</span> <span class="n">imageView</span><span class="o">.</span><span class="n">imageName</span><span class="p">,</span> <span class="n">localToCameraT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageQueue</span><span class="o">.</span><span class="n">getTransform</span><span class="p">(</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">imageView</span><span class="o">.</span><span class="n">imageName</span><span class="p">,</span> <span class="n">localToCameraT</span><span class="p">)</span>
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
         <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>

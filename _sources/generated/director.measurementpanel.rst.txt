@@ -1,0 +1,7 @@
+director.measurementpanel module
+================================
+
+.. automodule:: director.measurementpanel
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,7 @@
+director.motionplanningpanel module
+===================================
+
+.. automodule:: director.motionplanningpanel
+    :members:
+    :undoc-members:
+    :show-inheritance:

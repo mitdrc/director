@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,8 +132,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.debrisdemo</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">director.objectmodel</span> <span class="kn">as</span> <span class="nn">om</span>
-<span class="kn">from</span> <span class="nn">director.asynctaskqueue</span> <span class="kn">import</span> <span class="n">AsyncTaskQueue</span>
+<span></span><span class="kn">import</span> <span class="nn">director.objectmodel</span> <span class="k">as</span> <span class="nn">om</span>
+<span class="kn">from</span> <span class="nn">director.asynctaskqueue</span> <span class="k">import</span> <span class="n">AsyncTaskQueue</span>
 
 
 <div class="viewcode-block" id="GraspSearchPlanner"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner">[docs]</a><span class="k">class</span> <span class="nc">GraspSearchPlanner</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -146,16 +150,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">playbackRobotModel</span> <span class="o">=</span> <span class="n">playbackRobotModel</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">affordanceName</span> <span class="o">=</span> <span class="s">&#39;board&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">affordanceName</span> <span class="o">=</span> <span class="s1">&#39;board&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handModels</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span> <span class="o">=</span> <span class="s">&#39;left&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graspSample</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">handToUtorso</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">tspanPreReach</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tspanFull</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
@@ -166,25 +170,25 @@
 
 
 <div class="viewcode-block" id="GraspSearchPlanner.playManipPlan"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.playManipPlan">[docs]</a>    <span class="k">def</span> <span class="nf">playManipPlan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">planPlaybackFunction</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">lastManipPlan</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">planPlaybackFunction</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">lastManipPlan</span><span class="p">])</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.showPreGraspEndPose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.showPreGraspEndPose">[docs]</a>    <span class="k">def</span> <span class="nf">showPreGraspEndPose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">showPoseFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s">&#39;pre_grasp_end_pose&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">showPoseFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;pre_grasp_end_pose&#39;</span><span class="p">))</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.showGraspEndPose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.showGraspEndPose">[docs]</a>    <span class="k">def</span> <span class="nf">showGraspEndPose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">showPoseFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">showPoseFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">))</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computePreGraspTraj"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computePreGraspTraj">[docs]</a>    <span class="k">def</span> <span class="nf">computePreGraspTraj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspTraj</span><span class="p">(</span><span class="n">poseStart</span><span class="o">=</span><span class="s">&#39;q_start&#39;</span><span class="p">,</span> <span class="n">poseEnd</span><span class="o">=</span><span class="s">&#39;pre_grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">timeSamples</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspTraj</span><span class="p">(</span><span class="n">poseStart</span><span class="o">=</span><span class="s1">&#39;q_start&#39;</span><span class="p">,</span> <span class="n">poseEnd</span><span class="o">=</span><span class="s1">&#39;pre_grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">timeSamples</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">])</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeEndGraspTraj"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeEndGraspTraj">[docs]</a>    <span class="k">def</span> <span class="nf">computeEndGraspTraj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspTraj</span><span class="p">(</span><span class="n">poseStart</span><span class="o">=</span><span class="s">&#39;pre_grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">poseEnd</span><span class="o">=</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">timeSamples</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspTraj</span><span class="p">(</span><span class="n">poseStart</span><span class="o">=</span><span class="s1">&#39;pre_grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">poseEnd</span><span class="o">=</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">timeSamples</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeGroundFrame"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGroundFrame">[docs]</a>    <span class="k">def</span> <span class="nf">computeGroundFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Given a robol model, returns a vtkTransform at a position between</span>
@@ -212,17 +216,17 @@
         <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">stancePosition</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">footHeight</span><span class="p">])</span>
 
-        <span class="k">return</span> <span class="n">t</span>
+        <span class="k">return</span> <span class="n">t</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.randomAffordance"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.randomAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">randomAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">):</span>
         <span class="n">aff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordance</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">aff</span><span class="p">:</span>
             <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">aff</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">spawnAffordance</span><span class="p">(</span><span class="n">robotModel</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spawnAffordance</span><span class="p">(</span><span class="n">robotModel</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="GraspSearchPlanner.spawnAffordance"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.spawnAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">spawnAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GraspSearchPlanner.spawnAffordance"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.spawnAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">spawnAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">randomize</span><span class="p">:</span>
 
@@ -234,10 +238,10 @@
 
             <span class="n">position</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]</span>
             <span class="n">rpy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-            <span class="n">zwidth</span> <span class="o">=</span> <span class="mi">24</span> <span class="o">*</span> <span class="o">.</span><span class="mo">0254</span>
+            <span class="n">zwidth</span> <span class="o">=</span> <span class="mi">24</span> <span class="o">*</span> <span class="o">.</span><span class="mi">0254</span>
 
-        <span class="n">xwidth</span> <span class="o">=</span> <span class="mf">3.75</span> <span class="o">*</span> <span class="o">.</span><span class="mo">0254</span>
-        <span class="n">ywidth</span> <span class="o">=</span> <span class="mf">1.75</span> <span class="o">*</span> <span class="o">.</span><span class="mo">0254</span>
+        <span class="n">xwidth</span> <span class="o">=</span> <span class="mf">3.75</span> <span class="o">*</span> <span class="o">.</span><span class="mi">0254</span>
+        <span class="n">ywidth</span> <span class="o">=</span> <span class="mf">1.75</span> <span class="o">*</span> <span class="o">.</span><span class="mi">0254</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">frameFromPositionAndRPY</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">rpy</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">computeGroundFrame</span><span class="p">(</span><span class="n">robotModel</span><span class="p">))</span>
         <span class="n">xaxis</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
@@ -246,59 +250,59 @@
         <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">):</span>
             <span class="n">t</span><span class="o">.</span><span class="n">TransformVector</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
 
-        <span class="n">affordance</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">createBlockAffordance</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">(),</span> <span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">,</span> <span class="n">xwidth</span><span class="p">,</span> <span class="n">ywidth</span><span class="p">,</span> <span class="n">zwidth</span><span class="p">,</span> <span class="s">&#39;board&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s">&#39;affordances&#39;</span><span class="p">)</span>
-        <span class="n">affordance</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+        <span class="n">affordance</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">createBlockAffordance</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">(),</span> <span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">,</span> <span class="n">xwidth</span><span class="p">,</span> <span class="n">ywidth</span><span class="p">,</span> <span class="n">zwidth</span><span class="p">,</span> <span class="s1">&#39;board&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;affordances&#39;</span><span class="p">)</span>
+        <span class="n">affordance</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">affordance</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetUserTransform</span><span class="p">()</span>
-        <span class="n">affordanceFrame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showFrame</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s">&#39;board frame&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">affordance</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">affordanceFrame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showFrame</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s1">&#39;board frame&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">affordance</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.updateHandModel"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.updateHandModel">[docs]</a>    <span class="k">def</span> <span class="nf">updateHandModel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">graspFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;desired grasp frame&#39;</span><span class="p">)</span>
-        <span class="n">handMesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s">&#39;desired grasp hand&#39;</span><span class="p">)</span>
+        <span class="n">graspFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;desired grasp frame&#39;</span><span class="p">)</span>
+        <span class="n">handMesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s1">&#39;desired grasp hand&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">handMesh</span><span class="p">:</span>
-            <span class="n">handMesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getHandModel</span><span class="p">()</span><span class="o">.</span><span class="n">newPolyData</span><span class="p">(</span><span class="s">&#39;desired grasp hand&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span><span class="o">.</span><span class="n">views</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">findAffordance</span><span class="p">())</span>
+            <span class="n">handMesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getHandModel</span><span class="p">()</span><span class="o">.</span><span class="n">newPolyData</span><span class="p">(</span><span class="s1">&#39;desired grasp hand&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span><span class="o">.</span><span class="n">views</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">findAffordance</span><span class="p">())</span>
         <span class="n">handFrame</span> <span class="o">=</span> <span class="n">handMesh</span><span class="o">.</span><span class="n">children</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">handFrame</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">graspFrame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-</div>
+        <span class="n">handFrame</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">graspFrame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.findAffordance"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.findAffordance">[docs]</a>    <span class="k">def</span> <span class="nf">findAffordance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">affordanceName</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.findAffordanceChild"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.findAffordanceChild">[docs]</a>    <span class="k">def</span> <span class="nf">findAffordanceChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.getAffordanceChild"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.getAffordanceChild">[docs]</a>    <span class="k">def</span> <span class="nf">getAffordanceChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">child</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Failed to locate affordance child: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">child</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Failed to locate affordance child: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">child</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.getAffordanceFrame"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.getAffordanceFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getAffordanceFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">findAffordance</span><span class="p">()</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span>
-        <span class="n">affordanceName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s"> frame&#39;</span> <span class="o">%</span> <span class="n">affordanceName</span><span class="p">)</span>
+        <span class="n">affordanceName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> frame&#39;</span> <span class="o">%</span> <span class="n">affordanceName</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeGraspFrameSamples"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGraspFrameSamples">[docs]</a>    <span class="k">def</span> <span class="nf">computeGraspFrameSamples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceName</span> <span class="o">==</span> <span class="s">&#39;board&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceName</span> <span class="o">==</span> <span class="s1">&#39;board&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspFrameSamplesBoard</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;sample grasp frame 0&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;sample grasp frame 0&#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeGraspFrameSamplesBoard"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGraspFrameSamplesBoard">[docs]</a>    <span class="k">def</span> <span class="nf">computeGraspFrameSamplesBoard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">affordanceFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceFrame</span><span class="p">()</span>
 
         <span class="n">additionalOffset</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="n">yoffset</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s">&#39;ywidth&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">additionalOffset</span>
-        <span class="n">xoffset</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s">&#39;xwidth&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">additionalOffset</span>
+        <span class="n">yoffset</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;ywidth&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">additionalOffset</span>
+        <span class="n">xoffset</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;xwidth&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">additionalOffset</span>
 
         <span class="n">frames</span> <span class="o">=</span> <span class="p">[</span>
           <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">yoffset</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mf">180.0</span><span class="p">]],</span>
@@ -318,71 +322,71 @@
             <span class="n">pos</span><span class="p">,</span> <span class="n">rpy</span> <span class="o">=</span> <span class="n">frame</span>
             <span class="n">t</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">frameFromPositionAndRPY</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">rpy</span><span class="p">)</span>
             <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">affordanceFrame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;sample grasp frame </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;sample grasp frame </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span>
             <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-            <span class="n">vis</span><span class="o">.</span><span class="n">showFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+            <span class="n">vis</span><span class="o">.</span><span class="n">showFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeGraspFrame"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGraspFrame">[docs]</a>    <span class="k">def</span> <span class="nf">computeGraspFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;sample grasp frame </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspSample</span><span class="p">)</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;grasp frame&#39;</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;sample grasp frame </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspSample</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;grasp frame&#39;</span>
         <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-        <span class="n">vis</span><span class="o">.</span><span class="n">showFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">transform</span><span class="p">),</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">showFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">transform</span><span class="p">),</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.createSearchGraspConstraints"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.createSearchGraspConstraints">[docs]</a>    <span class="k">def</span> <span class="nf">createSearchGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceName</span> <span class="o">==</span> <span class="s">&#39;board&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordanceName</span> <span class="o">==</span> <span class="s1">&#39;board&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createSearchGraspConstraintsBoard</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;grasp frame&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPositionOrientationGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">,</span> <span class="n">positionTolerance</span><span class="o">=</span><span class="mf">0.0025</span><span class="p">,</span> <span class="n">angleToleranceInDegrees</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;grasp frame&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPositionOrientationGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">,</span> <span class="n">positionTolerance</span><span class="o">=</span><span class="mf">0.0025</span><span class="p">,</span> <span class="n">angleToleranceInDegrees</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.createSearchGraspConstraintsBoard"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.createSearchGraspConstraintsBoard">[docs]</a>    <span class="k">def</span> <span class="nf">createSearchGraspConstraintsBoard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;grasp frame&#39;</span><span class="p">)</span>
-        <span class="n">boardHalfLength</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s">&#39;zwidth&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">-</span> <span class="mf">0.08</span>
+        <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;grasp frame&#39;</span><span class="p">)</span>
+        <span class="n">boardHalfLength</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;zwidth&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">-</span> <span class="mf">0.08</span>
 
         <span class="n">graspPosition</span><span class="p">,</span> <span class="n">graspOrientation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPositionOrientationGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">,</span> <span class="n">positionTolerance</span><span class="o">=</span><span class="mf">0.0025</span><span class="p">,</span> <span class="n">angleToleranceInDegrees</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
         <span class="n">graspPosition</span><span class="o">.</span><span class="n">lowerBound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">boardHalfLength</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
         <span class="n">graspPosition</span><span class="o">.</span><span class="n">upperBound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">boardHalfLength</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
 
-        <span class="k">return</span> <span class="n">graspPosition</span><span class="p">,</span> <span class="n">graspOrientation</span>
+        <span class="k">return</span> <span class="n">graspPosition</span><span class="p">,</span> <span class="n">graspOrientation</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.createRetractGraspConstraints"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.createRetractGraspConstraints">[docs]</a>    <span class="k">def</span> <span class="nf">createRetractGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;desired grasp frame&#39;</span><span class="p">)</span>
+        <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;desired grasp frame&#39;</span><span class="p">)</span>
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
         <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">targetFrame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
-        <span class="n">retractFrame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s">&#39;retract frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
+        <span class="n">retractFrame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;retract frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPositionOrientationGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="n">retractFrame</span><span class="p">,</span> <span class="n">positionTolerance</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">angleToleranceInDegrees</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPositionOrientationGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="n">retractFrame</span><span class="p">,</span> <span class="n">positionTolerance</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">angleToleranceInDegrees</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.createGraspConstraints"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.createGraspConstraints">[docs]</a>    <span class="k">def</span> <span class="nf">createGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;desired grasp frame&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPositionOrientationGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">,</span> <span class="n">positionTolerance</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">angleToleranceInDegrees</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+        <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;desired grasp frame&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPositionOrientationGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">,</span> <span class="n">positionTolerance</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">angleToleranceInDegrees</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.createPreGraspConstraints"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.createPreGraspConstraints">[docs]</a>    <span class="k">def</span> <span class="nf">createPreGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;pre grasp frame&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPositionOrientationGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">,</span> <span class="n">positionTolerance</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">angleToleranceInDegrees</span><span class="o">=</span><span class="mf">7.0</span><span class="p">)</span>
+        <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;pre grasp frame&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPositionOrientationGraspConstraints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">,</span> <span class="n">positionTolerance</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">angleToleranceInDegrees</span><span class="o">=</span><span class="mf">7.0</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.createPreReachConstraint"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.createPreReachConstraint">[docs]</a>    <span class="k">def</span> <span class="nf">createPreReachConstraint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">handToUtorso</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handToUtorso</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span> <span class="o">==</span> <span class="s">&#39;right&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span>
             <span class="n">handToUtorso</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createHandRelativePositionConstraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reachSide</span><span class="p">,</span> <span class="s">&#39;utorso&#39;</span><span class="p">,</span> <span class="n">handToUtorso</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">createHandRelativePositionConstraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reachSide</span><span class="p">,</span> <span class="s1">&#39;utorso&#39;</span><span class="p">,</span> <span class="n">handToUtorso</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeGraspEndPoseSearch"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGraspEndPoseSearch">[docs]</a>    <span class="k">def</span> <span class="nf">computeGraspEndPoseSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s">&#39;q_start&#39;</span>
+        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s1">&#39;q_start&#39;</span>
 
         <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">constraints</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createSearchGraspConstraints</span><span class="p">())</span>
@@ -390,17 +394,17 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPoseInfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">runIk</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">,</span> <span class="s">&#39;grasp_end_pose&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">,</span> <span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">)</span>
 
-        <span class="k">print</span> <span class="s">&#39;grasp end pose info:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPoseInfo</span>
-</div>
+        <span class="nb">print</span> <span class="s1">&#39;grasp end pose info:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPoseInfo</span></div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeGraspEndPoseFrames"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGraspEndPoseFrames">[docs]</a>    <span class="k">def</span> <span class="nf">computeGraspEndPoseFrames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">graspFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;grasp frame&#39;</span><span class="p">)</span>
+        <span class="n">graspFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;grasp frame&#39;</span><span class="p">)</span>
         <span class="n">affordanceFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceFrame</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">)</span>
         <span class="n">handFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">robotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getHandLink</span><span class="p">())</span>
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
@@ -408,7 +412,7 @@
         <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPalmToHandLink</span><span class="p">())</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">handFrame</span><span class="p">)</span>
         <span class="n">graspEndPoseFrame</span> <span class="o">=</span> <span class="n">t</span>
-        <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s">&#39;grasp frame (ik result with tolerance)&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s1">&#39;grasp frame (ik result with tolerance)&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
         <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
@@ -428,11 +432,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">updateHandModel</span><span class="p">()</span>
 
 
-        <span class="k">def</span> <span class="nf">updateGraspFrame</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">updateGraspFrame</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
-            <span class="n">graspFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s">&#39;desired grasp frame&#39;</span><span class="p">)</span>
+            <span class="n">graspFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s1">&#39;desired grasp frame&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">graspFrame</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">create</span><span class="p">:</span>
-                <span class="n">frame</span><span class="o">.</span><span class="n">onTransformModifiedCallback</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="n">frame</span><span class="o">.</span><span class="n">onTransformModifiedCallback</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">return</span>
 
             <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
@@ -441,13 +445,13 @@
             <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">graspFrame</span><span class="p">:</span>
-                <span class="n">graspFrame</span><span class="o">.</span><span class="n">onTransformModifiedCallback</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="n">graspFrame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s">&#39;desired grasp frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
+                <span class="n">graspFrame</span><span class="o">.</span><span class="n">onTransformModifiedCallback</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">graspFrame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;desired grasp frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
             <span class="n">graspFrame</span><span class="o">.</span><span class="n">onTransformModifiedCallback</span> <span class="o">=</span> <span class="n">updateAffordanceToGrasp</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">updateHandModel</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">graspFrame</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">def</span> <span class="nf">onRobotModelChanged</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
             <span class="n">handFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">playbackRobotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getHandLink</span><span class="p">())</span>
@@ -455,7 +459,7 @@
             <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
             <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPalmToHandLink</span><span class="p">())</span>
             <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">handFrame</span><span class="p">)</span>
-            <span class="n">palmFrame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s">&#39;palm frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
+            <span class="n">palmFrame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s1">&#39;palm frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lockAffordanceToHand</span><span class="p">:</span>
                 <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
@@ -467,13 +471,13 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">playbackRobotModel</span><span class="o">.</span><span class="n">connectModelChanged</span><span class="p">(</span><span class="n">onRobotModelChanged</span><span class="p">)</span>
 
-        <span class="n">graspFrame</span> <span class="o">=</span> <span class="n">updateGraspFrame</span><span class="p">(</span><span class="n">affordanceFrame</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">affordanceFrame</span><span class="o">.</span><span class="n">onTransformModifiedCallback</span> <span class="o">=</span> <span class="n">updateGraspFrame</span>
+        <span class="n">graspFrame</span> <span class="o">=</span> <span class="n">updateGraspFrame</span><span class="p">(</span><span class="n">affordanceFrame</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">affordanceFrame</span><span class="o">.</span><span class="n">onTransformModifiedCallback</span> <span class="o">=</span> <span class="n">updateGraspFrame</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computePreGraspFrame"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computePreGraspFrame">[docs]</a>    <span class="k">def</span> <span class="nf">computePreGraspFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preGraspDistance</span><span class="o">=</span><span class="mf">0.20</span><span class="p">):</span>
 
-        <span class="n">graspFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s">&#39;desired grasp frame&#39;</span><span class="p">)</span>
+        <span class="n">graspFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAffordanceChild</span><span class="p">(</span><span class="s1">&#39;desired grasp frame&#39;</span><span class="p">)</span>
 
         <span class="n">pos</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">preGraspDistance</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
         <span class="n">rpy</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
@@ -483,12 +487,12 @@
         <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">preGraspToGrasp</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">graspFrame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-        <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s">&#39;pre grasp frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;pre grasp frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeGraspEndPose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGraspEndPose">[docs]</a>    <span class="k">def</span> <span class="nf">computeGraspEndPose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s">&#39;q_start&#39;</span>
+        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s1">&#39;q_start&#39;</span>
 
         <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">constraints</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createMovingReachConstraints</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">))</span>
@@ -496,35 +500,35 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">runIk</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">,</span> <span class="s">&#39;grasp_end_pose&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">,</span> <span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">)</span>
 
-        <span class="k">print</span> <span class="s">&#39;grasp end pose info:&#39;</span><span class="p">,</span> <span class="n">info</span>
+        <span class="nb">print</span> <span class="s1">&#39;grasp end pose info:&#39;</span><span class="p">,</span> <span class="n">info</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.commitState"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.commitState">[docs]</a>    <span class="k">def</span> <span class="nf">commitState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">poseTimes</span><span class="p">,</span> <span class="n">poses</span> <span class="o">=</span> <span class="n">planplayback</span><span class="o">.</span><span class="n">PlanPlayback</span><span class="o">.</span><span class="n">getPlanPoses</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastManipPlan</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sensorJointController</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s">&#39;EST_ROBOT_STATE&#39;</span><span class="p">,</span> <span class="n">poses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensorJointController</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s1">&#39;EST_ROBOT_STATE&#39;</span><span class="p">,</span> <span class="n">poses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computePreGraspAdjustment"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computePreGraspAdjustment">[docs]</a>    <span class="k">def</span> <span class="nf">computePreGraspAdjustment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span>
         <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensorJointController</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
 
-        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s">&#39;reach_start&#39;</span>
+        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s1">&#39;reach_start&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="n">startPose</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computePostureGoal</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="s">&#39;pre_grasp_end_pose&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computePostureGoal</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="s1">&#39;pre_grasp_end_pose&#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeGraspReach"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGraspReach">[docs]</a>    <span class="k">def</span> <span class="nf">computeGraspReach</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span><span class="p">:</span>
             <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensorJointController</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s">&#39;pre_grasp_end_pose&#39;</span><span class="p">))</span>
+            <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;pre_grasp_end_pose&#39;</span><span class="p">))</span>
 
-        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s">&#39;reach_start&#39;</span>
+        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s1">&#39;reach_start&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="n">startPose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="n">startPose</span><span class="p">,</span> <span class="n">startPoseName</span><span class="p">)</span>
 
@@ -536,20 +540,20 @@
 
         <span class="n">endPose</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">runIk</span><span class="p">(</span><span class="n">constraints</span><span class="p">,</span> <span class="n">seedPostureName</span><span class="o">=</span><span class="n">startPoseName</span><span class="p">)</span>
 
-        <span class="k">print</span> <span class="s">&#39;grasp reach info:&#39;</span><span class="p">,</span> <span class="n">info</span>
+        <span class="nb">print</span> <span class="s1">&#39;grasp reach info:&#39;</span><span class="p">,</span> <span class="n">info</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s">&#39;reach_end&#39;</span><span class="p">,</span> <span class="n">endPose</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computePostureGoal</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="s">&#39;reach_end&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s1">&#39;reach_end&#39;</span><span class="p">,</span> <span class="n">endPose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computePostureGoal</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="s1">&#39;reach_end&#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeRetractTraj"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeRetractTraj">[docs]</a>    <span class="k">def</span> <span class="nf">computeRetractTraj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span><span class="p">:</span>
             <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensorJointController</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">))</span>
+            <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">))</span>
 
-        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s">&#39;retract_start&#39;</span>
+        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s1">&#39;retract_start&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="n">startPose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="n">startPose</span><span class="p">,</span> <span class="n">startPoseName</span><span class="p">)</span>
 
@@ -567,22 +571,22 @@
 
 
         <span class="n">endPose</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">runIk</span><span class="p">(</span><span class="n">constraints</span><span class="p">,</span> <span class="n">seedPostureName</span><span class="o">=</span><span class="n">startPoseName</span><span class="p">)</span>
-        <span class="k">print</span> <span class="s">&#39;retract info:&#39;</span><span class="p">,</span> <span class="n">info</span>
+        <span class="nb">print</span> <span class="s1">&#39;retract info:&#39;</span><span class="p">,</span> <span class="n">info</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s">&#39;retract_end&#39;</span><span class="p">,</span> <span class="n">endPose</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computePostureGoal</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="s">&#39;retract_end&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s1">&#39;retract_end&#39;</span><span class="p">,</span> <span class="n">endPose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computePostureGoal</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="s1">&#39;retract_end&#39;</span><span class="p">)</span></div>
 
-        <span class="c">#self.runIkTraj(constraints, startPoseName, startPoseName, timeSamples)</span>
+        <span class="c1">#self.runIkTraj(constraints, startPoseName, startPoseName, timeSamples)</span>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeArmExtend"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeArmExtend">[docs]</a>    <span class="k">def</span> <span class="nf">computeArmExtend</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span><span class="p">:</span>
             <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensorJointController</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">))</span>
+            <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">))</span>
 
-        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s">&#39;retract_start&#39;</span>
+        <span class="n">startPoseName</span> <span class="o">=</span> <span class="s1">&#39;retract_start&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="n">startPose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="n">startPose</span><span class="p">,</span> <span class="n">startPoseName</span><span class="p">)</span>
 
@@ -591,47 +595,47 @@
         <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createKneePostureConstraint</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">]))</span>
         <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createMovingBasePostureConstraint</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">))</span>
         <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createLockedArmPostureConstraint</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">))</span>
-        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createPostureConstraint</span><span class="p">(</span><span class="s">&#39;q_nom&#39;</span><span class="p">,</span> <span class="n">robotstate</span><span class="o">.</span><span class="n">matchJoints</span><span class="p">(</span><span class="s">&#39;back&#39;</span><span class="p">)))</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createPostureConstraint</span><span class="p">(</span><span class="s1">&#39;q_nom&#39;</span><span class="p">,</span> <span class="n">robotstate</span><span class="o">.</span><span class="n">matchJoints</span><span class="p">(</span><span class="s1">&#39;back&#39;</span><span class="p">)))</span>
 
-        <span class="n">movingArmJoints</span> <span class="o">=</span> <span class="s">&#39;l_arm&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span> <span class="o">==</span> <span class="s">&#39;left&#39;</span> <span class="k">else</span> <span class="s">&#39;r_arm&#39;</span>
-        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createPostureConstraint</span><span class="p">(</span><span class="s">&#39;q_zero&#39;</span><span class="p">,</span> <span class="n">robotstate</span><span class="o">.</span><span class="n">matchJoints</span><span class="p">(</span><span class="n">movingArmJoints</span><span class="p">)))</span>
+        <span class="n">movingArmJoints</span> <span class="o">=</span> <span class="s1">&#39;l_arm&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span> <span class="o">==</span> <span class="s1">&#39;left&#39;</span> <span class="k">else</span> <span class="s1">&#39;r_arm&#39;</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createPostureConstraint</span><span class="p">(</span><span class="s1">&#39;q_zero&#39;</span><span class="p">,</span> <span class="n">robotstate</span><span class="o">.</span><span class="n">matchJoints</span><span class="p">(</span><span class="n">movingArmJoints</span><span class="p">)))</span>
 
         <span class="n">endPose</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">runIk</span><span class="p">(</span><span class="n">constraints</span><span class="p">,</span> <span class="n">seedPostureName</span><span class="o">=</span><span class="n">startPoseName</span><span class="p">)</span>
 
-        <span class="k">print</span> <span class="s">&#39;retract info:&#39;</span><span class="p">,</span> <span class="n">info</span>
+        <span class="nb">print</span> <span class="s1">&#39;retract info:&#39;</span><span class="p">,</span> <span class="n">info</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s">&#39;retract_end&#39;</span><span class="p">,</span> <span class="n">endPose</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computePostureGoal</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="s">&#39;retract_end&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s1">&#39;retract_end&#39;</span><span class="p">,</span> <span class="n">endPose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computePostureGoal</span><span class="p">(</span><span class="n">startPoseName</span><span class="p">,</span> <span class="s1">&#39;retract_end&#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computePreGraspEndPose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computePreGraspEndPose">[docs]</a>    <span class="k">def</span> <span class="nf">computePreGraspEndPose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">constraints</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createPreGraspConstraints</span><span class="p">())</span>
-        <span class="n">constraints</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createMovingReachConstraints</span><span class="p">(</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">lockBack</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lockBase</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lockArm</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createMovingReachConstraints</span><span class="p">(</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">lockBack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lockBase</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lockArm</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPose</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPoseInfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">runIk</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPose</span><span class="p">,</span> <span class="s">&#39;pre_grasp_end_pose&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s">&#39;pre_grasp_end_pose&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPose</span><span class="p">,</span> <span class="s1">&#39;pre_grasp_end_pose&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s1">&#39;pre_grasp_end_pose&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPose</span><span class="p">)</span>
 
-        <span class="k">print</span> <span class="s">&#39;pre grasp end pose info:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPoseInfo</span>
+        <span class="nb">print</span> <span class="s1">&#39;pre grasp end pose info:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPoseInfo</span></div>
 
-</div>
-<div class="viewcode-block" id="GraspSearchPlanner.computeGraspTraj"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGraspTraj">[docs]</a>    <span class="k">def</span> <span class="nf">computeGraspTraj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poseStart</span><span class="o">=</span><span class="s">&#39;q_start&#39;</span><span class="p">,</span> <span class="n">poseEnd</span><span class="o">=</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">timeSamples</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GraspSearchPlanner.computeGraspTraj"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeGraspTraj">[docs]</a>    <span class="k">def</span> <span class="nf">computeGraspTraj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poseStart</span><span class="o">=</span><span class="s1">&#39;q_start&#39;</span><span class="p">,</span> <span class="n">poseEnd</span><span class="o">=</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">,</span> <span class="n">timeSamples</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">constraints</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createMovingReachConstraints</span><span class="p">(</span><span class="n">poseStart</span><span class="p">))</span>
 
         <span class="n">movingBaseConstraint</span> <span class="o">=</span> <span class="n">constraints</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">movingBaseConstraint</span><span class="p">,</span> <span class="n">ik</span><span class="o">.</span><span class="n">PostureConstraint</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="s">&#39;base_x&#39;</span> <span class="ow">in</span> <span class="n">movingBaseConstraint</span><span class="o">.</span><span class="n">joints</span>
+        <span class="k">assert</span> <span class="s1">&#39;base_x&#39;</span> <span class="ow">in</span> <span class="n">movingBaseConstraint</span><span class="o">.</span><span class="n">joints</span>
         <span class="n">movingBaseConstraint</span><span class="o">.</span><span class="n">tspan</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tspanStart</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">tspanPreGrasp</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
 
         <span class="n">preReachPosition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPreReachConstraint</span><span class="p">()</span>
         <span class="n">preReachPosition</span><span class="o">.</span><span class="n">tspan</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tspanPreReach</span>
 
-        <span class="n">graspPosture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createLockedTorsoPostureConstraint</span><span class="p">(</span><span class="s">&#39;grasp_end_pose&#39;</span><span class="p">)</span>
+        <span class="n">graspPosture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createLockedTorsoPostureConstraint</span><span class="p">(</span><span class="s1">&#39;grasp_end_pose&#39;</span><span class="p">)</span>
         <span class="n">graspPosture</span><span class="o">.</span><span class="n">tspan</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tspanPreGraspToEnd</span>
 
         <span class="n">preGraspPosition</span><span class="p">,</span> <span class="n">preGraspOrientation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createPreGraspConstraints</span><span class="p">()</span>
@@ -651,41 +655,41 @@
             <span class="n">graspOrientation</span><span class="p">,</span>
             <span class="p">])</span>
 
-        <span class="k">if</span> <span class="n">timeSamples</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">timeSamples</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">timeSamples</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">runIkTraj</span><span class="p">(</span><span class="n">constraints</span><span class="p">,</span> <span class="n">poseStart</span><span class="p">,</span> <span class="n">poseEnd</span><span class="p">,</span> <span class="n">timeSamples</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runIkTraj</span><span class="p">(</span><span class="n">constraints</span><span class="p">,</span> <span class="n">poseStart</span><span class="p">,</span> <span class="n">poseEnd</span><span class="p">,</span> <span class="n">timeSamples</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.useGraspEndPoseOption"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.useGraspEndPoseOption">[docs]</a>    <span class="k">def</span> <span class="nf">useGraspEndPoseOption</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 
         <span class="n">side</span><span class="p">,</span> <span class="n">graspSample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span> <span class="o">=</span> <span class="n">side</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graspSample</span> <span class="o">=</span> <span class="n">graspSample</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateGraspEndPose</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">showGraspEndPose</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">showGraspEndPose</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.computeInitialState"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.computeInitialState">[docs]</a>    <span class="k">def</span> <span class="nf">computeInitialState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span><span class="p">:</span>
             <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensorJointController</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s">&#39;q_nom&#39;</span><span class="p">))</span>
+            <span class="n">startPose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;q_nom&#39;</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="n">startPose</span><span class="p">,</span> <span class="s">&#39;q_start&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s">&#39;q_start&#39;</span><span class="p">,</span> <span class="n">startPose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikServer</span><span class="o">.</span><span class="n">sendPoseToServer</span><span class="p">(</span><span class="n">startPose</span><span class="p">,</span> <span class="s1">&#39;q_start&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">addPose</span><span class="p">(</span><span class="s1">&#39;q_start&#39;</span><span class="p">,</span> <span class="n">startPose</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="GraspSearchPlanner.updateGraspEndPose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.updateGraspEndPose">[docs]</a>    <span class="k">def</span> <span class="nf">updateGraspEndPose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enableSearch</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GraspSearchPlanner.updateGraspEndPose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.updateGraspEndPose">[docs]</a>    <span class="k">def</span> <span class="nf">updateGraspEndPose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enableSearch</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">computeInitialState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">findAffordance</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">enableSearch</span><span class="p">:</span>
-            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s">&#39;desired grasp frame&#39;</span><span class="p">))</span>
-            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s">&#39;desired grasp hand&#39;</span><span class="p">))</span>
+            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s1">&#39;desired grasp frame&#39;</span><span class="p">))</span>
+            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s1">&#39;desired grasp hand&#39;</span><span class="p">))</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s">&#39;desired grasp frame&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s1">&#39;desired grasp frame&#39;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspFrameSamples</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspFrame</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspEndPoseSearch</span><span class="p">()</span>
@@ -694,21 +698,21 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspEndPose</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">computePreGraspFrame</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computePreGraspEndPose</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computePreGraspEndPose</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="GraspSearchPlanner.endPoseSearch"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.GraspSearchPlanner.endPoseSearch">[docs]</a>    <span class="k">def</span> <span class="nf">endPoseSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">findAffordance</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">computeGraspFrameSamples</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;right&#39;</span><span class="p">]:</span>
-        <span class="c">#for side in [&#39;left&#39;]:</span>
+        <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]:</span>
+        <span class="c1">#for side in [&#39;left&#39;]:</span>
 
             <span class="n">sampleCount</span> <span class="o">=</span> <span class="mi">0</span>
 
-            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s">&#39;sample grasp frame </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">sampleCount</span><span class="p">):</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAffordanceChild</span><span class="p">(</span><span class="s1">&#39;sample grasp frame </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">sampleCount</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span> <span class="o">=</span> <span class="n">side</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">graspSample</span> <span class="o">=</span> <span class="n">sampleCount</span>
                 <span class="n">sampleCount</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -718,22 +722,22 @@
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPoseInfo</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPoseInfo</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspSample</span><span class="p">]</span>
                     <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">computePostureCost</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">)</span>
-                    <span class="k">print</span> <span class="s">&#39;score:&#39;</span><span class="p">,</span> <span class="n">score</span>
-                    <span class="k">print</span> <span class="s">&#39;params:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspSample</span>
+                    <span class="nb">print</span> <span class="s1">&#39;score:&#39;</span><span class="p">,</span> <span class="n">score</span>
+                    <span class="nb">print</span> <span class="s1">&#39;params:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reachingSide</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspSample</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">score</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graspEndPose</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preGraspEndPose</span><span class="p">,</span> <span class="n">params</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span><span class="p">:</span>
-            <span class="k">print</span> <span class="s">&#39;failed to find suitable grasp end pose&#39;</span>
+            <span class="nb">print</span> <span class="s1">&#39;failed to find suitable grasp end pose&#39;</span>
             <span class="k">return</span> <span class="mi">0</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">useGraspEndPoseOption</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n\n</span><span class="s">found </span><span class="si">%d</span><span class="s"> suitable end poses&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">found </span><span class="si">%d</span><span class="s1"> suitable end poses&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endPoses</span><span class="p">)</span></div></div>
 
 
-</div></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo">[docs]</a><span class="k">class</span> <span class="nc">DebrisPlannerDemo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotStateModel</span><span class="p">,</span> <span class="n">sensorJointController</span><span class="p">,</span> <span class="n">playbackRobotModel</span><span class="p">,</span> <span class="n">ikPlanner</span><span class="p">,</span> <span class="n">manipPlanner</span><span class="p">,</span> <span class="n">atlasDriver</span><span class="p">,</span> <span class="n">handDriver</span><span class="p">,</span> <span class="n">multisenseDriver</span><span class="p">,</span> <span class="n">refitFunction</span><span class="p">):</span>
@@ -748,253 +752,253 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">multisenseDriver</span> <span class="o">=</span> <span class="n">multisenseDriver</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refitFunction</span> <span class="o">=</span> <span class="n">refitFunction</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">userPromptEnabled</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">visOnly</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">userPromptEnabled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visOnly</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="DebrisPlannerDemo.reset"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">randomAffordance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robotStateModel</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">randomAffordance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robotStateModel</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.playManipPlan"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.playManipPlan">[docs]</a>    <span class="k">def</span> <span class="nf">playManipPlan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">robotStateModel</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">robotStateModel</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.search"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.search">[docs]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">endPoseSearch</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">robotStateModel</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">robotStateModel</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.preGrasp"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.preGrasp">[docs]</a>    <span class="k">def</span> <span class="nf">preGrasp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">updateGraspEndPose</span><span class="p">(</span><span class="n">enableSearch</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">updateGraspEndPose</span><span class="p">(</span><span class="n">enableSearch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">computePreGraspTraj</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.adjustPreGrasp"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.adjustPreGrasp">[docs]</a>    <span class="k">def</span> <span class="nf">adjustPreGrasp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">updateGraspEndPose</span><span class="p">(</span><span class="n">enableSearch</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">updateGraspEndPose</span><span class="p">(</span><span class="n">enableSearch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">computePreGraspAdjustment</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.grasp"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.grasp">[docs]</a>    <span class="k">def</span> <span class="nf">grasp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">computeGraspReach</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.retract"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.retract">[docs]</a>    <span class="k">def</span> <span class="nf">retract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">computeRetractTraj</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.stand"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.stand">[docs]</a>    <span class="k">def</span> <span class="nf">stand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">startPose</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPlanningStartPose</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">computeStandPlan</span><span class="p">(</span><span class="n">startPose</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.extendArm"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.extendArm">[docs]</a>    <span class="k">def</span> <span class="nf">extendArm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">computeArmExtend</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.drop"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.drop">[docs]</a>    <span class="k">def</span> <span class="nf">drop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lockAffordanceToHand</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">affordance</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nominal</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nominal</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.nominal"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.nominal">[docs]</a>    <span class="k">def</span> <span class="nf">nominal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">startPose</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPlanningStartPose</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">computeNominalPlan</span><span class="p">(</span><span class="n">startPose</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playManipPlan</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.toggleAffordanceEdit"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.toggleAffordanceEdit">[docs]</a>    <span class="k">def</span> <span class="nf">toggleAffordanceEdit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">aff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">findAffordance</span><span class="p">()</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">getAffordanceFrame</span><span class="p">()</span>
-        <span class="n">edit</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">frame</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Edit&#39;</span><span class="p">)</span>
-        <span class="n">frame</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Edit&#39;</span><span class="p">,</span> <span class="n">edit</span><span class="p">)</span>
-        <span class="n">aff</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">0.5</span> <span class="k">if</span> <span class="n">edit</span> <span class="k">else</span> <span class="mf">1.0</span><span class="p">)</span>
-</div>
+        <span class="n">edit</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">frame</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Edit&#39;</span><span class="p">)</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Edit&#39;</span><span class="p">,</span> <span class="n">edit</span><span class="p">)</span>
+        <span class="n">aff</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">0.5</span> <span class="k">if</span> <span class="n">edit</span> <span class="k">else</span> <span class="mf">1.0</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.getEstimatedRobotStatePose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.getEstimatedRobotStatePose">[docs]</a>    <span class="k">def</span> <span class="nf">getEstimatedRobotStatePose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensorJointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s">&#39;EST_ROBOT_STATE&#39;</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensorJointController</span><span class="o">.</span><span class="n">getPose</span><span class="p">(</span><span class="s1">&#39;EST_ROBOT_STATE&#39;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.getPlanningStartPose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.getPlanningStartPose">[docs]</a>    <span class="k">def</span> <span class="nf">getPlanningStartPose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">planFromCurrentRobotState</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEstimatedRobotStatePose</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="bp">False</span>
-</div>
+            <span class="k">assert</span> <span class="kc">False</span></div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.commit"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.commit">[docs]</a>    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visOnly</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">commitState</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clearPlan</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">manipPlanner</span><span class="o">.</span><span class="n">commitManipPlan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lastManipPlan</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">clearPlan</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.clearPlan"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.clearPlan">[docs]</a>    <span class="k">def</span> <span class="nf">clearPlan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lastManipPlan</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">robotStateModel</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playbackRobotModel</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.useEndPose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.useEndPose">[docs]</a>    <span class="k">def</span> <span class="nf">useEndPose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">useGraspEndPoseOption</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.sendHeightMode"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendHeightMode">[docs]</a>    <span class="k">def</span> <span class="nf">sendHeightMode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">sendPlanUsingBdiHeight</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.openHand"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.openHand">[docs]</a>    <span class="k">def</span> <span class="nf">openHand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">handDriver</span><span class="o">.</span><span class="n">sendOpen</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.closeHand"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.closeHand">[docs]</a>    <span class="k">def</span> <span class="nf">closeHand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">handDriver</span><span class="o">.</span><span class="n">sendClose</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.sendPelvisCrouch"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendPelvisCrouch">[docs]</a>    <span class="k">def</span> <span class="nf">sendPelvisCrouch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">sendPelvisHeightCommand</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.sendPelvisStand"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendPelvisStand">[docs]</a>    <span class="k">def</span> <span class="nf">sendPelvisStand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">sendPelvisHeightCommand</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.sendNeckPitchLookDown"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendNeckPitchLookDown">[docs]</a>    <span class="k">def</span> <span class="nf">sendNeckPitchLookDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">multisenseDriver</span><span class="o">.</span><span class="n">setNeckPitch</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.spinLidar"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.spinLidar">[docs]</a>    <span class="k">def</span> <span class="nf">spinLidar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">multisenseDriver</span><span class="o">.</span><span class="n">setLidarRevolutionTime</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="DebrisPlannerDemo.sendNeckPitchLookForward"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendNeckPitchLookForward">[docs]</a>    <span class="k">def</span> <span class="nf">sendNeckPitchLookForward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">multisenseDriver</span><span class="o">.</span><span class="n">setNeckPitch</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clearPlan</span><span class="p">()</span></div>
 
-</div>
+<div class="viewcode-block" id="DebrisPlannerDemo.clearPlan"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.clearPlan">[docs]</a>    <span class="k">def</span> <span class="nf">clearPlan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">lastManipPlan</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">robotStateModel</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playbackRobotModel</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DebrisPlannerDemo.useEndPose"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.useEndPose">[docs]</a>    <span class="k">def</span> <span class="nf">useEndPose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">useGraspEndPoseOption</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DebrisPlannerDemo.sendHeightMode"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendHeightMode">[docs]</a>    <span class="k">def</span> <span class="nf">sendHeightMode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">sendPlanUsingBdiHeight</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DebrisPlannerDemo.openHand"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.openHand">[docs]</a>    <span class="k">def</span> <span class="nf">openHand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handDriver</span><span class="o">.</span><span class="n">sendOpen</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DebrisPlannerDemo.closeHand"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.closeHand">[docs]</a>    <span class="k">def</span> <span class="nf">closeHand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handDriver</span><span class="o">.</span><span class="n">sendClose</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DebrisPlannerDemo.sendPelvisCrouch"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendPelvisCrouch">[docs]</a>    <span class="k">def</span> <span class="nf">sendPelvisCrouch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">sendPelvisHeightCommand</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DebrisPlannerDemo.sendPelvisStand"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendPelvisStand">[docs]</a>    <span class="k">def</span> <span class="nf">sendPelvisStand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">sendPelvisHeightCommand</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DebrisPlannerDemo.sendNeckPitchLookDown"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendNeckPitchLookDown">[docs]</a>    <span class="k">def</span> <span class="nf">sendNeckPitchLookDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">multisenseDriver</span><span class="o">.</span><span class="n">setNeckPitch</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DebrisPlannerDemo.spinLidar"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.spinLidar">[docs]</a>    <span class="k">def</span> <span class="nf">spinLidar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">multisenseDriver</span><span class="o">.</span><span class="n">setLidarRevolutionTime</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DebrisPlannerDemo.sendNeckPitchLookForward"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.sendNeckPitchLookForward">[docs]</a>    <span class="k">def</span> <span class="nf">sendNeckPitchLookForward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">multisenseDriver</span><span class="o">.</span><span class="n">setNeckPitch</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="DebrisPlannerDemo.waitForAtlasBehaviorAsync"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.waitForAtlasBehaviorAsync">[docs]</a>    <span class="k">def</span> <span class="nf">waitForAtlasBehaviorAsync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">behaviorName</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">behaviorName</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">getBehaviorMap</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">getCurrentBehaviorName</span><span class="p">()</span> <span class="o">!=</span> <span class="n">behaviorName</span><span class="p">:</span>
-            <span class="k">yield</span>
+            <span class="k">yield</span></div>
 
-</div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.printAsync"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.printAsync">[docs]</a>    <span class="k">def</span> <span class="nf">printAsync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
         <span class="k">yield</span>
-        <span class="k">print</span> <span class="n">s</span>
+        <span class="nb">print</span> <span class="n">s</span></div>
 
-</div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.userPrompt"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.userPrompt">[docs]</a>    <span class="k">def</span> <span class="nf">userPrompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">userPromptEnabled</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="k">yield</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="s">&#39;y&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;user abort.&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">raw_input</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;user abort.&#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.delay"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.delay">[docs]</a>    <span class="k">def</span> <span class="nf">delay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delayTimeInSeconds</span><span class="p">):</span>
         <span class="k">yield</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">SimpleTimer</span><span class="p">()</span>
         <span class="k">while</span> <span class="n">t</span><span class="o">.</span><span class="n">elapsed</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">delayTimeInSeconds</span><span class="p">:</span>
-            <span class="k">yield</span>
+            <span class="k">yield</span></div>
 
-</div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.pauseQueue"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.pauseQueue">[docs]</a>    <span class="k">def</span> <span class="nf">pauseQueue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">AsyncTaskQueue</span><span class="o">.</span><span class="n">PauseException</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="n">AsyncTaskQueue</span><span class="o">.</span><span class="n">PauseException</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.waitForCleanLidarSweepAsync"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.waitForCleanLidarSweepAsync">[docs]</a>    <span class="k">def</span> <span class="nf">waitForCleanLidarSweepAsync</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">currentRevolution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">multisenseDriver</span><span class="o">.</span><span class="n">displayedRevolution</span>
         <span class="n">desiredRevolution</span> <span class="o">=</span> <span class="n">currentRevolution</span> <span class="o">+</span> <span class="mi">2</span>
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">multisenseDriver</span><span class="o">.</span><span class="n">displayedRevolution</span> <span class="o">&lt;</span> <span class="n">desiredRevolution</span><span class="p">:</span>
-            <span class="k">yield</span>
+            <span class="k">yield</span></div>
 
-</div>
+
 <div class="viewcode-block" id="DebrisPlannerDemo.autonomousExecute"><a class="viewcode-back" href="../../generated/director.debrisdemo.html#director.debrisdemo.DebrisPlannerDemo.autonomousExecute">[docs]</a>    <span class="k">def</span> <span class="nf">autonomousExecute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
 
         <span class="n">taskQueue</span> <span class="o">=</span> <span class="n">AsyncTaskQueue</span><span class="p">()</span>
 
-        <span class="c"># require affordance at start</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;get affordance&#39;</span><span class="p">))</span>
+        <span class="c1"># require affordance at start</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;get affordance&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ikPlanner</span><span class="o">.</span><span class="n">getAffordanceFrame</span><span class="p">)</span>
 
-        <span class="c"># stand, open hand, manip</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;send behavior start commands&#39;</span><span class="p">))</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;stand and open hand. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># stand, open hand, manip</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;send behavior start commands&#39;</span><span class="p">))</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;stand and open hand. continue? y/n: &#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">sendManipCommand</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">openHand</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">3.0</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sendHeightMode</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atlasDriver</span><span class="o">.</span><span class="n">sendManipCommand</span><span class="p">)</span>
 
-        <span class="c"># user prompt</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;sending neck pitch down. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># user prompt</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;sending neck pitch down. continue? y/n: &#39;</span><span class="p">))</span>
 
-        <span class="c"># set neck pitch</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;neck pitch down&#39;</span><span class="p">))</span>
+        <span class="c1"># set neck pitch</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;neck pitch down&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sendNeckPitchLookDown</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
 
-        <span class="c"># user prompt</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;perception and fitting. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># user prompt</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;perception and fitting. continue? y/n: &#39;</span><span class="p">))</span>
 
-        <span class="c"># perception &amp; fitting</span>
-        <span class="c">#taskQueue.addTask(self.printAsync(&#39;waiting for clean lidar sweep&#39;))</span>
-        <span class="c">#taskQueue.addTask(self.waitForCleanLidarSweepAsync)</span>
-        <span class="c">#taskQueue.addTask(self.printAsync(&#39;user fit affordance&#39;))</span>
-        <span class="c">#taskQueue.addTask(self.pauseQueue)</span>
+        <span class="c1"># perception &amp; fitting</span>
+        <span class="c1">#taskQueue.addTask(self.printAsync(&#39;waiting for clean lidar sweep&#39;))</span>
+        <span class="c1">#taskQueue.addTask(self.waitForCleanLidarSweepAsync)</span>
+        <span class="c1">#taskQueue.addTask(self.printAsync(&#39;user fit affordance&#39;))</span>
+        <span class="c1">#taskQueue.addTask(self.pauseQueue)</span>
 
-        <span class="c"># compute grasp &amp; stance</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;grasp search&#39;</span><span class="p">))</span>
+        <span class="c1"># compute grasp &amp; stance</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;grasp search&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">)</span>
 
-        <span class="c"># user select end pose</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;user select end pose&#39;</span><span class="p">))</span>
-        <span class="c">#taskQueue.addTask(self.pauseQueue)</span>
+        <span class="c1"># user select end pose</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;user select end pose&#39;</span><span class="p">))</span>
+        <span class="c1">#taskQueue.addTask(self.pauseQueue)</span>
 
-        <span class="c"># compute pre grasp plan</span>
+        <span class="c1"># compute pre grasp plan</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preGrasp</span><span class="p">)</span>
 
-        <span class="c"># user prompt</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># user prompt</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
 
-        <span class="c"># commit pre grasp plan</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;commit pre grasp plan&#39;</span><span class="p">))</span>
+        <span class="c1"># commit pre grasp plan</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;commit pre grasp plan&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commit</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">10.0</span><span class="p">))</span>
 
 
-        <span class="c"># perception &amp; fitting</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;user fit affordance&#39;</span><span class="p">))</span>
+        <span class="c1"># perception &amp; fitting</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;user fit affordance&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toggleAffordanceEdit</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pauseQueue</span><span class="p">)</span>
 
-        <span class="c">#taskQueue.addTask(self.printAsync(&#39;waiting for clean lidar sweep&#39;))</span>
-        <span class="c">#taskQueue.addTask(self.waitForCleanLidarSweepAsync)</span>
-        <span class="c">#taskQueue.addTask(self.printAsync(&#39;refit affordance&#39;))</span>
-        <span class="c">#taskQueue.addTask(self.refitFunction)</span>
+        <span class="c1">#taskQueue.addTask(self.printAsync(&#39;waiting for clean lidar sweep&#39;))</span>
+        <span class="c1">#taskQueue.addTask(self.waitForCleanLidarSweepAsync)</span>
+        <span class="c1">#taskQueue.addTask(self.printAsync(&#39;refit affordance&#39;))</span>
+        <span class="c1">#taskQueue.addTask(self.refitFunction)</span>
 
 
-        <span class="c"># compute pre grasp plan</span>
+        <span class="c1"># compute pre grasp plan</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grasp</span><span class="p">)</span>
 
-        <span class="c"># user prompt</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># user prompt</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
 
-        <span class="c"># commit pre grasp plan</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;commit grasp plan&#39;</span><span class="p">))</span>
+        <span class="c1"># commit pre grasp plan</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;commit grasp plan&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commit</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">10.0</span><span class="p">))</span>
 
-        <span class="c"># user prompt</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;closing hand. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># user prompt</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;closing hand. continue? y/n: &#39;</span><span class="p">))</span>
 
-        <span class="c"># close hand</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;close hand&#39;</span><span class="p">))</span>
+        <span class="c1"># close hand</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;close hand&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">closeHand</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">closeHand</span><span class="p">)</span>
 
-        <span class="c"># compute retract plan</span>
+        <span class="c1"># compute retract plan</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">retract</span><span class="p">)</span>
 
-        <span class="c"># user prompt</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># user prompt</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
 
-        <span class="c"># commit pre grasp plan</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;commit retract plan&#39;</span><span class="p">))</span>
+        <span class="c1"># commit pre grasp plan</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;commit retract plan&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commit</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">closeHand</span><span class="p">)</span>
@@ -1017,38 +1021,38 @@
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">6.0</span><span class="p">))</span>
 
 
-        <span class="c"># compute extend arm plan</span>
+        <span class="c1"># compute extend arm plan</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extendArm</span><span class="p">)</span>
 
-        <span class="c"># user prompt</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># user prompt</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
 
-        <span class="c"># commit pre grasp plan</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;commit extend arm plan&#39;</span><span class="p">))</span>
+        <span class="c1"># commit pre grasp plan</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;commit extend arm plan&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commit</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">10.0</span><span class="p">))</span>
 
-        <span class="c"># user prompt</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;opening hand. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># user prompt</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;opening hand. continue? y/n: &#39;</span><span class="p">))</span>
 
-        <span class="c"># open hand</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;open hand&#39;</span><span class="p">))</span>
+        <span class="c1"># open hand</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;open hand&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">openHand</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
 
-        <span class="c"># compute nominal pose plan</span>
+        <span class="c1"># compute nominal pose plan</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">)</span>
 
-        <span class="c"># user prompt</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
+        <span class="c1"># user prompt</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span><span class="p">(</span><span class="s1">&#39;commit manip plan. continue? y/n: &#39;</span><span class="p">))</span>
 
-        <span class="c"># commit pre grasp plan</span>
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;commit nominal pose plan&#39;</span><span class="p">))</span>
+        <span class="c1"># commit pre grasp plan</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;commit nominal pose plan&#39;</span><span class="p">))</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commit</span><span class="p">)</span>
         <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mf">10.0</span><span class="p">))</span>
 
 
-        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&#39;done!&#39;</span><span class="p">))</span>
+        <span class="n">taskQueue</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s1">&#39;done!&#39;</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">taskQueue</span></div></div>
 </pre></div>

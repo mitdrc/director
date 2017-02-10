@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../../index.html"/>
         <link rel="up" title="director" href="../../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,13 +132,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.thirdparty.conversions</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">numbers</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">director.thirdparty</span> <span class="kn">import</span> <span class="n">transformations</span>
-<span class="kn">from</span> <span class="nn">geometry_msgs_mock</span> <span class="kn">import</span> <span class="n">Pose</span>
+<span class="kn">from</span> <span class="nn">director.thirdparty</span> <span class="k">import</span> <span class="n">transformations</span>
+<span class="kn">from</span> <span class="nn">geometry_msgs_mock</span> <span class="k">import</span> <span class="n">Pose</span>
 
 
 
@@ -144,9 +148,9 @@
   <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e5</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.0e5</span>
   <span class="k">else</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rounded</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rounded</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">])</span></div>
 
-</div>
+
 <div class="viewcode-block" id="homogeneous2translation_quaternion"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.homogeneous2translation_quaternion">[docs]</a><span class="k">def</span> <span class="nf">homogeneous2translation_quaternion</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Translation: [x, y, z]</span>
@@ -154,9 +158,9 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">translation</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">translation_from_matrix</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">)</span>
   <span class="n">quaternion</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">quaternion_from_matrix</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">translation</span><span class="p">,</span> <span class="n">quaternion</span>
+  <span class="k">return</span> <span class="n">translation</span><span class="p">,</span> <span class="n">quaternion</span></div>
 
-</div>
+
 <div class="viewcode-block" id="homogeneous2translation_rpy"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.homogeneous2translation_rpy">[docs]</a><span class="k">def</span> <span class="nf">homogeneous2translation_rpy</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Translation: [x, y, z]</span>
@@ -164,9 +168,9 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">translation</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">translation_from_matrix</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">)</span>
   <span class="n">rpy</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">euler_from_matrix</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">translation</span><span class="p">,</span> <span class="n">rpy</span>
+  <span class="k">return</span> <span class="n">translation</span><span class="p">,</span> <span class="n">rpy</span></div>
 
-</div>
+
 <div class="viewcode-block" id="homogeneous2pose_msg"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.homogeneous2pose_msg">[docs]</a><span class="k">def</span> <span class="nf">homogeneous2pose_msg</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">):</span>
   <span class="n">pose</span> <span class="o">=</span> <span class="n">Pose</span><span class="p">()</span>
   <span class="n">translation</span><span class="p">,</span> <span class="n">quaternion</span> <span class="o">=</span> <span class="n">homogeneous2translation_quaternion</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">)</span>
@@ -177,44 +181,45 @@
   <span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">quaternion</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
   <span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">quaternion</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
   <span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">quaternion</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-  <span class="k">return</span> <span class="n">pose</span>
+  <span class="k">return</span> <span class="n">pose</span></div>
 
-</div>
+
 <div class="viewcode-block" id="pose_msg2homogeneous"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.pose_msg2homogeneous">[docs]</a><span class="k">def</span> <span class="nf">pose_msg2homogeneous</span><span class="p">(</span><span class="n">pose</span><span class="p">):</span>
   <span class="n">trans</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">translation_matrix</span><span class="p">((</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
   <span class="n">rot</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">quaternion_matrix</span><span class="p">((</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">w</span><span class="p">))</span>
-  <span class="k">return</span> <span class="n">transformations</span><span class="o">.</span><span class="n">concatenate_matrices</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="n">rot</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">transformations</span><span class="o">.</span><span class="n">concatenate_matrices</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="n">rot</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="array2string"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.array2string">[docs]</a><span class="k">def</span> <span class="nf">array2string</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array_str</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;[]. &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;. &#39;</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array_str</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;[]. &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;. &#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="homogeneous2tq_string"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.homogeneous2tq_string">[docs]</a><span class="k">def</span> <span class="nf">homogeneous2tq_string</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">):</span>
-  <span class="k">return</span> <span class="s">&#39;t=</span><span class="si">%s</span><span class="s"> q=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">homogeneous2translation_quaternion</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">)</span>
+  <span class="k">return</span> <span class="s1">&#39;t=</span><span class="si">%s</span><span class="s1"> q=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">homogeneous2translation_quaternion</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="homogeneous2tq_string_rounded"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.homogeneous2tq_string_rounded">[docs]</a><span class="k">def</span> <span class="nf">homogeneous2tq_string_rounded</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">):</span>
-  <span class="k">return</span> <span class="s">&#39;t=</span><span class="si">%s</span><span class="s"> q=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rounded</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">homogeneous2translation_quaternion</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">))</span>
+  <span class="k">return</span> <span class="s1">&#39;t=</span><span class="si">%s</span><span class="s1"> q=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rounded</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">homogeneous2translation_quaternion</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">))</span></div>
 
-</div>
+
 <div class="viewcode-block" id="string2float_list"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.string2float_list">[docs]</a><span class="k">def</span> <span class="nf">string2float_list</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-  <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+  <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span></div>
 
-</div>
+
 <div class="viewcode-block" id="pose_string2homogeneous"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.pose_string2homogeneous">[docs]</a><span class="k">def</span> <span class="nf">pose_string2homogeneous</span><span class="p">(</span><span class="n">pose</span><span class="p">):</span>
   <span class="n">pose_float</span> <span class="o">=</span> <span class="n">string2float_list</span><span class="p">(</span><span class="n">pose</span><span class="p">)</span>
   <span class="n">translate</span> <span class="o">=</span> <span class="n">pose_float</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
   <span class="n">angles</span> <span class="o">=</span> <span class="n">pose_float</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
-  <span class="n">homogeneous</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">compose_matrix</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">angles</span><span class="p">,</span> <span class="n">translate</span><span class="p">)</span>
-  <span class="c">#print(&#39;pose_string=%s; translate=%s angles=%s homogeneous:\n%s&#39; % (pose, translate, angles, homogeneous))</span>
-  <span class="k">return</span> <span class="n">homogeneous</span>
+  <span class="n">homogeneous</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">compose_matrix</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">angles</span><span class="p">,</span> <span class="n">translate</span><span class="p">)</span>
+  <span class="c1">#print(&#39;pose_string=%s; translate=%s angles=%s homogeneous:\n%s&#39; % (pose, translate, angles, homogeneous))</span>
+  <span class="k">return</span> <span class="n">homogeneous</span></div>
 
-</div>
+
 <div class="viewcode-block" id="rotation_only"><a class="viewcode-back" href="../../../generated/director.thirdparty.conversions.html#director.thirdparty.conversions.rotation_only">[docs]</a><span class="k">def</span> <span class="nf">rotation_only</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">):</span>
   <span class="n">euler</span> <span class="o">=</span> <span class="n">transformations</span><span class="o">.</span><span class="n">euler_from_matrix</span><span class="p">(</span><span class="n">homogeneous</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">transformations</span><span class="o">.</span><span class="n">euler_matrix</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">euler</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">euler</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-</pre></div></div>
+  <span class="k">return</span> <span class="n">transformations</span><span class="o">.</span><span class="n">euler_matrix</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">euler</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">euler</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
+
+</pre></div>
 
            </div>
           </div>

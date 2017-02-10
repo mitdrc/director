@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,7 +132,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.callbacks</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">ref</span>
+<span></span><span class="kn">from</span> <span class="nn">weakref</span> <span class="k">import</span> <span class="n">ref</span>
 <span class="kn">import</span> <span class="nn">new</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
@@ -179,7 +183,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signals</span><span class="p">):</span>
-        <span class="s">&#39;*signals* is a sequence of valid signals&#39;</span>
+        <span class="s1">&#39;*signals* is a sequence of valid signals&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">signals</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">signals</span><span class="p">:</span>
@@ -187,17 +191,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cid</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">def</span> <span class="nf">_check_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
-        <span class="s">&#39;make sure *s* is a valid signal or raise a ValueError&#39;</span>
+        <span class="s1">&#39;make sure *s* is a valid signal or raise a ValueError&#39;</span>
         <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">:</span>
             <span class="n">signals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">)</span>
             <span class="n">signals</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unknown signal &quot;</span><span class="si">%s</span><span class="s">&quot;; valid signals are </span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">signals</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown signal &quot;</span><span class="si">%s</span><span class="s1">&quot;; valid signals are </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">signals</span><span class="p">))</span>
 
 <div class="viewcode-block" id="CallbackRegistry.addSignal"><a class="viewcode-back" href="../../generated/director.callbacks.html#director.callbacks.CallbackRegistry.addSignal">[docs]</a>    <span class="k">def</span> <span class="nf">addSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">sig</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">sig</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">sig</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="CallbackRegistry.connect"><a class="viewcode-back" href="../../generated/director.callbacks.html#director.callbacks.CallbackRegistry.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        register *func* to be called when a signal *s* is generated</span>
@@ -206,15 +210,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_signal</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="n">proxy</span> <span class="o">=</span> <span class="n">BoundMethodProxy</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="c"># Clean out dead references</span>
-            <span class="k">if</span> <span class="n">callback</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">callback</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># Clean out dead references</span>
+            <span class="k">if</span> <span class="n">callback</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">callback</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="n">cid</span><span class="p">]</span>
             <span class="k">elif</span> <span class="n">callback</span> <span class="o">==</span> <span class="n">proxy</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">cid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cid</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">_cid</span><span class="p">]</span> <span class="o">=</span> <span class="n">proxy</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cid</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cid</span></div>
+
 <div class="viewcode-block" id="CallbackRegistry.disconnect"><a class="viewcode-back" href="../../generated/director.callbacks.html#director.callbacks.CallbackRegistry.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        disconnect the callback registered with callback id *cid*</span>
@@ -225,8 +229,8 @@
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span>
-</div>
+                <span class="k">return</span></div>
+
 <div class="viewcode-block" id="CallbackRegistry.process"><a class="viewcode-back" href="../../generated/director.callbacks.html#director.callbacks.CallbackRegistry.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        process signal *s*.  All of the functions registered to receive</span>
@@ -234,12 +238,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_signal</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">proxy</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="c"># Clean out dead references</span>
-            <span class="k">if</span> <span class="n">proxy</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">proxy</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># Clean out dead references</span>
+            <span class="k">if</span> <span class="n">proxy</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">proxy</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="n">cid</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">proxy</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</div>
+                <span class="n">proxy</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="CallbackRegistry.getCallbacks"><a class="viewcode-back" href="../../generated/director.callbacks.html#director.callbacks.CallbackRegistry.getCallbacks">[docs]</a>    <span class="k">def</span> <span class="nf">getCallbacks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        return callbacks registered to signal *s*.</span>
@@ -247,14 +251,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_signal</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">proxy</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="c"># Clean out dead references</span>
-            <span class="k">if</span> <span class="n">proxy</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">proxy</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># Clean out dead references</span>
+            <span class="k">if</span> <span class="n">proxy</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">proxy</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="n">cid</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">callbacks</span>
+            <span class="k">return</span> <span class="n">callbacks</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="BoundMethodProxy"><a class="viewcode-back" href="../../generated/director.callbacks.html#director.callbacks.BoundMethodProxy">[docs]</a><span class="k">class</span> <span class="nc">BoundMethodProxy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Our own proxy object which enables weak references to bound and unbound</span>
@@ -273,13 +277,13 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="n">ref</span><span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">im_self</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">im_func</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">klass</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">im_class</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">cb</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">klass</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">klass</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -289,15 +293,15 @@
 <span class="sd">        Raises `ReferenceError`: When the weak reference refers to</span>
 <span class="sd">        a dead object</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ReferenceError</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="c"># build a new instance method with a strong reference to the instance</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># build a new instance method with a strong reference to the instance</span>
             <span class="n">mtd</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">instancemethod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">klass</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c"># not a bound method, just return the func</span>
+            <span class="c1"># not a bound method, just return the func</span>
             <span class="n">mtd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span>
-        <span class="c"># invoke the callable and return the result</span>
+        <span class="c1"># invoke the callable and return the result</span>
         <span class="k">return</span> <span class="n">mtd</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -306,18 +310,18 @@
 <span class="sd">        another proxy.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">func</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="bp">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">func</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">func</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">inst</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Inverse of __eq__.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

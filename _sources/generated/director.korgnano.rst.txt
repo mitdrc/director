@@ -1,0 +1,7 @@
+director.korgnano module
+========================
+
+.. automodule:: director.korgnano
+    :members:
+    :undoc-members:
+    :show-inheritance:

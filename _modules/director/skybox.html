@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,13 +132,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.skybox</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">director.visualization</span> <span class="kn">as</span> <span class="nn">vis</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">filterUtils</span>
-<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="kn">as</span> <span class="nn">vtk</span>
-<span class="kn">import</span> <span class="nn">director.vtkNumpy</span> <span class="kn">as</span> <span class="nn">vnp</span>
-<span class="kn">from</span> <span class="nn">director.shallowCopy</span> <span class="kn">import</span> <span class="n">shallowCopy</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">ioUtils</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span> <span class="nn">director.visualization</span> <span class="k">as</span> <span class="nn">vis</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">filterUtils</span>
+<span class="kn">import</span> <span class="nn">director.vtkAll</span> <span class="k">as</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">director.vtkNumpy</span> <span class="k">as</span> <span class="nn">vnp</span>
+<span class="kn">from</span> <span class="nn">director.shallowCopy</span> <span class="k">import</span> <span class="n">shallowCopy</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">ioUtils</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
 <div class="viewcode-block" id="createTexturedPlane"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.createTexturedPlane">[docs]</a><span class="k">def</span> <span class="nf">createTexturedPlane</span><span class="p">():</span>
@@ -143,13 +147,13 @@
     <span class="n">textureMap</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
     <span class="n">textureMap</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">textureMap</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">textureMap</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span></div>
 
-</div>
+
 <div class="viewcode-block" id="getSkyboxSides"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.getSkyboxSides">[docs]</a><span class="k">def</span> <span class="nf">getSkyboxSides</span><span class="p">():</span>
-    <span class="k">return</span> <span class="p">[</span><span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;front&#39;</span><span class="p">,</span> <span class="s">&#39;back&#39;</span><span class="p">,</span> <span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;right&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="s1">&#39;front&#39;</span><span class="p">,</span> <span class="s1">&#39;back&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]</span></div>
 
-</div>
+
 <div class="viewcode-block" id="createSkyboxPlane"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.createSkyboxPlane">[docs]</a><span class="k">def</span> <span class="nf">createSkyboxPlane</span><span class="p">(</span><span class="n">side</span><span class="p">):</span>
 
     <span class="n">pd</span> <span class="o">=</span> <span class="n">createTexturedPlane</span><span class="p">()</span>
@@ -157,60 +161,60 @@
     <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
     <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s">&#39;top&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;top&#39;</span><span class="p">:</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
 
-    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s">&#39;bottom&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;bottom&#39;</span><span class="p">:</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateY</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateZ</span><span class="p">(</span><span class="o">-</span><span class="mi">270</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
 
-    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s">&#39;front&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;front&#39;</span><span class="p">:</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateY</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
 
-    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s">&#39;back&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;back&#39;</span><span class="p">:</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateY</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
 
-    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s">&#39;left&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;left&#39;</span><span class="p">:</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateY</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateZ</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
 
-    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s">&#39;right&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateY</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
 
     <span class="n">pd</span> <span class="o">=</span> <span class="n">filterUtils</span><span class="o">.</span><span class="n">transformPolyData</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">pd</span>
+    <span class="k">return</span> <span class="n">pd</span></div>
 
-</div>
+
 <div class="viewcode-block" id="createSkyboxPlanes"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.createSkyboxPlanes">[docs]</a><span class="k">def</span> <span class="nf">createSkyboxPlanes</span><span class="p">():</span>
     <span class="n">planes</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">getSkyboxSides</span><span class="p">():</span>
         <span class="n">planes</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">=</span> <span class="n">createSkyboxPlane</span><span class="p">(</span><span class="n">side</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">planes</span>
+    <span class="k">return</span> <span class="n">planes</span></div>
 
-</div>
+
 <div class="viewcode-block" id="createTexture"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.createTexture">[docs]</a><span class="k">def</span> <span class="nf">createTexture</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">):</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">ioUtils</span><span class="o">.</span><span class="n">readImage</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">)</span>
     <span class="n">tex</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTexture</span><span class="p">()</span>
     <span class="n">tex</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
     <span class="n">tex</span><span class="o">.</span><span class="n">EdgeClampOn</span><span class="p">()</span>
     <span class="n">tex</span><span class="o">.</span><span class="n">RepeatOff</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">tex</span>
+    <span class="k">return</span> <span class="n">tex</span></div>
 
-</div>
+
 <div class="viewcode-block" id="createSkybox"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.createSkybox">[docs]</a><span class="k">def</span> <span class="nf">createSkybox</span><span class="p">(</span><span class="n">imageMap</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
 
     <span class="n">objs</span> <span class="o">=</span> <span class="p">{}</span>
@@ -218,34 +222,34 @@
 
     <span class="k">for</span> <span class="n">side</span><span class="p">,</span> <span class="n">imageFilename</span> <span class="ow">in</span> <span class="n">imageMap</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
         <span class="n">texture</span> <span class="o">=</span> <span class="n">createTexture</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">)</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">PolyDataItem</span><span class="p">(</span><span class="s">&#39;skybox </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">side</span><span class="p">,</span> <span class="n">planes</span><span class="p">[</span><span class="n">side</span><span class="p">],</span> <span class="n">view</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">PolyDataItem</span><span class="p">(</span><span class="s1">&#39;skybox </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">side</span><span class="p">,</span> <span class="n">planes</span><span class="p">[</span><span class="n">side</span><span class="p">],</span> <span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetTexture</span><span class="p">(</span><span class="n">texture</span><span class="p">)</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">LightingOff</span><span class="p">()</span>
         <span class="n">view</span><span class="o">.</span><span class="n">backgroundRenderer</span><span class="p">()</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="p">)</span>
         <span class="n">objs</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
 
-    <span class="k">return</span> <span class="n">objs</span>
+    <span class="k">return</span> <span class="n">objs</span></div>
 
-</div>
+
 <div class="viewcode-block" id="getSkyboxImages"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.getSkyboxImages">[docs]</a><span class="k">def</span> <span class="nf">getSkyboxImages</span><span class="p">(</span><span class="n">baseDir</span><span class="p">):</span>
     <span class="n">imageMap</span> <span class="o">=</span>  <span class="nb">dict</span><span class="p">(</span>
-        <span class="n">top</span>    <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s">&#39;/topmars1.jpg&#39;</span><span class="p">,</span>
-        <span class="n">bottom</span> <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s">&#39;/botmars1.jpg&#39;</span><span class="p">,</span>
-        <span class="n">front</span>  <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s">&#39;/frontmars1.jpg&#39;</span><span class="p">,</span>
-        <span class="n">back</span>   <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s">&#39;/backmars1.jpg&#39;</span><span class="p">,</span>
-        <span class="n">left</span>   <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s">&#39;/leftmars1.jpg&#39;</span><span class="p">,</span>
-        <span class="n">right</span>  <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s">&#39;/rightmars1.jpg&#39;</span><span class="p">)</span>
+        <span class="n">top</span>    <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s1">&#39;/topmars1.jpg&#39;</span><span class="p">,</span>
+        <span class="n">bottom</span> <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s1">&#39;/botmars1.jpg&#39;</span><span class="p">,</span>
+        <span class="n">front</span>  <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s1">&#39;/frontmars1.jpg&#39;</span><span class="p">,</span>
+        <span class="n">back</span>   <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s1">&#39;/backmars1.jpg&#39;</span><span class="p">,</span>
+        <span class="n">left</span>   <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s1">&#39;/leftmars1.jpg&#39;</span><span class="p">,</span>
+        <span class="n">right</span>  <span class="o">=</span> <span class="n">baseDir</span> <span class="o">+</span> <span class="s1">&#39;/rightmars1.jpg&#39;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">imageMap</span>
+    <span class="k">return</span> <span class="n">imageMap</span></div>
 
-</div>
+
 <div class="viewcode-block" id="createTextureGround"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.createTextureGround">[docs]</a><span class="k">def</span> <span class="nf">createTextureGround</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
 
     <span class="n">pd</span> <span class="o">=</span> <span class="n">createTexturedPlane</span><span class="p">()</span>
     <span class="n">texture</span> <span class="o">=</span> <span class="n">createTexture</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">)</span>
     <span class="n">texture</span><span class="o">.</span><span class="n">RepeatOn</span><span class="p">()</span>
 
-    <span class="n">tcoords</span> <span class="o">=</span> <span class="n">vnp</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="s">&#39;Texture Coordinates&#39;</span><span class="p">)</span>
+    <span class="n">tcoords</span> <span class="o">=</span> <span class="n">vnp</span><span class="o">.</span><span class="n">getNumpyFromVtk</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="s1">&#39;Texture Coordinates&#39;</span><span class="p">)</span>
     <span class="n">tcoords</span> <span class="o">*=</span> <span class="mi">60</span>
 
     <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
@@ -255,12 +259,12 @@
 
     <span class="n">pd</span> <span class="o">=</span> <span class="n">filterUtils</span><span class="o">.</span><span class="n">transformPolyData</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="s">&#39;ground&#39;</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s">&#39;skybox&#39;</span><span class="p">)</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="s1">&#39;ground&#39;</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;skybox&#39;</span><span class="p">)</span>
     <span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetTexture</span><span class="p">(</span><span class="n">texture</span><span class="p">)</span>
-    <span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">LightingOff</span><span class="p">()</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">LightingOff</span><span class="p">()</span></div>
 
-</div>
-<div class="viewcode-block" id="connectSkyboxCamera"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.connectSkyboxCamera">[docs]</a><span class="k">def</span> <span class="nf">connectSkyboxCamera</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="connectSkyboxCamera"><a class="viewcode-back" href="../../generated/director.skybox.html#director.skybox.connectSkyboxCamera">[docs]</a><span class="k">def</span> <span class="nf">connectSkyboxCamera</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
     <span class="n">baseRen</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">backgroundRenderer</span><span class="p">()</span>
 
@@ -283,8 +287,9 @@
         <span class="n">c</span><span class="o">.</span><span class="n">SetViewAngle</span><span class="p">(</span><span class="n">c2</span><span class="o">.</span><span class="n">GetViewAngle</span><span class="p">())</span>
 
 
-    <span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s">&#39;StartEvent&#39;</span><span class="p">,</span> <span class="n">updateSkyboxCamera</span><span class="p">)</span>
-</pre></div></div>
+    <span class="n">view</span><span class="o">.</span><span class="n">renderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s1">&#39;StartEvent&#39;</span><span class="p">,</span> <span class="n">updateSkyboxCamera</span><span class="p">)</span></div>
+
+</pre></div>
 
            </div>
           </div>

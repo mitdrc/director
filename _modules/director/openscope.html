@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,13 +132,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.openscope</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">subprocess</span>
+<span></span><span class="kn">import</span> <span class="nn">subprocess</span>
 
 <span class="n">_procs</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="startSignalScope"><a class="viewcode-back" href="../../generated/director.openscope.html#director.openscope.startSignalScope">[docs]</a><span class="k">def</span> <span class="nf">startSignalScope</span><span class="p">():</span>
     <span class="k">global</span> <span class="n">_procs</span>
-    <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">&#39;signal-scope&#39;</span><span class="p">])</span>
+    <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;signal-scope&#39;</span><span class="p">])</span>
     <span class="n">_procs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">proc</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">proc</span></div>
 </pre></div>

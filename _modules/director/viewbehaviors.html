@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Director  documentation" href="../../index.html"/>
         <link rel="up" title="director" href="../director.html"/> 
 
@@ -79,7 +82,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Application User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/modules.html">Python Module API</a></li>
 </ul>
 
@@ -128,437 +132,58 @@
            <div itemprop="articleBody">
             
   <h1>Source code for director.viewbehaviors</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">PythonQt</span>
-<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">director.objectmodel</span> <span class="kn">as</span> <span class="nn">om</span>
-<span class="kn">import</span> <span class="nn">director.visualization</span> <span class="kn">as</span> <span class="nn">vis</span>
-<span class="kn">from</span> <span class="nn">director.timercallback</span> <span class="kn">import</span> <span class="n">TimerCallback</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">affordanceitems</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">lcmUtils</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">callbacks</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">cameracontrol</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">midi</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">propertyset</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">splinewidget</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">transformUtils</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">teleoppanel</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">footstepsdriverpanel</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">applogic</span> <span class="k">as</span> <span class="n">app</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">vtkAll</span> <span class="k">as</span> <span class="n">vtk</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">filterUtils</span>
-<span class="kn">from</span> <span class="nn">director.shallowCopy</span> <span class="kn">import</span> <span class="n">shallowCopy</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">segmentationpanel</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">segmentation</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">segmentationroutines</span>
-<span class="kn">from</span> <span class="nn">director</span> <span class="kn">import</span> <span class="n">frameupdater</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">ioUtils</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">colorsys</span>
-
-<span class="c"># todo: refactor these global variables</span>
-<span class="c"># several functions in this module depend on these global variables</span>
-<span class="c"># which are set by calling ViewBehaviors.addRobotBehaviors().</span>
-<span class="c"># These could be refactored to be members of a new behaviors class.</span>
-<span class="n">robotModel</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">handFactory</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">neckDriver</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">footstepsDriver</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">robotLinkSelector</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">lastRandomColor</span> <span class="o">=</span> <span class="mf">0.0</span>
-
-<div class="viewcode-block" id="MidiBehaviorControl"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.MidiBehaviorControl">[docs]</a><span class="k">class</span> <span class="nc">MidiBehaviorControl</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">TimerCallback</span><span class="p">(</span><span class="n">targetFps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tick</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reader</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">initReader</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;slider&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="bp">True</span><span class="p">],</span>
-            <span class="s">&#39;dial&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="bp">True</span><span class="p">],</span>
-            <span class="s">&#39;r_button&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;m_button&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">48</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;s_button&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;track_left&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">58</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;track_right&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">59</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;cycle&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">46</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;marker_set&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;marker_left&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">61</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;marker_right&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">62</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;rewind&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">43</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;fastforward&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">44</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;stop&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;play&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">41</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-            <span class="s">&#39;record&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
-        <span class="p">}</span>
-
-        <span class="n">signalNames</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">for</span> <span class="n">inputName</span><span class="p">,</span> <span class="n">inputDescription</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-            <span class="n">channelStart</span><span class="p">,</span> <span class="n">numChannels</span><span class="p">,</span> <span class="n">isContinuous</span> <span class="o">=</span> <span class="n">inputDescription</span>
-
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">numChannels</span><span class="p">):</span>
-
-                <span class="n">channelId</span> <span class="o">=</span> <span class="s">&#39;&#39;</span> <span class="k">if</span> <span class="n">numChannels</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s">&#39;_</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span>
-                <span class="k">if</span> <span class="n">isContinuous</span><span class="p">:</span>
-                    <span class="n">signalNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s%s</span><span class="s">_value_changed&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">inputName</span><span class="p">,</span> <span class="n">channelId</span><span class="p">))</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">signalNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s%s</span><span class="s">_pressed&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">inputName</span><span class="p">,</span> <span class="n">channelId</span><span class="p">))</span>
-                    <span class="n">signalNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s%s</span><span class="s">_released&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">inputName</span><span class="p">,</span> <span class="n">channelId</span><span class="p">))</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">CallbackRegistry</span><span class="p">(</span><span class="n">signalNames</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="MidiBehaviorControl.start"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.MidiBehaviorControl.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">initReader</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reader</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="MidiBehaviorControl.initReader"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.MidiBehaviorControl.initReader">[docs]</a>    <span class="k">def</span> <span class="nf">initReader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reader</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">reader</span> <span class="o">=</span> <span class="n">midi</span><span class="o">.</span><span class="n">MidiReader</span><span class="p">(</span><span class="n">midi</span><span class="o">.</span><span class="n">findKorgNanoKontrol2</span><span class="p">())</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">print</span> <span class="s">&#39;midi controller not found.&#39;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">reader</span> <span class="o">=</span> <span class="bp">None</span>
-
-</div>
-<div class="viewcode-block" id="MidiBehaviorControl.onMidiCommand"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.MidiBehaviorControl.onMidiCommand">[docs]</a>    <span class="k">def</span> <span class="nf">onMidiCommand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-
-        <span class="c">#print channel, &#39;%.2f&#39; % value</span>
-
-        <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span>
-
-        <span class="k">for</span> <span class="n">inputName</span><span class="p">,</span> <span class="n">inputDescription</span> <span class="ow">in</span> <span class="n">inputs</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-            <span class="n">channelStart</span><span class="p">,</span> <span class="n">numChannels</span><span class="p">,</span> <span class="n">isContinuous</span> <span class="o">=</span> <span class="n">inputDescription</span>
-
-            <span class="k">if</span> <span class="n">channelStart</span> <span class="o">&lt;=</span> <span class="n">channel</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">channelStart</span> <span class="o">+</span> <span class="n">numChannels</span><span class="p">):</span>
-
-                <span class="k">if</span> <span class="n">numChannels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">inputName</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">inputName</span><span class="p">,</span> <span class="n">channel</span> <span class="o">-</span> <span class="n">channelStart</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">isContinuous</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">onContinuousInput</span><span class="p">(</span><span class="n">inputName</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">onButtonDown</span><span class="p">(</span><span class="n">inputName</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">onButtonUp</span><span class="p">(</span><span class="n">inputName</span><span class="p">)</span>
-
-</div>
-<div class="viewcode-block" id="MidiBehaviorControl.onContinuousInput"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.MidiBehaviorControl.onContinuousInput">[docs]</a>    <span class="k">def</span> <span class="nf">onContinuousInput</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="c">#print name, &#39;%.2f&#39; % value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;_value_changed&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="MidiBehaviorControl.onButtonDown"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.MidiBehaviorControl.onButtonDown">[docs]</a>    <span class="k">def</span> <span class="nf">onButtonDown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="c">#print name, &#39;down&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;_pressed&#39;</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="MidiBehaviorControl.onButtonUp"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.MidiBehaviorControl.onButtonUp">[docs]</a>    <span class="k">def</span> <span class="nf">onButtonUp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="c">#print name, &#39;up&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;_released&#39;</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="MidiBehaviorControl.tick"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.MidiBehaviorControl.tick">[docs]</a>    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">messages</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">getMessages</span><span class="p">()</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">messages</span><span class="p">:</span>
-            <span class="k">return</span>
-
-        <span class="n">targets</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
-            <span class="n">channel</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-            <span class="n">targets</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-
-        <span class="k">for</span> <span class="n">channel</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">targets</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-            <span class="n">position</span> <span class="o">=</span> <span class="n">value</span><span class="o">/</span><span class="mf">127.0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">onMidiCommand</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
-
-
-</div></div>
-<div class="viewcode-block" id="resetCameraToRobot"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.resetCameraToRobot">[docs]</a><span class="k">def</span> <span class="nf">resetCameraToRobot</span><span class="p">(</span><span class="n">view</span><span class="p">):</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">robotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="s">&#39;utorso&#39;</span><span class="p">)</span>
-    <span class="n">focalPoint</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
-    <span class="n">position</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">TransformPoint</span><span class="p">(</span><span class="n">focalPoint</span><span class="p">,</span> <span class="n">focalPoint</span><span class="p">)</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">TransformPoint</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
-    <span class="n">flyer</span> <span class="o">=</span> <span class="n">cameracontrol</span><span class="o">.</span><span class="n">Flyer</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
-    <span class="n">flyer</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">(</span><span class="n">focalPoint</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
-
-</div>
-<div class="viewcode-block" id="resetCameraToHeadView"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.resetCameraToHeadView">[docs]</a><span class="k">def</span> <span class="nf">resetCameraToHeadView</span><span class="p">():</span>
-
-    <span class="n">head</span> <span class="o">=</span> <span class="n">robotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="s">&#39;head&#39;</span><span class="p">)</span>
-    <span class="n">utorso</span> <span class="o">=</span> <span class="n">robotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="s">&#39;utorso&#39;</span><span class="p">)</span>
-
-    <span class="n">viewDirection</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
-    <span class="n">utorso</span><span class="o">.</span><span class="n">TransformVector</span><span class="p">(</span><span class="n">viewDirection</span><span class="p">,</span> <span class="n">viewDirection</span><span class="p">)</span>
-
-    <span class="n">cameraPosition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">head</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span> <span class="o">+</span> <span class="mf">0.10</span> <span class="o">*</span> <span class="n">viewDirection</span>
-
-    <span class="n">camera</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">()</span>
-
-    <span class="n">focalOffset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">GetFocalPoint</span><span class="p">())</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">())</span>
-    <span class="n">focalOffset</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">focalOffset</span><span class="p">)</span>
-
-    <span class="n">camera</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">cameraPosition</span><span class="p">)</span>
-    <span class="n">camera</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">cameraPosition</span> <span class="o">+</span> <span class="n">focalOffset</span><span class="o">*</span><span class="mf">0.03</span><span class="p">)</span>
-    <span class="n">camera</span><span class="o">.</span><span class="n">SetViewUp</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="n">camera</span><span class="o">.</span><span class="n">SetViewAngle</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
-    <span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
-
-</div>
-<div class="viewcode-block" id="zoomToPick"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.zoomToPick">[docs]</a><span class="k">def</span> <span class="nf">zoomToPick</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
-    <span class="n">pickedPoint</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickProp</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">prop</span><span class="p">:</span>
-        <span class="k">return</span>
-    <span class="n">flyer</span> <span class="o">=</span> <span class="n">cameracontrol</span><span class="o">.</span><span class="n">Flyer</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
-    <span class="n">flyer</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">(</span><span class="n">pickedPoint</span><span class="p">)</span>
-
-</div>
-<div class="viewcode-block" id="getChildFrame"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.getChildFrame">[docs]</a><span class="k">def</span> <span class="nf">getChildFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;getChildFrame&#39;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span>
-
-</div>
-<div class="viewcode-block" id="placeHandModel"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.placeHandModel">[docs]</a><span class="k">def</span> <span class="nf">placeHandModel</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">):</span>
-
-    <span class="n">obj</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">findPickedObject</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">vis</span><span class="o">.</span><span class="n">FrameItem</span><span class="p">):</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">handFrame</span> <span class="o">=</span> <span class="n">handFactory</span><span class="o">.</span><span class="n">placeHandModelWithTransform</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="p">())</span>
-        <span class="n">handFrame</span><span class="o">.</span><span class="n">frameSync</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">FrameSync</span><span class="p">()</span>
-        <span class="n">handFrame</span><span class="o">.</span><span class="n">frameSync</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="n">handFrame</span><span class="o">.</span><span class="n">frameSync</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">handFrame</span><span class="p">,</span> <span class="n">ignoreIncoming</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="k">return</span>
-
-    <span class="n">pickedPoint</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">normal</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">returnNormal</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">getObjectByProp</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="p">:</span>
-        <span class="k">return</span>
-
-    <span class="n">yaxis</span> <span class="o">=</span> <span class="o">-</span><span class="n">normal</span>
-    <span class="n">zaxis</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">xaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">yaxis</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">)</span>
-    <span class="n">xaxis</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">xaxis</span><span class="p">)</span>
-    <span class="n">zaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">)</span>
-    <span class="n">zaxis</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">zaxis</span><span class="p">)</span>
-
-    <span class="n">t</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">getTransformFromAxes</span><span class="p">(</span><span class="o">-</span><span class="n">zaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">,</span> <span class="n">xaxis</span><span class="p">)</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">pickedPoint</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s">&#39;right&#39;</span><span class="p">:</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">PreMultiply</span><span class="p">()</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">RotateY</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
-
-    <span class="n">handObj</span><span class="p">,</span> <span class="n">handFrame</span> <span class="o">=</span> <span class="n">handFactory</span><span class="o">.</span><span class="n">placeHandModelWithTransform</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">obj</span><span class="p">)</span>
-
-    <span class="n">syncFrame</span> <span class="o">=</span> <span class="n">getChildFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">syncFrame</span><span class="p">:</span>
-        <span class="n">handFrame</span><span class="o">.</span><span class="n">frameSync</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">FrameSync</span><span class="p">()</span>
-        <span class="n">handFrame</span><span class="o">.</span><span class="n">frameSync</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">handFrame</span><span class="p">,</span> <span class="n">ignoreIncoming</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">handFrame</span><span class="o">.</span><span class="n">frameSync</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">syncFrame</span><span class="p">)</span>
+<span></span><span class="kn">import</span> <span class="nn">PythonQt</span>
+<span class="kn">from</span> <span class="nn">PythonQt</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">import</span> <span class="nn">director.objectmodel</span> <span class="k">as</span> <span class="nn">om</span>
+<span class="kn">import</span> <span class="nn">director.visualization</span> <span class="k">as</span> <span class="nn">vis</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">cameracontrol</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">propertyset</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">frameupdater</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">vieweventfilter</span>
 
-</div>
-<div class="viewcode-block" id="RobotLinkSelector"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.RobotLinkSelector">[docs]</a><span class="k">class</span> <span class="nc">RobotLinkSelector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setupMenuAction</span><span class="p">()</span>
+<span class="n">_contextMenuActions</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="RobotLinkSelector.setupMenuAction"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.RobotLinkSelector.setupMenuAction">[docs]</a>    <span class="k">def</span> <span class="nf">setupMenuAction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">addMenuAction</span><span class="p">(</span><span class="s">&#39;Tools&#39;</span><span class="p">,</span> <span class="s">&#39;Robot Link Selector&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="bp">False</span>
-</div>
-<div class="viewcode-block" id="RobotLinkSelector.enabled"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.RobotLinkSelector.enabled">[docs]</a>    <span class="k">def</span> <span class="nf">enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span> <span class="o">==</span> <span class="bp">True</span>
-</div>
-<div class="viewcode-block" id="RobotLinkSelector.selectLink"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.RobotLinkSelector.selectLink">[docs]</a>    <span class="k">def</span> <span class="nf">selectLink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+<div class="viewcode-block" id="registerContextMenuActions"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.registerContextMenuActions">[docs]</a><span class="k">def</span> <span class="nf">registerContextMenuActions</span><span class="p">(</span><span class="n">getActionsFunction</span><span class="p">):</span>
+    <span class="n">_contextMenuActions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">getActionsFunction</span><span class="p">)</span></div>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">():</span>
-            <span class="k">return</span> <span class="bp">False</span>
 
-        <span class="n">robotModel</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">findPickedObject</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<div class="viewcode-block" id="getContextMenuActions"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.getContextMenuActions">[docs]</a><span class="k">def</span> <span class="nf">getContextMenuActions</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">pickedObj</span><span class="p">,</span> <span class="n">pickedPoint</span><span class="p">):</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">_contextMenuActions</span><span class="p">:</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">pickedObj</span><span class="p">,</span> <span class="n">pickedPoint</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">actions</span></div>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">robotModel</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getLinkNameForMesh</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+<div class="viewcode-block" id="getDefaultContextMenuActions"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.getDefaultContextMenuActions">[docs]</a><span class="k">def</span> <span class="nf">getDefaultContextMenuActions</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">pickedObj</span><span class="p">,</span> <span class="n">pickedPoint</span><span class="p">):</span>
 
-        <span class="n">model</span> <span class="o">=</span> <span class="n">robotModel</span><span class="o">.</span><span class="n">model</span>
+    <span class="k">def</span> <span class="nf">onDelete</span><span class="p">():</span>
+        <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">)</span>
 
-        <span class="n">pickedPoint</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">polyData</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickProp</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">onHide</span><span class="p">():</span>
+        <span class="n">pickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Visible&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
-        <span class="n">linkName</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getLinkNameForMesh</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">linkName</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">def</span> <span class="nf">onSelect</span><span class="p">():</span>
+        <span class="n">om</span><span class="o">.</span><span class="n">setActiveObject</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">)</span>
 
-        <span class="n">fadeValue</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">linkName</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span> <span class="k">else</span> <span class="mf">0.05</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+      <span class="p">(</span><span class="s1">&#39;Select&#39;</span><span class="p">,</span> <span class="n">onSelect</span><span class="p">),</span>
+      <span class="p">(</span><span class="s1">&#39;Hide&#39;</span><span class="p">,</span> <span class="n">onHide</span><span class="p">)</span>
+      <span class="p">]</span>
 
-        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">getLinkNames</span><span class="p">():</span>
-            <span class="n">linkColor</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getLinkColor</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">linkColor</span><span class="o">.</span><span class="n">setAlphaF</span><span class="p">(</span><span class="n">fadeValue</span><span class="p">)</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">setLinkColor</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">linkColor</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pickedObj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Deletable&#39;</span><span class="p">):</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Delete&#39;</span><span class="p">,</span> <span class="n">onDelete</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="n">linkName</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="n">vis</span><span class="o">.</span><span class="n">hideCaptionWidget</span><span class="p">()</span>
-            <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;selected link frame&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">actions</span></div>
 
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span> <span class="o">=</span> <span class="n">linkName</span>
-            <span class="n">linkColor</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getLinkColor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">)</span>
-            <span class="n">linkColor</span><span class="o">.</span><span class="n">setAlphaF</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">setLinkColor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">,</span> <span class="n">linkColor</span><span class="p">)</span>
-            <span class="n">vis</span><span class="o">.</span><span class="n">showCaptionWidget</span><span class="p">(</span><span class="n">robotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">)</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">)</span>
-            <span class="n">vis</span><span class="o">.</span><span class="n">updateFrame</span><span class="p">(</span><span class="n">robotModel</span><span class="o">.</span><span class="n">getLinkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedLink</span><span class="p">),</span> <span class="s">&#39;selected link frame&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">robotModel</span><span class="p">)</span>
+<span class="n">registerContextMenuActions</span><span class="p">(</span><span class="n">getDefaultContextMenuActions</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">True</span>
 
-</div></div>
-<div class="viewcode-block" id="toggleFrameWidget"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.toggleFrameWidget">[docs]</a><span class="k">def</span> <span class="nf">toggleFrameWidget</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+<div class="viewcode-block" id="getShortenedName"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.getShortenedName">[docs]</a><span class="k">def</span> <span class="nf">getShortenedName</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">maxLength</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">maxLength</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="n">maxLength</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;...&#39;</span>
+    <span class="k">return</span> <span class="n">name</span></div>
 
-    <span class="n">obj</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">findPickedObject</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">vis</span><span class="o">.</span><span class="n">FrameItem</span><span class="p">):</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">getChildFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">False</span>
-
-    <span class="n">edit</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Edit&#39;</span><span class="p">)</span>
-    <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Edit&#39;</span><span class="p">,</span> <span class="n">edit</span><span class="p">)</span>
-
-    <span class="n">parent</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">getChildFrame</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span> <span class="o">==</span> <span class="n">obj</span><span class="p">:</span>
-        <span class="n">parent</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">0.5</span> <span class="k">if</span> <span class="n">edit</span> <span class="k">else</span> <span class="mf">1.0</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="bp">True</span>
-
-</div>
-<div class="viewcode-block" id="newWalkingGoal"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.newWalkingGoal">[docs]</a><span class="k">def</span> <span class="nf">newWalkingGoal</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
-
-    <span class="n">footFrame</span> <span class="o">=</span> <span class="n">footstepsDriver</span><span class="o">.</span><span class="n">getFeetMidPoint</span><span class="p">(</span><span class="n">robotModel</span><span class="p">)</span>
-
-    <span class="n">worldPt1</span><span class="p">,</span> <span class="n">worldPt2</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">getRayFromDisplayPoint</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">)</span>
-    <span class="n">groundOrigin</span> <span class="o">=</span> <span class="n">footFrame</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()</span>
-    <span class="n">groundNormal</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
-    <span class="n">selectedGroundPoint</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
-
-    <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">mutable</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
-    <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="o">.</span><span class="n">IntersectWithLine</span><span class="p">(</span><span class="n">worldPt1</span><span class="p">,</span> <span class="n">worldPt2</span><span class="p">,</span> <span class="n">groundNormal</span><span class="p">,</span> <span class="n">groundOrigin</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">selectedGroundPoint</span><span class="p">)</span>
-
-    <span class="n">footFrame</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">selectedGroundPoint</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">footFrame</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()))</span>
-
-    <span class="n">footstepsdriverpanel</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">onNewWalkingGoal</span><span class="p">(</span><span class="n">footFrame</span><span class="p">)</span>
-
-</div>
-<div class="viewcode-block" id="toggleFootstepWidget"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.toggleFootstepWidget">[docs]</a><span class="k">def</span> <span class="nf">toggleFootstepWidget</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">useHorizontalWidget</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-
-    <span class="n">obj</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">findPickedObject</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">False</span>
-
-    <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;footstep widget&#39;</span><span class="p">,</span> <span class="s">&#39;footstep widget frame&#39;</span><span class="p">):</span>
-        <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;footstep widget&#39;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">True</span>
-
-    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&#39;^step (\d+)$&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">False</span>
-
-    <span class="n">stepIndex</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-
-    <span class="n">existingWidget</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;footstep widget&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">existingWidget</span><span class="p">:</span>
-        <span class="n">previousStep</span> <span class="o">=</span> <span class="n">existingWidget</span><span class="o">.</span><span class="n">stepIndex</span>
-        <span class="k">print</span> <span class="s">&#39;have existing widget for step:&#39;</span><span class="p">,</span> <span class="n">stepIndex</span>
-
-        <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">existingWidget</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">previousStep</span> <span class="o">==</span> <span class="n">stepIndex</span><span class="p">:</span>
-            <span class="k">print</span> <span class="s">&#39;returning because widget was for selected step&#39;</span>
-            <span class="k">return</span> <span class="bp">True</span>
-
-
-    <span class="n">footMesh</span> <span class="o">=</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-    <span class="n">footFrame</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">useHorizontalWidget</span><span class="p">:</span>
-        <span class="n">rpy</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">rollPitchYawFromTransform</span><span class="p">(</span><span class="n">footFrame</span><span class="p">)[</span><span class="mi">2</span><span class="p">]]</span>
-        <span class="n">footFrame</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">frameFromPositionAndRPY</span><span class="p">(</span><span class="n">footFrame</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rpy</span><span class="p">))</span>
-
-    <span class="n">footObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">footMesh</span><span class="p">,</span> <span class="s">&#39;footstep widget&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s">&#39;planning&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">footObj</span><span class="o">.</span><span class="n">stepIndex</span> <span class="o">=</span> <span class="n">stepIndex</span>
-    <span class="n">frameObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showFrame</span><span class="p">(</span><span class="n">footFrame</span><span class="p">,</span> <span class="s">&#39;footstep widget frame&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">footObj</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">footObj</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">SetUserTransform</span><span class="p">(</span><span class="n">frameObj</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-    <span class="n">footObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">))</span>
-    <span class="n">frameObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Edit&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
-
-    <span class="n">rep</span> <span class="o">=</span> <span class="n">frameObj</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">GetRepresentation</span><span class="p">()</span>
-    <span class="n">rep</span><span class="o">.</span><span class="n">SetTranslateAxisEnabled</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-    <span class="n">rep</span><span class="o">.</span><span class="n">SetRotateAxisEnabled</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-    <span class="n">rep</span><span class="o">.</span><span class="n">SetRotateAxisEnabled</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-    <span class="n">frameObj</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">HandleRotationEnabledOff</span><span class="p">()</span>
-
-    <span class="n">walkGoal</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;walking goal&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">walkGoal</span><span class="p">:</span>
-        <span class="n">walkGoal</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Edit&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">onFootWidgetChanged</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
-        <span class="n">footstepsDriver</span><span class="o">.</span><span class="n">onStepModified</span><span class="p">(</span><span class="n">stepIndex</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
-
-    <span class="n">frameObj</span><span class="o">.</span><span class="n">connectFrameModified</span><span class="p">(</span><span class="n">onFootWidgetChanged</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">True</span>
-
-</div>
-<div class="viewcode-block" id="reachToFrame"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.reachToFrame">[docs]</a><span class="k">def</span> <span class="nf">reachToFrame</span><span class="p">(</span><span class="n">frameObj</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">collisionObj</span><span class="p">):</span>
-    <span class="n">goalFrame</span> <span class="o">=</span> <span class="n">teleoppanel</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">endEffectorTeleop</span><span class="o">.</span><span class="n">newReachTeleop</span><span class="p">(</span><span class="n">frameObj</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">collisionObj</span><span class="p">)</span>
-    <span class="n">goalFrame</span><span class="o">.</span><span class="n">frameSync</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">FrameSync</span><span class="p">()</span>
-    <span class="n">goalFrame</span><span class="o">.</span><span class="n">frameSync</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">goalFrame</span><span class="p">,</span> <span class="n">ignoreIncoming</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">goalFrame</span><span class="o">.</span><span class="n">frameSync</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">frameObj</span><span class="p">)</span>
-
-</div>
-<div class="viewcode-block" id="getAsFrame"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.getAsFrame">[docs]</a><span class="k">def</span> <span class="nf">getAsFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">vis</span><span class="o">.</span><span class="n">FrameItem</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span>
-    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;getChildFrame&#39;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span>
-
-</div>
-<div class="viewcode-block" id="isGraspSeed"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.isGraspSeed">[docs]</a><span class="k">def</span> <span class="nf">isGraspSeed</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;side&#39;</span><span class="p">)</span>
-
-</div>
-<div class="viewcode-block" id="getCollisionParent"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.getCollisionParent">[docs]</a><span class="k">def</span> <span class="nf">getCollisionParent</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    If obj is an affordance, return obj</span>
-<span class="sd">    If obj is a frame or a grasp seed, return first parent.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">vis</span><span class="o">.</span><span class="n">FrameItem</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">isGraspSeed</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">obj</span>
-
-
-<span class="c"># The most recently cached PickedPoint - available as input to any other algorithm</span></div>
-<span class="n">lastCachedPickedPoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
 
 <div class="viewcode-block" id="showRightClickMenu"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.showRightClickMenu">[docs]</a><span class="k">def</span> <span class="nf">showRightClickMenu</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
 
@@ -566,9 +191,11 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pickedObj</span><span class="p">:</span>
         <span class="k">return</span>
 
-    <span class="n">objectName</span> <span class="o">=</span> <span class="n">pickedObj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">objectName</span> <span class="o">==</span> <span class="s">&#39;grid&#39;</span><span class="p">:</span>
+    <span class="n">objectName</span> <span class="o">=</span> <span class="n">pickedObj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">objectName</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
         <span class="k">return</span>
+
+    <span class="n">objectName</span> <span class="o">=</span> <span class="n">getShortenedName</span><span class="p">(</span><span class="n">objectName</span><span class="p">)</span>
 
     <span class="n">displayPoint</span> <span class="o">=</span> <span class="n">displayPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">view</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">displayPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
@@ -577,7 +204,7 @@
     <span class="n">menu</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMenu</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
 
     <span class="n">widgetAction</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QWidgetAction</span><span class="p">(</span><span class="n">menu</span><span class="p">)</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;&lt;b&gt;</span><span class="si">%s</span><span class="s">&lt;/b&gt;&#39;</span> <span class="o">%</span> <span class="n">objectName</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;&lt;b&gt;</span><span class="si">%s</span><span class="s1">&lt;/b&gt;&#39;</span> <span class="o">%</span> <span class="n">objectName</span><span class="p">)</span>
     <span class="n">label</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
     <span class="n">widgetAction</span><span class="o">.</span><span class="n">setDefaultWidget</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
     <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">widgetAction</span><span class="p">)</span>
@@ -590,496 +217,103 @@
 
     <span class="k">def</span> <span class="nf">onPropertyChanged</span><span class="p">(</span><span class="n">prop</span><span class="p">):</span>
         <span class="n">om</span><span class="o">.</span><span class="n">PropertyPanelHelper</span><span class="o">.</span><span class="n">setPropertyFromPanel</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">propertiesPanel</span><span class="p">,</span> <span class="n">pickedObj</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span>
-    <span class="n">propertiesPanel</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;propertyValueChanged(QtVariantProperty*)&#39;</span><span class="p">,</span> <span class="n">onPropertyChanged</span><span class="p">)</span>
+    <span class="n">propertiesPanel</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;propertyValueChanged(QtVariantProperty*)&#39;</span><span class="p">,</span> <span class="n">onPropertyChanged</span><span class="p">)</span>
 
-    <span class="n">propertiesMenu</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s">&#39;Properties&#39;</span><span class="p">)</span>
+    <span class="n">propertiesMenu</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;Properties&#39;</span><span class="p">)</span>
     <span class="n">propertiesWidgetAction</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QWidgetAction</span><span class="p">(</span><span class="n">propertiesMenu</span><span class="p">)</span>
     <span class="n">propertiesWidgetAction</span><span class="o">.</span><span class="n">setDefaultWidget</span><span class="p">(</span><span class="n">propertiesPanel</span><span class="p">)</span>
     <span class="n">propertiesMenu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">propertiesWidgetAction</span><span class="p">)</span>
 
 
-    <span class="k">def</span> <span class="nf">onDelete</span><span class="p">():</span>
-        <span class="n">om</span><span class="o">.</span><span class="n">removeFromObjectModel</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">onHide</span><span class="p">():</span>
-        <span class="n">pickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">onSelect</span><span class="p">():</span>
-        <span class="n">om</span><span class="o">.</span><span class="n">setActiveObject</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">)</span>
-
-    <span class="n">reachFrame</span> <span class="o">=</span> <span class="n">getAsFrame</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">)</span>
-    <span class="n">collisionParent</span> <span class="o">=</span> <span class="n">getCollisionParent</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">onReachLeft</span><span class="p">():</span>
-        <span class="n">reachToFrame</span><span class="p">(</span><span class="n">reachFrame</span><span class="p">,</span> <span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="n">collisionParent</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">onReachRight</span><span class="p">():</span>
-        <span class="n">reachToFrame</span><span class="p">(</span><span class="n">reachFrame</span><span class="p">,</span> <span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">collisionParent</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">flipHandSide</span><span class="p">():</span>
-        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pickedObj</span><span class="p">]</span> <span class="o">+</span> <span class="n">pickedObj</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">isGraspSeed</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-                <span class="k">continue</span>
-            <span class="n">side</span> <span class="o">=</span> <span class="s">&#39;right&#39;</span> <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">side</span> <span class="o">==</span> <span class="s">&#39;left&#39;</span> <span class="k">else</span> <span class="s">&#39;left&#39;</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">side</span> <span class="o">=</span> <span class="n">side</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s">&#39;right&#39;</span><span class="p">:</span>
-                <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.33</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
-
-            <span class="n">polyData</span> <span class="o">=</span> <span class="n">handFactory</span><span class="o">.</span><span class="n">getNewHandPolyData</span><span class="p">(</span><span class="n">side</span><span class="p">)</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">setPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
-
-            <span class="n">handFrame</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">children</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">handFrame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-            <span class="n">t</span><span class="o">.</span><span class="n">PreMultiply</span><span class="p">()</span>
-            <span class="n">t</span><span class="o">.</span><span class="n">RotateY</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
-            <span class="n">handFrame</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-
-            <span class="n">objName</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
-            <span class="n">frameName</span> <span class="o">=</span> <span class="n">handFrame</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s">&#39;left&#39;</span><span class="p">:</span>
-                <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">objName</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;right&quot;</span><span class="p">,</span> <span class="s">&quot;left&quot;</span><span class="p">))</span>
-                <span class="n">handFrame</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">frameName</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;right&quot;</span><span class="p">,</span> <span class="s">&quot;left&quot;</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">objName</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;left&quot;</span><span class="p">,</span> <span class="s">&quot;right&quot;</span><span class="p">))</span>
-                <span class="n">handFrame</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">frameName</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;left&quot;</span><span class="p">,</span> <span class="s">&quot;right&quot;</span><span class="p">))</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">_renderAllViews</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">flipHandThumb</span><span class="p">():</span>
-        <span class="n">handFrame</span> <span class="o">=</span> <span class="n">pickedObj</span><span class="o">.</span><span class="n">children</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">handFrame</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">PreMultiply</span><span class="p">()</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">RotateY</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
-        <span class="n">handFrame</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-        <span class="n">pickedObj</span><span class="o">.</span><span class="n">_renderAllViews</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">onSplineLeft</span><span class="p">():</span>
-        <span class="n">splinewidget</span><span class="o">.</span><span class="n">planner</span><span class="o">.</span><span class="n">newSpline</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">,</span> <span class="s">&#39;left&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">onSplineRight</span><span class="p">():</span>
-        <span class="n">splinewidget</span><span class="o">.</span><span class="n">planner</span><span class="o">.</span><span class="n">newSpline</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">,</span> <span class="s">&#39;right&#39;</span><span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">getPointCloud</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">polyDataObj</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">polyData</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">if</span> <span class="n">obj</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">polyData</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">():</span><span class="c"># and (obj.polyData.GetNumberOfCells() == obj.polyData.GetNumberOfVerts()):</span>
-            <span class="k">return</span> <span class="n">obj</span>
-
-
-    <span class="n">pointCloudObj</span> <span class="o">=</span> <span class="n">getPointCloud</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">)</span>
-    <span class="n">affordanceObj</span> <span class="o">=</span> <span class="n">pickedObj</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">,</span> <span class="n">affordanceitems</span><span class="o">.</span><span class="n">AffordanceItem</span><span class="p">)</span> <span class="k">else</span> <span class="bp">None</span>
-
-    <span class="k">def</span> <span class="nf">onSegmentGround</span><span class="p">():</span>
-        <span class="n">groundPoints</span><span class="p">,</span> <span class="n">scenePoints</span> <span class="o">=</span>  <span class="n">segmentation</span><span class="o">.</span><span class="n">removeGround</span><span class="p">(</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-        <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">groundPoints</span><span class="p">,</span> <span class="s">&#39;ground points&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="s">&#39;segmentation&#39;</span><span class="p">)</span>
-        <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">scenePoints</span><span class="p">,</span> <span class="s">&#39;scene points&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="s">&#39;segmentation&#39;</span><span class="p">)</span>
-        <span class="n">pickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">onCopyPointCloud</span><span class="p">():</span>
-        <span class="k">global</span> <span class="n">lastRandomColor</span>
-        <span class="n">polyData</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
-        <span class="n">polyData</span><span class="o">.</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-        
-        <span class="k">if</span> <span class="n">pointCloudObj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">():</span>
-            <span class="n">polyData</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">transformPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">pointCloudObj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-        <span class="n">polyData</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">addCoordArraysToPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
-
-        <span class="c"># generate random color, and average with a common color to make them generally similar</span>
-        <span class="n">lastRandomColor</span> <span class="o">=</span> <span class="n">lastRandomColor</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
-        <span class="n">rgb</span> <span class="o">=</span> <span class="n">colorsys</span><span class="o">.</span><span class="n">hls_to_rgb</span><span class="p">(</span><span class="n">lastRandomColor</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">pointCloudObj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; copy&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgb</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s">&#39;point clouds&#39;</span><span class="p">)</span>
-
-        <span class="c">#t = vtk.vtkTransform()</span>
-        <span class="c">#t.PostMultiply()</span>
-        <span class="c">#t.Translate(filterUtils.computeCentroid(polyData))</span>
-        <span class="c">#segmentation.makeMovable(obj, t)</span>
-        <span class="n">om</span><span class="o">.</span><span class="n">setActiveObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="n">pickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">onMergeIntoPointCloud</span><span class="p">():</span>
-        <span class="n">allPointClouds</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="s">&#39;point clouds&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">allPointClouds</span><span class="p">:</span>
-            <span class="n">allPointClouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">allPointClouds</span><span class="o">.</span><span class="n">children</span><span class="p">()]</span>
-        <span class="n">sel</span> <span class="o">=</span>  <span class="n">QtGui</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getItem</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="s">&quot;Point Cloud Merging&quot;</span><span class="p">,</span> <span class="s">&quot;Pick point cloud to merge into:&quot;</span><span class="p">,</span> <span class="n">allPointClouds</span><span class="p">,</span> <span class="n">current</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="n">sel</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">findObjectByName</span><span class="p">(</span><span class="n">sel</span><span class="p">)</span>
-
-        <span class="c"># Make a copy of each in same frame</span>
-        <span class="n">polyDataInto</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
-        <span class="n">polyDataInto</span><span class="o">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">sel</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">():</span>
-            <span class="n">polyDataInto</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">transformPolyData</span><span class="p">(</span><span class="n">polyDataInto</span><span class="p">,</span> <span class="n">sel</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-
-        <span class="n">polyDataFrom</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
-        <span class="n">polyDataFrom</span><span class="o">.</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">pointCloudObj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">():</span>
-            <span class="n">polyDataFrom</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">transformPolyData</span><span class="p">(</span><span class="n">polyDataFrom</span><span class="p">,</span> <span class="n">pointCloudObj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-
-        <span class="c"># Actual merge</span>
-        <span class="n">append</span> <span class="o">=</span> <span class="n">filterUtils</span><span class="o">.</span><span class="n">appendPolyData</span><span class="p">([</span><span class="n">polyDataFrom</span><span class="p">,</span> <span class="n">polyDataInto</span><span class="p">])</span>
-        <span class="k">if</span> <span class="n">sel</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">():</span>
-            <span class="n">polyDataInto</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">transformPolyData</span><span class="p">(</span><span class="n">polyDataInto</span><span class="p">,</span> <span class="n">sel</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">GetInverse</span><span class="p">())</span>
-
-        <span class="c"># resample</span>
-        <span class="n">append</span> <span class="o">=</span> <span class="n">segmentationroutines</span><span class="o">.</span><span class="n">applyVoxelGrid</span><span class="p">(</span><span class="n">append</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
-        <span class="n">append</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">addCoordArraysToPolyData</span><span class="p">(</span><span class="n">append</span><span class="p">)</span>
-
-        <span class="c"># Recenter the frame</span>
-        <span class="n">sel</span><span class="o">.</span><span class="n">setPolyData</span><span class="p">(</span><span class="n">append</span><span class="p">)</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">filterUtils</span><span class="o">.</span><span class="n">computeCentroid</span><span class="p">(</span><span class="n">append</span><span class="p">))</span>
-        <span class="n">segmentation</span><span class="o">.</span><span class="n">makeMovable</span><span class="p">(</span><span class="n">sel</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-
-        <span class="c"># Hide the old one</span>
-        <span class="k">if</span> <span class="n">pointCloudObj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">allPointClouds</span><span class="p">:</span>
-            <span class="n">pointCloudObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">onSegmentTableScene</span><span class="p">():</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">segmentTableScene</span><span class="p">(</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">,</span> <span class="n">pickedPoint</span><span class="p">)</span>
-        <span class="n">vis</span><span class="o">.</span><span class="n">showClusterObjects</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">clusters</span> <span class="o">+</span> <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">table</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="s">&#39;segmentation&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">onSegmentDrillAlignedWithTable</span><span class="p">():</span>
-        <span class="n">segmentation</span><span class="o">.</span><span class="n">segmentDrillAlignedWithTable</span><span class="p">(</span><span class="n">pickedPoint</span><span class="p">,</span> <span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">onCachePickedPoint</span><span class="p">():</span>
-        <span class="sd">&#39;&#39;&#39; Cache the Picked Point for general purpose use&#39;&#39;&#39;</span>
-        <span class="k">global</span> <span class="n">lastCachedPickedPoint</span>
-        <span class="n">lastCachedPickedPoint</span> <span class="o">=</span> <span class="n">pickedPoint</span>
-        <span class="c">#data = segmentation.segmentTableScene(pointCloudObj.polyData, pickedPoint)</span>
-        <span class="c">#vis.showClusterObjects(data.clusters + [data.table], parent=&#39;segmentation&#39;)</span>
-
-
-    <span class="k">def</span> <span class="nf">onLocalPlaneFit</span><span class="p">():</span>
-        <span class="n">planePoints</span><span class="p">,</span> <span class="n">normal</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">applyLocalPlaneFit</span><span class="p">(</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">,</span> <span class="n">pickedPoint</span><span class="p">,</span> <span class="n">searchRadius</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">searchRadiusEnd</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">planePoints</span><span class="p">,</span> <span class="s">&#39;local plane fit&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Point Size&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-
-        <span class="n">fields</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">makePolyDataFields</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-
-        <span class="n">pose</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">poseFromTransform</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s">&#39;BoxAffordanceItem&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s">&#39;local plane&#39;</span><span class="p">,</span> <span class="n">Dimensions</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span> <span class="n">pose</span><span class="o">=</span><span class="n">pose</span><span class="p">)</span>
-        <span class="n">box</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">onOrientToMajorPlane</span><span class="p">():</span>
-        <span class="n">polyData</span><span class="p">,</span> <span class="n">planeFrame</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">orientToMajorPlane</span><span class="p">(</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">,</span> <span class="n">pickedPoint</span><span class="o">=</span><span class="n">pickedPoint</span><span class="p">)</span>
-        <span class="n">pointCloudObj</span><span class="o">.</span><span class="n">setPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">onDiskGlyph</span><span class="p">():</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">applyDiskGlyphs</span><span class="p">(</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s">&#39;disks&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.8</span><span class="p">])</span>
-        <span class="n">om</span><span class="o">.</span><span class="n">setActiveObject</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="n">pickedObj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Visible&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">onArrowGlyph</span><span class="p">():</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">applyArrowGlyphs</span><span class="p">(</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showPolyData</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s">&#39;disks&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">onSegmentationEditor</span><span class="p">():</span>
-        <span class="n">segmentationpanel</span><span class="o">.</span><span class="n">activateSegmentationMode</span><span class="p">(</span><span class="n">pointCloudObj</span><span class="o">.</span><span class="n">polyData</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">addNewFrame</span><span class="p">():</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">transformUtils</span><span class="o">.</span><span class="n">copyFrame</span><span class="p">(</span><span class="n">affordanceObj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">PostMultiply</span><span class="p">()</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pickedPoint</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetPosition</span><span class="p">()))</span>
-        <span class="n">newFrame</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">showFrame</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> frame </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">affordanceObj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">affordanceObj</span><span class="o">.</span><span class="n">children</span><span class="p">())),</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">affordanceObj</span><span class="p">)</span>
-        <span class="n">affordanceObj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span><span class="o">.</span><span class="n">getFrameSync</span><span class="p">()</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">newFrame</span><span class="p">,</span> <span class="n">ignoreIncoming</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">copyAffordance</span><span class="p">():</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">affordanceObj</span><span class="o">.</span><span class="n">getDescription</span><span class="p">())</span>
-        <span class="k">del</span> <span class="n">desc</span><span class="p">[</span><span class="s">&#39;uuid&#39;</span><span class="p">]</span>
-        <span class="n">desc</span><span class="p">[</span><span class="s">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">desc</span><span class="p">[</span><span class="s">&#39;Name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39; copy&#39;</span>
-        <span class="n">aff</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">newAffordanceFromDescription</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
-        <span class="n">aff</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&#39;Edit&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">onPromoteToAffordance</span><span class="p">():</span>
-        <span class="n">affObj</span> <span class="o">=</span> <span class="n">affordanceitems</span><span class="o">.</span><span class="n">MeshAffordanceItem</span><span class="o">.</span><span class="n">promotePolyDataItem</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">)</span>
-        <span class="n">robotSystem</span><span class="o">.</span><span class="n">affordanceManager</span><span class="o">.</span><span class="n">registerAffordance</span><span class="p">(</span><span class="n">affObj</span><span class="p">)</span>
-
-    <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
-      <span class="p">(</span><span class="s">&#39;Hide&#39;</span><span class="p">,</span> <span class="n">onHide</span><span class="p">),</span>
-      <span class="p">(</span><span class="s">&#39;Delete&#39;</span><span class="p">,</span> <span class="n">onDelete</span><span class="p">),</span>
-      <span class="p">(</span><span class="s">&#39;Select&#39;</span><span class="p">,</span> <span class="n">onSelect</span><span class="p">)</span>
-      <span class="p">]</span>
-
-
-    <span class="k">if</span> <span class="n">affordanceObj</span><span class="p">:</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-            <span class="p">(</span><span class="s">&#39;Copy affordance&#39;</span><span class="p">,</span> <span class="n">copyAffordance</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Add new frame&#39;</span><span class="p">,</span> <span class="n">addNewFrame</span><span class="p">),</span>
-        <span class="p">])</span>
-
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">)</span> <span class="o">==</span> <span class="n">vis</span><span class="o">.</span><span class="n">PolyDataItem</span><span class="p">:</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-            <span class="p">(</span><span class="s">&#39;Promote to Affordance&#39;</span><span class="p">,</span> <span class="n">onPromoteToAffordance</span><span class="p">),</span>
-        <span class="p">])</span>
-
-    <span class="k">if</span> <span class="n">isGraspSeed</span><span class="p">(</span><span class="n">pickedObj</span><span class="p">):</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-            <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Flip Side&#39;</span><span class="p">,</span> <span class="n">flipHandSide</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Flip Thumb&#39;</span><span class="p">,</span> <span class="n">flipHandThumb</span><span class="p">),</span>
-        <span class="p">])</span>
-
-    <span class="k">if</span> <span class="n">reachFrame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-            <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Reach Left&#39;</span><span class="p">,</span> <span class="n">onReachLeft</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Reach Right&#39;</span><span class="p">,</span> <span class="n">onReachRight</span><span class="p">),</span>
-            <span class="c">#(&#39;Spline Left&#39;, onSplineLeft),</span>
-            <span class="c">#(&#39;Spline Right&#39;, onSplineRight),</span>
-            <span class="p">])</span>
-
-    <span class="k">if</span> <span class="n">pointCloudObj</span><span class="p">:</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-            <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Copy Pointcloud&#39;</span><span class="p">,</span> <span class="n">onCopyPointCloud</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Merge Pointcloud Into&#39;</span><span class="p">,</span> <span class="n">onMergeIntoPointCloud</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Segment Ground&#39;</span><span class="p">,</span> <span class="n">onSegmentGround</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Segment Table&#39;</span><span class="p">,</span> <span class="n">onSegmentTableScene</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Segment Drill Aligned&#39;</span><span class="p">,</span> <span class="n">onSegmentDrillAlignedWithTable</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Local Plane Fit&#39;</span><span class="p">,</span> <span class="n">onLocalPlaneFit</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Orient with Horizontal&#39;</span><span class="p">,</span> <span class="n">onOrientToMajorPlane</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Arrow Glyph&#39;</span><span class="p">,</span> <span class="n">onArrowGlyph</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Disk Glyph&#39;</span><span class="p">,</span> <span class="n">onDiskGlyph</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Cache Pick Point&#39;</span><span class="p">,</span> <span class="n">onCachePickedPoint</span><span class="p">),</span>
-            <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Open Segmentation Editor&#39;</span><span class="p">,</span> <span class="n">onSegmentationEditor</span><span class="p">)</span>
-            <span class="p">])</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="n">getContextMenuActions</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">pickedObj</span><span class="p">,</span> <span class="n">pickedPoint</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">actionName</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">actionName</span><span class="p">:</span>
             <span class="n">menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">action</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">actionName</span><span class="p">)</span>
-            <span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+
+    <span class="n">selectedAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">popup</span><span class="p">(</span><span class="n">globalPos</span><span class="p">)</span></div>
 
 
-    <span class="n">selectedAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">popup</span><span class="p">(</span><span class="n">globalPos</span><span class="p">)</span>
+<div class="viewcode-block" id="zoomToPick"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.zoomToPick">[docs]</a><span class="k">def</span> <span class="nf">zoomToPick</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+    <span class="n">pickedPoint</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickProp</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">prop</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">flyer</span> <span class="o">=</span> <span class="n">cameracontrol</span><span class="o">.</span><span class="n">Flyer</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+    <span class="n">flyer</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">(</span><span class="n">pickedPoint</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="ViewEventFilter"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewEventFilter">[docs]</a><span class="k">class</span> <span class="nc">ViewEventFilter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mouseStart</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">initEventFilter</span><span class="p">()</span>
+<div class="viewcode-block" id="getChildFrame"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.getChildFrame">[docs]</a><span class="k">def</span> <span class="nf">getChildFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;getChildFrame&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">getChildFrame</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ViewEventFilter.filterEvent"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewEventFilter.filterEvent">[docs]</a>    <span class="k">def</span> <span class="nf">filterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonDblClick</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">onLeftDoubleClick</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+<div class="viewcode-block" id="toggleFrameWidget"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.toggleFrameWidget">[docs]</a><span class="k">def</span> <span class="nf">toggleFrameWidget</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
 
-        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">onLeftMousePress</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="n">obj</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">findPickedObject</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightButton</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mouseStart</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QPoint</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">vis</span><span class="o">.</span><span class="n">FrameItem</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">getChildFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouseStart</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">delta</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QPoint</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouseStart</span>
-                <span class="k">if</span> <span class="n">delta</span><span class="o">.</span><span class="n">manhattanLength</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">mouseStart</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">onMouseMove</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="n">edit</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s1">&#39;Edit&#39;</span><span class="p">)</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Edit&#39;</span><span class="p">,</span> <span class="n">edit</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonRelease</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RightButton</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouseStart</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mouseStart</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">onRightClick</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">getChildFrame</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span> <span class="o">==</span> <span class="n">obj</span><span class="p">:</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;Alpha&#39;</span><span class="p">,</span> <span class="mf">0.5</span> <span class="k">if</span> <span class="n">edit</span> <span class="k">else</span> <span class="mf">1.0</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">Wheel</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">onWheelEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="ViewEventFilter.consumeEvent"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewEventFilter.consumeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">consumeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="ViewEventFilter.onWheelEvent"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewEventFilter.onWheelEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onWheelEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">neckDriver</span><span class="p">:</span>
-            <span class="n">neckDriver</span><span class="o">.</span><span class="n">onWheelDelta</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">delta</span><span class="p">())</span>
-</div>
-<div class="viewcode-block" id="ViewEventFilter.onMouseMove"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewEventFilter.onMouseMove">[docs]</a>    <span class="k">def</span> <span class="nf">onMouseMove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
 
-        <span class="k">for</span> <span class="n">picker</span> <span class="ow">in</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">viewPickers</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">picker</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-                <span class="k">continue</span>
 
-            <span class="n">picker</span><span class="o">.</span><span class="n">onMouseMove</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">consumeEvent</span><span class="p">()</span>
+<div class="viewcode-block" id="ViewBehaviors"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewBehaviors">[docs]</a><span class="k">class</span> <span class="nc">ViewBehaviors</span><span class="p">(</span><span class="n">vieweventfilter</span><span class="o">.</span><span class="n">ViewEventFilter</span><span class="p">):</span>
 
-</div>
-<div class="viewcode-block" id="ViewEventFilter.onLeftMousePress"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewEventFilter.onLeftMousePress">[docs]</a>    <span class="k">def</span> <span class="nf">onLeftMousePress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ControlModifier</span><span class="p">:</span>
-            <span class="n">displayPoint</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">footstepsDriver</span><span class="p">:</span>
-                <span class="n">newWalkingGoal</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">consumeEvent</span><span class="p">()</span>
 
-        <span class="k">for</span> <span class="n">picker</span> <span class="ow">in</span> <span class="n">segmentation</span><span class="o">.</span><span class="n">viewPickers</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">picker</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-                <span class="k">continue</span>
+<div class="viewcode-block" id="ViewBehaviors.onLeftDoubleClick"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewBehaviors.onLeftDoubleClick">[docs]</a>    <span class="k">def</span> <span class="nf">onLeftDoubleClick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
-            <span class="n">picker</span><span class="o">.</span><span class="n">onMousePress</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">event</span><span class="p">),</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">consumeEvent</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="ViewEventFilter.onLeftDoubleClick"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewEventFilter.onLeftDoubleClick">[docs]</a>    <span class="k">def</span> <span class="nf">onLeftDoubleClick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-
-        <span class="n">displayPoint</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
-
-        <span class="n">useHorizontalWidget</span> <span class="o">=</span>  <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ShiftModifier</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">toggleFootstepWidget</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">useHorizontalWidget</span><span class="p">):</span>
-            <span class="k">return</span>
-
+        <span class="n">displayPoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMousePositionInView</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">toggleFrameWidget</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">):</span>
-            <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">consumeEvent</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">callHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">LEFT_DOUBLE_CLICK_EVENT</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
 
-        <span class="k">if</span> <span class="n">robotLinkSelector</span> <span class="ow">and</span> <span class="n">robotLinkSelector</span><span class="o">.</span><span class="n">selectLink</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">):</span>
-            <span class="k">return</span>
-</div>
-<div class="viewcode-block" id="ViewEventFilter.onRightClick"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewEventFilter.onRightClick">[docs]</a>    <span class="k">def</span> <span class="nf">onRightClick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="n">displayPoint</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">mapMousePosition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
-        <span class="n">showRightClickMenu</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="ViewEventFilter.initEventFilter"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewEventFilter.initEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">initEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
-        <span class="n">qvtkwidget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span>
-        <span class="n">qvtkwidget</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonDblClick</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonRelease</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">Wheel</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterEvent</span><span class="p">)</span>
+<div class="viewcode-block" id="ViewBehaviors.onRightClick"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewBehaviors.onRightClick">[docs]</a>    <span class="k">def</span> <span class="nf">onRightClick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">displayPoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMousePositionInView</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="n">showRightClickMenu</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span></div>
 
-</div></div>
-<div class="viewcode-block" id="KeyEventFilter"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.KeyEventFilter">[docs]</a><span class="k">class</span> <span class="nc">KeyEventFilter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewBehaviors.onKeyPress"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewBehaviors.onKeyPress">[docs]</a>    <span class="k">def</span> <span class="nf">onKeyPress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">initEventFilter</span><span class="p">()</span>
+        <span class="n">consumed</span> <span class="o">=</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="KeyEventFilter.filterEvent"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.KeyEventFilter.filterEvent">[docs]</a>    <span class="k">def</span> <span class="nf">filterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">text</span><span class="p">())</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
-        <span class="n">consumed</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">isAutoRepeat</span><span class="p">():</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">text</span><span class="p">())</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;f&#39;</span><span class="p">:</span>
-                <span class="n">zoomToPick</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getCursorDisplayPosition</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
-                <span class="n">consumed</span> <span class="o">=</span> <span class="bp">True</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;r&#39;</span><span class="p">:</span>
-                <span class="n">consumed</span> <span class="o">=</span> <span class="bp">True</span>
-                <span class="k">if</span> <span class="n">robotModel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">resetCameraToRobot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">()</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">:</span>
-                <span class="n">consumed</span> <span class="o">=</span> <span class="bp">True</span>
-                <span class="k">if</span> <span class="n">handFactory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">side</span> <span class="o">=</span> <span class="s">&#39;left&#39;</span> <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">!=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ShiftModifier</span> <span class="k">else</span> <span class="s">&#39;right&#39;</span>
-                    <span class="n">placeHandModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getCursorDisplayPosition</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">side</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;n&#39;</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">neckDriver</span><span class="p">:</span>
-                    <span class="n">neckDriver</span><span class="o">.</span><span class="n">activateNeckControl</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span>
+            <span class="n">consumed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">zoomToPick</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getCursorDisplayPosition</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
 
-            <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">,</span> <span class="s">&#39;3&#39;</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">neckDriver</span><span class="p">:</span>
-                    <span class="n">consumed</span> <span class="o">=</span> <span class="n">neckDriver</span><span class="o">.</span><span class="n">applyNeckPitchPreset</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span>
+            <span class="n">consumed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">resetCamera</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;3&#39;</span><span class="p">:</span>
-                <span class="c"># block vtk keypress handler 3d mode</span>
-                <span class="n">consumed</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">consumed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">consumeEvent</span><span class="p">()</span></div>
 
-        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyRelease</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">isAutoRepeat</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">text</span><span class="p">())</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;n&#39;</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">neckDriver</span><span class="p">:</span>
-                    <span class="n">neckDriver</span><span class="o">.</span><span class="n">deactivateNeckControl</span><span class="p">()</span>
-        
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">consumed</span><span class="p">:</span>
-            <span class="n">consumed</span> <span class="o">=</span> <span class="n">frameupdater</span><span class="o">.</span><span class="n">handleKey</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+<div class="viewcode-block" id="ViewBehaviors.onKeyPressRepeat"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewBehaviors.onKeyPressRepeat">[docs]</a>    <span class="k">def</span> <span class="nf">onKeyPressRepeat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
+        <span class="n">consumed</span> <span class="o">=</span> <span class="n">frameupdater</span><span class="o">.</span><span class="n">handleKey</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="n">consumed</span><span class="p">)</span>
+        <span class="c1"># prevent these keys from going to vtkRenderWindow&#39;s default key press handler</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">text</span><span class="p">())</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">]:</span>
+            <span class="n">consumed</span> <span class="o">=</span> <span class="kc">True</span>
 
-</div>
-<div class="viewcode-block" id="KeyEventFilter.getCursorDisplayPosition"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.KeyEventFilter.getCursorDisplayPosition">[docs]</a>    <span class="k">def</span> <span class="nf">getCursorDisplayPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">cursorPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">mapFromGlobal</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QCursor</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span>
-        <span class="k">return</span> <span class="n">cursorPos</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">cursorPos</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="KeyEventFilter.initEventFilter"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.KeyEventFilter.initEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">initEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
-        <span class="n">qvtkwidget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span>
-        <span class="n">qvtkwidget</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyRelease</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterEvent</span><span class="p">)</span>
-
-</div></div>
-<div class="viewcode-block" id="KeyPressLogCommander"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.KeyPressLogCommander">[docs]</a><span class="k">class</span> <span class="nc">KeyPressLogCommander</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">widget</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">initEventFilter</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">commander</span> <span class="o">=</span> <span class="n">lcmUtils</span><span class="o">.</span><span class="n">LogPlayerCommander</span><span class="p">()</span>
-
-<div class="viewcode-block" id="KeyPressLogCommander.filterEvent"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.KeyPressLogCommander.filterEvent">[docs]</a>    <span class="k">def</span> <span class="nf">filterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">text</span><span class="p">())</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-            <span class="n">consumed</span> <span class="o">=</span> <span class="bp">True</span>
-
-            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;p&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">commander</span><span class="o">.</span><span class="n">togglePlay</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;n&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">commander</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">commander</span><span class="o">.</span><span class="n">faster</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">commander</span><span class="o">.</span><span class="n">slower</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">commander</span><span class="o">.</span><span class="n">back</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;]&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">commander</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">consumed</span> <span class="o">=</span> <span class="bp">False</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">setEventHandlerResult</span><span class="p">(</span><span class="n">consumed</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="KeyPressLogCommander.initEventFilter"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.KeyPressLogCommander.initEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">initEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="n">PythonQt</span><span class="o">.</span><span class="n">dd</span><span class="o">.</span><span class="n">ddPythonEventFilter</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">addFilteredEventType</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterEvent</span><span class="p">)</span>
-
-
-</div></div>
-<div class="viewcode-block" id="ViewBehaviors"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewBehaviors">[docs]</a><span class="k">class</span> <span class="nc">ViewBehaviors</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mouseEventFilter</span> <span class="o">=</span> <span class="n">ViewEventFilter</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logCommander</span> <span class="o">=</span> <span class="n">KeyPressLogCommander</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">keyEventFilter</span> <span class="o">=</span> <span class="n">KeyEventFilter</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
-
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="ViewBehaviors.addRobotBehaviors"><a class="viewcode-back" href="../../generated/director.viewbehaviors.html#director.viewbehaviors.ViewBehaviors.addRobotBehaviors">[docs]</a>    <span class="k">def</span> <span class="nf">addRobotBehaviors</span><span class="p">(</span><span class="n">_robotSystem</span><span class="p">):</span>
-        <span class="k">global</span> <span class="n">robotSystem</span><span class="p">,</span> <span class="n">robotModel</span><span class="p">,</span> <span class="n">handFactory</span><span class="p">,</span> <span class="n">footstepsDriver</span><span class="p">,</span> <span class="n">neckDriver</span><span class="p">,</span> <span class="n">robotLinkSelector</span>
-        <span class="n">robotSystem</span> <span class="o">=</span> <span class="n">_robotSystem</span>
-        <span class="n">robotModel</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">robotStateModel</span>
-        <span class="n">handFactory</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">handFactory</span>
-        <span class="n">footstepsDriver</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">footstepsDriver</span>
-        <span class="n">neckDriver</span> <span class="o">=</span> <span class="n">robotSystem</span><span class="o">.</span><span class="n">neckDriver</span>
-        <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">getMainWindow</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">robotLinkSelector</span> <span class="o">=</span> <span class="n">RobotLinkSelector</span><span class="p">()</span></div></div>
+        <span class="k">if</span> <span class="n">consumed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">consumeEvent</span><span class="p">()</span></div></div>
 </pre></div>
 
            </div>

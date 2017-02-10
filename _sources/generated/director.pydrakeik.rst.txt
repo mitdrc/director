@@ -1,0 +1,7 @@
+director.pydrakeik module
+=========================
+
+.. automodule:: director.pydrakeik
+    :members:
+    :undoc-members:
+    :show-inheritance:
