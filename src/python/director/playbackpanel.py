@@ -92,7 +92,7 @@ class PlaybackPanel(object):
 
 
     def useDevelopmentColors(self):
-        self.robotStateModelDisplayAlpha = 0.1
+        self.robotStateModelDisplayAlpha = 0.6
         self.playbackRobotModelUseTextures = False
         self.playbackRobotModelDisplayAlpha = 1
 

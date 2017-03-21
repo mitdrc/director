@@ -139,7 +139,7 @@ globals().update(dict(robotSystem))
 useIk = True
 useRobotState = True
 usePerception = True
-useGrid = True
+useGrid = False
 useSpreadsheet = True
 useFootsteps = True
 useHands = True
@@ -250,13 +250,13 @@ if useGrid:
     grid = vis.showGrid(view, color=[0,0,0], alpha=0.1)
     grid.setProperty('Surface Mode', 'Surface with edges')
 
-app.setBackgroundColor([0.3, 0.3, 0.35], [0.95,0.95,1])
+#app.setBackgroundColor([0.3, 0.3, 0.35], [0.95,0.95,1])
 
 viewOptions = vis.ViewOptionsItem(view)
 om.addToObjectModel(viewOptions, parentObj=om.findObjectByName('sensors'))
 
-viewBackgroundLightHandler = viewcolors.ViewBackgroundLightHandler(viewOptions, grid,
-                                app.getToolsMenuActions()['ActionToggleBackgroundLight'])
+# viewBackgroundLightHandler = viewcolors.ViewBackgroundLightHandler(viewOptions, grid,
+#                                 app.getToolsMenuActions()['ActionToggleBackgroundLight'])
 if not useLightColorScheme:
     viewBackgroundLightHandler.action.trigger()
 
