@@ -1,5 +1,5 @@
-director.plannerPublisher module
-================================
+director\.plannerPublisher module
+=================================
 
 .. automodule:: director.plannerPublisher
     :members:

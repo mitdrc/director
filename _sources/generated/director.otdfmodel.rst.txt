@@ -1,5 +1,5 @@
-director.otdfmodel module
-=========================
+director\.otdfmodel module
+==========================
 
 .. automodule:: director.otdfmodel
     :members:

@@ -1,5 +1,5 @@
-director.cameracontrol module
-=============================
+director\.cameracontrol module
+==============================
 
 .. automodule:: director.cameracontrol
     :members:

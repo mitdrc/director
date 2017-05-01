@@ -1,5 +1,5 @@
-director.thirdparty.pysdf module
-================================
+director\.thirdparty\.pysdf module
+==================================
 
 .. automodule:: director.thirdparty.pysdf
     :members:

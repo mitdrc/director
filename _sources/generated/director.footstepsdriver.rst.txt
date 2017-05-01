@@ -1,5 +1,5 @@
-director.footstepsdriver module
-===============================
+director\.footstepsdriver module
+================================
 
 .. automodule:: director.footstepsdriver
     :members:

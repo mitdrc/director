@@ -1,5 +1,5 @@
-director.robotviewbehaviors module
-==================================
+director\.robotviewbehaviors module
+===================================
 
 .. automodule:: director.robotviewbehaviors
     :members:

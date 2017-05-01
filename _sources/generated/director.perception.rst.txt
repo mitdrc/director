@@ -1,5 +1,5 @@
-director.perception module
-==========================
+director\.perception module
+===========================
 
 .. automodule:: director.perception
     :members:

@@ -1,5 +1,5 @@
-director.segmentation module
-============================
+director\.segmentation module
+=============================
 
 .. automodule:: director.segmentation
     :members:

@@ -1,5 +1,5 @@
-director.tasks.descriptions.drillTask module
-============================================
+director\.tasks\.descriptions\.drillTask module
+===============================================
 
 .. automodule:: director.tasks.descriptions.drillTask
     :members:

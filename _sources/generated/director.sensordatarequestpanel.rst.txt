@@ -1,5 +1,5 @@
-director.sensordatarequestpanel module
-======================================
+director\.sensordatarequestpanel module
+=======================================
 
 .. automodule:: director.sensordatarequestpanel
     :members:

@@ -1,5 +1,5 @@
-director.affordanceitems module
-===============================
+director\.affordanceitems module
+================================
 
 .. automodule:: director.affordanceitems
     :members:

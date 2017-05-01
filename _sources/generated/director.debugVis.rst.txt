@@ -1,5 +1,5 @@
-director.debugVis module
-========================
+director\.debugVis module
+=========================
 
 .. automodule:: director.debugVis
     :members:

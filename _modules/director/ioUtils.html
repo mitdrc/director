@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.ioUtils</li>
+        
+      <li>director.ioUtils</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -222,6 +247,43 @@
     <span class="k">return</span> <span class="n">meshes</span><span class="p">,</span> <span class="n">colors</span></div>
 
 
+<div class="viewcode-block" id="readObjMtl"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.readObjMtl">[docs]</a><span class="k">def</span> <span class="nf">readObjMtl</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Read an obj file and return a list of vtkPolyData objects.</span>
+<span class="sd">    If the obj file has an associated material file, this function returns</span>
+<span class="sd">    (polyDataList, actors).  If there is not a material file, this function</span>
+<span class="sd">    returns (polyDataList, None).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">getMtlFilename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">maxLines</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;mtllib&#39;</span><span class="p">):</span>
+                    <span class="n">tokens</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Error parsing mtllib line in file: </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">l</span><span class="p">))</span>
+                    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">tokens</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">mtlFilename</span> <span class="o">=</span> <span class="n">getMtlFilename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">l</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkOBJImporter</span><span class="p">()</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mtlFilename</span><span class="p">:</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">SetFileNameMTL</span><span class="p">(</span><span class="n">mtlFilename</span><span class="p">)</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">SetTexturePath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">Read</span><span class="p">()</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span>
+    <span class="n">ren</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">GetRenderers</span><span class="p">()</span><span class="o">.</span><span class="n">GetItemAsObject</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">actors</span> <span class="o">=</span> <span class="n">ren</span><span class="o">.</span><span class="n">GetActors</span><span class="p">()</span>
+    <span class="n">actors</span> <span class="o">=</span> <span class="p">[</span><span class="n">actors</span><span class="o">.</span><span class="n">GetItemAsObject</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">actors</span><span class="o">.</span><span class="n">GetNumberOfItems</span><span class="p">())]</span>
+    <span class="n">meshes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">.</span><span class="n">GetInput</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">mtlFilename</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">meshes</span><span class="p">,</span> <span class="n">actors</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">meshes</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="writePolyData"><a class="viewcode-back" href="../../generated/director.ioUtils.html#director.ioUtils.writePolyData">[docs]</a><span class="k">def</span> <span class="nf">writePolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 
     <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -299,6 +361,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -330,7 +395,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

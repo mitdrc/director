@@ -1,5 +1,5 @@
-director.robotplanlistener module
-=================================
+director\.robotplanlistener module
+==================================
 
 .. automodule:: director.robotplanlistener
     :members:

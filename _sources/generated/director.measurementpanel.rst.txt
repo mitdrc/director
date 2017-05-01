@@ -1,5 +1,5 @@
-director.measurementpanel module
-================================
+director\.measurementpanel module
+=================================
 
 .. automodule:: director.measurementpanel
     :members:

@@ -1,5 +1,5 @@
-director.navigationpanel module
-===============================
+director\.navigationpanel module
+================================
 
 .. automodule:: director.navigationpanel
     :members:

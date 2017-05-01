@@ -1,5 +1,5 @@
-director.thirdparty.conversions module
-======================================
+director\.thirdparty\.conversions module
+========================================
 
 .. automodule:: director.thirdparty.conversions
     :members:

@@ -1,5 +1,5 @@
-director.colorize module
-========================
+director\.colorize module
+=========================
 
 .. automodule:: director.colorize
     :members:

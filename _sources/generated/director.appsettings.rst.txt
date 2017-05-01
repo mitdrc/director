@@ -1,5 +1,5 @@
-director.appsettings module
-===========================
+director\.appsettings module
+============================
 
 .. automodule:: director.appsettings
     :members:

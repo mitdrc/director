@@ -1,5 +1,5 @@
-director.jointcontrol module
-============================
+director\.jointcontrol module
+=============================
 
 .. automodule:: director.jointcontrol
     :members:

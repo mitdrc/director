@@ -1,5 +1,5 @@
-director.polarisplatformplanner module
-======================================
+director\.polarisplatformplanner module
+=======================================
 
 .. automodule:: director.polarisplatformplanner
     :members:

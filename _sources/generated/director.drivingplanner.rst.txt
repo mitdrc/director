@@ -1,5 +1,5 @@
-director.drivingplanner module
-==============================
+director\.drivingplanner module
+===============================
 
 .. automodule:: director.drivingplanner
     :members:

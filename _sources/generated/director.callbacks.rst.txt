@@ -1,5 +1,5 @@
-director.callbacks module
-=========================
+director\.callbacks module
+==========================
 
 .. automodule:: director.callbacks
     :members:

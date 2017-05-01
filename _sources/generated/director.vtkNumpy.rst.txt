@@ -1,5 +1,5 @@
-director.vtkNumpy module
-========================
+director\.vtkNumpy module
+=========================
 
 .. automodule:: director.vtkNumpy
     :members:

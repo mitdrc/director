@@ -1,5 +1,5 @@
-director.bihandeddemo module
-============================
+director\.bihandeddemo module
+=============================
 
 .. automodule:: director.bihandeddemo
     :members:

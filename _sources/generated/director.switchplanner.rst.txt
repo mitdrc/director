@@ -1,5 +1,5 @@
-director.switchplanner module
-=============================
+director\.switchplanner module
+==============================
 
 .. automodule:: director.switchplanner
     :members:

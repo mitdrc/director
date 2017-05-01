@@ -1,5 +1,5 @@
-director.copmonitor module
-==========================
+director\.copmonitor module
+===========================
 
 .. automodule:: director.copmonitor
     :members:

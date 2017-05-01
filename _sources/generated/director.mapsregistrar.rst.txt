@@ -1,5 +1,5 @@
-director.mapsregistrar module
-=============================
+director\.mapsregistrar module
+==============================
 
 .. automodule:: director.mapsregistrar
     :members:

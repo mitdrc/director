@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -45,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -81,7 +84,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
@@ -96,6 +102,7 @@
 <li class="toctree-l4"><a class="reference internal" href="director.affordancepanel.html">director.affordancepanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.affordanceviewbehaviors.html">director.affordanceviewbehaviors module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
@@ -155,6 +162,7 @@
 <li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmlogplayer.html">director.lcmlogplayer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
@@ -171,6 +179,7 @@
 <li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.optitrackvisualizer.html">director.optitrackvisualizer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
@@ -254,8 +263,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Director</a>
+        
       </nav>
 
 
@@ -264,25 +275,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="modules.html">director</a> &raquo;</li>
-      
+        
           <li><a href="director.html">director package</a> &raquo;</li>
-      
-    <li>director.componentgraph module</li>
+        
+      <li>director.componentgraph module</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -294,11 +322,6 @@
 <dt id="director.componentgraph.ComponentFactory">
 <em class="property">class </em><code class="descclassname">director.componentgraph.</code><code class="descname">ComponentFactory</code><a class="reference internal" href="../_modules/director/componentgraph.html#ComponentFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.componentgraph.ComponentFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="director.componentgraph.ComponentFactory.addComponents">
-<code class="descname">addComponents</code><span class="sig-paren">(</span><em>componentGraph</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/componentgraph.html#ComponentFactory.addComponents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.componentgraph.ComponentFactory.addComponents" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="director.componentgraph.ComponentFactory.construct">
 <code class="descname">construct</code><span class="sig-paren">(</span><em>options=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/componentgraph.html#ComponentFactory.construct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.componentgraph.ComponentFactory.construct" title="Permalink to this definition">¶</a></dt>
@@ -315,8 +338,18 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="director.componentgraph.ComponentFactory.initDefaultOptions">
-<code class="descname">initDefaultOptions</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/componentgraph.html#ComponentFactory.initDefaultOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.componentgraph.ComponentFactory.initDefaultOptions" title="Permalink to this definition">¶</a></dt>
+<dt id="director.componentgraph.ComponentFactory.initComponent">
+<code class="descname">initComponent</code><span class="sig-paren">(</span><em>name</em>, <em>defaultFields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/componentgraph.html#ComponentFactory.initComponent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.componentgraph.ComponentFactory.initComponent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.componentgraph.ComponentFactory.printComponentFields">
+<code class="descname">printComponentFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/componentgraph.html#ComponentFactory.printComponentFields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.componentgraph.ComponentFactory.printComponentFields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="director.componentgraph.ComponentFactory.register">
+<code class="descname">register</code><span class="sig-paren">(</span><em>factoryClass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/componentgraph.html#ComponentFactory.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.componentgraph.ComponentFactory.register" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -361,15 +394,18 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="director.consoleapp.html" class="btn btn-neutral float-right" title="director.consoleapp module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="director.consoleapp.html" class="btn btn-neutral float-right" title="director.consoleapp module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="director.colorize.html" class="btn btn-neutral" title="director.colorize module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="director.colorize.html" class="btn btn-neutral" title="director.colorize module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -401,7 +437,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

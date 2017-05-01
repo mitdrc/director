@@ -1,5 +1,5 @@
-director.uuidutil module
-========================
+director\.uuidutil module
+=========================
 
 .. automodule:: director.uuidutil
     :members:

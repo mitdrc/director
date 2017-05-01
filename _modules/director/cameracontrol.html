@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.cameracontrol</li>
+        
+      <li>director.cameracontrol</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -151,6 +176,31 @@
         <span class="n">speed</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">orbitTime</span>
         <span class="n">degrees</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elapsed</span> <span class="o">*</span> <span class="n">speed</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">()</span><span class="o">.</span><span class="n">Azimuth</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="CameraInterpolator"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraInterpolator">[docs]</a><span class="k">class</span> <span class="nc">CameraInterpolator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<div class="viewcode-block" id="CameraInterpolator.getViewCameraCopy"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraInterpolator.getViewCameraCopy">[docs]</a>    <span class="k">def</span> <span class="nf">getViewCameraCopy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">camera</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCamera</span><span class="p">()</span>
+        <span class="n">camera</span><span class="o">.</span><span class="n">DeepCopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">camera</span></div>
+
+<div class="viewcode-block" id="CameraInterpolator.reset"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraInterpolator.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interp</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCameraInterpolator</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraInterpolator.addCameraAtTime"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraInterpolator.addCameraAtTime">[docs]</a>    <span class="k">def</span> <span class="nf">addCameraAtTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="o">.</span><span class="n">AddCamera</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">camera</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraInterpolator.addViewCameraAtTime"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraInterpolator.addViewCameraAtTime">[docs]</a>    <span class="k">def</span> <span class="nf">addViewCameraAtTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addCameraAtTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getViewCameraCopy</span><span class="p">(),</span> <span class="n">t</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraInterpolator.setViewCameraAtTime"><a class="viewcode-back" href="../../generated/director.cameracontrol.html#director.cameracontrol.CameraInterpolator.setViewCameraAtTime">[docs]</a>    <span class="k">def</span> <span class="nf">setViewCameraAtTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="o">.</span><span class="n">InterpolateCamera</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">camera</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div></div>
 
 
@@ -619,6 +669,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -650,7 +703,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

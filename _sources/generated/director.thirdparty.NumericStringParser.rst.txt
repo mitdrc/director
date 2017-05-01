@@ -1,5 +1,5 @@
-director.thirdparty.NumericStringParser module
-==============================================
+director\.thirdparty\.NumericStringParser module
+================================================
 
 .. automodule:: director.thirdparty.NumericStringParser
     :members:

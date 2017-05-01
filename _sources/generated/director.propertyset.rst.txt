@@ -1,5 +1,5 @@
-director.propertyset module
-===========================
+director\.propertyset module
+============================
 
 .. automodule:: director.propertyset
     :members:

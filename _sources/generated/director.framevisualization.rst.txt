@@ -1,5 +1,5 @@
-director.framevisualization module
-==================================
+director\.framevisualization module
+===================================
 
 .. automodule:: director.framevisualization
     :members:

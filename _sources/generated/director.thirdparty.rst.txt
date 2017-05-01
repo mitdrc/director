@@ -1,5 +1,5 @@
-director.thirdparty package
-===========================
+director\.thirdparty package
+============================
 
 Submodules
 ----------

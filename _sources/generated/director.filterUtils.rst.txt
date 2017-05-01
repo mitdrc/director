@@ -1,5 +1,5 @@
-director.filterUtils module
-===========================
+director\.filterUtils module
+============================
 
 .. automodule:: director.filterUtils
     :members:

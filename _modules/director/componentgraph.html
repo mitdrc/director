@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.componentgraph</li>
+        
+      <li>director.componentgraph</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -182,13 +207,34 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">componentGraph</span> <span class="o">=</span> <span class="n">ComponentGraph</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">addComponents</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">componentGraph</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initFunctions</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">componentFields</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defaultOptions</span> <span class="o">=</span> <span class="n">FieldContainer</span><span class="p">()</span>
 
-<div class="viewcode-block" id="ComponentFactory.addComponents"><a class="viewcode-back" href="../../generated/director.componentgraph.html#director.componentgraph.ComponentFactory.addComponents">[docs]</a>    <span class="k">def</span> <span class="nf">addComponents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">componentGraph</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+<div class="viewcode-block" id="ComponentFactory.register"><a class="viewcode-back" href="../../generated/director.componentgraph.html#director.componentgraph.ComponentFactory.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factoryClass</span><span class="p">):</span>
 
-<div class="viewcode-block" id="ComponentFactory.initDefaultOptions"><a class="viewcode-back" href="../../generated/director.componentgraph.html#director.componentgraph.ComponentFactory.initDefaultOptions">[docs]</a>    <span class="k">def</span> <span class="nf">initDefaultOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+        <span class="n">fact</span> <span class="o">=</span> <span class="n">factoryClass</span><span class="p">()</span>
+        <span class="n">components</span><span class="p">,</span> <span class="n">disabledComponents</span> <span class="o">=</span> <span class="n">fact</span><span class="o">.</span><span class="n">getComponents</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">components</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">componentGraph</span><span class="o">.</span><span class="n">getComponentNames</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Component </span><span class="si">%s</span><span class="s1"> from </span><span class="si">%s</span><span class="s1"> has already been registered.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">factoryClass</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fact</span><span class="p">,</span> <span class="s1">&#39;init&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Missing init function for component </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">disabledComponents</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">components</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Unknown component </span><span class="si">%s</span><span class="s1"> found in list of disabled components.&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">deps</span> <span class="ow">in</span> <span class="n">components</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">componentGraph</span><span class="o">.</span><span class="n">addComponent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">deps</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initFunctions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fact</span><span class="p">,</span> <span class="s1">&#39;init&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">isEnabled</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">disabledComponents</span>
+            <span class="n">options</span><span class="p">[</span><span class="s1">&#39;use&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">isEnabled</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">defaultOptions</span><span class="o">.</span><span class="n">_add_fields</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ComponentFactory.getDisabledOptions"><a class="viewcode-back" href="../../generated/director.componentgraph.html#director.componentgraph.ComponentFactory.getDisabledOptions">[docs]</a>    <span class="k">def</span> <span class="nf">getDisabledOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getDefaultOptions</span><span class="p">()</span>
@@ -198,13 +244,7 @@
         <span class="k">return</span> <span class="n">options</span></div>
 
 <div class="viewcode-block" id="ComponentFactory.getDefaultOptions"><a class="viewcode-back" href="../../generated/director.componentgraph.html#director.componentgraph.ComponentFactory.getDefaultOptions">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-        <span class="n">options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">componentGraph</span><span class="o">.</span><span class="n">getComponentNames</span><span class="p">():</span>
-            <span class="n">options</span><span class="p">[</span><span class="s1">&#39;use&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="n">options</span> <span class="o">=</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">initDefaultOptions</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">defaultOptions</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setDependentOptions</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">options</span></div>
 
@@ -258,44 +298,38 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setDependentOptions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultOptions</span><span class="p">(),</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_verifyOptions</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
-
-        <span class="n">componentGraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">componentGraph</span>
-
-        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">componentGraph</span><span class="o">.</span><span class="n">getComponentNames</span><span class="p">():</span>
-            <span class="k">if</span> <span class="s1">&#39;use&#39;</span><span class="o">+</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">options</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Missing use option: &#39;</span> <span class="o">+</span> <span class="s1">&#39;use&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s1">&#39;init&#39;</span><span class="o">+</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Missing init function: &#39;</span> <span class="o">+</span> <span class="s1">&#39;init&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
-
-        <span class="n">initOrder</span> <span class="o">=</span> <span class="n">toposort_flatten</span><span class="p">(</span><span class="n">componentGraph</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
-
-        <span class="n">componentFields</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
         <span class="n">defaultFields</span> <span class="o">=</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
+        <span class="n">initOrder</span> <span class="o">=</span> <span class="n">toposort_flatten</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">componentGraph</span><span class="o">.</span><span class="n">getComponentGraph</span><span class="p">())</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">initOrder</span><span class="p">:</span>
-
-            <span class="n">initFunction</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;init&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
             <span class="n">isEnabled</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="s1">&#39;use&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
-
             <span class="k">if</span> <span class="n">isEnabled</span><span class="p">:</span>
-                <span class="n">dependencies</span> <span class="o">=</span> <span class="n">componentGraph</span><span class="o">.</span><span class="n">getComponentDependencies</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                <span class="n">inputFields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_joinFields</span><span class="p">([</span><span class="n">defaultFields</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">componentFields</span><span class="p">[</span><span class="n">dep</span><span class="p">]</span> <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">])</span>
-                <span class="n">newFields</span> <span class="o">=</span> <span class="n">initFunction</span><span class="p">(</span><span class="n">inputFields</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">initComponent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">defaultFields</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">newFields</span><span class="p">:</span>
-                    <span class="n">newFields</span> <span class="o">=</span> <span class="n">FieldContainer</span><span class="p">()</span>
-                <span class="n">componentFields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">newFields</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_joinFields</span><span class="p">([</span><span class="n">defaultFields</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">componentFields</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">fields</span></div>
 
+<div class="viewcode-block" id="ComponentFactory.printComponentFields"><a class="viewcode-back" href="../../generated/director.componentgraph.html#director.componentgraph.ComponentFactory.printComponentFields">[docs]</a>    <span class="k">def</span> <span class="nf">printComponentFields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">componentFields</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="nb">print</span> <span class="n">k</span><span class="p">,</span> <span class="s1">&#39;exports fields:&#39;</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">_fields</span><span class="p">:</span>
+                <span class="nb">print</span> <span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">name</span></div>
 
-        <span class="c1">#for k, v in componentFields.iteritems():</span>
-        <span class="c1">#    print k, &#39;exports fields:&#39;</span>
-        <span class="c1">#    for name in v._fields:</span>
-        <span class="c1">#        print &#39;  &#39;, name</span>
+<div class="viewcode-block" id="ComponentFactory.initComponent"><a class="viewcode-back" href="../../generated/director.componentgraph.html#director.componentgraph.ComponentFactory.initComponent">[docs]</a>    <span class="k">def</span> <span class="nf">initComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">defaultFields</span><span class="p">):</span>
 
-        <span class="n">fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_joinFields</span><span class="p">([</span><span class="n">defaultFields</span><span class="p">]</span> <span class="o">+</span> <span class="n">componentFields</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-        <span class="k">return</span> <span class="n">fields</span></div></div>
+        <span class="n">initFunction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initFunctions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">dependencies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">componentGraph</span><span class="o">.</span><span class="n">getComponentDependencies</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">inputFields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_joinFields</span><span class="p">([</span><span class="n">defaultFields</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">componentFields</span><span class="p">[</span><span class="n">dep</span><span class="p">]</span> <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">])</span>
+        <span class="n">newFields</span> <span class="o">=</span> <span class="n">initFunction</span><span class="p">(</span><span class="n">inputFields</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">newFields</span><span class="p">:</span>
+            <span class="n">newFields</span> <span class="o">=</span> <span class="n">FieldContainer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">componentFields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">newFields</span></div></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -328,7 +362,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

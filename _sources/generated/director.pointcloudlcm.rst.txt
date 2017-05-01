@@ -1,5 +1,5 @@
-director.pointcloudlcm module
-=============================
+director\.pointcloudlcm module
+==============================
 
 .. automodule:: director.pointcloudlcm
     :members:

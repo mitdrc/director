@@ -1,5 +1,5 @@
-director.drakevisualizerapp module
-==================================
+director\.drakevisualizerapp module
+===================================
 
 .. automodule:: director.drakevisualizerapp
     :members:

@@ -1,5 +1,5 @@
-director.robotsystem module
-===========================
+director\.robotsystem module
+============================
 
 .. automodule:: director.robotsystem
     :members:

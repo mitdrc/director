@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.consoleapp</li>
+        
+      <li>director.consoleapp</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -138,6 +163,7 @@
 <span class="kn">import</span> <span class="nn">argparse</span>
 
 <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">applogic</span>
+<span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">drcargs</span>
 <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">objectmodel</span> <span class="k">as</span> <span class="n">om</span>
 <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">viewbehaviors</span>
 <span class="kn">from</span> <span class="nn">director</span> <span class="k">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
@@ -277,11 +303,11 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="ConsoleApp.getTestingArgs"><a class="viewcode-back" href="../../generated/director.consoleapp.html#director.consoleapp.ConsoleApp.getTestingArgs">[docs]</a>    <span class="k">def</span> <span class="nf">getTestingArgs</span><span class="p">(</span><span class="n">dataDirRequired</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">outputDirRequired</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
-      <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+      <span class="n">parser</span> <span class="o">=</span> <span class="n">drcargs</span><span class="o">.</span><span class="n">DRCArgParser</span><span class="p">()</span><span class="o">.</span><span class="n">getParser</span><span class="p">()</span>
       <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--testing&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;enable testing mode&#39;</span><span class="p">)</span>
-      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--data-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;testing data directory&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">dataDirRequired</span><span class="p">)</span>
-      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--output-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;output directory for writing test output&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">outputDirRequired</span><span class="p">)</span>
-      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;--interactive&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;enable interactive testing mode&#39;</span><span class="p">)</span>
+      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--data-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;testing data directory&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">dataDirRequired</span><span class="p">)</span>
+      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--output-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;output directory for writing test output&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">outputDirRequired</span><span class="p">)</span>
+      <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--interactive&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;enable interactive testing mode&#39;</span><span class="p">)</span>
 
       <span class="n">args</span><span class="p">,</span> <span class="n">unknown</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">()</span>
       <span class="k">return</span> <span class="n">args</span></div>
@@ -331,6 +357,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -362,7 +391,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

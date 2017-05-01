@@ -1,5 +1,5 @@
-director.timercallback module
-=============================
+director\.timercallback module
+==============================
 
 .. automodule:: director.timercallback
     :members:

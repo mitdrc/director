@@ -1,5 +1,5 @@
-director.skybox module
-======================
+director\.skybox module
+=======================
 
 .. automodule:: director.skybox
     :members:

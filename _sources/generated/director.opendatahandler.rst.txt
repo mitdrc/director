@@ -1,5 +1,5 @@
-director.opendatahandler module
-===============================
+director\.opendatahandler module
+================================
 
 .. automodule:: director.opendatahandler
     :members:

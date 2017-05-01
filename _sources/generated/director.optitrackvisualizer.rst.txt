@@ -1,0 +1,7 @@
+director\.optitrackvisualizer module
+====================================
+
+.. automodule:: director.optitrackvisualizer
+    :members:
+    :undoc-members:
+    :show-inheritance:

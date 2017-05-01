@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.drcargs</li>
+        
+      <li>director.drcargs</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -137,7 +162,6 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">json</span>
-
 
 
 <div class="viewcode-block" id="DRCArgParser"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser">[docs]</a><span class="k">class</span> <span class="nc">DRCArgParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -172,7 +196,6 @@
             <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">l</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
 
         <span class="c1"># now flatten some list of lists</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">scripts</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">scripts</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">data_files</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">data_files</span><span class="p">)</span></div>
 
 
@@ -214,7 +237,27 @@
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseDir</span><span class="p">(),</span>
                             <span class="s1">&#39;software/models/dual_arm_husky_description/director_config.json&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DRCArgParser.addDirectorConfigShortcuts"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.addDirectorConfigShortcuts">[docs]</a>    <span class="k">def</span> <span class="nf">addDirectorConfigShortcuts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directorConfig</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_isPyDrakeAvailable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">pydrake</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="DRCArgParser.addDrakeConfigShortcuts"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.addDrakeConfigShortcuts">[docs]</a>    <span class="k">def</span> <span class="nf">addDrakeConfigShortcuts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directorConfig</span><span class="p">):</span>
+
+        <span class="kn">import</span> <span class="nn">pydrake</span>
+        <span class="n">drakePath</span> <span class="o">=</span> <span class="n">pydrake</span><span class="o">.</span><span class="n">getDrakePath</span><span class="p">()</span>
+
+        <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;--iiwa-drake&#39;</span><span class="p">,</span>
+            <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
+            <span class="n">const</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">drakePath</span><span class="p">,</span> <span class="s1">&#39;examples/kuka_iiwa_arm/director_config.json&#39;</span><span class="p">),</span>
+            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use KUKA IIWA from drake/examples&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DRCArgParser.addOpenHumanoidsConfigShortcuts"><a class="viewcode-back" href="../../generated/director.drcargs.html#director.drcargs.DRCArgParser.addOpenHumanoidsConfigShortcuts">[docs]</a>    <span class="k">def</span> <span class="nf">addOpenHumanoidsConfigShortcuts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directorConfig</span><span class="p">):</span>
 
         <span class="n">directorConfig</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v3&#39;</span><span class="p">,</span> <span class="s1">&#39;--atlas_v3&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;directorConfigFile&#39;</span><span class="p">,</span>
                             <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_const&#39;</span><span class="p">,</span>
@@ -270,13 +313,12 @@
                                     <span class="n">help</span><span class="o">=</span><span class="s1">&#39;JSON file specifying which urdfs to use&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">director</span><span class="o">.</span><span class="n">getDRCBaseIsSet</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">addDirectorConfigShortcuts</span><span class="p">(</span><span class="n">directorConfig</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addOpenHumanoidsConfigShortcuts</span><span class="p">(</span><span class="n">directorConfig</span><span class="p">)</span>
             <span class="n">parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">directorConfigFile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultDirectorConfigFile</span><span class="p">(),</span>
                                 <span class="n">config_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultBotConfigFile</span><span class="p">())</span>
 
-        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;data_files&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
-                            <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;append&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span>
-                            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;data files to load at startup&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isPyDrakeAvailable</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addDrakeConfigShortcuts</span><span class="p">(</span><span class="n">directorConfig</span><span class="p">)</span>
 
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--data&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;data_files&#39;</span><span class="p">,</span>
                             <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;append&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span>
@@ -340,6 +382,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -371,7 +416,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

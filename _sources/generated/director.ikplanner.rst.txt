@@ -1,5 +1,5 @@
-director.ikplanner module
-=========================
+director\.ikplanner module
+==========================
 
 .. automodule:: director.ikplanner
     :members:

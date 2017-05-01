@@ -1,5 +1,5 @@
-director.jointpropagator module
-===============================
+director\.jointpropagator module
+================================
 
 .. automodule:: director.jointpropagator
     :members:

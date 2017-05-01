@@ -1,5 +1,5 @@
-director.valvedemo module
-=========================
+director\.valvedemo module
+==========================
 
 .. automodule:: director.valvedemo
     :members:

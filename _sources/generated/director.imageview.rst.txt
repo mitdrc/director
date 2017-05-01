@@ -1,5 +1,5 @@
-director.imageview module
-=========================
+director\.imageview module
+==========================
 
 .. automodule:: director.imageview
     :members:

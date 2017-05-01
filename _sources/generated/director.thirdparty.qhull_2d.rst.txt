@@ -1,5 +1,5 @@
-director.thirdparty.qhull_2d module
-===================================
+director\.thirdparty\.qhull\_2d module
+======================================
 
 .. automodule:: director.thirdparty.qhull_2d
     :members:

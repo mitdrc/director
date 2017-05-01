@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -45,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -81,7 +84,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
@@ -112,8 +118,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Director</a>
+        
       </nav>
 
 
@@ -122,23 +130,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="index.html">User Guide</a> &raquo;</li>
-      
-    <li>Remote Tree Viewer Interface</li>
+        
+      <li>Remote Tree Viewer Interface</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -166,14 +191,15 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">DIRECTOR_TREE_VIEWER_REQUEST:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">for communication from the client to the viewer</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">DIRECTOR_TREE_VIEWER_REQUEST_&lt;client_id&gt;:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">for communication from the client to the viewer</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">DIRECTOR_TREE_VIEWER_RESPONSE:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">for communication from the viewer back to the client</td>
+<tr class="field-even field"><th class="field-name" colspan="2">DIRECTOR_TREE_VIEWER_RESPONSE_&lt;client_id&gt;:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">for communication from the viewer back to the client</td>
 </tr>
 </tbody>
 </table>
+<p>The <code class="docutils literal"><span class="pre">client_id</span></code> can consist of any characters except <code class="docutils literal"><span class="pre">&lt;</span></code> and <code class="docutils literal"><span class="pre">&gt;</span></code>, and it should be unique for each client. Note that the ID needs to be enclosed within literal <code class="docutils literal"><span class="pre">&lt;</span></code> and <code class="docutils literal"><span class="pre">&gt;</span></code> characters.</p>
 <p>Two-way communication is not mandatory: a simple client may just publish on <code class="docutils literal"><span class="pre">_REQUEST</span></code> and ignore all responses. But handling responses from the viewer enables better synchronization of the client and viewer state, as discussed in <a class="reference internal" href="#responses">responses</a>.</p>
 <p>All communication on both channels uses a single general-purpose LCM type: <a class="reference external" href="https://github.com/RobotLocomotion/lcmtypes/blob/master/lcmtypes/viewer2_comms_t.lcm">viewer2_comms_t</a>. The <code class="docutils literal"><span class="pre">viewer2_comms_t</span></code> message contains a byte array of encoded command data along with information about the format of that data. Currently, only one format is defined: <code class="docutils literal"><span class="pre">treeviewer_json</span></code> version 1.0. This format consists of a string of JSON-encoded commands.</p>
 <p>Sample LCM message:</p>
@@ -219,7 +245,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">(required) a keyword indicating the kind of geometry. Currently supports: <code class="docutils literal"><span class="pre">box</span></code>, <code class="docutils literal"><span class="pre">sphere</span></code>, <code class="docutils literal"><span class="pre">cylinder</span></code>, <code class="docutils literal"><span class="pre">capsule</span></code>, <code class="docutils literal"><span class="pre">ellipsoid</span></code>, <code class="docutils literal"><span class="pre">mesh_file</span></code>, <code class="docutils literal"><span class="pre">mesh_data</span></code>, <code class="docutils literal"><span class="pre">pointcloud</span></code>, <code class="docutils literal"><span class="pre">planar_lidar</span></code>, <code class="docutils literal"><span class="pre">triad</span></code></td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">(required) a keyword indicating the kind of geometry. Currently supports: <code class="docutils literal"><span class="pre">box</span></code>, <code class="docutils literal"><span class="pre">sphere</span></code>, <code class="docutils literal"><span class="pre">cylinder</span></code>, <code class="docutils literal"><span class="pre">capsule</span></code>, <code class="docutils literal"><span class="pre">ellipsoid</span></code>, <code class="docutils literal"><span class="pre">mesh_file</span></code>, <code class="docutils literal"><span class="pre">mesh_data</span></code>, <code class="docutils literal"><span class="pre">pointcloud</span></code>, <code class="docutils literal"><span class="pre">planar_lidar</span></code>, <code class="docutils literal"><span class="pre">triad</span></code>, <code class="docutils literal"><span class="pre">line</span></code></td>
 </tr>
 <tr class="field-even field"><th class="field-name">color:</th><td class="field-body">(optional) the geometry&#8217;s color, in RGBA order, as a list of 4 floating point values between 0 and 1. Defaults to [1, 1, 1, 1]</td>
 </tr>
@@ -331,6 +357,29 @@
 <tr class="field-even field"><th class="field-name">angle_start:</th><td class="field-body">the angle about the Z axis (in rad) corresponding to <code class="docutils literal"><span class="pre">ranges[0]</span></code></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">angle_step:</th><td class="field-body">the angular spacing between adjacent range measurements (in rad) about the Z axis</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>Line Fields:</p>
+<p>The <code class="docutils literal"><span class="pre">line</span></code> type generates a line through a sequence of two or more points.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">points:</th><td class="field-body">the point coordinates as a list of 2 or more triplets in XYZ order.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">radius:</th><td class="field-body">(optional) the radius of the line. A radius of 0 creates a hairline. A radius &gt; 0 creates a tube. Defaults to 0.01</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">closed:</th><td class="field-body">(optional) a boolean indicating whether to add a segment from the last point back to the first. Defaults to False.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">start_head:</th><td class="field-body">(optional) a boolean indicating whether to draw an arrowhead at the beginning of the first line segment. Defaults to False.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">end_head:</th><td class="field-body">(optional) a boolean indicating whether to draw an arrowhead at the end of the last line segment. Defaults to False.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">head_radius:</th><td class="field-body">(optional) radius of the arrowheads. Defaults to 0.05.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">head_length:</th><td class="field-body">(optional) length of the arrowheads. Defaults to <code class="docutils literal"><span class="pre">head_radius</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -481,15 +530,18 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../developer_guide/index.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../developer_guide/index.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="keyboard_shortcuts.html" class="btn btn-neutral" title="Keyboard Shortcuts" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="keyboard_shortcuts.html" class="btn btn-neutral" title="Keyboard Shortcuts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -521,7 +573,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

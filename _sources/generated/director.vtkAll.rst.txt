@@ -1,5 +1,5 @@
-director.vtkAll module
-======================
+director\.vtkAll module
+=======================
 
 .. automodule:: director.vtkAll
     :members:

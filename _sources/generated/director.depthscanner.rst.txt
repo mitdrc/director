@@ -1,5 +1,5 @@
-director.depthscanner module
-============================
+director\.depthscanner module
+=============================
 
 .. automodule:: director.depthscanner
     :members:

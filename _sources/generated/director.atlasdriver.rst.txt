@@ -1,5 +1,5 @@
-director.atlasdriver module
-===========================
+director\.atlasdriver module
+============================
 
 .. automodule:: director.atlasdriver
     :members:

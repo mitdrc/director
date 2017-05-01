@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.viewcolors</li>
+        
+      <li>director.viewcolors</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -140,7 +165,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">viewOptions</span> <span class="o">=</span> <span class="n">viewOptions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">action</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checkable</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;triggered()&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onChecked</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="p">{</span> <span class="n">viewOptions</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Gradient background&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;Background color&#39;</span><span class="p">:[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="s1">&#39;Background color 2&#39;</span><span class="p">:[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]},</span>
                             <span class="n">grid</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Surface Mode&#39;</span><span class="p">:</span><span class="s1">&#39;Wireframe&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpha&#39;</span><span class="p">:</span><span class="mf">0.05</span><span class="p">,</span> <span class="s1">&#39;Color&#39;</span><span class="p">:[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="s1">&#39;Color By&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span>
@@ -167,14 +192,28 @@
         <span class="k">for</span> <span class="n">obj</span><span class="p">,</span> <span class="n">props</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
             <span class="n">send</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">props</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="ViewBackgroundLightHandler.setEnabled"><a class="viewcode-back" href="../../generated/director.viewcolors.html#director.viewcolors.ViewBackgroundLightHandler.setEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">setEnabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isEnabled</span><span class="p">()</span> <span class="o">!=</span> <span class="n">enabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span> <span class="o">=</span> <span class="n">enabled</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_onChecked</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ViewBackgroundLightHandler.isEnabled"><a class="viewcode-back" href="../../generated/director.viewcolors.html#director.viewcolors.ViewBackgroundLightHandler.isEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">isEnabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ViewBackgroundLightHandler.toggle"><a class="viewcode-back" href="../../generated/director.viewcolors.html#director.viewcolors.ViewBackgroundLightHandler.toggle">[docs]</a>    <span class="k">def</span> <span class="nf">toggle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isEnabled</span><span class="p">())</span></div>
+
+    <span class="k">def</span> <span class="nf">_onChecked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">checked</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">storeProperties</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">applyProperties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">applyProperties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cachedProperties</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">applyProperties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cachedProperties</span><span class="p">)</span></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -207,7 +246,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

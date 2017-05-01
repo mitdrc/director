@@ -1,5 +1,5 @@
-director.roboturdf module
-=========================
+director\.roboturdf module
+==========================
 
 .. automodule:: director.roboturdf
     :members:

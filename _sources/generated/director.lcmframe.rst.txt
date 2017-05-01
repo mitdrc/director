@@ -1,5 +1,5 @@
-director.lcmframe module
-========================
+director\.lcmframe module
+=========================
 
 .. automodule:: director.lcmframe
     :members:

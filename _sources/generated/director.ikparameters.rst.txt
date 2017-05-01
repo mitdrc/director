@@ -1,5 +1,5 @@
-director.ikparameters module
-============================
+director\.ikparameters module
+=============================
 
 .. automodule:: director.ikparameters
     :members:

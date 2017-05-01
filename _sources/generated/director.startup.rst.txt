@@ -1,5 +1,5 @@
-director.startup module
-=======================
+director\.startup module
+========================
 
 .. automodule:: director.startup
     :members:

@@ -1,5 +1,5 @@
-director.tasks package
-======================
+director\.tasks package
+=======================
 
 Subpackages
 -----------

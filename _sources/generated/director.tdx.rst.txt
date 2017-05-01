@@ -1,5 +1,5 @@
-director.tdx module
-===================
+director\.tdx module
+====================
 
 .. automodule:: director.tdx
     :members:

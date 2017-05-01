@@ -1,5 +1,5 @@
-director.propertyanimation module
-=================================
+director\.propertyanimation module
+==================================
 
 .. automodule:: director.propertyanimation
     :members:

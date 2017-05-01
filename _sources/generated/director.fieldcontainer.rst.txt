@@ -1,5 +1,5 @@
-director.fieldcontainer module
-==============================
+director\.fieldcontainer module
+===============================
 
 .. automodule:: director.fieldcontainer
     :members:

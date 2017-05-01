@@ -1,5 +1,5 @@
-director.teleoppanel module
-===========================
+director\.teleoppanel module
+============================
 
 .. automodule:: director.teleoppanel
     :members:

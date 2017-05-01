@@ -1,5 +1,5 @@
-director.thirdparty.transformations module
-==========================================
+director\.thirdparty\.transformations module
+============================================
 
 .. automodule:: director.thirdparty.transformations
     :members:

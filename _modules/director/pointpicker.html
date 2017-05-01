@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.pointpicker</li>
+        
+      <li>director.pointpicker</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -159,6 +184,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span> <span class="o">=</span> <span class="n">abortCallback</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">annotationName</span> <span class="o">=</span> <span class="s1">&#39;annotation&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">annotationFolder</span> <span class="o">=</span> <span class="s1">&#39;segmentation&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
 <div class="viewcode-block" id="PointPicker.start"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -180,7 +206,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PointPicker.removeEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.removeEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="PointPicker.onEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
@@ -267,11 +295,15 @@
 <div class="viewcode-block" id="PointPicker.tick"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PointPicker.tick">[docs]</a>    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pickType</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">)</span>
+            <span class="n">pickedPointFields</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pickType</span><span class="p">,</span>
+                                                   <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="n">pickedPointFields</span><span class="o">.</span><span class="n">pickedPoint</span>
+            <span class="n">prop</span> <span class="o">=</span> <span class="n">pickedPointFields</span><span class="o">.</span><span class="n">pickedProp</span>
             <span class="k">if</span> <span class="n">prop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pickType</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">)</span>
+            <span class="n">pickedPointFields</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pickType</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="n">pickedPointFields</span><span class="o">.</span><span class="n">pickedPoint</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div></div>
 
@@ -291,6 +323,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">drawLines</span> <span class="o">=</span> <span class="n">drawLines</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">annotationObj</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">annotationFunc</span> <span class="o">=</span> <span class="n">callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">numberOfPoints</span> <span class="o">=</span> <span class="n">numberOfPoints</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">showCursor</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursorObj</span> <span class="o">=</span> <span class="kc">None</span>
@@ -317,7 +350,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ImagePointPicker.removeEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.removeEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="ImagePointPicker.connectDoubleClickEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ImagePointPicker.connectDoubleClickEvent">[docs]</a>    <span class="k">def</span> <span class="nf">connectDoubleClickEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DOUBLE_CLICK_EVENT</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span></div>
@@ -455,6 +490,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">handle</span> <span class="o">=</span> <span class="n">handle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">points</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">moving</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="PlacerWidget.start"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">()</span></div>
@@ -473,7 +509,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PlacerWidget.removeEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.removeEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="PlacerWidget.onEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
@@ -527,10 +565,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">_renderAllViews</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="PlacerWidget.getHandlePick"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.getHandlePick">[docs]</a>    <span class="k">def</span> <span class="nf">getHandlePick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span></div>
+        <span class="n">pickData</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pickData</span><span class="o">.</span><span class="n">pickedPoint</span></div>
 
 <div class="viewcode-block" id="PlacerWidget.getPointPick"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.PlacerWidget.getPointPick">[docs]</a>    <span class="k">def</span> <span class="nf">getPointPick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayPoint</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span></div></div>
+        <span class="n">pickData</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="n">displayPoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pickData</span><span class="o">.</span><span class="n">pickedPoint</span></div></div>
 
 
 <div class="viewcode-block" id="ObjectPicker"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker">[docs]</a><span class="k">class</span> <span class="nc">ObjectPicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -545,6 +585,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">abortFunc</span> <span class="o">=</span> <span class="n">abortCallback</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hoverColor</span> <span class="o">=</span> <span class="n">hoverColor</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hoverAlpha</span> <span class="o">=</span> <span class="n">hoverColor</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">storedProps</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -568,7 +609,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;handleEvent(QObject*, QEvent*)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onEvent</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ObjectPicker.removeEventFilter"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.removeEventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">vtkWidget</span><span class="p">()</span><span class="o">.</span><span class="n">removeEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eventFilter</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="ObjectPicker.onEvent"><a class="viewcode-back" href="../../generated/director.pointpicker.html#director.pointpicker.ObjectPicker.onEvent">[docs]</a>    <span class="k">def</span> <span class="nf">onEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
@@ -638,7 +681,11 @@
 
         <span class="n">objs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getObjectsFunction</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getObjectsFunction</span> <span class="k">else</span> <span class="kc">None</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">objs</span><span class="p">)</span>
+        <span class="n">pickedPointFields</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastMovePos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">pickType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">,</span>
+                                              <span class="n">obj</span><span class="o">=</span><span class="n">objs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hoverPos</span> <span class="o">=</span> <span class="n">pickedPointFields</span><span class="o">.</span><span class="n">pickedPoint</span>
+        <span class="n">prop</span> <span class="o">=</span> <span class="n">pickedPointFields</span><span class="o">.</span><span class="n">pickedProp</span>
+
         <span class="n">prevPickedObj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pickedObj</span>
         <span class="n">curPickedObj</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">getObjectByProp</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
 
@@ -663,6 +710,9 @@
         <span class="k">return</span> <span class="n">affs</span></div></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -695,7 +745,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

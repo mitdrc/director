@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.filterUtils</li>
+        
+      <li>director.filterUtils</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -149,15 +174,22 @@
     <span class="n">f</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="thresholdCells"><a class="viewcode-back" href="../../generated/director.filterUtils.html#director.filterUtils.thresholdCells">[docs]</a><span class="k">def</span> <span class="nf">thresholdCells</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">arrayName</span><span class="p">,</span> <span class="n">thresholdRange</span><span class="p">):</span>
-    <span class="k">assert</span><span class="p">(</span><span class="n">polyData</span><span class="o">.</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">.</span><span class="n">GetArray</span><span class="p">(</span><span class="n">arrayName</span><span class="p">))</span>
+<div class="viewcode-block" id="thresholdCells"><a class="viewcode-back" href="../../generated/director.filterUtils.html#director.filterUtils.thresholdCells">[docs]</a><span class="k">def</span> <span class="nf">thresholdCells</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">arrayName</span><span class="p">,</span> <span class="n">thresholdRange</span><span class="p">,</span> <span class="n">arrayType</span><span class="o">=</span><span class="s1">&#39;cells&#39;</span><span class="p">):</span>
+
+    <span class="k">assert</span> <span class="n">arrayType</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="s1">&#39;cells&#39;</span><span class="p">)</span>
+
     <span class="n">f</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkThreshold</span><span class="p">()</span>
-    <span class="c1"># f.SetAttributeModeToUseCellData()</span>
     <span class="n">f</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">ThresholdBetween</span><span class="p">(</span><span class="n">thresholdRange</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">thresholdRange</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataObject</span><span class="o">.</span><span class="n">FIELD_ASSOCIATION_CELLS</span><span class="p">,</span> <span class="n">arrayName</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
+    <span class="k">if</span> <span class="n">arrayType</span> <span class="o">==</span> <span class="s1">&#39;cells&#39;</span><span class="p">:</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">polyData</span><span class="o">.</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">.</span><span class="n">GetArray</span><span class="p">(</span><span class="n">arrayName</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataObject</span><span class="o">.</span><span class="n">FIELD_ASSOCIATION_CELLS</span><span class="p">,</span> <span class="n">arrayName</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">polyData</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetArray</span><span class="p">(</span><span class="n">arrayName</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataObject</span><span class="o">.</span><span class="n">FIELD_ASSOCIATION_POINTS</span><span class="p">,</span> <span class="n">arrayName</span><span class="p">)</span>
+
+    <span class="n">f</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkGeometryFilter</span><span class="p">()</span>
     <span class="n">g</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
     <span class="n">g</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
@@ -202,11 +234,11 @@
 
 
 <div class="viewcode-block" id="appendPolyData"><a class="viewcode-back" href="../../generated/director.filterUtils.html#director.filterUtils.appendPolyData">[docs]</a><span class="k">def</span> <span class="nf">appendPolyData</span><span class="p">(</span><span class="n">polyDataList</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">polyDataList</span><span class="p">)</span>
     <span class="n">append</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkAppendPolyData</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">polyData</span> <span class="ow">in</span> <span class="n">polyDataList</span><span class="p">:</span>
-        <span class="n">append</span><span class="o">.</span><span class="n">AddInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
-    <span class="n">append</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">polyDataList</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">polyData</span> <span class="ow">in</span> <span class="n">polyDataList</span><span class="p">:</span>
+            <span class="n">append</span><span class="o">.</span><span class="n">AddInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
+        <span class="n">append</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">shallowCopy</span><span class="p">(</span><span class="n">append</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span></div>
 
 
@@ -293,6 +325,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -324,7 +359,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

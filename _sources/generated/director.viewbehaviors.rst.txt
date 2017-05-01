@@ -1,5 +1,5 @@
-director.viewbehaviors module
-=============================
+director\.viewbehaviors module
+==============================
 
 .. automodule:: director.viewbehaviors
     :members:

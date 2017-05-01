@@ -1,5 +1,5 @@
-director.lcmcollections module
-==============================
+director\.lcmcollections module
+===============================
 
 .. automodule:: director.lcmcollections
     :members:

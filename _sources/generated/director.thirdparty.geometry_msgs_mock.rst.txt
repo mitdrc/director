@@ -1,5 +1,5 @@
-director.thirdparty.geometry_msgs_mock module
-=============================================
+director\.thirdparty\.geometry\_msgs\_mock module
+=================================================
 
 .. automodule:: director.thirdparty.geometry_msgs_mock
     :members:

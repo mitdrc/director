@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -45,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -81,7 +84,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
@@ -96,6 +102,7 @@
 <li class="toctree-l4"><a class="reference internal" href="director.affordancepanel.html">director.affordancepanel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceupdater.html">director.affordanceupdater module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.affordanceurdf.html">director.affordanceurdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.affordanceviewbehaviors.html">director.affordanceviewbehaviors module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.applogic.html">director.applogic module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.appsettings.html">director.appsettings module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.assimp2vtk.html">director.assimp2vtk module</a></li>
@@ -155,6 +162,7 @@
 <li class="toctree-l4"><a class="reference internal" href="director.lcmframe.html">director.lcmframe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmgl.html">director.lcmgl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmloggerwidget.html">director.lcmloggerwidget module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.lcmlogplayer.html">director.lcmlogplayer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmobjectcollection.html">director.lcmobjectcollection module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmoctomap.html">director.lcmoctomap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.lcmspy.html">director.lcmspy module</a></li>
@@ -171,6 +179,7 @@
 <li class="toctree-l4"><a class="reference internal" href="director.objectmodel.html">director.objectmodel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.opendatahandler.html">director.opendatahandler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.openscope.html">director.openscope module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="director.optitrackvisualizer.html">director.optitrackvisualizer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.otdfmodel.html">director.otdfmodel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.outputconsole.html">director.outputconsole module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="director.packagepath.html">director.packagepath module</a></li>
@@ -254,8 +263,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Director</a>
+        
       </nav>
 
 
@@ -264,25 +275,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="modules.html">director</a> &raquo;</li>
-      
+        
           <li><a href="director.html">director package</a> &raquo;</li>
-      
-    <li>director.mainwindowapp module</li>
+        
+      <li>director.mainwindowapp module</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -389,10 +417,10 @@
 <dl class="class">
 <dt id="director.mainwindowapp.MainWindowAppFactory">
 <em class="property">class </em><code class="descclassname">director.mainwindowapp.</code><code class="descname">MainWindowAppFactory</code><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="director.componentgraph.html#director.componentgraph.ComponentFactory" title="director.componentgraph.ComponentFactory"><code class="xref py py-class docutils literal"><span class="pre">director.componentgraph.ComponentFactory</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="director.mainwindowapp.MainWindowAppFactory.addComponents">
-<code class="descname">addComponents</code><span class="sig-paren">(</span><em>componentGraph</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.addComponents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.addComponents" title="Permalink to this definition">¶</a></dt>
+<dt id="director.mainwindowapp.MainWindowAppFactory.getComponents">
+<code class="descname">getComponents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.getComponents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.getComponents" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -402,13 +430,6 @@
 Drake often draws a very large ground plane which is detrimental to
 the near clipping for up close objects.  The trade-off is Z buffer
 resolution but in practice things look good with this setting.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="director.mainwindowapp.MainWindowAppFactory.initDefaultOptions">
-<code class="descname">initDefaultOptions</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowAppFactory.initDefaultOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowAppFactory.initDefaultOptions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Components are enabled by default.  This function
-determines which components should be disabled.</p>
 </dd></dl>
 
 <dl class="method">
@@ -466,10 +487,10 @@ determines which components should be disabled.</p>
 <dl class="class">
 <dt id="director.mainwindowapp.MainWindowPanelFactory">
 <em class="property">class </em><code class="descclassname">director.mainwindowapp.</code><code class="descname">MainWindowPanelFactory</code><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="director.componentgraph.html#director.componentgraph.ComponentFactory" title="director.componentgraph.ComponentFactory"><code class="xref py py-class docutils literal"><span class="pre">director.componentgraph.ComponentFactory</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="director.mainwindowapp.MainWindowPanelFactory.addComponents">
-<code class="descname">addComponents</code><span class="sig-paren">(</span><em>componentGraph</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.addComponents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.addComponents" title="Permalink to this definition">¶</a></dt>
+<dt id="director.mainwindowapp.MainWindowPanelFactory.getComponents">
+<code class="descname">getComponents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.getComponents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.getComponents" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -483,13 +504,6 @@ determines which components should be disabled.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="director.mainwindowapp.MainWindowPanelFactory.initDefaultOptions">
-<code class="descname">initDefaultOptions</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initDefaultOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initDefaultOptions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Components are enabled by default.  This function
-determines which components should be disabled.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="director.mainwindowapp.MainWindowPanelFactory.initDrakeVisualizer">
 <code class="descname">initDrakeVisualizer</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initDrakeVisualizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initDrakeVisualizer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -497,11 +511,6 @@ determines which components should be disabled.</p>
 <dl class="method">
 <dt id="director.mainwindowapp.MainWindowPanelFactory.initLCMGLRenderer">
 <code class="descname">initLCMGLRenderer</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initLCMGLRenderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initLCMGLRenderer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="director.mainwindowapp.MainWindowPanelFactory.initMainWindow">
-<code class="descname">initMainWindow</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/director/mainwindowapp.html#MainWindowPanelFactory.initMainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#director.mainwindowapp.MainWindowPanelFactory.initMainWindow" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -545,15 +554,18 @@ determines which components should be disabled.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="director.mapsregistrar.html" class="btn btn-neutral float-right" title="director.mapsregistrar module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="director.mapsregistrar.html" class="btn btn-neutral float-right" title="director.mapsregistrar module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="director.lcmspy.html" class="btn btn-neutral" title="director.lcmspy module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="director.lcmspy.html" class="btn btn-neutral" title="director.lcmspy module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -585,7 +597,8 @@ determines which components should be disabled.</p>
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

@@ -1,5 +1,5 @@
-director.ioUtils module
-=======================
+director\.ioUtils module
+========================
 
 .. automodule:: director.ioUtils
     :members:

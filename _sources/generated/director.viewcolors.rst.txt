@@ -1,5 +1,5 @@
-director.viewcolors module
-==========================
+director\.viewcolors module
+===========================
 
 .. automodule:: director.viewcolors
     :members:

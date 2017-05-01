@@ -1,5 +1,5 @@
-director.lcmloggerwidget module
-===============================
+director\.lcmloggerwidget module
+================================
 
 .. automodule:: director.lcmloggerwidget
     :members:

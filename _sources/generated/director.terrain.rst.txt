@@ -1,5 +1,5 @@
-director.terrain module
-=======================
+director\.terrain module
+========================
 
 .. automodule:: director.terrain
     :members:

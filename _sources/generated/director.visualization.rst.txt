@@ -1,5 +1,5 @@
-director.visualization module
-=============================
+director\.visualization module
+==============================
 
 .. automodule:: director.visualization
     :members:

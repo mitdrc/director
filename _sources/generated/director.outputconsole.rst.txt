@@ -1,5 +1,5 @@
-director.outputconsole module
-=============================
+director\.outputconsole module
+==============================
 
 .. automodule:: director.outputconsole
     :members:

@@ -1,5 +1,5 @@
-director.lcmgl module
-=====================
+director\.lcmgl module
+======================
 
 .. automodule:: director.lcmgl
     :members:

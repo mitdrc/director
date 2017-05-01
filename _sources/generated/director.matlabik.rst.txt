@@ -1,5 +1,5 @@
-director.matlabik module
-========================
+director\.matlabik module
+=========================
 
 .. automodule:: director.matlabik
     :members:

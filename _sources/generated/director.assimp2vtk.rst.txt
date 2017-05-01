@@ -1,5 +1,5 @@
-director.assimp2vtk module
-==========================
+director\.assimp2vtk module
+===========================
 
 .. automodule:: director.assimp2vtk
     :members:

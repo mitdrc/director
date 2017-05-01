@@ -1,5 +1,5 @@
-director.lcmspy module
-======================
+director\.lcmspy module
+=======================
 
 .. automodule:: director.lcmspy
     :members:

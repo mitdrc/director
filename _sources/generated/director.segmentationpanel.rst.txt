@@ -1,5 +1,5 @@
-director.segmentationpanel module
-=================================
+director\.segmentationpanel module
+==================================
 
 .. automodule:: director.segmentationpanel
     :members:

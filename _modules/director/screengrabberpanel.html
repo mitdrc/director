@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.screengrabberpanel</li>
+        
+      <li>director.screengrabberpanel</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -347,6 +372,7 @@
         <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;           -vcodec libx264 </span><span class="se">\\\n</span><span class="s1">&#39;</span>
         <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;           -preset slow </span><span class="se">\\\n</span><span class="s1">&#39;</span>
         <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;           -crf 18 </span><span class="se">\\\n</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;           -pix_fmt yuv420p </span><span class="se">\\\n</span><span class="s1">&#39;</span>
         <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;           output.mp4</span><span class="se">\n\n\n</span><span class="s1">&#39;</span>
 
         <span class="n">app</span><span class="o">.</span><span class="n">showInfoMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Recording Stopped&#39;</span><span class="p">)</span></div>
@@ -461,6 +487,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -492,7 +521,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

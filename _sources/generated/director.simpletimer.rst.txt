@@ -1,5 +1,5 @@
-director.simpletimer module
-===========================
+director\.simpletimer module
+============================
 
 .. automodule:: director.simpletimer
     :members:

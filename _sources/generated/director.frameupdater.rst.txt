@@ -1,5 +1,5 @@
-director.frameupdater module
-============================
+director\.frameupdater module
+=============================
 
 .. automodule:: director.frameupdater
     :members:

@@ -1,5 +1,5 @@
-director.drilldemo module
-=========================
+director\.drilldemo module
+==========================
 
 .. automodule:: director.drilldemo
     :members:

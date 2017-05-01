@@ -1,5 +1,5 @@
-director.wristforcetorquevisualizer module
-==========================================
+director\.wristforcetorquevisualizer module
+===========================================
 
 .. automodule:: director.wristforcetorquevisualizer
     :members:

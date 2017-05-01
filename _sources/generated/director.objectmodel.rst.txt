@@ -1,5 +1,5 @@
-director.objectmodel module
-===========================
+director\.objectmodel module
+============================
 
 .. automodule:: director.objectmodel
     :members:

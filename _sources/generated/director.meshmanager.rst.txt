@@ -1,5 +1,5 @@
-director.meshmanager module
-===========================
+director\.meshmanager module
+============================
 
 .. automodule:: director.meshmanager
     :members:

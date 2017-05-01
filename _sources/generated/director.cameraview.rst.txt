@@ -1,5 +1,5 @@
-director.cameraview module
-==========================
+director\.cameraview module
+===========================
 
 .. automodule:: director.cameraview
     :members:

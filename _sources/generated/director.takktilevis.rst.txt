@@ -1,5 +1,5 @@
-director.takktilevis module
-===========================
+director\.takktilevis module
+============================
 
 .. automodule:: director.takktilevis
     :members:

@@ -1,5 +1,5 @@
-director.planplayback module
-============================
+director\.planplayback module
+=============================
 
 .. automodule:: director.planplayback
     :members:

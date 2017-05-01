@@ -1,5 +1,5 @@
-director.motionplanningpanel module
-===================================
+director\.motionplanningpanel module
+====================================
 
 .. automodule:: director.motionplanningpanel
     :members:

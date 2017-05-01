@@ -1,5 +1,5 @@
-director.playbackpanel module
-=============================
+director\.playbackpanel module
+==============================
 
 .. automodule:: director.playbackpanel
     :members:

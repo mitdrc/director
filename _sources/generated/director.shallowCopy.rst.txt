@@ -1,5 +1,5 @@
-director.shallowCopy module
-===========================
+director\.shallowCopy module
+============================
 
 .. automodule:: director.shallowCopy
     :members:

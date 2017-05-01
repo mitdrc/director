@@ -1,5 +1,5 @@
-director.korgnano module
-========================
+director\.korgnano module
+=========================
 
 .. automodule:: director.korgnano
     :members:

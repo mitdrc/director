@@ -1,5 +1,5 @@
-director.matlab module
-======================
+director\.matlab module
+=======================
 
 .. automodule:: director.matlab
     :members:

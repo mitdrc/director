@@ -1,5 +1,5 @@
-director.depthimageprovider module
-==================================
+director\.depthimageprovider module
+===================================
 
 .. automodule:: director.depthimageprovider
     :members:

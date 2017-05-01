@@ -1,5 +1,5 @@
-director.pointpicker module
-===========================
+director\.pointpicker module
+============================
 
 .. automodule:: director.pointpicker
     :members:

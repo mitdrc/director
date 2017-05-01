@@ -1,5 +1,5 @@
-director.thirdparty.naming module
-=================================
+director\.thirdparty\.naming module
+===================================
 
 .. automodule:: director.thirdparty.naming
     :members:

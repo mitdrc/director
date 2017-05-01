@@ -1,5 +1,5 @@
-director.openscope module
-=========================
+director\.openscope module
+==========================
 
 .. automodule:: director.openscope
     :members:

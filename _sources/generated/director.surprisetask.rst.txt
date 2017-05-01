@@ -1,5 +1,5 @@
-director.surprisetask module
-============================
+director\.surprisetask module
+=============================
 
 .. automodule:: director.surprisetask
     :members:

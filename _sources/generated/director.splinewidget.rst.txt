@@ -1,5 +1,5 @@
-director.splinewidget module
-============================
+director\.splinewidget module
+=============================
 
 .. automodule:: director.splinewidget
     :members:

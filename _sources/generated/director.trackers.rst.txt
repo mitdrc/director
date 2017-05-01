@@ -1,5 +1,5 @@
-director.trackers module
-========================
+director\.trackers module
+=========================
 
 .. automodule:: director.trackers
     :members:

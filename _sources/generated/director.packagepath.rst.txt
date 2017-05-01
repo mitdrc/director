@@ -1,5 +1,5 @@
-director.packagepath module
-===========================
+director\.packagepath module
+============================
 
 .. automodule:: director.packagepath
     :members:

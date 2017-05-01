@@ -1,5 +1,5 @@
-director.kinectlcm module
-=========================
+director\.kinectlcm module
+==========================
 
 .. automodule:: director.kinectlcm
     :members:

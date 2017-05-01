@@ -1,5 +1,5 @@
-director.treeviewer module
-==========================
+director\.treeviewer module
+===========================
 
 .. automodule:: director.treeviewer
     :members:

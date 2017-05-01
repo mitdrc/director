@@ -1,0 +1,7 @@
+director\.lcmlogplayer module
+=============================
+
+.. automodule:: director.lcmlogplayer
+    :members:
+    :undoc-members:
+    :show-inheritance:

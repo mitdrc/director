@@ -1,5 +1,5 @@
-director.viewerclient module
-============================
+director\.viewerclient module
+=============================
 
 .. automodule:: director.viewerclient
     :members:

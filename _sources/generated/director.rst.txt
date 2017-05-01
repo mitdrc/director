@@ -20,6 +20,7 @@ Submodules
    director.affordancepanel
    director.affordanceupdater
    director.affordanceurdf
+   director.affordanceviewbehaviors
    director.applogic
    director.appsettings
    director.assimp2vtk
@@ -79,6 +80,7 @@ Submodules
    director.lcmframe
    director.lcmgl
    director.lcmloggerwidget
+   director.lcmlogplayer
    director.lcmobjectcollection
    director.lcmoctomap
    director.lcmspy
@@ -95,6 +97,7 @@ Submodules
    director.objectmodel
    director.opendatahandler
    director.openscope
+   director.optitrackvisualizer
    director.otdfmodel
    director.outputconsole
    director.packagepath

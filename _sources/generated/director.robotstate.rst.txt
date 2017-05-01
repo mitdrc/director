@@ -1,5 +1,5 @@
-director.robotstate module
-==========================
+director\.robotstate module
+===========================
 
 .. automodule:: director.robotstate
     :members:

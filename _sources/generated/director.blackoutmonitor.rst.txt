@@ -1,5 +1,5 @@
-director.blackoutmonitor module
-===============================
+director\.blackoutmonitor module
+================================
 
 .. automodule:: director.blackoutmonitor
     :members:

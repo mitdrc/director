@@ -1,5 +1,5 @@
-director.tasks.descriptions package
-===================================
+director\.tasks\.descriptions package
+=====================================
 
 Submodules
 ----------

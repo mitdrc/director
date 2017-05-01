@@ -1,5 +1,5 @@
-director.thirdparty.numpyjsoncoder module
-=========================================
+director\.thirdparty\.numpyjsoncoder module
+===========================================
 
 .. automodule:: director.thirdparty.numpyjsoncoder
     :members:

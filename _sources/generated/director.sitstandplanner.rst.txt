@@ -1,5 +1,5 @@
-director.sitstandplanner module
-===============================
+director\.sitstandplanner module
+================================
 
 .. automodule:: director.sitstandplanner
     :members:

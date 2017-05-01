@@ -1,5 +1,5 @@
-director.continuouswalkingdemo module
-=====================================
+director\.continuouswalkingdemo module
+======================================
 
 .. automodule:: director.continuouswalkingdemo
     :members:

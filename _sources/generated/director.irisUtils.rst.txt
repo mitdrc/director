@@ -1,5 +1,5 @@
-director.irisUtils module
-=========================
+director\.irisUtils module
+==========================
 
 .. automodule:: director.irisUtils
     :members:

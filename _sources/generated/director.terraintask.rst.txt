@@ -1,5 +1,5 @@
-director.terraintask module
-===========================
+director\.terraintask module
+============================
 
 .. automodule:: director.terraintask
     :members:

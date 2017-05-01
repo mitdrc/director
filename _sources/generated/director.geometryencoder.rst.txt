@@ -1,5 +1,5 @@
-director.geometryencoder module
-===============================
+director\.geometryencoder module
+================================
 
 .. automodule:: director.geometryencoder
     :members:

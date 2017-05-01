@@ -1,5 +1,5 @@
-director.sceneloader module
-===========================
+director\.sceneloader module
+============================
 
 .. automodule:: director.sceneloader
     :members:

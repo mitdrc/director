@@ -1,5 +1,5 @@
-director.doordemo module
-========================
+director\.doordemo module
+=========================
 
 .. automodule:: director.doordemo
     :members:

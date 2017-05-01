@@ -1,5 +1,5 @@
-director.midi module
-====================
+director\.midi module
+=====================
 
 .. automodule:: director.midi
     :members:

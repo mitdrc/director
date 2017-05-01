@@ -1,5 +1,5 @@
-director.handcontrolpanel module
-================================
+director\.handcontrolpanel module
+=================================
 
 .. automodule:: director.handcontrolpanel
     :members:

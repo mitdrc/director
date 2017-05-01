@@ -1,5 +1,5 @@
-director.screengrabberpanel module
-==================================
+director\.screengrabberpanel module
+===================================
 
 .. automodule:: director.screengrabberpanel
     :members:

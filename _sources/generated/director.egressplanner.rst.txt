@@ -1,5 +1,5 @@
-director.egressplanner module
-=============================
+director\.egressplanner module
+==============================
 
 .. automodule:: director.egressplanner
     :members:

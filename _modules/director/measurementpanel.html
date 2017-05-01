@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.measurementpanel</li>
+        
+      <li>director.measurementpanel</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -276,12 +301,16 @@
 
 
         <span class="n">tolerance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">toleranceSpinBox</span><span class="o">.</span><span class="n">value</span>
-        <span class="n">worldPoint</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">normal</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span>
+        <span class="n">pickPointFields</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">pickPoint</span><span class="p">(</span>
             <span class="n">displayPoint</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span>
             <span class="n">pickType</span><span class="o">=</span><span class="n">pickType</span><span class="p">,</span>
-            <span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span><span class="p">,</span>
-            <span class="n">returnNormal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span><span class="p">)</span>
+        <span class="n">worldPoint</span> <span class="o">=</span> <span class="n">pickPointFields</span><span class="o">.</span><span class="n">pickedPoint</span>
+        <span class="n">prop</span> <span class="o">=</span> <span class="n">pickPointFields</span><span class="o">.</span><span class="n">pickedProp</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">pickPointFields</span><span class="o">.</span><span class="n">pickedDataset</span>
+        <span class="n">normal</span> <span class="o">=</span> <span class="n">pickPointFields</span><span class="o">.</span><span class="n">pickedNormal</span>
+
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">prop</span><span class="p">:</span>
             <span class="n">worldPoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -314,6 +343,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -345,7 +377,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

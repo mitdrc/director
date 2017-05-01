@@ -1,5 +1,5 @@
-director.affordancemanager module
-=================================
+director\.affordancemanager module
+==================================
 
 .. automodule:: director.affordancemanager
     :members:

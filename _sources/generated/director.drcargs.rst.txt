@@ -1,5 +1,5 @@
-director.drcargs module
-=======================
+director\.drcargs module
+========================
 
 .. automodule:: director.drcargs
     :members:

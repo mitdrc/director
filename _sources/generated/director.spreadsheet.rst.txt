@@ -1,5 +1,5 @@
-director.spreadsheet module
-===========================
+director\.spreadsheet module
+============================
 
 .. automodule:: director.spreadsheet
     :members:

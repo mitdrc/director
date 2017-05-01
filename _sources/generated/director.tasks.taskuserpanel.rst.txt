@@ -1,5 +1,5 @@
-director.tasks.taskuserpanel module
-===================================
+director\.tasks\.taskuserpanel module
+=====================================
 
 .. automodule:: director.tasks.taskuserpanel
     :members:

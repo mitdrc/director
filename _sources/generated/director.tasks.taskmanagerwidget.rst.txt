@@ -1,5 +1,5 @@
-director.tasks.taskmanagerwidget module
-=======================================
+director\.tasks\.taskmanagerwidget module
+=========================================
 
 .. automodule:: director.tasks.taskmanagerwidget
     :members:

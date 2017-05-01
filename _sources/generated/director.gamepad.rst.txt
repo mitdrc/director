@@ -1,5 +1,5 @@
-director.gamepad module
-=======================
+director\.gamepad module
+========================
 
 .. automodule:: director.gamepad
     :members:

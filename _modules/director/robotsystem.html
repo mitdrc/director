@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
@@ -97,8 +103,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Director</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Director</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../director.html">director</a> &raquo;</li>
-      
-    <li>director.robotsystem</li>
+        
+      <li>director.robotsystem</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -136,40 +161,37 @@
 <span class="kn">from</span> <span class="nn">director.fieldcontainer</span> <span class="k">import</span> <span class="n">FieldContainer</span>
 
 
-<div class="viewcode-block" id="RobotSystemFactory"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory">[docs]</a><span class="k">class</span> <span class="nc">RobotSystemFactory</span><span class="p">(</span><span class="n">ComponentFactory</span><span class="p">):</span>
+<div class="viewcode-block" id="RobotSystemFactory"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory">[docs]</a><span class="k">class</span> <span class="nc">RobotSystemFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-<div class="viewcode-block" id="RobotSystemFactory.initDefaultOptions"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initDefaultOptions">[docs]</a>    <span class="k">def</span> <span class="nf">initDefaultOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Components are enabled by default.  This function</span>
-<span class="sd">        determines which components should be disabled.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">options</span><span class="o">.</span><span class="n">useConvexHullModel</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">options</span><span class="o">.</span><span class="n">useRobotLinkSelector</span> <span class="o">=</span> <span class="kc">False</span></div>
+<div class="viewcode-block" id="RobotSystemFactory.getComponents"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.getComponents">[docs]</a>    <span class="k">def</span> <span class="nf">getComponents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-<div class="viewcode-block" id="RobotSystemFactory.addComponents"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.addComponents">[docs]</a>    <span class="k">def</span> <span class="nf">addComponents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">componentGraph</span><span class="p">):</span>
+        <span class="n">components</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;DirectorConfig&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;RobotState&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;DirectorConfig&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Segmentation&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;SegmentationRobotState&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Segmentation&#39;</span><span class="p">,</span> <span class="s1">&#39;RobotState&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;SegmentationAffordances&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Segmentation&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;PerceptionDrivers&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">,</span> <span class="s1">&#39;Planning&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;HandDrivers&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;Footsteps&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;RaycastDriver&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;IRISDriver&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">,</span> <span class="s1">&#39;Footsteps&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;AtlasDriver&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;Planning&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Playback&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Planning&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Teleop&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="s1">&#39;Playback&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;ConvexHullModel&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Playback&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;FootstepsPlayback&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">,</span> <span class="s1">&#39;Playback&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Affordances&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;PlannerPublisher&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;ViewBehaviors&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">,</span> <span class="s1">&#39;PerceptionDrivers&#39;</span><span class="p">,</span> <span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;RobotLinkSelector&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;ViewBehaviors&#39;</span><span class="p">]}</span>
 
-        <span class="n">addComponent</span> <span class="o">=</span> <span class="n">componentGraph</span><span class="o">.</span><span class="n">addComponent</span>
+        <span class="n">disabledComponents</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;ConvexHullModel&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;RobotLinkSelector&#39;</span><span class="p">]</span>
 
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;DirectorConfig&#39;</span><span class="p">,</span> <span class="p">[])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;RobotState&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;DirectorConfig&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Segmentation&#39;</span><span class="p">,</span> <span class="p">[])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;SegmentationRobotState&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Segmentation&#39;</span><span class="p">,</span> <span class="s1">&#39;RobotState&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;SegmentationAffordances&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Segmentation&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;PerceptionDrivers&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">,</span> <span class="s1">&#39;Planning&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;HandDrivers&#39;</span><span class="p">,</span> <span class="p">[])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;RaycastDriver&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;IRISDriver&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">,</span> <span class="s1">&#39;Footsteps&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;AtlasDriver&#39;</span><span class="p">,</span> <span class="p">[])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;RobotState&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Playback&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Planning&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Teleop&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="s1">&#39;Playback&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;ConvexHullModel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Playback&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;FootstepsPlayback&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">,</span> <span class="s1">&#39;Playback&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;Affordances&#39;</span><span class="p">,</span> <span class="p">[])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;PlannerPublisher&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;ViewBehaviors&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Footsteps&#39;</span><span class="p">,</span> <span class="s1">&#39;PerceptionDrivers&#39;</span><span class="p">,</span> <span class="s1">&#39;Planning&#39;</span><span class="p">,</span> <span class="s1">&#39;Affordances&#39;</span><span class="p">])</span>
-        <span class="n">addComponent</span><span class="p">(</span><span class="s1">&#39;RobotLinkSelector&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ViewBehaviors&#39;</span><span class="p">])</span></div>
+        <span class="k">return</span> <span class="n">components</span><span class="p">,</span> <span class="n">disabledComponents</span></div>
 
 <div class="viewcode-block" id="RobotSystemFactory.initDirectorConfig"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.RobotSystemFactory.initDirectorConfig">[docs]</a>    <span class="k">def</span> <span class="nf">initDirectorConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robotSystem</span><span class="p">):</span>
 
@@ -468,8 +490,7 @@
         <span class="k">return</span> <span class="n">FieldContainer</span><span class="p">(</span><span class="n">viewBehaviors</span><span class="o">=</span><span class="n">viewBehaviors</span><span class="p">)</span></div></div>
 
 
-
-<div class="viewcode-block" id="create"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">globalsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="create"><a class="viewcode-back" href="../../generated/director.robotsystem.html#director.robotsystem.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">globalsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">planningOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Convenience function for initializing a robotSystem</span>
 <span class="sd">    with the default options and populating a globals()</span>
@@ -480,8 +501,14 @@
 
     <span class="n">view</span> <span class="o">=</span> <span class="n">view</span> <span class="ow">or</span> <span class="n">applogic</span><span class="o">.</span><span class="n">getCurrentRenderView</span><span class="p">()</span>
 
-    <span class="n">factory</span> <span class="o">=</span> <span class="n">RobotSystemFactory</span><span class="p">()</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="n">ComponentFactory</span><span class="p">()</span>
+    <span class="n">factory</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">RobotSystemFactory</span><span class="p">)</span>
     <span class="n">options</span> <span class="o">=</span> <span class="n">options</span> <span class="ow">or</span> <span class="n">factory</span><span class="o">.</span><span class="n">getDefaultOptions</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">planningOnly</span><span class="p">:</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">getDisabledOptions</span><span class="p">()</span>
+        <span class="n">factory</span><span class="o">.</span><span class="n">setDependentOptions</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">usePlannerPublisher</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">useTeleop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
     <span class="n">robotSystem</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="n">view</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">globalsDict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -490,6 +517,9 @@
     <span class="k">return</span> <span class="n">robotSystem</span></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -522,7 +552,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

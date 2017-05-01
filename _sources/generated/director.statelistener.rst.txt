@@ -1,5 +1,5 @@
-director.statelistener module
-=============================
+director\.statelistener module
+==============================
 
 .. automodule:: director.statelistener
     :members:

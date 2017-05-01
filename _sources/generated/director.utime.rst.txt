@@ -1,5 +1,5 @@
-director.utime module
-=====================
+director\.utime module
+======================
 
 .. automodule:: director.utime
     :members:

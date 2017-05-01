@@ -1,5 +1,5 @@
-director.robotposegui module
-============================
+director\.robotposegui module
+=============================
 
 .. automodule:: director.robotposegui
     :members:

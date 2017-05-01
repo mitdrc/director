@@ -1,5 +1,5 @@
-director.tasklaunchpanel module
-===============================
+director\.tasklaunchpanel module
+================================
 
 .. automodule:: director.tasklaunchpanel
     :members:

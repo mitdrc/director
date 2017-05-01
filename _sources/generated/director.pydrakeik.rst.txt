@@ -1,5 +1,5 @@
-director.pydrakeik module
-=========================
+director\.pydrakeik module
+==========================
 
 .. automodule:: director.pydrakeik
     :members:

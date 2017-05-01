@@ -1,5 +1,5 @@
-director.multisensepanel module
-===============================
+director\.multisensepanel module
+================================
 
 .. automodule:: director.multisensepanel
     :members:

@@ -1,5 +1,5 @@
-director.robotlinkselector module
-=================================
+director\.robotlinkselector module
+==================================
 
 .. automodule:: director.robotlinkselector
     :members:

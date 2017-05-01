@@ -1,5 +1,5 @@
-director.affordancepanel module
-===============================
+director\.affordancepanel module
+================================
 
 .. automodule:: director.affordancepanel
     :members:

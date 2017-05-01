@@ -1,0 +1,7 @@
+director\.affordanceviewbehaviors module
+========================================
+
+.. automodule:: director.affordanceviewbehaviors
+    :members:
+    :undoc-members:
+    :show-inheritance:

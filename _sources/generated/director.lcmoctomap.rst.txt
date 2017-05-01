@@ -1,5 +1,5 @@
-director.lcmoctomap module
-==========================
+director\.lcmoctomap module
+===========================
 
 .. automodule:: director.lcmoctomap
     :members:

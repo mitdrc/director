@@ -1,5 +1,5 @@
-director.consoleapp module
-==========================
+director\.consoleapp module
+===========================
 
 .. automodule:: director.consoleapp
     :members:

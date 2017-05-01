@@ -1,5 +1,5 @@
-director.transformUtils module
-==============================
+director\.transformUtils module
+===============================
 
 .. automodule:: director.transformUtils
     :members:

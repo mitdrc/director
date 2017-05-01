@@ -1,5 +1,5 @@
-director.coursemodel module
-===========================
+director\.coursemodel module
+============================
 
 .. automodule:: director.coursemodel
     :members:

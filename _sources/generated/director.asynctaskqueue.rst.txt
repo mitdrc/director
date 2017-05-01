@@ -1,5 +1,5 @@
-director.asynctaskqueue module
-==============================
+director\.asynctaskqueue module
+===============================
 
 .. automodule:: director.asynctaskqueue
     :members:

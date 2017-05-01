@@ -1,5 +1,5 @@
-director.botspy module
-======================
+director\.botspy module
+=======================
 
 .. automodule:: director.botspy
     :members:

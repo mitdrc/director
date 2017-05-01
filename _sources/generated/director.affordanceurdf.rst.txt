@@ -1,5 +1,5 @@
-director.affordanceurdf module
-==============================
+director\.affordanceurdf module
+===============================
 
 .. automodule:: director.affordanceurdf
     :members:

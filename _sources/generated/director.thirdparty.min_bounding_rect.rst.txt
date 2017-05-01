@@ -1,5 +1,5 @@
-director.thirdparty.min_bounding_rect module
-============================================
+director\.thirdparty\.min\_bounding\_rect module
+================================================
 
 .. automodule:: director.thirdparty.min_bounding_rect
     :members:

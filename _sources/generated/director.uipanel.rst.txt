@@ -1,5 +1,5 @@
-director.uipanel module
-=======================
+director\.uipanel module
+========================
 
 .. automodule:: director.uipanel
     :members:

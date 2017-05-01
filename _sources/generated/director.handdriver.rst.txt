@@ -1,5 +1,5 @@
-director.handdriver module
-==========================
+director\.handdriver module
+===========================
 
 .. automodule:: director.handdriver
     :members:

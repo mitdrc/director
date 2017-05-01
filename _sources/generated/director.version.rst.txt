@@ -1,5 +1,5 @@
-director.version module
-=======================
+director\.version module
+========================
 
 .. automodule:: director.version
     :members:
