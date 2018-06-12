@@ -27,6 +27,14 @@ POINT_CLOUD_REGISTER_POINT_STRUCT(pcl::PointXYZIR,
                                   (uint16_t, ring, ring))
 
 
+// Support for VTK 7.1 upwards
+#ifdef vtkGenericDataArray_h
+#define SetTupleValue SetTypedTuple
+#define InsertNextTupleValue InsertNextTypedTuple
+#define GetTupleValue GetTypedTuple
+#endif
+
+
 //-----------------------------------------------------------------------------
 ddPointCloudLCM::ddPointCloudLCM(QObject* parent) : QObject(parent)
 {
@@ -180,7 +188,7 @@ vtkSmartPointer<vtkPolyData> PolyDataFromPointCloudMessage(bot_core::pointcloud_
        {
          unsigned char color[3];
          unpackColor(msg.channels[j][i], color);
-         rgbArray->SetTypedTuple(i, color);
+         rgbArray->SetTupleValue(j, color);
        }
        rgbArray->SetNumberOfTuples(nr_points);
        polyData->GetPointData()->AddArray(rgbArray.GetPointer());
@@ -346,3 +354,9 @@ QList<int> ddPointCloudLCM::getLidarIntensity(const QString& lidarName) {
 
   return qIntensities;
 }
+
+#ifdef vtkGenericDataArray_h
+#undef SetTupleValue
+#undef InsertNextTupleValue
+#undef GetTupleValue
+#endif

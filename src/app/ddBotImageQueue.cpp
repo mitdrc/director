@@ -10,6 +10,14 @@
 #include <vector>
 
 
+// Support for VTK 7.1 upwards
+#ifdef vtkGenericDataArray_h
+#define SetTupleValue SetTypedTuple
+#define InsertNextTupleValue InsertNextTypedTuple
+#define GetTupleValue GetTypedTuple
+#endif
+
+
 //-----------------------------------------------------------------------------
 ddBotImageQueue::ddBotImageQueue(QObject* parent) : QObject(parent)
 {
@@ -570,7 +578,7 @@ vtkSmartPointer<vtkPolyData> PolyDataFromPointCloud(pcl::PointCloud<pcl::PointXY
     float point[3] = {cloud->points[i].x, cloud->points[i].y, cloud->points[i].z};
     unsigned char color[3] = {cloud->points[i].r, cloud->points[i].g, cloud->points[i].b};
     points->SetPoint(j, point);
-    rgbArray->SetTypedTuple(j, color);
+    rgbArray->SetTupleValue(j, color);
     j++;
   }
   nr_points = j;
@@ -940,3 +948,10 @@ void ddBotImageQueue::computeTextureCoords(vtkPolyData* polyData, CameraData* ca
     }
   }
 }
+
+#ifdef vtkGenericDataArray_h
+#undef SetTupleValue
+#undef InsertNextTupleValue
+#undef GetTupleValue
+#endif
+

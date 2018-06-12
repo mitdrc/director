@@ -221,7 +221,9 @@ if (USE_PERCEPTION)
 
   find_package(ZLIB REQUIRED)
 
-  find_package(bot2-core-lcmtypes REQUIRED)
+  # find_package(bot2-core-lcmtypes REQUIRED)
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(bot2-core-lcmtypes REQUIRED)
 
   find_library(CVUTILS_LIBRARY cv-utils DOC "The cv-utils library")
   find_path(CVUTILS_INCLUDE_DIR image_utils/jpeg.h PATH_SUFFIXES cv-utils DOC "Path to the cv-utils include directory")

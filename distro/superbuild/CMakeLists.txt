@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.5)
 project(Superbuild)
 
+add_definitions(-fpermissive)
+
 # set a default build type if none was specified
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   message(STATUS "Setting build type to 'Release' as none was specified.")

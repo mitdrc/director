@@ -1,5 +1,4 @@
 
-
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
@@ -113,6 +112,7 @@ if (USE_DRC_MAPS)
   include_directories(${PCL_INCLUDE_DIRS})
   include_directories(${MAPS_INCLUDE_DIRS})
   list(APPEND deps ${MAPS_LIBRARIES} ${PCL_LIBRARIES})
+  list(APPEND pkg_deps maps-lcm)
 endif()
 
 if (USE_DRC_PLANE_SEG)
@@ -141,11 +141,16 @@ endif()
 
 if(USE_OCTOMAP)
 
-  setup_qt4()
+  setup_qt()
 
-  find_library(OCTOVIS_LIBRARY octovis)
+  find_package(octovis REQUIRED)
+  # message(FATAL_ERROR "Found? ${octovis_FOUND} Dir? ${OCTOVIS_LIBRARIES}")
+  include_directories(${OCTOVIS_INCLUDE_DIRS})
+  link_directories(${OCTOVIS_LIBRARY_DIRS})
+
+  # find_library(OCTOVIS_LIBRARY octovis)
   list(APPEND sources vtkOctomap.cxx)
-  list(APPEND deps ${LIBBOT_LIBRARIES} ${OPENGL_LIBRARIES} ${OCTOVIS_LIBRARY})
+  list(APPEND deps ${LIBBOT_LIBRARIES} ${OPENGL_LIBRARIES} ${OCTOVIS_LIBRARIES})
 
   list(APPEND pkg_deps
     lcmtypes_octomap-utils
@@ -155,8 +160,11 @@ endif()
 
 if (USE_COLLECTIONS)
 
+  find_package(QGLViewer REQUIRED)
+  include_directories(${QGLVIEWER_INCLUDE_DIR})
+
   list(APPEND sources vtkCollections.cxx)
-  list(APPEND deps ${OPENGL_LIBRARIES})
+  list(APPEND deps ${OPENGL_LIBRARIES} ${QGLVIEWER_LIBRARY})
 
   list(APPEND pkg_deps
     lcmtypes_visualization

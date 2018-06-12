@@ -742,9 +742,9 @@ int vtkMultisenseSource::RequestData(
   vtkDataSet *output = vtkDataSet::SafeDownCast(info->Get(vtkDataObject::DATA_OBJECT()));
 
   int timestep = 0;
-  if (info->Has(vtkStreamingDemandDrivenPipeline::UPDATE_TIME_STEPS()))
+  if (info->Has(vtkStreamingDemandDrivenPipeline::UPDATE_TIME_STEP()))
     {
-    double timeRequest = info->Get(vtkStreamingDemandDrivenPipeline::UPDATE_TIME_STEPS())[0];
+    double timeRequest = info->Get(vtkStreamingDemandDrivenPipeline::UPDATE_TIME_STEP());
     timestep = static_cast<int>(floor(timeRequest+0.5));
     }
 

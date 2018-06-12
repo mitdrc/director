@@ -43,14 +43,22 @@ configure:
 		   -DUSE_PORTMIDI:BOOL=ON \
 		   -DUSE_LCM:BOOL=ON \
 		   -DUSE_LCMGL:BOOL=ON \
-		   -DUSE_OCTOMAP:BOOL=ON \
-		   -DUSE_COLLECTIONS:BOOL=ON \
+		   -DUSE_OCTOMAP:BOOL=OFF \
+		   -DUSE_COLLECTIONS:BOOL=OFF \
 		   -DUSE_LIBBOT:BOOL=ON \
 		   -DUSE_DRAKE:BOOL=ON \
 		   -DUSE_DRC:BOOL=ON \
 		   -DUSE_DRC_MAPS:BOOL=ON \
 		   -DUSE_DRC_PLANE_SEG:BOOL=ON \
-		   ../../../../
+		   -DDD_QT_VERSION=5 \
+		   -DUSE_PCL:BOOL=ON \
+		   -DUSE_SYSTEM_PCL:BOOL=ON \
+		   -DUSE_SYSTEM_VTK:BOOL=ON \
+		   -DUSE_PERCEPTION:BOOL=ON \
+		   -DUSE_SYSTEM_LCM:BOOL=ON \
+		   -DUSE_SYSTEM_LIBBOT:BOOL=ON \
+		   -DUSE_SYSTEM_EIGEN:BOOl=ON \
+		   ../../../superbuild/
 
 clean:
 	-if [ -d pod-build ]; then rm -f `find pod-build -name install_manifest.txt -print0 | xargs -0 -n1 cat`; fi

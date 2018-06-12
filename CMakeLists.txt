@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 2.8.7)
 # Drake Designer
 project(DD)
 
+add_definitions(-fpermissive)
+
 if(POLICY CMP0028)
   # Double colon in target name means ALIAS or IMPORTED target.
   cmake_policy(SET CMP0028 NEW)

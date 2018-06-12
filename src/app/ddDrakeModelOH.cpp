@@ -318,7 +318,7 @@ vtkSmartPointer<vtkTexture> getTextureForMesh(vtkSmartPointer<vtkPolyData> polyD
   }
 
   vtkSmartPointer<vtkTexture> texture = vtkSmartPointer<vtkTexture>::New();
-  texture->SetInput(image);
+  texture->SetInputData(image);
   texture->EdgeClampOn();
   texture->RepeatOn();
   TextureMap[textureFileName] = texture;
@@ -1140,19 +1140,19 @@ int ddDrakeModel::findLinkID(const QString& linkName) const
 //-----------------------------------------------------------------------------
 int ddDrakeModel::findFrameID(const QString& frameName) const
 {
-  return this->Internal->Model->findFrame(frameName.toAscii().data())->frame_index;
+  return this->Internal->Model->findFrame(frameName.toLatin1().data())->frame_index;
 }
 
 //-----------------------------------------------------------------------------
 int ddDrakeModel::findJointID(const QString& jointName) const
 {
-  return this->Internal->Model->findJointId(jointName.toAscii().data(), -1);
+  return this->Internal->Model->findJointId(jointName.toLatin1().data(), -1);
 }
 
 //-----------------------------------------------------------------------------
 QString ddDrakeModel::findNameOfChildBodyOfJoint(const QString &jointName) const
 {
-  std::string body_name = this->Internal->Model->findJoint(jointName.toAscii().data())->linkname;
+  std::string body_name = this->Internal->Model->findJoint(jointName.toLatin1().data())->linkname;
   return body_name.c_str();
 }
 
@@ -1289,15 +1289,15 @@ void ddDrakeModel::getLinkModelMesh(const QString& linkName, vtkPolyData* polyDa
     return;
   }
 
-  std::string linkNameString = linkName.toAscii().data();
+  std::string linkNameString = linkName.toLatin1().data();
   if (this->Internal->Model->findLink(linkNameString, -1) == nullptr)
   {
     std::cout << "couldn't find link " << linkNameString << " in ddDrakeModel::getLinkModelMesh, returning" << std::endl;
     return;
   }
 
-  int linkId = this->findLinkID(linkName.toAscii().data());
-  std::vector<ddMeshVisual::Ptr> visuals = this->Internal->Model->linkMeshVisuals(linkName.toAscii().data());
+  int linkId = this->findLinkID(linkName.toLatin1().data());
+  std::vector<ddMeshVisual::Ptr> visuals = this->Internal->Model->linkMeshVisuals(linkName.toLatin1().data());
   vtkSmartPointer<vtkAppendPolyData> appendFilter = vtkSmartPointer<vtkAppendPolyData>::New();
 
   for (size_t i = 0; i < visuals.size(); ++i)

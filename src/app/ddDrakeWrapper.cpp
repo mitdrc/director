@@ -9,8 +9,8 @@
 #else
 #include <drake/multibody/rigid_body_tree.h>
 #include <drake/multibody/force_torque_measurement.h>
-#endif
 #include <drake/systems/robotInterfaces/convex_hull.h>
+#endif
 
 #include <vector>
 #include <string>
@@ -64,11 +64,11 @@ QVector<double> ddDrakeWrapper::resolveCenterOfPressure(const ddDrakeModel& ddMo
 //-----------------------------------------------------------------------------
 double ddDrakeWrapper::drakeSignedDistanceInsideConvexHull(int num_pts, const QVector<double>& pts_in, const QVector<double> & q_in) const
 {
-  Matrix<double, 2, Eigen::Dynamic> pts(2, num_pts);
-  for (int i=0; i<num_pts; i++){
-    pts(0,i) = pts_in[i*2];
-    pts(1,i) = pts_in[i*2+1];
-  }
-  Vector2d q; q[0] = q_in[0]; q[1] = q_in[1];
-  return signedDistanceInsideConvexHull(pts, q);
+  // Matrix<double, 2, Eigen::Dynamic> pts(2, num_pts);
+  // for (int i=0; i<num_pts; i++){
+  //   pts(0,i) = pts_in[i*2];
+  //   pts(1,i) = pts_in[i*2+1];
+  // }
+  // Vector2d q; q[0] = q_in[0]; q[1] = q_in[1];
+  // return signedDistanceInsideConvexHull(pts, q);
 }

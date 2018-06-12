@@ -396,7 +396,7 @@ elseif(USE_PRECOMPILED_VTK)
 else()
 
   ExternalProject_Add(vtk
-    GIT_REPOSITORY git://vtk.org/VTK.git
+    GIT_REPOSITORY https://github.com/Kitware/VTK.git
     GIT_TAG v8.0.0
     CMAKE_CACHE_ARGS
       ${default_cmake_args}
@@ -512,7 +512,7 @@ ExternalProject_Add(PointCloudLibraryPlugin
     ${flann_args}
     ${python_args}
     ${vtk_args}
-    -DPCL_REQUIRED_VERSION:STRING=1.8.0
+    -DPCL_REQUIRED_VERSION:STRING=1.7.0
   DEPENDS
     ${pcl_depends}
     ${vtk_depends}
@@ -542,10 +542,11 @@ endif()
 if(USE_PERCEPTION)
 
   ExternalProject_Add(cv-utils
-    GIT_REPOSITORY https://github.com/patmarion/cv-utils.git
-    GIT_TAG c4939fedf66c767de15607adde3aff44ab2b503b
+    GIT_REPOSITORY https://github.com/wxmerkt/cv-utils.git
+    GIT_TAG a3e8f983602c2828b004a6cbd67d9fb197114398
     CMAKE_CACHE_ARGS
       ${default_cmake_args}
+      -DCMAKE_CXX_FLAGS="-fpermissive"
     DEPENDS
       ${lcm_depends} ${pcl_depends}
     )
@@ -616,6 +617,10 @@ ExternalProject_Add(director
     -DUSE_DRAKE:BOOL=${USE_DRAKE}
     -DDD_QT_VERSION:STRING=${DD_QT_VERSION}
     -DUSE_PERCEPTION:BOOL=${USE_PERCEPTION}
+    -DUSE_DRC:BOOL=${USE_DRC}
+    -DUSE_DRC_MAPS:BOOL=${USE_DRC_MAPS}
+    -DUSE_DRC_PLANE_SEG:BOOL=${USE_DRC_PLANE_SEG}
+    -DUSE_PORTMIDI:BOOL=${USE_PORTMIDI}    
     ${default_cmake_args}
     ${eigen_args}
     ${boost_args}

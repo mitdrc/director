@@ -28,7 +28,7 @@ from director import doordemo
 from director import drilldemo
 from director import valvedemo
 from director import drivingplanner
-from director import egressplanner
+# from director import egressplanner
 from director import polarisplatformplanner
 from director import surprisetask
 from director import continuouswalkingdemo
@@ -147,7 +147,7 @@ usePlanning = True
 useHumanoidDRCDemos = True
 useAtlasDriver = True
 useLCMGL = True
-useOctomap = True
+useOctomap = False# True
 useCollections = True
 useLightColorScheme = True
 useLoggingWidget = True
@@ -491,13 +491,13 @@ if usePlanning:
 
         surpriseTaskPanel = surprisetask.SurpriseTaskPanel(robotSystem)
         surpriseTask = surpriseTaskPanel.planner
-        egressPanel = egressplanner.EgressPanel(robotSystem)
-        egressPlanner = egressPanel.egressPlanner
+        # egressPanel = egressplanner.EgressPanel(robotSystem)
+        # egressPlanner = egressPanel.egressPlanner
 
         if useDrivingPlanner:
             taskPanels['Driving'] = drivingPlannerPanel.widget
 
-        taskPanels['Egress'] = egressPanel.widget
+        # taskPanels['Egress'] = egressPanel.widget
         taskPanels['Door'] = doorTaskPanel.widget
         taskPanels['Valve'] = valveTaskPanel.widget
         taskPanels['Drill'] = drillTaskPanel.widget

@@ -96,7 +96,11 @@ void vtkDepthImageUtils::DepthBufferToDepthImage(vtkImageData* depthBuffer, vtkI
 
       //pts->InsertNextPoint(ptToWorld[0], ptToWorld[1], ptToWorld[2]);
       pts->InsertNextPoint(ptToCamera[0], ptToCamera[1], ptToCamera[2]);
+#if (VTK_MAJOR_VERSION < 7) || (VTK_MAJOR_VERSION==7 && VTK_MINOR_VERSION==0)
+      ptColors->InsertNextTupleValue(&colorData[colorPtr]);
+#else
       ptColors->InsertNextTypedTuple(&colorData[colorPtr]);
+#endif
     }
   }
 }
